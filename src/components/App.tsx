@@ -4,7 +4,7 @@ import { useEffect, type ChangeEvent, type ReactElement } from 'react';
 
 import './App.css';
 
-const worker = new Worker('js/emulator.js',{ type: "module" });
+const worker = new Worker('../emulator/emulator.js',{ type: "module" });
 
 export default function App(): ReactElement {
 
@@ -18,11 +18,16 @@ export default function App(): ReactElement {
      * too much lag. The Audio Context and Audio Source are also initialized when the page has loaded.
      */
     useEffect(() => {
-      const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
-      worker.postMessage({ canvas: canvas }, [canvas]);
+      try {
+        const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
+        worker.postMessage({ canvas: canvas }, [canvas]);
+      } catch (error) {
+        console.log(error);
+      }
+      
     
       audioContext = new AudioContext();
-      nesWorkletNode = audioContext.audioWorklet.addModule('js/apu-worklet.js', { credentials: "omit" }).then(() => {
+      nesWorkletNode = audioContext.audioWorklet.addModule('../emulator/apu-worklet.js', { credentials: "omit" }).then(() => {
         nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
         nesWorkletNode.connect(audioContext.destination);
         const source = audioContext.createBufferSource();
