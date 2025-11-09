@@ -1,17 +1,15 @@
-'use client';
-
 import { useEffect, type ChangeEvent, type ReactElement } from 'react';
-import type { Button } from './types/types';
+//import type { Button } from './types/types';
 
 import './App.css';
 
-const worker = new Worker('./emulator.js',{ type: "module" });
+const worker = new Worker('./src/emulator.js',{ type: "module" });
 
 export default function App(): ReactElement {
 
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: BaseAudioContext;
-    let userInteraction = false;
+    //let userInteraction = false;
 
     /**
      * The control of the canvas is transferred to the NES worker thread when the page has been loaded. As a result, the
@@ -32,7 +30,7 @@ export default function App(): ReactElement {
       
     
       audioContext = new AudioContext();
-      nesWorkletNode = audioContext.audioWorklet.addModule('./apu-worklet.js', { credentials: "omit" }).then(() => {
+      nesWorkletNode = audioContext.audioWorklet.addModule('./src/apu-worklet.js', { credentials: "omit" }).then(() => {
         nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
         nesWorkletNode.connect(audioContext.destination);
         const source = audioContext.createBufferSource();
@@ -142,16 +140,17 @@ for (const key of keys) {
 /**
  * Creates an array containing the controller configuration for player 1 and player 2.
  */
-function setControllerConfiguration(): Button[] {
+/* function setControllerConfiguration(): Button[] {
     const controllerConfiguration = [] as Button[];
-/* 
+
   for (const key of keys) {
     if (localStorage.getItem(key.id)) {
       controllerConfiguration.push( { button: key.id, value: localStorage.getItem(key.id) ?? "" } );
     } else {
       controllerConfiguration.push( { button: key.id, value: key.value } );
     }
-  } */
+  }
 
     return controllerConfiguration;
 }
+ */

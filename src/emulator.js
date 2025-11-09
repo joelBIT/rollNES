@@ -1,5 +1,3 @@
-'use strict';
-
 import { Bus } from './bus/bus.js';
 import { ppu } from './ppu/ppu.js';
 import { cpu } from './cpu/cpu.js';
