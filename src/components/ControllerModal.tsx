@@ -28,6 +28,16 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
             setShowMessage(true);
         }
     }
+
+        /**
+         * const keys = document.getElementsByClassName('key');
+        for (const key of keys) {
+        key.addEventListener('focus', removeInputCharacter);
+        key.addEventListener('focusout', addDefaultValueIfEmpty);
+        key.addEventListener('keydown', setKeyCode);
+        key.addEventListener('keyup', setDefaultValueIfKeyCodeMissing);
+        }
+        */
     
     return (
         <dialog id="controllerModal" ref={modalRef} className="modal-dialog">

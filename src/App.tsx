@@ -1,6 +1,5 @@
 import { useEffect, useState, type ReactElement } from 'react';
-import type { Button } from './types/types';
-import { keys } from './config/config';
+import { getControllerConfiguration } from './config/config';
 import { ControllerModal } from './components/ControllerModal';
 
 import './App.css';
@@ -63,8 +62,7 @@ export default function App(): ReactElement {
      */
     async function loadGame(): Promise<void> {
         if (gameId) {
-            const controllerConfiguration = setControllerConfiguration();
-            worker.postMessage({ event: 'configuration', data: controllerConfiguration });
+            worker.postMessage({ event: 'configuration', data: getControllerConfiguration() });
             await getRom();
         }
     };
@@ -132,39 +130,4 @@ export default function App(): ReactElement {
             }
         </main>
     )
-}
-
-
-/**
- * |**************************|
- * | Controller Configuration |
- * |**************************|
- */
-
-/**
- * const keys = document.getElementsByClassName('key');
-for (const key of keys) {
-  key.addEventListener('focus', removeInputCharacter);
-  key.addEventListener('focusout', addDefaultValueIfEmpty);
-  key.addEventListener('keydown', setKeyCode);
-  key.addEventListener('keyup', setDefaultValueIfKeyCodeMissing);
-}
- */
-
-
-/**
- * Creates an array containing the controller configuration for player 1 and player 2.
- */
-function setControllerConfiguration(): Button[] {
-    const controllerConfiguration = [] as Button[];
-
-    for (const key of keys) {
-        if (localStorage.getItem(key.button)) {
-            controllerConfiguration.push( { button: key.button, value: localStorage.getItem(key.button) ?? key.value } );
-        } else {
-            controllerConfiguration.push( { button: key.button, value: key.value } );
-        }
-    }
-
-    return controllerConfiguration;
 }
