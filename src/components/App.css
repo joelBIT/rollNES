@@ -5,7 +5,11 @@
     justify-content: center;
 
     & .app-title {
-        font-size: 2rem;
+        font-family: "brandon-regular";
+        font-size: 2.25rem;
+        font-weight: 100;
+        line-height: 2.8125rem;
+        letter-spacing: .125rem;
     }
 
     & canvas {
