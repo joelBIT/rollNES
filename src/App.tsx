@@ -11,7 +11,7 @@ const worker = new Worker('./src/emulator.js',{ type: "module" });
 export default function App(): ReactElement {
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
-    //let userInteraction = false;
+    let userInteraction = false;
 
     /**
      * The control of the canvas is transferred to the NES worker thread when the page has been loaded. As a result, the
@@ -19,34 +19,41 @@ export default function App(): ReactElement {
      * too much lag. The Audio Context and Audio Source are also initialized when the page has loaded.
      */
     useEffect(() => {
-      if (audioContext) {
-        return;     // transferControlToOffscreen() has already executed (can only run once)
-      }
+        if (audioContext) {
+            return;     // transferControlToOffscreen() has already executed (can only run once)
+        }
 
-      try {
-        const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
-        worker.postMessage({ canvas: canvas }, [canvas]);
-      } catch (error) {
-        console.log(error);
-      }
-    
-      audioContext = new AudioContext();
-      nesWorkletNode = audioContext.audioWorklet.addModule('./src/apu-worklet.js', { credentials: "omit" }).then(() => {
-        nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
-        nesWorkletNode.connect(audioContext.destination);
-        const source = audioContext.createBufferSource();
-        source.buffer = audioContext.createBuffer(2, audioContext.sampleRate, audioContext.sampleRate);
-        worker.onmessage = function(message) {
-          if (nesWorkletNode instanceof AudioWorkletNode) {
-            nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
-          } else {
-            console.log('Failed to post message on AudioWorkletNode');
-          }
-          
+        try {
+            const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
+            worker.postMessage({ canvas: canvas }, [canvas]);
+        } catch (error) {
+            console.log(error);
+        }
+      
+        audioContext = new AudioContext();
+        nesWorkletNode = audioContext.audioWorklet.addModule('./src/apu-worklet.js', { credentials: "omit" }).then(() => {
+            nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
+            nesWorkletNode.connect(audioContext.destination);
+            const source = audioContext.createBufferSource();
+            source.buffer = audioContext.createBuffer(2, audioContext.sampleRate, audioContext.sampleRate);
+            worker.onmessage = function(message) {
+                if (nesWorkletNode instanceof AudioWorkletNode) {
+                    nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
+                } else {
+                    console.log('Failed to post message on AudioWorkletNode');
+                }
+              
+            };
+        }).catch(error => console.log(error));
+
+        document.addEventListener("keyup", keyUpEventLogger, true);
+        document.addEventListener("keydown", keyDownEventLogger, true);
+        loadGame();
+
+        return () => {
+            document.removeEventListener("keyup", keyUpEventLogger);
+            document.removeEventListener("keydown", keyDownEventLogger);
         };
-      }).catch(error => console.log(error));
-
-      loadGame();
     }, []);
 
     /**
@@ -78,6 +85,28 @@ export default function App(): ReactElement {
         }
     }
 
+    /**
+     * |*************************|
+     * | Handle controller input |
+     * |*************************|
+     */
+    const keyUpEventLogger = function(event: any) {
+        worker.postMessage({event: 'keyup', value: event.code});
+
+        if (navigator.userActivation.isActive && !userInteraction) {    // A user needs to interact with the page before the audio context can be resumed
+            userInteraction = true;
+            audioContext.resume();
+        }
+    };
+
+    const keyDownEventLogger = function(event: any) {
+        worker.postMessage({event: 'keydown', value: event.code});
+
+        if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+            event.preventDefault();
+        }
+    };
+
     return (
         <main id="app">
             <h2 className='app-title'> RollNES </h2>
@@ -85,31 +114,6 @@ export default function App(): ReactElement {
         </main>
     )
 }
-
-/**
- * |*************************|
- * | Handle controller input |
- * |*************************|
- */
-// const keyUpEventLogger = function(event) {
-//   worker.postMessage({event: 'keyup', value: event.code});
-
-//   if (navigator.userActivation.isActive && !userInteraction) {    // A user needs to interact with the page before the audio context can be resumed
-//     userInteraction = true;
-//     audioContext.resume();
-//   }
-// };
-
-// const keyDownEventLogger = function(event) {
-//   worker.postMessage({event: 'keydown', value: event.code});
-
-//   if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
-//     event.preventDefault();
-//   }
-// };
-
-// window.addEventListener("keyup", keyUpEventLogger);
-// window.addEventListener("keydown", keyDownEventLogger);
 
 
 /**
@@ -136,11 +140,11 @@ function setControllerConfiguration(): Button[] {
     const controllerConfiguration = [] as Button[];
 
     for (const key of keys) {
-      if (localStorage.getItem(key.button)) {
-        controllerConfiguration.push( { button: key.button, value: localStorage.getItem(key.button) ?? key.value } );
-      } else {
-        controllerConfiguration.push( { button: key.button, value: key.value } );
-      }
+        if (localStorage.getItem(key.button)) {
+            controllerConfiguration.push( { button: key.button, value: localStorage.getItem(key.button) ?? key.value } );
+        } else {
+            controllerConfiguration.push( { button: key.button, value: key.value } );
+        }
     }
 
     return controllerConfiguration;
