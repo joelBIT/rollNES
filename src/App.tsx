@@ -11,7 +11,7 @@ const worker = new Worker('./src/emulator.js',{ type: "module" });
 export default function App(): ReactElement {
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
-    let userInteraction = false;
+    let userInteraction: boolean = false;
 
     /**
      * The control of the canvas is transferred to the NES worker thread when the page has been loaded. As a result, the
@@ -59,7 +59,7 @@ export default function App(): ReactElement {
     /**
      * Loads a game from query parameter 'id' if available.
      */
-    async function loadGame() {
+    async function loadGame(): Promise<void> {
         if (gameId) {
             const controllerConfiguration = setControllerConfiguration();
             worker.postMessage({ event: 'configuration', data: controllerConfiguration });
@@ -70,7 +70,7 @@ export default function App(): ReactElement {
     /**
      * Retrieves and loads a ROM based on the 'id' query parameter, if such exists.
      */
-    async function getRom() {
+    async function getRom(): Promise<void> {
         const url = `https://tnkcekyijuynctkddkwy.supabase.co/storage/v1/object/public/roms//${gameId}.nes?download`;
         try {
             const response = await fetch(url);
@@ -83,6 +83,10 @@ export default function App(): ReactElement {
         } catch (error) {
           console.log(error);
         }
+    }
+
+    async function startGame(): Promise<void> {
+        await getRom();
     }
 
     /**
@@ -110,6 +114,7 @@ export default function App(): ReactElement {
     return (
         <main id="app">
             <h2 className='app-title'> RollNES </h2>
+            <button className='retro-button' onClick={startGame}> Start Game </button>
             <canvas id="canvas" width="256" height="240"></canvas>
         </main>
     )

@@ -411,18 +411,13 @@ class PPU {
         this.addressLatch = 0;
 
 
-  if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 1) {    // This is to emulate 
-    console.log('1: ' + this.frameNumber);
-    this.lastFrameNumber = this.frameNumber;
-    this.suppress = true;
-  }
-
-        if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 2) {    // This is to emulate 
-          console.log(this.frameNumber % 89343);
-          console.log('2: ' + this.frameNumber);
-          
+        if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 1) {    // This is to emulate 
+          this.lastFrameNumber = this.frameNumber;
+          this.suppress = true;
+        }
+        
+        if (this.scanline === this.VERTICAL_BLANK_LINE_START && this.cycle === 2) {    // This is to emulate           
           if ((this.frameNumber - this.lastFrameNumber) === 89343) {
-            console.log('TRUE');
             result = (this.statusRegister.getRegister() & 0xE0) | (this.dataBuffer & 0x1F);
           } 
 
