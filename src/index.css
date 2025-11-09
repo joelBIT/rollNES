@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P");
+
 @font-face {
     font-family: "regular-gibson";
     src: url("./static/fonts/gibson-regular.otf") format("opentype");
@@ -29,7 +31,10 @@ body {
     height: 100%;
 }
 
-
+.bit-font {
+    font: 1.4rem "Press start 2P";
+    font-weight: 700;
+}
 
 
 
@@ -66,4 +71,22 @@ body {
             background-color: var(--color-black);
         }
     }
+}
+
+
+
+
+/*********
+* Modals *
+*********/
+
+::backdrop {
+    background-image: linear-gradient(
+        45deg,
+        var(--color-white),
+        var(--color-black),
+        var(--color-black),
+        var(--color-white)
+    );
+    opacity: 0.75;
 }

@@ -2,15 +2,35 @@ import { type ReactElement, useEffect, useRef, useState } from "react";
 
 import "./ControllerModal.css";
 
+/**
+ * Modal used for configuration of player 1 and player 2 controls.
+ */
 export function ControllerModal({ text, close }: { text: string, close: (toggle: boolean) => void }): ReactElement {
     const [ showMessage, setShowMessage ] = useState<boolean>();
     const modalRef = useRef<HTMLDialogElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const keys = document.getElementsByClassName('key') as HTMLCollectionOf<HTMLInputElement>;
 
     useEffect(() => {
         if (!modalRef.current?.open) {
             modalRef.current?.showModal();
         }
+
+        for (const key of keys) {
+            key.addEventListener('focus', removeInputCharacter);
+            key.addEventListener('focusout', addDefaultValueIfEmpty);
+            key.addEventListener('keydown', setKeyCode);
+            key.addEventListener('keyup', setDefaultValueIfKeyCodeMissing);
+        }
+
+        return () => {
+            for (const key of keys) {
+                key.removeEventListener('focus', removeInputCharacter);
+                key.removeEventListener('focusout', addDefaultValueIfEmpty);
+                key.removeEventListener('keydown', setKeyCode);
+                key.removeEventListener('keyup', setDefaultValueIfKeyCodeMissing);
+            }
+        };
     }, [])
     
     function closeModal(): void {
@@ -19,6 +39,10 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         close(true);
     }
 
+    /**
+     * Do not store configuration if player has left empty input fields when trying to save the controller configuration.
+     * Store the controller configuration in local storage if all fields are nonempty and contains unique values.
+     */
     function confirmSettings(): void {
         if (inputRef.current?.value && inputRef.current?.value.length > 2) {
             setShowMessage(false);
@@ -29,25 +53,62 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         }
     }
 
-        /**
-         * const keys = document.getElementsByClassName('key');
-        for (const key of keys) {
-        key.addEventListener('focus', removeInputCharacter);
-        key.addEventListener('focusout', addDefaultValueIfEmpty);
-        key.addEventListener('keydown', setKeyCode);
-        key.addEventListener('keyup', setDefaultValueIfKeyCodeMissing);
+    /**
+     *  Remove the input character in order to prepare the field for the pressed key's code.
+     */
+    function removeInputCharacter(event: any) {
+        event.target.value = '';
+    }
+
+    /**
+     *  If input text field is empty when focus is removed, add the button's default value instead.
+     */
+    function addDefaultValueIfEmpty(event: any) {
+        event.target.classList.remove('missing');
+        if (!event.target.value) {
+            event.target.value = event.target.defaultValue;
         }
-        */
+    }
+
+    /**
+     *  Set default value if button has no value.
+     */
+    function setDefaultValueIfKeyCodeMissing(event: any) {
+        if (!event.code) {
+            event.target.value = event.target.defaultValue;
+        }
+    }
+
+    /**
+     *  Show key code in input text field.
+     */
+    function setKeyCode(event: any) {
+        removeKeyWhereAlreadyUsed(event);
+        event.target.value = event.code;
+        event.preventDefault();
+    }
+
+    /**
+     *  Removes the chosen key from other buttons if already in use.
+     */
+    function removeKeyWhereAlreadyUsed(event: any) {
+        const keyCode = event.code;
+        for (const key of keys) {
+            if (Object.is(key.value, keyCode)) {
+                key.value = '';
+            }
+        }
+    }
     
     return (
-        <dialog id="controllerModal" ref={modalRef} className="modal-dialog">
-            <h1 className="modal-text"> {text} </h1>
+        <dialog autoFocus id="controllerModal" ref={modalRef} className="modal-dialog">
+            <h1 className="modal-text bit-font"> {text} </h1>
 
             <form method="dialog" className="modal-content">
                 <section className="controllers">
                     <section className="player1-controller">
-                        <h2>Player 1</h2>
-                        <article><h3>Up</h3><input type="text" value="ArrowUp" className="key" id="ArrowUp"/></article>
+                        <h2 className="bit-font">Player 1</h2>
+                        <article><h3>Up</h3><input type="text" value="ArrowUp" className="key" id="ArrowUp" /></article>
                         <article><h3>Down</h3><input type="text" value="ArrowDown" className="key" id="ArrowDown"/></article>
                         <article><h3>Left</h3><input type="text" value="ArrowLeft" className="key" id="ArrowLeft"/></article>
                         <article><h3>Right</h3><input type="text" value="ArrowRight" className="key" id="ArrowRight"/></article>
@@ -58,7 +119,7 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                     </section>
 
                     <section className="player2-controller">
-                        <h2>Player 2</h2>
+                        <h2 className="bit-font">Player 2</h2>
                         <article><h3>Up</h3><input type="text" value="KeyU" className="key" id="ArrowUp2"/></article>
                         <article><h3>Down</h3><input type="text" value="KeyJ" className="key" id="ArrowDown2"/></article>
                         <article><h3>Left</h3><input type="text" value="KeyH" className="key" id="ArrowLeft2"/></article>
