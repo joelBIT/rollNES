@@ -33,7 +33,7 @@ export class NesApuProcessor extends AudioWorkletProcessor {
   process(inputs, outputs, parameters) {
     const output = outputs[0];
 
-    // Synchronising with Audio
+    // Synchronizing with Audio
     while (this.audioSamples.length < 2048) {
       this.apu.clock();
       this.audioTime += this.audioTimePerNesClock;

@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect, type ChangeEvent, type ReactElement } from 'react';
+import type { Button } from './types/types';
 
 import './App.css';
 
-const worker = new Worker('../emulator/emulator.js',{ type: "module" });
+const worker = new Worker('./emulator.js',{ type: "module" });
 
 export default function App(): ReactElement {
 
@@ -31,13 +32,18 @@ export default function App(): ReactElement {
       
     
       audioContext = new AudioContext();
-      nesWorkletNode = audioContext.audioWorklet.addModule('../emulator/apu-worklet.js', { credentials: "omit" }).then(() => {
+      nesWorkletNode = audioContext.audioWorklet.addModule('./apu-worklet.js', { credentials: "omit" }).then(() => {
         nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
         nesWorkletNode.connect(audioContext.destination);
         const source = audioContext.createBufferSource();
         source.buffer = audioContext.createBuffer(2, audioContext.sampleRate, audioContext.sampleRate);
         worker.onmessage = function(message) {
-          //nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
+          if (nesWorkletNode instanceof AudioWorkletNode) {
+            nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
+          } else {
+            console.log('Failed to post message on AudioWorkletNode');
+          }
+          
         };
       }).catch(error => console.log(error));
     }, []);
@@ -122,20 +128,30 @@ function loadFile(event: ChangeEvent<HTMLInputElement>) {
  * |**************************|
  */
 
+/**
+ * const keys = document.getElementsByClassName('key');
+for (const key of keys) {
+  key.addEventListener('focus', removeInputCharacter);
+  key.addEventListener('focusout', addDefaultValueIfEmpty);
+  key.addEventListener('keydown', setKeyCode);
+  key.addEventListener('keyup', setDefaultValueIfKeyCodeMissing);
+}
+ */
+
 
 /**
  * Creates an array containing the controller configuration for player 1 and player 2.
  */
-function setControllerConfiguration(): string[] {
-    const controllerConfiguration = [] as string[];
-
-  // for (const key of keys) {
-  //   if (localStorage.getItem(key.id)) {
-  //     controllerConfiguration.push( { button: key.id, value: localStorage.getItem(key.id) } );
-  //   } else {
-  //     controllerConfiguration.push( { button: key.id, value: key.value } );
-  //   }
-  // }
+function setControllerConfiguration(): Button[] {
+    const controllerConfiguration = [] as Button[];
+/* 
+  for (const key of keys) {
+    if (localStorage.getItem(key.id)) {
+      controllerConfiguration.push( { button: key.id, value: localStorage.getItem(key.id) ?? "" } );
+    } else {
+      controllerConfiguration.push( { button: key.id, value: key.value } );
+    }
+  } */
 
     return controllerConfiguration;
 }
