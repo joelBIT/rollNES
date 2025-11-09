@@ -1,10 +1,10 @@
 import type { Button } from "../types/types";
 
 export const keys: Button[] = [
-    {button: 's', value: 's'},
-    {button: 'a', value: 'a'},
-    {button: 'z', value: 'z'},
-    {button: 'x', value: 'x'},
+    {button: 'SELECT', value: 'A'},
+    {button: 'START', value: 'S'},
+    {button: 'A', value: 'X'},
+    {button: 'B', value: 'Z'},
     {button: 'ArrowDown', value: 'ArrowDown'},
     {button: 'ArrowLeft', value: 'ArrowLeft'},
     {button: 'ArrowRight', value: 'ArrowRight'},

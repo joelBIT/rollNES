@@ -1,9 +1,11 @@
-import { useEffect, type ChangeEvent, type ReactElement } from 'react';
+import { useEffect, type ReactElement } from 'react';
 import type { Button } from './types/types';
 import { keys } from './config/config';
 
 import './App.css';
 
+const urlParams = new URLSearchParams(window.location.search);
+const gameId = urlParams.get('id');
 const worker = new Worker('./src/emulator.js',{ type: "module" });
 
 export default function App(): ReactElement {
@@ -43,22 +45,43 @@ export default function App(): ReactElement {
           
         };
       }).catch(error => console.log(error));
+
+      loadGame();
     }, []);
 
+    /**
+     * Loads a game from query parameter 'id' if available.
+     */
+    async function loadGame() {
+        if (gameId) {
+            const controllerConfiguration = setControllerConfiguration();
+            worker.postMessage({ event: 'configuration', data: controllerConfiguration });
+            await getRom();
+        }
+    };
 
-    function loadFile(event: ChangeEvent<HTMLInputElement>) {
-        console.log(event);
-
-
-        const controllerConfiguration = setControllerConfiguration();
-        worker.postMessage({ event: 'configuration', data: controllerConfiguration });
+    /**
+     * Retrieves and loads a ROM based on the 'id' query parameter, if such exists.
+     */
+    async function getRom() {
+        const url = `https://tnkcekyijuynctkddkwy.supabase.co/storage/v1/object/public/roms//${gameId}.nes?download`;
+        try {
+            const response = await fetch(url);
+            if (response.body) {
+                const buffer = new Uint8Array(60000000);
+                const reader = response.body.getReader({ mode: "byob" });
+                const finished = await reader.read(buffer);
+                worker.postMessage({event: 'readFile', data: finished.value});
+            }
+        } catch (error) {
+          console.log(error);
+        }
     }
 
     return (
         <main id="app">
             <h2 className='app-title'> RollNES </h2>
             <canvas id="canvas" width="256" height="240"></canvas>
-            <input id="nesfile" type="file" accept=".nes" onChange={loadFile}/>
         </main>
     )
 }
@@ -112,9 +135,7 @@ for (const key of keys) {
 function setControllerConfiguration(): Button[] {
     const controllerConfiguration = [] as Button[];
 
-    const buttonKeys = keys as Button[];
-
-    for (const key of buttonKeys) {
+    for (const key of keys) {
       if (localStorage.getItem(key.button)) {
         controllerConfiguration.push( { button: key.button, value: localStorage.getItem(key.button) ?? key.value } );
       } else {
