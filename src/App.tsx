@@ -1,6 +1,7 @@
-import { useEffect, type ReactElement } from 'react';
+import { useEffect, useState, type ReactElement } from 'react';
 import type { Button } from './types/types';
 import { keys } from './config/config';
+import { ControllerModal } from './components/ControllerModal';
 
 import './App.css';
 
@@ -9,6 +10,7 @@ const gameId = urlParams.get('id');
 const worker = new Worker('./src/emulator.js',{ type: "module" });
 
 export default function App(): ReactElement {
+    const [ openModal, setOpenModal ] = useState<boolean>(false);
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
     let userInteraction: boolean = false;
@@ -85,6 +87,9 @@ export default function App(): ReactElement {
         }
     }
 
+    /**
+     * Start game and enable sound when user clicks on the start button.
+     */
     async function startGame(): Promise<void> {
         await getRom();
         if (navigator.userActivation.isActive && !userInteraction) {    // A user needs to interact with the page before the audio context can be resumed
@@ -120,6 +125,11 @@ export default function App(): ReactElement {
             <h2 className='app-title'> RollNES </h2>
             <button className='retro-button' onClick={startGame}> Start Game </button>
             <canvas id="canvas" width="256" height="240"></canvas>
+            <button className='retro-button' onClick={() => setOpenModal(true)}> Controller Configuration </button>
+
+            { 
+                openModal ? <ControllerModal text="Customize controller" close={() => setOpenModal(false)} /> : <></>
+            }
         </main>
     )
 }
