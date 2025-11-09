@@ -1,14 +1,14 @@
 import { useEffect, type ChangeEvent, type ReactElement } from 'react';
-//import type { Button } from './types/types';
+import type { Button } from './types/types';
+import { keys } from './config/config';
 
 import './App.css';
 
 const worker = new Worker('./src/emulator.js',{ type: "module" });
 
 export default function App(): ReactElement {
-
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
-    let audioContext: BaseAudioContext;
+    let audioContext: AudioContext;
     //let userInteraction = false;
 
     /**
@@ -27,7 +27,6 @@ export default function App(): ReactElement {
       } catch (error) {
         console.log(error);
       }
-      
     
       audioContext = new AudioContext();
       nesWorkletNode = audioContext.audioWorklet.addModule('./src/apu-worklet.js', { credentials: "omit" }).then(() => {
@@ -46,13 +45,22 @@ export default function App(): ReactElement {
       }).catch(error => console.log(error));
     }, []);
 
+
+    function loadFile(event: ChangeEvent<HTMLInputElement>) {
+        console.log(event);
+
+
+        const controllerConfiguration = setControllerConfiguration();
+        worker.postMessage({ event: 'configuration', data: controllerConfiguration });
+    }
+
     return (
         <main id="app">
             <h2 className='app-title'> RollNES </h2>
             <canvas id="canvas" width="256" height="240"></canvas>
             <input id="nesfile" type="file" accept=".nes" onChange={loadFile}/>
         </main>
-      )
+    )
 }
 
 /**
@@ -80,45 +88,6 @@ export default function App(): ReactElement {
 // window.addEventListener("keyup", keyUpEventLogger);
 // window.addEventListener("keydown", keyDownEventLogger);
 
-/**
- * |**************|
- * | Read NES ROM |
- * |**************|
- */
-// function readFile(event) {
-//   try {
-//     worker.postMessage({event: 'readFile', data: event.target.result});
-//     audioContext.resume();
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
-
-function loadFile(event: ChangeEvent<HTMLInputElement>) {
-    console.log(event);
-}
-
-/**
- * Performs check if file is NES ROM. If controller configuration is stored in local storage it is sent to the emulator.
- * Otherwise a default configuration is used. Then the input file is read.
- */
-// document.getElementById("nesfile").addEventListener('change', input => {
-//   if (!input.target.files.length) {
-//     alert('No file');
-//     return;
-//   }
-
-//   if (input.target.files[0].type !== 'application/x-nes-rom') {
-//     document.getElementById("nesfile").value = '';
-//     alert('File is not a NES ROM');
-//     return;
-//   }
-
-//   const controllerConfiguration = setControllerConfiguration();
-//   worker.postMessage({ event: 'configuration', data: controllerConfiguration });
-
-
-// });
 
 /**
  * |**************************|
@@ -140,17 +109,18 @@ for (const key of keys) {
 /**
  * Creates an array containing the controller configuration for player 1 and player 2.
  */
-/* function setControllerConfiguration(): Button[] {
+function setControllerConfiguration(): Button[] {
     const controllerConfiguration = [] as Button[];
 
-  for (const key of keys) {
-    if (localStorage.getItem(key.id)) {
-      controllerConfiguration.push( { button: key.id, value: localStorage.getItem(key.id) ?? "" } );
-    } else {
-      controllerConfiguration.push( { button: key.id, value: key.value } );
+    const buttonKeys = keys as Button[];
+
+    for (const key of buttonKeys) {
+      if (localStorage.getItem(key.button)) {
+        controllerConfiguration.push( { button: key.button, value: localStorage.getItem(key.button) ?? key.value } );
+      } else {
+        controllerConfiguration.push( { button: key.button, value: key.value } );
+      }
     }
-  }
 
     return controllerConfiguration;
 }
- */
