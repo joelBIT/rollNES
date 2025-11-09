@@ -87,6 +87,10 @@ export default function App(): ReactElement {
 
     async function startGame(): Promise<void> {
         await getRom();
+        if (navigator.userActivation.isActive && !userInteraction) {    // A user needs to interact with the page before the audio context can be resumed
+            userInteraction = true;
+            audioContext.resume();
+        }
     }
 
     /**
