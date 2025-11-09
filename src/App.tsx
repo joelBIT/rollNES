@@ -81,7 +81,7 @@ export default function App(): ReactElement {
                 worker.postMessage({event: 'readFile', data: finished.value});
             }
         } catch (error) {
-          console.log(error);
+            console.log(error);
         }
     }
 
@@ -126,7 +126,7 @@ export default function App(): ReactElement {
             <button className='retro-button' onClick={() => setOpenModal(true)}> Controller Configuration </button>
 
             { 
-                openModal ? <ControllerModal text="Customize controller" close={() => setOpenModal(false)} /> : <></>
+                openModal ? <ControllerModal text="Customize controllers" close={() => setOpenModal(false)} /> : <></>
             }
         </main>
     )

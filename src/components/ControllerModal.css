@@ -4,6 +4,8 @@
     align-self: center;
     justify-self: center;
     border-radius: 6px;
+    background-color: var(--color-modal-background);
+    scrollbar-width: none;
 
     & .modal-text {
         font-size: 2rem;
@@ -19,7 +21,12 @@
         & .controllers {
             display: flex;
             align-self: center;
-            gap: 2rem;
+            gap: 5rem;
+
+            .controller-input {
+                margin: 1rem;
+                width: 120px;
+            }
         }
 
         & .dialog-buttons {

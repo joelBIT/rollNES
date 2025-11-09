@@ -108,26 +108,121 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                 <section className="controllers">
                     <section className="player1-controller">
                         <h2 className="bit-font">Player 1</h2>
-                        <article><h3>Up</h3><input type="text" value="ArrowUp" className="key" id="ArrowUp" /></article>
-                        <article><h3>Down</h3><input type="text" value="ArrowDown" className="key" id="ArrowDown"/></article>
-                        <article><h3>Left</h3><input type="text" value="ArrowLeft" className="key" id="ArrowLeft"/></article>
-                        <article><h3>Right</h3><input type="text" value="ArrowRight" className="key" id="ArrowRight"/></article>
-                        <article><h3>A</h3><input type="text" value="KeyX" className="key" id="A"/></article>
-                        <article><h3>B</h3><input type="text" value="KeyZ" className="key" id="B"/></article>
-                        <article><h3>Start</h3><input type="text" value="KeyS" className="key" id="Start"/></article>
-                        <article><h3>Select</h3><input type="text" value="KeyA" className="key" id="Select"/></article>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="ArrowUp" className="key form__field" id="ArrowUp" />
+                            <legend className="form__field-label">
+                                Up
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="ArrowDown" className="key form__field" id="ArrowDown"/>
+                            <legend className="form__field-label">
+                                Down
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="ArrowLeft" className="key form__field" id="ArrowLeft"/>
+                            <legend className="form__field-label">
+                                Left
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="ArrowRight" className="key form__field" id="ArrowRight"/>
+                            <legend className="form__field-label">
+                                Right
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyX" className="key form__field" id="A"/>
+                            <legend className="form__field-label">
+                                A
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyZ" className="key form__field" id="B"/>
+                            <legend className="form__field-label">
+                                B
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyS" className="key form__field" id="Start"/>
+                            <legend className="form__field-label">
+                                Start
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyA" className="key form__field" id="Select"/>
+                            <legend className="form__field-label">
+                                Select
+                            </legend>
+                        </fieldset>
                     </section>
 
                     <section className="player2-controller">
                         <h2 className="bit-font">Player 2</h2>
-                        <article><h3>Up</h3><input type="text" value="KeyU" className="key" id="ArrowUp2"/></article>
-                        <article><h3>Down</h3><input type="text" value="KeyJ" className="key" id="ArrowDown2"/></article>
-                        <article><h3>Left</h3><input type="text" value="KeyH" className="key" id="ArrowLeft2"/></article>
-                        <article><h3>Right</h3><input type="text" value="KeyK" className="key" id="ArrowRight2"/></article>
-                        <article><h3>A</h3><input type="text" value="KeyG" className="key" id="A2"/></article>
-                        <article><h3>B</h3><input type="text" value="KeyF" className="key" id="B2"/></article>
-                        <article><h3>Start</h3><input type="text" value="KeyT" className="key" id="Start2"/></article>
-                        <article><h3>Select</h3><input type="text" value="KeyR" className="key" id="Select2"/></article>
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyU" className="key form__field" id="ArrowUp2"/>
+                            <legend className="form__field-label">
+                                Up
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyJ" className="key form__field" id="ArrowDown2"/>
+                            <legend className="form__field-label">
+                                Down
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyH" className="key form__field" id="ArrowLeft2"/>
+                            <legend className="form__field-label">
+                                Left
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyK" className="key form__field" id="ArrowRight2"/>
+                            <legend className="form__field-label">
+                                Right
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyG" className="key form__field" id="A2"/>
+                            <legend className="form__field-label">
+                                A
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyF" className="key form__field" id="B2"/>
+                            <legend className="form__field-label">
+                                B
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyT" className="key form__field" id="Start2"/>
+                            <legend className="form__field-label">
+                                Start
+                            </legend>
+                        </fieldset>
+
+                        <fieldset className="controller-input">
+                            <input type="text" value="KeyR" className="key form__field" id="Select2"/>
+                            <legend className="form__field-label">
+                                Select
+                            </legend>
+                        </fieldset>
                     </section>
                 </section>
 
