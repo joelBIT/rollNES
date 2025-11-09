@@ -18,6 +18,10 @@ export default function App(): ReactElement {
      * too much lag. The Audio Context and Audio Source are also initialized when the page has loaded.
      */
     useEffect(() => {
+      if (audioContext) {
+        return;     // transferControlToOffscreen() has already executed (can only run once)
+      }
+
       try {
         const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
         worker.postMessage({ canvas: canvas }, [canvas]);
