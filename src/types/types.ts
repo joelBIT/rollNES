@@ -20,3 +20,10 @@ export type AuthenticationRequest = {
     email: string,
     password: string
 }
+
+export type RegisterRequest = {
+    email: string,
+    firstName: string,
+    lastName: string,
+    password: string
+}
