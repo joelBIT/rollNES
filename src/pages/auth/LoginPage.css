@@ -13,12 +13,13 @@
         padding: 2rem;
 
         & .login-section__heading {
-                letter-spacing: .21125rem;
-                font-family: "Zen Old Mincho", serif;
-                font-size: 2.25rem;
-                font-weight: 500;
-                line-height: 1.2;
-                text-transform: uppercase;
+            letter-spacing: .21125rem;
+            font-family: "Zen Old Mincho", serif;
+            font-size: 2.25rem;
+            font-weight: 500;
+            line-height: 1.2;
+            text-transform: uppercase;
+            align-self: center;
         }
 
         & .login-section__text {
@@ -28,6 +29,7 @@
             line-height: 1.4375rem;
             color: #5c5c5c;
             letter-spacing: .03125rem;
+            align-self: center;
         }
 
         & #login-form {

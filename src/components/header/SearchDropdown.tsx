@@ -66,8 +66,8 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                             name="simple-search"
                             type="search"
                         />
-
-                        <h2 id="close-button" onClick={closeDropdown}> Close </h2>
+                        
+                        <h2 id="close-button" onClick={closeDropdown}> &#x2715; Close </h2>
                     </form>
 
                     {

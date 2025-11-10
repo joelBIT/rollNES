@@ -17,7 +17,7 @@ export function TopGameCard({game, close}: { game: Game, close: () => void}): Re
                 <img src={COVER_URL + game.cover} alt="Game cover" />
             </NavLink>
 
-            <h3 className="top-product__title"> {game.title} </h3>
+            <h3 className="top-game__title"> {game.title} </h3>
         </section>
     );
 }

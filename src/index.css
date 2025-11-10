@@ -58,6 +58,21 @@ main {
     padding-top: 2rem;
 }
 
+
+
+
+
+
+/********
+* FONTS *
+********/
+
+.zen-old-mincho-regular {
+  font-family: "Zen Old Mincho", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .bit-font {
     font: 1.4rem "Press start 2P";
     font-weight: 700;

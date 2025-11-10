@@ -22,7 +22,7 @@ export default function RegisterPage(): ReactElement {
         const confirmPassword = confirmPasswordRef.current?.value;
 
         if (password !== confirmPassword) {
-            console.log("Password must be equal");
+            console.log("Passwords must be equal");
             return;
         }
 
