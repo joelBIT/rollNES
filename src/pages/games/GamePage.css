@@ -50,6 +50,7 @@
             font-family: "ivy-presto-headline-light", Helvetica, Arial, sans-serif;
             font-size: 40px;
             line-height: 1.2;
+            align-self: center;
         }
 
         & #reviews-content {
