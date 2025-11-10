@@ -1,0 +1,9 @@
+#header-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+    background: var(--color-black);
+    color: var(--color-white);
+    font-family: brandon-grotesque, sans-serif;
+}

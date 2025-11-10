@@ -31,9 +31,9 @@ export function Carousel(): ReactElement {
             </button>
 
             <section id="slide-space">
-                <h1 className={slide === 0 ? "active" : "inactive"}> FREE DOMESTIC SHIPPING OVER &#8364;50 & EASY RETURNS </h1>
-                <h1 className={slide === 1 ? "active" : "inactive"}> NEW: BATTLE TOADS VS DOUBLE DRAGON <NavLink to="/games/9"> SHOP NOW </NavLink> </h1>
-                <h1 className={slide === 2 ? "active" : "inactive"}> REST: Buy one, get one 50% off* | CODE: REST50 </h1>
+                <h1 className={slide === 0 ? "active" : "inactive"}> PLAY MOST OF THE EXISTING 8-BIT GAMES IN A BROWSER </h1>
+                <h1 className={slide === 1 ? "active" : "inactive"}> NEW: BATTLE TOADS VS DOUBLE DRAGON <NavLink to="/games/9"> PLAY NOW </NavLink> </h1>
+                <h1 className={slide === 2 ? "active" : "inactive"}> EMAIL ANY WISHES ABOUT THE PAGE </h1>
             </section>
 
             <button id="nextButton" onClick={nextSlide}>
