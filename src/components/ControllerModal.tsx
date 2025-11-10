@@ -110,56 +110,56 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                         <h2 className="bit-font">Player 1</h2>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="ArrowUp" className="key form__field" id="ArrowUp" />
+                            <input type="text" value="ArrowUp" className="key form__field" id="ArrowUp" autoComplete="off" />
                             <legend className="form__field-label">
                                 Up
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="ArrowDown" className="key form__field" id="ArrowDown"/>
+                            <input type="text" value="ArrowDown" className="key form__field" id="ArrowDown" autoComplete="off" />
                             <legend className="form__field-label">
                                 Down
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="ArrowLeft" className="key form__field" id="ArrowLeft"/>
+                            <input type="text" value="ArrowLeft" className="key form__field" id="ArrowLeft" autoComplete="off" />
                             <legend className="form__field-label">
                                 Left
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="ArrowRight" className="key form__field" id="ArrowRight"/>
+                            <input type="text" value="ArrowRight" className="key form__field" id="ArrowRight" autoComplete="off" />
                             <legend className="form__field-label">
                                 Right
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyX" className="key form__field" id="A"/>
+                            <input type="text" value="KeyX" className="key form__field" id="A" autoComplete="off" />
                             <legend className="form__field-label">
                                 A
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyZ" className="key form__field" id="B"/>
+                            <input type="text" value="KeyZ" className="key form__field" id="B" autoComplete="off" />
                             <legend className="form__field-label">
                                 B
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyS" className="key form__field" id="Start"/>
+                            <input type="text" value="KeyS" className="key form__field" id="Start" autoComplete="off" />
                             <legend className="form__field-label">
                                 Start
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyA" className="key form__field" id="Select"/>
+                            <input type="text" value="KeyA" className="key form__field" id="Select" autoComplete="off" />
                             <legend className="form__field-label">
                                 Select
                             </legend>
@@ -169,56 +169,56 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                     <section className="player2-controller">
                         <h2 className="bit-font">Player 2</h2>
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyU" className="key form__field" id="ArrowUp2"/>
+                            <input type="text" value="KeyU" className="key form__field" id="ArrowUp2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Up
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyJ" className="key form__field" id="ArrowDown2"/>
+                            <input type="text" value="KeyJ" className="key form__field" id="ArrowDown2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Down
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyH" className="key form__field" id="ArrowLeft2"/>
+                            <input type="text" value="KeyH" className="key form__field" id="ArrowLeft2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Left
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyK" className="key form__field" id="ArrowRight2"/>
+                            <input type="text" value="KeyK" className="key form__field" id="ArrowRight2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Right
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyG" className="key form__field" id="A2"/>
+                            <input type="text" value="KeyG" className="key form__field" id="A2" autoComplete="off" />
                             <legend className="form__field-label">
                                 A
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyF" className="key form__field" id="B2"/>
+                            <input type="text" value="KeyF" className="key form__field" id="B2" autoComplete="off" />
                             <legend className="form__field-label">
                                 B
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyT" className="key form__field" id="Start2"/>
+                            <input type="text" value="KeyT" className="key form__field" id="Start2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Start
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyR" className="key form__field" id="Select2"/>
+                            <input type="text" value="KeyR" className="key form__field" id="Select2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Select
                             </legend>
@@ -226,17 +226,17 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                     </section>
                 </section>
 
-                <section className="dialog-buttons">
-                    <button className="retro-button close-button" onClick={closeModal}> Close </button>
-                    <button className="retro-button save-button" onClick={confirmSettings}> Save </button>
-                </section>
-                
                 { 
                     showMessage ? 
                         <h2 className="message-failure">
                             Could not save controller settings
                         </h2> : <></> 
                 }
+
+                <section className="dialog-buttons">
+                    <button className="retro-button close-button" onClick={closeModal}> Close </button>
+                    <button className="retro-button save-button" onClick={confirmSettings}> Save </button>
+                </section>
             </form>
         </dialog>
     );

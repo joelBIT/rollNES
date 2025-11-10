@@ -12,6 +12,7 @@
         text-align: center;
         margin: 3rem;
         margin-bottom: 2rem;
+        color: var(--color-almost-white);
     }
 
     & .modal-content {
@@ -22,6 +23,22 @@
             display: flex;
             align-self: center;
             gap: 5rem;
+
+            & .player1-controller {
+                color: var(--color-player-1);
+
+                .form__field-label {
+                    color: var(--color-player-1);
+                }
+            }
+
+            & .player2-controller {
+                color: var(--color-player-2);
+
+                .form__field-label {
+                    color: var(--color-player-2);
+                }
+            }
 
             .controller-input {
                 margin: 1rem;
@@ -37,6 +54,8 @@
     }
 
     .message-failure {
+        font-family: 'Inter';
+        color: var(--color-message-failure);
         width: fit-content;
         align-self: center;
         margin: 0;
