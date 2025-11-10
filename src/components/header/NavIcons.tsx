@@ -1,6 +1,7 @@
 import {useState, type ReactElement} from "react";
 import {NavLink} from "react-router";
 import {URL_LOGIN_PAGE, URL_REGISTER_PAGE} from "../../utils.ts";
+import { FavouriteMenu } from "../index.ts";
 
 import "./NavIcons.css";
 
@@ -74,7 +75,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
                 </ul>
             </section>
 
-            {/* <FavouriteMenu show={showFavourites} close={() => setShowFavourites(false)} /> */}
+            <FavouriteMenu show={showFavourites} close={() => setShowFavourites(false)} />
         </section>
     )
 }

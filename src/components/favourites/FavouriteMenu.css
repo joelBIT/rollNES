@@ -1,0 +1,73 @@
+.hide-menu {
+    display: none;
+    position: fixed;
+    right: 0;
+    max-width: 0;
+    transition: max-width 1.6s ease-in-out;
+}
+
+.show-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 1rem;
+    background-color: var(--color-white);
+    border-left: 1px solid var(--color-border);
+    position: fixed;
+    left: auto;
+    right: 0;
+    top: 0;
+    max-width: 27.5rem;
+    z-index: 99999;
+    height: 100vh;
+    min-height: 100%;
+    transition: max-width 1.6s ease-in-out;
+
+    & #favourite-menu-header {
+        display: flex;
+        height: fit-content;
+        align-items: center;
+        justify-content: space-between;
+        width: 27.5rem;
+        border-bottom: 1px solid var(--color-border);
+        padding: 0 1rem 0.6rem 1rem;
+
+        & #favourite-games {
+            width: 18px;
+        }
+
+        & #favourites__heading {
+            font-family: "brandon-grotesque";
+            font-size: 1rem;
+            text-transform: uppercase;
+            text-align: center;
+            letter-spacing: .1rem;
+            font-weight: 900;
+            line-height: normal;
+        }
+
+        & #close-menu-button {
+            background-color: var(--color-white);
+            border: none;
+            font-size: 1rem;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    & #favourite-games-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        height: 100%;
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+        padding-left: 1rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: thin;
+        outline: none;
+    }
+}
