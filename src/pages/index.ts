@@ -5,3 +5,4 @@ export * from "./LandingPage";
 export * from "./NotFoundPage";
 export * from "./reviews/Rating";
 export * from "./reviews/ReviewCard";
+export * from "./reviews/Star";
