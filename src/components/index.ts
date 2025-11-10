@@ -3,6 +3,7 @@ export * from "./ControllerModal";
 export * from "./header/Carousel";
 export * from "./header/HeaderBanner";
 export * from "./header/Logo";
+export * from "./header/NavBar";
 export * from "./header/NavIcons";
 export * from "./header/SearchDropdown";
 export * from "./header/TopGameCard";
