@@ -1,0 +1,95 @@
+#carousel {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+
+    & #slide-space {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: .125rem;
+        width: 50%;
+
+        .inactive {
+            display: none;
+        }
+
+        .active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideText 7s;
+            animation-fill-mode: both;
+            font-size: 13px;
+
+            & > a {
+                align-self: center;
+                width: fit-content;
+                color: var(--color-black);
+                margin-left: 1rem;
+                padding: 2px 6px 2px 8px;
+                text-decoration: none;
+                background-color: var(--color-white);
+                border-radius: 3px;
+            }
+        }
+    }
+
+    & #prevButton,
+    #nextButton {
+        display: flex;
+        cursor: pointer;
+        background-color: var(--color-black);
+        border: none;
+        font-size: 1.2rem;
+
+        & .arrow {
+            color: var(--color-border);
+            background-color: var(--color-black);
+
+            &:hover {
+                color: var(--color-white);
+            }
+        }
+    }
+}
+
+@keyframes slideText {
+    0% {
+        transform: translateX(70%);
+    }
+
+    10% {
+        transform: translateX(0%);
+    }
+
+    90% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-130%);
+    }
+}
+
+@media (max-width: 750px) {
+    #carousel {
+        justify-content: center;
+
+        & #slide-space {
+            width: 80%;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    #carousel {
+        & #slide-space {
+            width: 80%;
+
+            & .active {
+                font-size: 9px;
+            }
+        }
+    }
+}
