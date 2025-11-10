@@ -15,3 +15,8 @@ export type Game = {
     description: string,
     rom: boolean
 }
+
+export type AuthenticationRequest = {
+    email: string,
+    password: string
+}

@@ -1,0 +1,71 @@
+#loginPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+
+    & #login-section {
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        width: 40rem;
+        padding: 2rem;
+
+        & .login-section__heading {
+                letter-spacing: .21125rem;
+                font-family: "Zen Old Mincho", serif;
+                font-size: 2.25rem;
+                font-weight: 500;
+                line-height: 1.2;
+                text-transform: uppercase;
+        }
+
+        & .login-section__text {
+            font-family: brandon-grotesque, sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.4375rem;
+            color: #5c5c5c;
+            letter-spacing: .03125rem;
+        }
+
+        & #login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+
+            & button {
+                align-self: center;
+                font-family: brandon-grotesque, sans-serif;
+                text-transform: uppercase;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    #loginPage {
+        padding: 2rem;
+
+        & #login-section {
+            width: 95%;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    #loginPage {
+        padding: 0.5rem;
+
+        & #login-section {
+            padding: 1rem;
+
+            & .login-section__heading {
+                font-size: 1.8rem;
+            }
+        }
+    }
+}
