@@ -9,6 +9,14 @@
     font-display: fallback;
 }
 
+@font-face {
+    font-family: "brandon-grotesque";
+    src: url("./assets/brandon-grotesque-regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+}
+
 :root {
     --color-black: black;
     --color-white: white;
