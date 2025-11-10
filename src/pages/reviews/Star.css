@@ -1,0 +1,17 @@
+.star-rating {
+    display: flex;
+    position: relative;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+
+    & .empty {
+        color: var(--color-star-gray);
+    }
+
+    & .filled {
+        overflow: hidden;
+        position: absolute;
+        color: var(--color-star-orange);
+    }
+}

@@ -19,7 +19,7 @@
 
 @font-face {
     font-family: "ivy-presto-headline-light";
-    src: url("./assets/ivy-presto-headline-light.otf") format("opentype");
+    src: url("./static/fonts/ivy-presto-headline-light.otf") format("opentype");
     font-weight: 300;
     font-style: normal;
     font-display: fallback;
@@ -27,7 +27,7 @@
 
 @font-face {
     font-family: "cf-gibson";
-    src: url("./assets/gibson-bold.otf") format("opentype");
+    src: url("./static/fonts/gibson-bold.otf") format("opentype");
     font-weight: 900;
     font-style: normal;
     font-display: fallback;
@@ -44,6 +44,8 @@
     --color-player-1: rgb(231 10 10);
     --color-player-2: rgb(10 231 95);
     --color-search-text: #495057;
+    --color-star-orange: #F2C265;
+    --color-star-gray: #a9a9a9;
     --color-text-heading: #D23C3C;
     --color-white: white;
 }
