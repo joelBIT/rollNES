@@ -1,0 +1,91 @@
+#gamePage {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    padding: 2rem;
+
+    & #game-top {
+        display: flex;
+        flex-direction: row;
+        gap: 4rem;
+    }
+    
+    & #game-images {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 15;
+
+        & > img {
+            width: 80%;
+            object-fit: contain;
+            aspect-ratio: 10 / 10;
+        }
+    }
+
+    & #game-details {
+        display: flex;
+        flex-direction: column;
+        flex: 10;
+        gap: 1rem;
+        text-align: left;
+
+        & #game-information__heading {
+            font-family: "cf-gibson", Helvetica, Arial, sans-serif;
+            font-size: 2rem;
+        }
+
+        & #game-information__description {
+            font-size: 1rem;
+            font-family: "regular-gibson", Helvetica, Arial, sans-serif;
+            white-space: break-spaces;
+        }
+    }
+
+    & #game-reviews {
+        display: flex;
+        flex-direction: column;
+
+        & #game-reviews__heading {
+            font-family: "ivy-presto-headline-light", Helvetica, Arial, sans-serif;
+            font-size: 40px;
+            line-height: 1.2;
+        }
+
+        & #reviews-content {
+            display: flex;
+            flex-direction: column;
+
+            & #reviews-rating {
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                gap: 1rem;
+                padding: 1rem;
+                font-family: "brandon-grotesque", sans-serif;
+                font-size: 14px;
+            }
+
+            & #reviews-sort {
+                align-self: flex-end;
+                font-family: "brandon-grotesque", sans-serif;
+                padding-right: 4rem;
+
+                & #reviews-sort-select {
+                    align-items: center;
+                    width: fit-content;
+                    font-family: "brandon-grotesque", sans-serif;
+                    padding: 0.1rem;
+                    cursor: pointer;
+                    border-radius: 3px;
+                }
+            }
+
+            & #reviews {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    }
+}

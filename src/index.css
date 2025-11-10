@@ -17,6 +17,22 @@
     font-display: fallback;
 }
 
+@font-face {
+    font-family: "ivy-presto-headline-light";
+    src: url("./assets/ivy-presto-headline-light.otf") format("opentype");
+    font-weight: 300;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: "cf-gibson";
+    src: url("./assets/gibson-bold.otf") format("opentype");
+    font-weight: 900;
+    font-style: normal;
+    font-display: fallback;
+}
+
 :root {
     --color-almost-white: #f0f0f0;
     --color-black: black;
