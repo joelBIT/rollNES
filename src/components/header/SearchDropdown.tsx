@@ -54,8 +54,6 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
     return (
         <section id="search-dropdown">
             <section id="search-inner-content" className={isShowing ? "dropdown" : "accordion-panel"}>
-                
-
                 <section id="search-recommendations">
                     <form id="search-area" role="search" className="search-input__field" method="get" name="simpleSearch" action="/search">
                         <input

@@ -10,7 +10,7 @@ export type Game = {
     developer: string,
     category: string,
     release_date: string,
-    cover_url: string,
+    cover: string,
     players: number,
     description: string,
     rom: boolean

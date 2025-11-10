@@ -16,15 +16,11 @@ export function Header(): ReactElement {
 
     async function getGames(): Promise<void> {
         const { data } = await supabase.from("games").select().in("id", [111, 188, 550]);
+        console.log(data);
         if (data) {
             const games = [];
             for (let i = 0; i < data?.length; i++) {
                 games.push(data[i]);
-
-                if (data[i]?.cover) {
-                    const response = await supabase.storage.from('covers').download(data[i].cover);
-                    games[i].cover_url = response.data ? response.data : null;
-                }
             }
 
             setTopGames(games);

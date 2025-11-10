@@ -120,7 +120,6 @@ export default function LandingPage(): ReactElement {
 
     return (
         <main id="landingPage">
-            <h2 className='app-title'> RollNES </h2>
             <button className='retro-button' onClick={startGame}> Start Game </button>
             <canvas id="canvas" width="256" height="240"></canvas>
             <button className='retro-button' onClick={() => setOpenModal(true)}> Controller Configuration </button>

@@ -44,7 +44,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
                         title="Favourite games"
                     >
                         <span className="material-symbols-outlined"> 
-                            favourite
+                            favorite
                             { 
                                 favourites?.length > 0 ? <p id="favourite-games"> </p> : <></> 
                             }

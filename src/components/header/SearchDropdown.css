@@ -24,7 +24,8 @@
 
             & #search-area {
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
+                position: relative;
                 width: 100%;
                 padding: 2rem;
 
@@ -54,6 +55,10 @@
                     font-weight: 500;
                     font-family: brandon-grotesque, sans-serif;
                     align-content: center;
+                    position: absolute;
+                    right: 2%;
+                    top: 50%;
+                    bottom: 50%;
 
                     &:hover {
                         cursor: pointer;
@@ -65,7 +70,7 @@
             #matching-games {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
                 margin-top: 2rem;
                 width: 100%;
                 height: 100%;
