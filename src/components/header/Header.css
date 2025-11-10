@@ -1,0 +1,22 @@
+header {
+    display: flex;
+    flex-direction: column;
+    min-height: 6rem;
+
+    & #header-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2rem;
+        height: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    header {
+        & #header-nav {
+            padding: 0 1rem;
+        }
+    }
+}
