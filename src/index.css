@@ -19,6 +19,7 @@
 
 :root {
     --color-black: black;
+    --color-black-light: #2c2c2c;
     --color-white: white;
     --color-almost-white: #f0f0f0;
     --color-player-1: rgb(231 10 10);
@@ -27,6 +28,7 @@
     --color-modal-background: #19251F;
     --color-message-failure: red;
     --color-logo-background: #f9f9f9;
+    --color-search-text: #495057;
 }
 
 * {

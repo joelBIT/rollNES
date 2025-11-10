@@ -11,7 +11,7 @@
         position: absolute;
         top: 0;
         gap: 10rem;
-        background-color: var(--color-white);
+        background-color: var(--color-logo-background);
         width: 100%;
         border-bottom: .0625rem solid #f0f0f0;
 
@@ -48,6 +48,7 @@
                     width: 50%;
                     outline: none;
                     color: var(--color-search-text);
+                    background-color: var(--color-logo-background);
                 }
 
                 & #close-button {
