@@ -1,5 +1,6 @@
 import { type ReactElement } from "react";
 import type { Game } from "../../types/types";
+import { FavouriteCard } from "..";
 
 import "./FavouriteMenu.css";
 
@@ -19,7 +20,7 @@ export function FavouriteMenu({show, close}: {show: boolean, close: () => void})
 
             <section id="favourite-games-list">
                 {
-                    // favourites.map(item => <FavouriteCard key={item.title} item={item} close={close} />)
+                    favourites.map(game => <FavouriteCard key={game.title} game={game} close={close} />)
                 }
             </section>
         </section>

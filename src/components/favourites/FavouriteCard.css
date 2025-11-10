@@ -1,0 +1,41 @@
+.favourite-card {
+    display: flex;
+    gap: 1rem;
+    padding-right: 0.5rem;
+
+    & .favourite-card__image {
+        width: 5rem;
+    }
+
+    & .favourite-card-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        width: 50%;
+        text-align: left;
+
+        & .favourite-card__title {
+            font-family: "brandon-grotesque";
+            font-size: 0.9rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            flex-wrap: wrap;
+            letter-spacing: .09375rem;
+            line-height: 1.1875rem;
+            text-decoration: none;
+            color: var(--color-black);
+        }
+
+        & .favourite-card__button {
+            font-family: "brandon-grotesque";
+            text-transform: uppercase;
+            color: var(--color-text-heading);
+            font-size: 9px;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+}
