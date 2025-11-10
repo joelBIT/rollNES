@@ -1,15 +1,17 @@
 import { type ReactElement, useEffect, useRef, useState } from "react";
 
 import "./ControllerModal.css";
+import { getControllerConfigurationMap } from "../config/config";
 
 /**
  * Modal used for configuration of player 1 and player 2 controls.
  */
 export function ControllerModal({ text, close }: { text: string, close: (toggle: boolean) => void }): ReactElement {
-    const [ showMessage, setShowMessage ] = useState<boolean>();
+    const [ showMessage, setShowMessage ] = useState<boolean>(false);
     const modalRef = useRef<HTMLDialogElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const keys = document.getElementsByClassName('key') as HTMLCollectionOf<HTMLInputElement>;
+    const controllers = getControllerConfigurationMap();
 
     useEffect(() => {
         if (!modalRef.current?.open) {
@@ -43,8 +45,10 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
      * Do not store configuration if player has left empty input fields when trying to save the controller configuration.
      * Store the controller configuration in local storage if all fields are nonempty and contains unique values.
      */
-    function confirmSettings(): void {
-        if (inputRef.current?.value && inputRef.current?.value.length > 2) {
+    function confirmSettings(formData: FormData): void {
+        console.log(formData);
+        console.log(formData.get("A"));
+        if (inputRef.current?.value && inputRef.current?.value.length > 0) {
             setShowMessage(false);
             confirm(inputRef.current?.value as string);
             closeModal();
@@ -104,62 +108,62 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         <dialog autoFocus id="controllerModal" ref={modalRef} className="modal-dialog">
             <h1 className="modal-text bit-font"> {text} </h1>
 
-            <form method="dialog" className="modal-content">
+            <form method="dialog" className="modal-content" action={confirmSettings}>
                 <section className="controllers">
                     <section className="player1-controller">
                         <h2 className="bit-font">Player 1</h2>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="ArrowUp" className="key form__field" id="ArrowUp" autoComplete="off" />
+                            <input type="text" value={controllers.get('ArrowUp')} className="key form__field" id="ArrowUp" autoComplete="off" />
                             <legend className="form__field-label">
                                 Up
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="ArrowDown" className="key form__field" id="ArrowDown" autoComplete="off" />
+                            <input type="text" value={controllers.get('ArrowDown')} className="key form__field" id="ArrowDown" autoComplete="off" />
                             <legend className="form__field-label">
                                 Down
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="ArrowLeft" className="key form__field" id="ArrowLeft" autoComplete="off" />
+                            <input type="text" value={controllers.get('ArrowLeft')} className="key form__field" id="ArrowLeft" autoComplete="off" />
                             <legend className="form__field-label">
                                 Left
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="ArrowRight" className="key form__field" id="ArrowRight" autoComplete="off" />
+                            <input type="text" value={controllers.get('ArrowRight')} className="key form__field" id="ArrowRight" autoComplete="off" />
                             <legend className="form__field-label">
                                 Right
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyX" className="key form__field" id="A" autoComplete="off" />
+                            <input type="text" value={controllers.get('A')} className="key form__field" id="A" autoComplete="off" name="A" />
                             <legend className="form__field-label">
                                 A
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyZ" className="key form__field" id="B" autoComplete="off" />
+                            <input type="text" value={controllers.get('B')} className="key form__field" id="B" autoComplete="off" />
                             <legend className="form__field-label">
                                 B
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyS" className="key form__field" id="Start" autoComplete="off" />
+                            <input type="text" value={controllers.get('Start')} className="key form__field" id="Start" autoComplete="off" />
                             <legend className="form__field-label">
                                 Start
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyA" className="key form__field" id="Select" autoComplete="off" />
+                            <input type="text" value={controllers.get('Select')} className="key form__field" id="Select" autoComplete="off" />
                             <legend className="form__field-label">
                                 Select
                             </legend>
@@ -169,56 +173,56 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                     <section className="player2-controller">
                         <h2 className="bit-font">Player 2</h2>
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyU" className="key form__field" id="ArrowUp2" autoComplete="off" />
+                            <input type="text" value={controllers.get('ArrowUp2')} className="key form__field" id="ArrowUp2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Up
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyJ" className="key form__field" id="ArrowDown2" autoComplete="off" />
+                            <input type="text" value={controllers.get('ArrowDown2')} className="key form__field" id="ArrowDown2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Down
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyH" className="key form__field" id="ArrowLeft2" autoComplete="off" />
+                            <input type="text" value={controllers.get('ArrowLeft2')} className="key form__field" id="ArrowLeft2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Left
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyK" className="key form__field" id="ArrowRight2" autoComplete="off" />
+                            <input type="text" value={controllers.get('ArrowRight2')} className="key form__field" id="ArrowRight2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Right
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyG" className="key form__field" id="A2" autoComplete="off" />
+                            <input type="text" value={controllers.get('A2')} className="key form__field" id="A2" autoComplete="off" />
                             <legend className="form__field-label">
                                 A
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyF" className="key form__field" id="B2" autoComplete="off" />
+                            <input type="text" value={controllers.get('B2')} className="key form__field" id="B2" autoComplete="off" />
                             <legend className="form__field-label">
                                 B
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyT" className="key form__field" id="Start2" autoComplete="off" />
+                            <input type="text" value={controllers.get('Start2')} className="key form__field" id="Start2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Start
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value="KeyR" className="key form__field" id="Select2" autoComplete="off" />
+                            <input type="text" value={controllers.get('Select2')} className="key form__field" id="Select2" autoComplete="off" />
                             <legend className="form__field-label">
                                 Select
                             </legend>
@@ -235,7 +239,7 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
 
                 <section className="dialog-buttons">
                     <button className="retro-button close-button" onClick={closeModal}> Close </button>
-                    <button className="retro-button save-button" onClick={confirmSettings}> Save </button>
+                    <button className="retro-button save-button" type="submit"> Save </button>
                 </section>
             </form>
         </dialog>
