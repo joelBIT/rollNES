@@ -40,7 +40,7 @@ export default function RegisterPage(): ReactElement {
         <main id="registerPage">
             <section id="register-section">
                 <h1 className="register-section__heading"> New to RollNES? </h1>
-                <p className="register-section__text"> Create an account to get personalized settings and functionality. </p>
+                <p className="register-section__text"> Create an account to get personalized settings and services. </p>
 
                 <form id="register-form" autoComplete="off" action={registerUser}>
                     <input autoComplete="false" name="hidden" type="text" style={{"display": "none"}} />

@@ -35,6 +35,10 @@ export default function GamePage(): ReactElement {
                 <section id="game-details">
                     <h2 id="game-information__heading"> {game.title} </h2> 
 
+                    <button className="retro-button">
+                        Add to Favourites
+                    </button>
+
                     <section id="game-reviews">
 
                     </section>
@@ -42,10 +46,6 @@ export default function GamePage(): ReactElement {
                     <h2 id="game-information__description"> 
                         {game.description} 
                     </h2>
-
-                    <button className="retro-button">
-                        Add to Favourites
-                    </button>
                 </section>
             </section>
             

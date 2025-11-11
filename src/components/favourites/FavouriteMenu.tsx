@@ -1,5 +1,5 @@
 import { type ReactElement } from "react";
-import type { Game } from "../../types/types";
+import { useFavourites } from "../../hooks/useFavourites";
 import { FavouriteCard } from "..";
 
 import "./FavouriteMenu.css";
@@ -8,7 +8,7 @@ import "./FavouriteMenu.css";
  * The favourite menu and its content.
  */
 export function FavouriteMenu({show, close}: {show: boolean, close: () => void}): ReactElement {
-    const favourites = [] as Game[];
+    const { favourites } = useFavourites();
 
     return (
         <section className={show? "show-menu" : "hide-menu"}>
