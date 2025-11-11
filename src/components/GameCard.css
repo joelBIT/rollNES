@@ -68,6 +68,11 @@
             }
         }
 
+        & .game-favourite-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         & .game-details__heading {
             font-size: 2rem;
             font-family: "cf-gibson", Helvetica, Arial, sans-serif;

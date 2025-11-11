@@ -11,7 +11,7 @@ import "./PopularGameCard.css";
 export function PopularGameCard({game}: {game: Game}): ReactElement {
     return (
         <section className="popular-game-card">
-            <NavLink to={URL_GAME_PAGE + "/" + game.id} className="popular-game-image" onClick={() => close()}> 
+            <NavLink to={URL_GAME_PAGE + "/" + game.id} className="popular-game-image"> 
                 <img src={COVER_URL + game.cover} alt="Game cover" />
             </NavLink>
 

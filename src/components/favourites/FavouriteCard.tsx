@@ -1,7 +1,7 @@
 import { type ReactElement } from "react";
 import { NavLink } from "react-router";
 import type { Game } from "../../types/types";
-import { URL_GAMES_PAGE } from "../../utils";
+import { COVER_URL, URL_GAMES_PAGE } from "../../utils";
 
 import "./FavouriteCard.css";
 
@@ -9,7 +9,6 @@ import "./FavouriteCard.css";
  * A favourite game. A FavouriteCard represents a game in the FavouriteMenu.
  */
 export function FavouriteCard({game, close}: {game: Game, close: () => void}): ReactElement {
-    const COVER_URL = import.meta.env.VITE_COVER_URL;
 
     function removeGame(id: number): void {
         console.log(id);

@@ -4,6 +4,7 @@ import { isLocalStorageAvailable } from "../utils";
 
 export interface FavouriteGamesContextProvider {
     favourites: Game[];
+    isFavourite: (game_id: number) => boolean;
     addFavourite: (game: Game) => void;
     removeFavouriteById: (id: number) => void;
 }
@@ -54,8 +55,12 @@ export function FavouriteGamesProvider({ children }: { children: ReactNode }): R
         }
     }
 
+    function isFavourite(game_id: number): boolean {
+        return favourites.filter(game => game.id === game_id).length > 0;
+    }
+
     return (
-        <FavouriteGamesContext.Provider value={{ favourites, addFavourite, removeFavouriteById }}>
+        <FavouriteGamesContext.Provider value={{ favourites, isFavourite, addFavourite, removeFavouriteById }}>
             { children }
         </FavouriteGamesContext.Provider>
     );
