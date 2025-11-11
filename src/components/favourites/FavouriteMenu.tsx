@@ -15,7 +15,7 @@ export function FavouriteMenu({show, close}: {show: boolean, close: () => void})
             <section id="favourite-menu-header">
                 <img src="/favourites.svg" id="favourite-games" alt="Favourites icon" title="Favourite Games" />
                 <h2 id="favourites__heading"> Favourite Games </h2>
-                <button id="close-menu-button" onClick={() => close()}> X </button>
+                <button id="close-menu-button" onClick={() => close()}> &#x2715; </button>
             </section>
 
             <section id="favourite-games-list">
