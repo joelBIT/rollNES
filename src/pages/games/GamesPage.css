@@ -1,0 +1,22 @@
+#gamesPage {
+    display: flex;
+    flex-direction: column;
+    background-color: #F2EBE7;
+    gap: 2rem;
+    padding: 2rem;
+
+    & #game-filters-panel {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        background-color: var(--color-white);
+        border-radius: 1rem;
+    }
+
+    & #games-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        flex: 3;
+    }
+}
