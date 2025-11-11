@@ -1,5 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
+import { URL_GAMES_PAGE } from "../../utils";
 
 import "./LandingSlider.css";
 
@@ -56,7 +57,7 @@ export function LandingSlider(): ReactElement {
                             <h2 className="shop-cartridges__heading"> Buy one, get one 50% off</h2>
                             <p className="shop-cartridges__text"> Use code: <b>REST50</b> </p>
 
-                            <NavLink className="shop-button" to="/games">
+                            <NavLink className="shop-button" to={URL_GAMES_PAGE}>
                                 Play Nintendo
                             </NavLink>
                         </section>
