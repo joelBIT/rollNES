@@ -1,0 +1,40 @@
+#teamPage {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-black);
+    padding: 4rem;
+    gap: 1rem;
+
+    & #team__heading {
+        font-family: 'regular-gibson';
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-border);
+        font-size: 1rem;
+    }
+
+    & #team__text {
+        font-family: 'regular-gibson';
+        letter-spacing: 1px;
+        color: var(--color-white);
+        font-size: 2rem;
+    }
+
+    & #team-members {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 4rem;
+        gap: 5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #teamPage {
+        padding: 1rem;
+
+        & #team-members {
+            justify-content: center;
+            padding: 1rem;
+        }
+    }
+}
