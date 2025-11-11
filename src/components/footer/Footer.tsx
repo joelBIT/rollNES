@@ -32,12 +32,8 @@ export function Footer(): ReactElement {
             </section>
 
             <section id="footer-contact">
-                <section id="contact__heading">
                     <span className="material-symbols-outlined"> stacked_email </span>
-                    <h1> Contact </h1>
-                </section>
-                
-                <Link to="mailto:contact@joel-rollny.eu" className="contact__email"> contact@joel-rollny.eu </Link>
+                    <Link to="mailto:contact@joel-rollny.eu" className="contact__email"> contact@joel-rollny.eu </Link>
             </section>
 
             <section id="footer-copyright">
