@@ -1,0 +1,188 @@
+#landing-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & #slide-space {
+        display: flex;
+        width: 100%;
+        height: 40rem;
+
+        & #slides {
+            display: flex;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        & #slide-protectors {
+            padding: 2rem;
+            position: absolute;
+
+            & #shop-protectors {
+                display: flex;
+                flex-direction: column;
+                align-self: center;
+                align-items: center;
+                flex: 1;
+
+                & .shop-protectors__italic {
+                    font-family: "ivy-presto-headline-light";
+                    font-style: italic;
+                    font-size: 30px;
+                }
+
+                & .shop-protectors__heading {
+                    font-family: "ivy-presto-headline-light";
+                    font-size: 3rem;
+                }
+
+                & .shop-protectors__text {
+                    font-family: "brandon-grotesque";
+                    font-size: 18px;
+                    margin-top: 2rem;
+                    margin-bottom: 2rem;
+                }
+            }
+
+            & #shop-protectors__image {
+                display: flex;
+                flex: 1;
+            }
+        }
+
+        & #slide-cartridges {
+            position: relative;
+
+            & #shop-cartridges__image {
+                display: flex;
+                width: 100%;
+
+                & > img {
+                    width: 100%;
+                }
+            }
+
+            & #shop-cartridges {
+                display: flex;
+                flex-direction: column;
+                align-self: flex-start;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                color: var(--color-white);
+                width: 50%;
+
+                & .shop-cartridges__heading {
+                    font-family: "ivy-presto-headline-light";
+                    font-size: 3rem;
+                }
+
+                & .shop-cartridges__text {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 0.5rem;
+                    font-family: "brandon-grotesque";
+                    font-size: 1rem;
+                    margin-top: 1rem;
+                    margin-bottom: 2rem;
+                }
+
+                & .shop-button {
+                    align-self: center;
+                    color: var(--color-black);
+                    background-color: var(--color-white);
+                }
+            }
+        }
+
+        & .slide {
+            animation: 1s ease-in-out hideSlide both;
+        }
+
+        & .slide-reverse {
+            animation: 1s ease-in-out hideSlideReverse both;
+        }
+
+        & .slide,
+        .slide-reverse,
+        .active-slide,
+        .active-slide-reverse {
+            display: flex;
+            height: 40rem;
+            width: 100%;
+        }
+
+        & .active-slide {
+            animation: 1s ease-in-out showSlide both;
+        }
+
+        & .active-slide-reverse {
+            animation: 1s ease-in-out showSlideReverse both;
+        }
+    }
+
+    & #prevButton, #nextButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        width: 3rem;
+        z-index: 5;
+        transition-duration: 0.5s;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    & #prevButton {
+        left: 0;
+    }
+
+    & #nextButton {
+        right: 0;
+    }
+}
+
+@keyframes showSlide {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes hideSlide {
+    from {
+        
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes showSlideReverse {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes hideSlideReverse {
+    from {
+        
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}

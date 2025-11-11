@@ -1,6 +1,70 @@
 #landingPage {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+
+    & #landing-shop-categories {
+        display: flex;
+        flex-direction: column;
+        margin-top: 5rem;
+
+        & #landing-shop-categories__heading {
+            font-family: "ivy-presto-headline-light";
+            font-size: 3rem;
+            letter-spacing: 2px;
+            text-align: left;
+            padding-left: 1rem;
+            padding-bottom: 1rem;
+        }
+    }
+
+    & #landing-bestsellers {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding-top: 5rem;
+        padding-bottom: 3rem;
+
+        & #landing-bestsellers__heading {
+            font-family: "brandon-grotesque";
+            font-size: 2.25rem;
+            font-weight: 100;
+            line-height: 2.8125rem;
+            text-transform: uppercase;
+            letter-spacing: .125rem;
+        }
+
+        & #landing-bestsellers-list {
+            display: flex;
+            gap: 5rem;
+            
+        }
+    }
+
+    & #landing-promises {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        background-color: rgb(238, 242, 244);
+
+        & #landing-promises__heading {
+            font-family: "ivy-presto-headline-light";
+            font-size: 40px;
+            letter-spacing: 3px;
+            font-weight: 400;
+            padding-bottom: 0.5rem;
+        }
+
+        & #landing-promises-list {
+            display: flex;
+            gap: 4rem;
+
+            & .landing-promises-list__heading {
+                font-family: "brandon-grotesque";
+                font-size: 1rem;
+            }
+        }
+    }
 }
