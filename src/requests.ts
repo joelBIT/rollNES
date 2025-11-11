@@ -1,6 +1,7 @@
+import { supabase } from "./components";
 import type { AuthenticationRequest, Game, RegisterRequest } from "./types/types";
 
-
+const GAMES_TABLE = "games";
 
 
 /*****************
@@ -78,4 +79,30 @@ export async function getFavouriteByIdRequest(id: number): Promise<Game> {
     console.log(id);
 
     return {} as Game;
+}
+
+
+
+
+
+
+
+/**********
+ * SEARCH *
+ **********/
+
+/**
+ * Retrieve at most three games that have the supplied word in its title.
+ */
+export async function getThreeMatchingGamesRequest(word: string): Promise<Game[]> {
+    try {
+        const { data } = await supabase.from(GAMES_TABLE).select().ilike("title", `%${word}%`).limit(3);
+        if (data && data?.length > 0) {
+            return data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    return [];
 }

@@ -1,7 +1,7 @@
 import {useEffect, useState, type ReactElement} from "react";
 import type { Game } from "../../types/types";
-import { supabase } from "../App";
 import { TopGameCard } from "./TopGameCard";
+import { getThreeMatchingGamesRequest } from "../../requests";
 
 import "./SearchDropdown.css";
 
@@ -24,10 +24,10 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
         setGameName(name);
         
         if (name.length > 2) {
-            const { data } = await supabase.from("games").select().ilike("title", `%${name}%`).limit(3);
+            const matches = await getThreeMatchingGamesRequest(name);
 
-            if (data && data?.length > 0) {
-                setGameMatches(data);
+            if (matches && matches?.length > 0) {
+                setGameMatches(matches);
             }
         } else {
             setGameMatches([]);
