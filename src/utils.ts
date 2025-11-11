@@ -1,13 +1,19 @@
 import type { Review } from "./types/types";
 
-export const URL_CONTROLLERS_PAGE = "/controllers";
+export const URL_COMPANY_PAGE = "/company";
+export const URL_CONTACT_PAGE = "/contact";
 export const URL_GAME_PAGE = "/game";
 export const URL_GAMES_PAGE = "/games";
+export const URL_HELP_CENTER_PAGE = "/help";
 export const URL_HOME = "/";
 export const URL_LOGIN_PAGE = "/login";
 export const URL_NOT_FOUND_PAGE = "*";
+export const URL_PRIVACY_URL = "/privacy";
 export const URL_REGISTER_PAGE = "/register";
 export const URL_RIGHTS_PAGE = "/rights";
+export const URL_TEAM_PAGE = "/team";
+export const URL_TERMS_PAGE = "/terms";
+export const URL_VISION_PAGE = "/vision";
 
 export const COVER_URL = import.meta.env.VITE_COVER_URL;
 

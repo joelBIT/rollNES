@@ -1,0 +1,99 @@
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-black);
+    width: 100%;
+    padding: 4rem;
+    padding-bottom: 1rem;
+    font-family: brandon-grotesque, sans-serif;
+
+    & #footer-list-links {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 2rem;
+        width: 100%;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    #footer-contact {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 100%;
+        color: var(--color-footer-text);
+        margin-bottom: 2rem;
+
+        & #contact__heading {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+
+            & > h1 {
+                font-size: 1.3rem;
+            }
+        }
+
+        & .contact__email {
+            color: var(--color-footer-text);
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+    }
+
+    & #footer-copyright {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        color: var(--color-footer-text);
+
+        & #footer-copyright__links > a {
+            text-decoration: none;
+            color: var(--color-footer-text);
+        }
+
+        & #footer-social-media {
+            display: flex;
+            gap: 0.9rem;
+
+            & .linkedin,
+            .github,
+            .email {
+                width: 1.5rem;
+                border-radius: 4px;
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    footer {
+        padding: 3rem;
+        padding-bottom: 1rem;
+
+        & #footer-copyright {
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 0.7rem;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    footer {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 400px) {
+    footer {
+        padding: 1rem;
+
+        & #footer-contact {
+            align-items: center;
+        }
+    }
+}
