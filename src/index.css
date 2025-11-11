@@ -56,6 +56,8 @@
     --color-border: #cac1c1;
     --color-contact-icon: #C6A463;
     --color-footer-text: #7D888C;
+    --color-form-border: rgba(255, 255, 255, .25);
+    --color-form-border-bottom: #6b6767;
     --color-logo-background: #f9f9f9;
     --color-message-failure: red;
     --color-modal-background: #19251F;
