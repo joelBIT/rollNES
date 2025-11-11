@@ -1,0 +1,37 @@
+.team-member-card {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    filter: grayscale(1);
+    position: relative;
+
+    & .team-member-photo {
+        border-radius: 9px;
+    }
+
+    & .team-member-name {
+        font-family: "brandon-grotesque", sans-serif;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+        color: var(--color-white);
+        position: absolute;
+        bottom: 3rem;
+        left: 1rem;
+    }
+
+    & .team-member-title {
+        font-family: "brandon-grotesque", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 100;
+        color: var(--color-footer-text);
+        position: absolute;
+        bottom: 1rem;
+        left: 1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .team-member-card {
+        width: 17rem;
+    }
+}

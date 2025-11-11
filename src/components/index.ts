@@ -1,3 +1,4 @@
+export * from "./about/TeamMemberCard";
 export * from "./App";
 export * from "./ControllerModal";
 export * from "./favourites/FavouriteCard";
