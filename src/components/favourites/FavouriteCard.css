@@ -26,6 +26,12 @@
             color: var(--color-black);
         }
 
+        & .favourite-card__players {
+            font-family: brandon-grotesque, sans-serif;
+            font-size: 12px;
+            letter-spacing: .09375rem;
+        }
+
         & .favourite-card__button {
             font-family: "brandon-grotesque";
             text-transform: uppercase;
