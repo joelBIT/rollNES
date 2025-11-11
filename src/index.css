@@ -181,6 +181,43 @@ body {
     }
 }
 
+.sendButton {
+    color: var(--color-white);
+	transition: all 0.3s;
+	position: relative;
+    height: 3rem;
+    cursor: pointer;
+    background: rgba(255, 255, 255, .025);
+    backdrop-filter: blur(10px);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, .25);
+    text-transform: uppercase;
+
+    & .sendButton__text {
+        font-size: 1rem;
+        font-family: "regular-gibson";
+        color: var(--color-heading);
+        letter-spacing: 1px;
+        transition: all 0.3s;
+    }
+
+    &:hover {
+        border: none;
+        filter: brightness(1.4);
+    }
+
+    &:disabled {
+        filter: brightness(0.5);
+        transform: none;
+        border: none;
+
+        &:hover {
+            cursor: default;
+        }
+    }
+}
+
+
 
 
 

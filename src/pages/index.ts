@@ -1,4 +1,5 @@
 export * from "./about/CompanyPage";
+export * from "./about/ContactPage";
 export * from "./about/TeamPage";
 export * from "./about/VisionPage";
 export * from "./auth/LoginPage";
