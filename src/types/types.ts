@@ -45,3 +45,8 @@ export type CreateReview = {
     rating: number,
     review: string
 }
+
+export type FooterLink = {
+    title: string,
+    link: string
+}

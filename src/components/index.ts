@@ -3,6 +3,7 @@ export * from "./ControllerModal";
 export * from "./favourites/FavouriteCard";
 export * from "./favourites/FavouriteMenu";
 export * from "./footer/Divider";
+export * from "./footer/FooterList";
 export * from "./GameCard";
 export * from "./header/Carousel";
 export * from "./header/Header";
