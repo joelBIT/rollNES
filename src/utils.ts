@@ -8,6 +8,8 @@ export const URL_LOGIN_PAGE = "/login";
 export const URL_NOT_FOUND_PAGE = "*";
 export const URL_REGISTER_PAGE = "/register";
 
+export const COVER_URL = import.meta.env.VITE_COVER_URL;
+
 /**
  * Calculates the average rating of the supplied reviews.
  */

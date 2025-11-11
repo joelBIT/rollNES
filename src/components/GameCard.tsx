@@ -2,14 +2,14 @@ import { type ReactElement } from "react";
 import { NavLink } from "react-router";
 import { useFavourites } from "../hooks/useFavourites";
 import type { Game } from "../types/types";
-import { getAverageRating, URL_GAME_PAGE } from "../utils";
+import { COVER_URL, getAverageRating, URL_GAME_PAGE } from "../utils";
 import { Rating } from ".";
 
 import "./GameCard.css";
 
 export function GameCard({game}: { game: Game}): ReactElement {
     const { addFavourite } = useFavourites();
-    const COVER_URL = import.meta.env.VITE_COVER_URL;
+
 
     return (
         <section className="game-card">

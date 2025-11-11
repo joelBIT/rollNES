@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
-import { URL_GAMES_PAGE } from "../../utils";
+import { URL_GAME_PAGE, URL_GAMES_PAGE } from "../../utils";
 
 import "./LandingSlider.css";
 
@@ -32,18 +32,18 @@ export function LandingSlider(): ReactElement {
                 />
 
                 <section id="slides">
-                    <section id="slide-protectors" className={slide === 0 ? isNext ? "active-slide" : "active-slide-reverse" : isNext ? "slide" : "slide-reverse" }>
-                        <section id="shop-protectors">
-                            <h2 className="shop-protectors__italic"> New Improved Plastic </h2>
-                            <h2 className="shop-protectors__heading"> Cartridge Protectors </h2>
-                            <p className="shop-protectors__text"> Protection for your NES cartridges. Now available in bulk. </p>
+                    <section id="slide-battletoads" className={slide === 0 ? isNext ? "active-slide" : "active-slide-reverse" : isNext ? "slide" : "slide-reverse" }>
+                        <section id="game-battletoads">
+                            <h2 className="game-battletoads__italic"> New Improved Formula </h2>
+                            <h2 className="game-battletoads__heading"> Battletoads & Double Dragon </h2>
+                            <p className="game-battletoads__text"> Characters from both series join forces in new adventures. </p>
 
-                            <NavLink className="shop-button" to="/games/8">
+                            <NavLink className="play-button" to={URL_GAME_PAGE + "/113"}>
                                 Play now
                             </NavLink>
                         </section>
 
-                        <section id="shop-protectors__image">
+                        <section id="game-battletoads__image">
                             <img src="/ddbattletoads.jpeg" alt="Battletoads and Double Dragon" />
                         </section>
                     </section>
@@ -54,10 +54,10 @@ export function LandingSlider(): ReactElement {
                         </section>
 
                         <section id="shop-cartridges">
-                            <h2 className="shop-cartridges__heading"> Buy one, get one 50% off</h2>
-                            <p className="shop-cartridges__text"> Use code: <b>REST50</b> </p>
+                            <h2 className="shop-cartridges__heading"> Most common mappers implemented</h2>
+                            <p className="shop-cartridges__text"> Nearly all games supported </p>
 
-                            <NavLink className="shop-button" to={URL_GAMES_PAGE}>
+                            <NavLink className="play-button" to={URL_GAMES_PAGE}>
                                 Play Nintendo
                             </NavLink>
                         </section>

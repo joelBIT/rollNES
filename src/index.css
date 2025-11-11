@@ -134,6 +134,27 @@ main {
     }
 }
 
+.play-button {
+    font-family: "brandon-grotesque";
+    width: fit-content;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    border-radius: 64.5px;
+    padding: 1rem 2rem;
+    font-weight: 450;
+    font-size: 14px;
+    line-height: 14px;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    border: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 
 
 

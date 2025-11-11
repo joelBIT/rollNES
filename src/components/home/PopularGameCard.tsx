@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { NavLink } from "react-router";
 import type { Game } from "../../types/types";
-import { URL_GAME_PAGE } from "../../utils";
+import { COVER_URL, URL_GAME_PAGE } from "../../utils";
 
 import "./PopularGameCard.css";
 
@@ -10,13 +10,13 @@ import "./PopularGameCard.css";
  */
 export function PopularGameCard({game}: {game: Game}): ReactElement {
     return (
-        <section className="top-game-card">
-            <NavLink to={URL_GAME_PAGE + "/" + game.id} className="top-game-image" onClick={() => close()}> 
-                <img src={game.cover} alt="Game cover" />
+        <section className="popular-game-card">
+            <NavLink to={URL_GAME_PAGE + "/" + game.id} className="popular-game-image" onClick={() => close()}> 
+                <img src={COVER_URL + game.cover} alt="Game cover" />
             </NavLink>
 
-            <h3 className="top-game__title"> {game.title} </h3>
-            <h3 className="top-game__players"> {game.players} players </h3>
+            <h3 className="popular-game__title"> {game.title} </h3>
+            <h3 className="popular-game__players"> {game.players} player{game.players > 1 ? "s" : ""} </h3>
         </section>
     );
 }

@@ -14,29 +14,29 @@
             overflow-x: hidden;
         }
 
-        & #slide-protectors {
+        & #slide-battletoads {
             padding: 2rem;
             position: absolute;
 
-            & #shop-protectors {
+            & #game-battletoads {
                 display: flex;
                 flex-direction: column;
                 align-self: center;
                 align-items: center;
                 flex: 1;
 
-                & .shop-protectors__italic {
+                & .game-battletoads__italic {
                     font-family: "ivy-presto-headline-light";
                     font-style: italic;
                     font-size: 30px;
                 }
 
-                & .shop-protectors__heading {
+                & .game-battletoads__heading {
                     font-family: "ivy-presto-headline-light";
                     font-size: 3rem;
                 }
 
-                & .shop-protectors__text {
+                & .game-battletoads__text {
                     font-family: "brandon-grotesque";
                     font-size: 18px;
                     margin-top: 2rem;
@@ -44,7 +44,7 @@
                 }
             }
 
-            & #shop-protectors__image {
+            & #game-battletoads__image {
                 display: flex;
                 flex: 1;
             }
@@ -89,7 +89,7 @@
                     margin-bottom: 2rem;
                 }
 
-                & .shop-button {
+                & .play-button {
                     align-self: center;
                     color: var(--color-black);
                     background-color: var(--color-white);

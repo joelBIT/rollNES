@@ -9,6 +9,7 @@ import GamePage from "./pages/games/GamePage";
 import { GameLoader } from "./loaders/GameLoader";
 import GamesPage from "./pages/games/GamesPage";
 import { GamesLoader } from "./loaders/GamesLoader";
+import { LandingLoader } from "./loaders/LandingLoader";
 
 export const routes = createBrowserRouter([
     {
@@ -17,7 +18,8 @@ export const routes = createBrowserRouter([
         children: [
             {
                 index: true,
-                Component: LandingPage
+                Component: LandingPage,
+                loader: LandingLoader
             },
             {
                 path: URL_GAME_PAGE + "/:id",
