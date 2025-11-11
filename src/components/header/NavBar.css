@@ -11,6 +11,7 @@
         & .navbar__list-element {
             font-family: "regular-gibson", Helvetica, Arial, sans-serif;
             cursor: pointer;
+            text-align: center;
 
             & a {
                 text-decoration: none;

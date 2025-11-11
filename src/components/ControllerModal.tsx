@@ -1,7 +1,7 @@
 import { type ReactElement, useEffect, useRef, useState } from "react";
+import { getControllerConfigurationMap } from "../config/config";
 
 import "./ControllerModal.css";
-import { getControllerConfigurationMap } from "../config/config";
 
 /**
  * Modal used for configuration of player 1 and player 2 controls.
