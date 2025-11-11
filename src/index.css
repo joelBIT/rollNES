@@ -33,6 +33,22 @@
     font-display: fallback;
 }
 
+@font-face {
+    font-family: "itc-avant-garde-gothic-bold";
+    src: url("./static/fonts/itc-avant-garde-gothic-bold.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+}
+
+@font-face {
+    font-family: "itc-avant-garde-gothic-medium";
+    src: url("./static/fonts/itc-avant-garde-gothic-medium.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: fallback;
+}
+
 :root {
     --color-almost-white: #f0f0f0;
     --color-black: black;
@@ -72,10 +88,6 @@ body {
 
 #root {
     min-width: 100vw;
-}
-
-main {
-    padding-top: 2rem;
 }
 
 
