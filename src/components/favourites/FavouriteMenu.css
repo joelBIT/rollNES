@@ -17,7 +17,7 @@
     left: auto;
     right: 0;
     top: 0;
-    max-width: 27.5rem;
+    max-width: 20rem;
     z-index: 99999;
     height: 100vh;
     min-height: 100%;
@@ -28,7 +28,7 @@
         height: fit-content;
         align-items: center;
         justify-content: space-between;
-        width: 27.5rem;
+        width: 20rem;
         border-bottom: 1px solid var(--color-border);
         padding: 0 1rem 0.6rem 1rem;
 
