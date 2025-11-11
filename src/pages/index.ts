@@ -1,3 +1,6 @@
+export * from "./about/CompanyPage";
+export * from "./about/TeamPage";
+export * from "./about/VisionPage";
 export * from "./auth/LoginPage";
 export * from "./auth/RegisterPage";
 export * from "./games/GamePage";

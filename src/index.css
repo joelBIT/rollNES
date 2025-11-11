@@ -54,6 +54,7 @@
     --color-black: black;
     --color-black-light: #2c2c2c;
     --color-border: #cac1c1;
+    --color-contact-icon: #C6A463;
     --color-footer-text: #7D888C;
     --color-logo-background: #f9f9f9;
     --color-message-failure: red;
@@ -108,6 +109,13 @@ body {
 .bit-font {
     font: 1.4rem "Press start 2P";
     font-weight: 700;
+}
+
+.baskervville-sc-regular {
+    font-family: "Baskervville SC", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 

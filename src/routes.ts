@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { URL_GAME_PAGE, URL_GAMES_PAGE, URL_HOME, URL_LOGIN_PAGE, URL_NOT_FOUND_PAGE, URL_REGISTER_PAGE, URL_TEAM_PAGE, URL_VISION_PAGE } from "./utils";
+import { URL_COMPANY_PAGE, URL_GAME_PAGE, URL_GAMES_PAGE, URL_HOME, URL_LOGIN_PAGE, URL_NOT_FOUND_PAGE, URL_REGISTER_PAGE, URL_TEAM_PAGE, URL_VISION_PAGE } from "./utils";
 import { App } from "./components";
 import LandingPage from "./pages/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -10,6 +10,7 @@ import { GameLoader } from "./loaders/GameLoader";
 import GamesPage from "./pages/games/GamesPage";
 import { GamesLoader } from "./loaders/GamesLoader";
 import { LandingLoader } from "./loaders/LandingLoader";
+import CompanyPage from "./pages/about/CompanyPage";
 import TeamPage from "./pages/about/TeamPage";
 import VisionPage from "./pages/about/VisionPage";
 
@@ -18,6 +19,10 @@ export const routes = createBrowserRouter([
         path: URL_HOME,
         Component: App,
         children: [
+            {
+                path: URL_COMPANY_PAGE,
+                Component: CompanyPage
+            },
             {
                 index: true,
                 Component: LandingPage,

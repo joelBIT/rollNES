@@ -1,0 +1,181 @@
+#companyPage {
+    display: flex;
+    flex-direction: column;
+    background-image: url("/company.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+    gap: 1rem;
+
+    & #company-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10rem;
+        padding-top: 10rem;
+        width: 100%;
+        min-height: 80vh;
+        background-image: radial-gradient(at 300px 300px, rgba(1,0,1,.9) 0, #000000 70%);
+
+        & #company-history {
+            display: flex;
+            flex-direction: column;
+            width: 50rem;
+            margin-left: 15%;
+
+            & #company-history__heading {
+                color: var(--color-contact-icon);
+                font-size: 8rem;
+            }
+
+            & #company-history__subheading {
+                font-family: 'regular-gibson';
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: var(--color-border);
+                font-size: 0.8rem;
+                text-align: left;
+            }
+
+            & #company-history__text {
+                align-self: flex-end;
+                font-family: "ivy-presto-headline-light";
+                color: var(--color-white);
+                letter-spacing: 1px;
+                font-size: 1.5rem;
+                width: 70%;
+            }
+        }
+
+        & #company-statistics {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin: 1rem;
+
+            & .company-statistic {
+                display: flex;
+                flex-direction: column;
+                border: 1px solid var(--color-contact-icon);
+                padding: 1rem;
+                width: 190px;
+
+                & .company-icon {
+                    align-self: center;
+                    width: 67px;
+                }
+
+                & .company-statistic__heading {
+                    font-family: "Zen Old Mincho", serif;
+                    font-weight: 900;
+                    font-size: 24px;
+                    color: var(--color-contact-icon);
+                    text-align: left;
+                }
+
+                & .company-statistic__text {
+                    font-family: "Zen Old Mincho", serif;
+                    font-weight: 900;
+                    font-size: 0.9rem;
+                    color: var(--color-white);
+                    text-align: left;
+                }
+            }
+
+            & .customers-border {
+                border-radius: 96px;
+                border-bottom-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            & .ratings-border {
+                border-radius: 96px;
+                border-bottom-right-radius: 0;
+                border-top-left-radius: 0;
+                
+                & .company-statistic__heading,
+                .company-statistic__text {
+                    text-align: right;
+                }
+            }
+
+            & .sold-border {
+                border-radius: 24px;
+
+                & .company-statistic__heading,
+                .company-statistic__text {
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1000px) {
+    #companyPage {
+        & #company-content {
+            padding-top: 8rem;
+
+            & #company-history {
+                margin-left: 5%;
+
+                & #company-history__heading {
+                    align-self: flex-start;
+                    font-size: 6rem;
+                }
+
+                & #company-history__text {
+                    align-self: center;
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    #companyPage {
+        & #company-content {
+            & #company-history {
+                width: 90%;
+
+                & #company-history__heading {
+                    font-size: 4.5rem;
+                }
+
+                & #company-history__text {
+                    text-align: left;
+                    width: 100%;
+                    padding-left: 2rem;
+                    padding-right: 2rem;
+                    font-size: 1rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    #companyPage {
+        & #company-content {
+            padding-top: 4rem;
+
+            & #company-history {
+                width: 95%;
+
+                & #company-history__heading {
+                    font-size: 3rem;
+                }
+
+                & #company-history__text {
+                    font-size: 0.9rem;
+                }
+            }
+
+            & #company-statistics {
+                flex-direction: column;
+                align-content: center;
+                gap: 4rem;
+            }
+        }
+    }
+}
