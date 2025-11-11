@@ -24,17 +24,9 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
         setGameName(name);
         
         if (name.length > 2) {
-            const query = supabase.from("games").select();
-            const { data } = await query.textSearch("title", `'${name.split(" ").join(" & ")}'`, {config: "english"}).limit(3);
+            const { data } = await supabase.from("games").select().ilike("title", `%${name}%`).limit(3);
 
             if (data && data?.length > 0) {
-                for (let i = 0; i < data?.length; i++) {
-                    if (data[i]?.cover) {
-                        const response = await supabase.storage.from('covers').download(data[i].cover);
-                        data[i].cover = response.data ? response.data : null;
-                    }
-                }
-                
                 setGameMatches(data);
             }
         } else {
