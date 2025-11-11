@@ -108,7 +108,7 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         <dialog autoFocus id="controllerModal" ref={modalRef} className="modal-dialog">
             <h1 className="modal-text bit-font"> {text} </h1>
 
-            <form method="dialog" className="modal-content" action={confirmSettings}>
+            <form className="modal-content" action={confirmSettings}>
                 <section className="controllers">
                     <section className="player1-controller">
                         <h2 className="bit-font">Player 1</h2>

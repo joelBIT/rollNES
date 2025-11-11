@@ -1,8 +1,8 @@
 import { useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
+import { Rating, ReviewCard } from "../../components";
 import { getAverageRating } from "../../utils";
 import type { Game, Review } from "../../types/types";
-import { Rating, ReviewCard } from "..";
 
 import "./GamePage.css";
 
