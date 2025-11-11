@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export type Button = {
     button: string,
     value: string
@@ -49,4 +51,9 @@ export type CreateReview = {
 export type FooterLink = {
     title: string,
     link: string
+}
+
+export type FrequentlyAskedQuestion = {
+    question: string,
+    answer: ReactNode
 }
