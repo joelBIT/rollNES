@@ -1,6 +1,5 @@
-import { useEffect, useState, type ReactElement } from "react";
+import { useEffect, type ReactElement } from "react";
 import { getControllerConfiguration } from '../config/config';
-import { ControllerModal } from "../components/ControllerModal";
 
 import "./LandingPage.css";
 
@@ -9,7 +8,6 @@ const gameId = urlParams.get('id');
 const worker = new Worker('./src/emulator.js',{ type: "module" });
 
 export default function LandingPage(): ReactElement {
-  const [ openModal, setOpenModal ] = useState<boolean>(false);
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
     let userInteraction: boolean = false;
@@ -122,11 +120,6 @@ export default function LandingPage(): ReactElement {
         <main id="landingPage">
             <button className='retro-button' onClick={startGame}> Start Game </button>
             <canvas id="canvas" width="256" height="240"></canvas>
-            <button className='retro-button' onClick={() => setOpenModal(true)}> Controller Configuration </button>
-
-            { 
-                openModal ? <ControllerModal text="Customize controllers" close={() => setOpenModal(false)} /> : <></>
-            }
         </main>
     )
 }

@@ -1,25 +1,30 @@
 import { useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
 import {URL_GAMES_PAGE} from "../../utils";
+import { ControllerModal } from "..";
 
 import "./NavBar.css";
 
 export function NavBar(): ReactElement {
-    const [ showMenu, setShowMenu ] = useState<boolean>(false);
+    const [ openModal, setOpenModal ] = useState<boolean>(false);
 
     return (
         <nav id="navbar">
-            <ul className={showMenu ? "navbar__list showmenu" : "navbar__list"}>
-                <li>
+            <ul className="navbar__list">
+                <li className="navbar__list-element">
                     <NavLink to={URL_GAMES_PAGE}>
-                        <h2 onClick={() => setShowMenu(!showMenu)}> Games </h2>
+                        <span className="material-symbols-outlined" title="Game list"> list_alt </span>
                     </NavLink>
                 </li>
-            </ul>
 
-            <div id="hamburger" onClick={() => setShowMenu(!showMenu)}>
-                <img src={showMenu ? "/close_icon.svg" : "/hamburger_icon.svg"} alt="Hamburger menu" />
-            </div>
+                <li className="navbar__list-element">
+                    <span className="material-symbols-outlined" onClick={() => setOpenModal(true)} title="Game controllers"> videogame_asset </span>
+
+                    { 
+                        openModal ? <ControllerModal text="Customize controllers" close={() => setOpenModal(false)} /> : <></>
+                    }
+                </li>
+            </ul>
         </nav>
     );
 }
