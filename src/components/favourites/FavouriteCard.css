@@ -26,7 +26,8 @@
             color: var(--color-black);
         }
 
-        & .favourite-card__players {
+        & .favourite-card__players,
+        .favourite-card__category {
             font-family: brandon-grotesque, sans-serif;
             font-size: 12px;
             letter-spacing: .09375rem;
@@ -37,6 +38,7 @@
             text-transform: uppercase;
             color: var(--color-text-heading);
             font-size: 9px;
+            margin-top: 0.4rem;
 
             &:hover {
                 cursor: pointer;

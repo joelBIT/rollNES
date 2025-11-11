@@ -39,6 +39,11 @@
             display: flex;
             justify-content: space-between;
 
+            & .game-favourite-icon {
+                cursor: pointer;
+                font-size: 1.5rem;
+            }
+
             & .game-reviews-summary {
                 text-align: center;
             }

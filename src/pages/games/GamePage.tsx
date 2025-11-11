@@ -1,15 +1,17 @@
 import { useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
 import { Rating, ReviewCard } from "../../components";
-import { getAverageRating } from "../../utils";
+import { COVER_URL, getAverageRating } from "../../utils";
 import type { Game, Review } from "../../types/types";
+import { useFavourites } from "../../hooks/useFavourites";
 
 import "./GamePage.css";
 
 export default function GamePage(): ReactElement {
     const game = useLoaderData() as Game;
     const [sortedReviews, setSortedReviews] = useState<Review[]>(game.reviews ?? []);
-    const COVER_URL = import.meta.env.VITE_COVER_URL;
+    const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
+    const favourite = isFavourite(game.id);
 
     /**
      * Sort reviews according to selected option.
@@ -37,9 +39,9 @@ export default function GamePage(): ReactElement {
                     <h2 id="game-information__heading"> {game.title} </h2> 
 
                     <section className="reviews-and-favourite-button">
-                        <button className="retro-button">
-                            Add to Favourites
-                        </button>
+                        <h2 className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
+                            {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <h2>&#9825;</h2>}
+                        </h2>
 
                         <section className="game-reviews-summary">
                             <Rating rating={getAverageRating(game.reviews)} />
