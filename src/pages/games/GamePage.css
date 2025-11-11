@@ -27,12 +27,21 @@
         display: flex;
         flex-direction: column;
         flex: 10;
-        gap: 1rem;
+        gap: 3rem;
         text-align: left;
 
         & #game-information__heading {
             font-family: "cf-gibson", Helvetica, Arial, sans-serif;
             font-size: 2rem;
+        }
+
+        & .reviews-and-favourite-button {
+            display: flex;
+            justify-content: space-between;
+
+            & .game-reviews-summary {
+                text-align: center;
+            }
         }
 
         & #game-information__description {

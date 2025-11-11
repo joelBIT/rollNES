@@ -16,6 +16,7 @@ export default function GamePage(): ReactElement {
      */
     function sortReviews(sort: string): void {
         const reviewsToSort = [...sortedReviews];
+
         if (sort === "name") {
             const sorted = reviewsToSort.sort((a, b) => a.reviewer_name.localeCompare(b.reviewer_name));
             setSortedReviews(sorted);
@@ -35,12 +36,15 @@ export default function GamePage(): ReactElement {
                 <section id="game-details">
                     <h2 id="game-information__heading"> {game.title} </h2> 
 
-                    <button className="retro-button">
-                        Add to Favourites
-                    </button>
+                    <section className="reviews-and-favourite-button">
+                        <button className="retro-button">
+                            Add to Favourites
+                        </button>
 
-                    <section id="game-reviews">
-
+                        <section className="game-reviews-summary">
+                            <Rating rating={getAverageRating(game.reviews)} />
+                            <p> {game.reviews?.length} review{game.reviews?.length > 1 || game.reviews?.length === 0 ? "s" : ""} </p>
+                        </section>
                     </section>
 
                     <h2 id="game-information__description"> 
