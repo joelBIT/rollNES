@@ -6,7 +6,7 @@ import type { Game } from "../types/types";
  */
 export const LandingLoader = async (): Promise<Game[]> => {
     try {
-        const { data } = await supabase.from("games").select().in("id", [172, 816, 107, 289]);
+        const { data } = await supabase.from("games").select().in("id", [172, 816, 739, 289]);
 
         if (data) {
             return data;
