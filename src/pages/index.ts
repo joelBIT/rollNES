@@ -8,3 +8,5 @@ export * from "./games/GamePage";
 export * from "./games/GamesPage";
 export * from "./LandingPage";
 export * from "./NotFoundPage";
+export * from "./resources/HelpCenterPage";
+export * from "./resources/ManageRightsPage";

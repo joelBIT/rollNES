@@ -1,0 +1,62 @@
+#manageRightsPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding: 4rem;
+    background-color: var(--color-black);
+
+    & #manageRightsPage__heading {
+        font-family: 'regular-gibson';
+        letter-spacing: 1px;
+        font-size: 3rem;
+        text-transform: uppercase;
+        color: var(--color-text-heading);
+    }
+
+    & .privacy-rights {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 60rem;
+        text-align: left;
+
+        & .privacy-rights__heading {
+            font-family: 'regular-gibson';
+            letter-spacing: 1px;
+            font-size: 2rem;
+            color: var(--color-white);
+        }
+
+        & .privacy-rights__text {
+            font-family: "itc-avant-garde-gothic-medium";
+            font-size: 1.1rem;
+            color: var(--color-footer-text);
+        }
+    }
+}
+
+@media (max-width: 1100px) {
+    #manageRightsPage {
+        padding: 2rem;
+
+        & .privacy-rights {
+            width: 90%;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    #manageRightsPage {
+        padding: 1rem;
+        padding-bottom: 3rem;
+
+        & #manageRightsPage__heading {
+            font-size: 2.3rem;
+        }
+
+        & .privacy-rights {
+            width: 100%;
+        }
+    }
+}
