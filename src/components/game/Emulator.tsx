@@ -1,13 +1,13 @@
 import { useEffect, type ReactElement } from "react";
-import { getControllerConfiguration } from '../config/config';
+import { getControllerConfiguration } from "../../config/config";
 
-import "./EmulatorPage.css";
+import "./Emulator.css";
 
 const urlParams = new URLSearchParams(window.location.search);
 const gameId = urlParams.get('id');
 const worker = new Worker('./src/emulator.js',{ type: "module" });
 
-export default function EmulatorPage(): ReactElement {
+export function Emulator(): ReactElement {
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
     let userInteraction: boolean = false;
@@ -117,9 +117,10 @@ export default function EmulatorPage(): ReactElement {
     };
 
     return (
-        <main id="emulatorPage">
+        <section id="emulator">
             <button className='retro-button' onClick={startGame}> Start Game </button>
             <canvas id="canvas" width="256" height="240"></canvas>
-        </main>
+            <h2>Controls</h2>
+        </section>
     )
 }

@@ -1,7 +1,6 @@
 #gamePage {
     display: flex;
     flex-direction: column;
-    gap: 5rem;
     padding: 2rem;
 
     & .tabs {
@@ -30,6 +29,8 @@
     & #game-top {
         display: flex;
         flex-direction: row;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
         gap: 4rem;
     }
     
