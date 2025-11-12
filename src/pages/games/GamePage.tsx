@@ -10,6 +10,8 @@ import "./GamePage.css";
 export default function GamePage(): ReactElement {
     const game = useLoaderData() as Game;
     const [sortedReviews, setSortedReviews] = useState<Review[]>(game.reviews ?? []);
+    const [tabTitles] = useState<string[]>(["Details", "Play"]);
+    const [active, setActive] = useState<string>(tabTitles[0]);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
     const favourite = isFavourite(game.id);
 
@@ -30,6 +32,22 @@ export default function GamePage(): ReactElement {
 
     return (
         <main id="gamePage">
+            <section className="tabs">
+                {
+                    tabTitles.map((title) => (
+                        <section
+                            key={title}
+                            className={active === title ? "tab selected" : "tab"}
+                            onClick={() => setActive(title)}
+                        >
+                            {title}
+                        </section>
+                    ))
+                }
+            </section>
+
+            {active === tabTitles[0] ? 
+
             <section id="game-top">
                 <section id="game-images">
                     <img src={COVER_URL + game?.cover} alt="Game cover" />
@@ -54,6 +72,10 @@ export default function GamePage(): ReactElement {
                     </h2>
                 </section>
             </section>
+
+            : 
+            
+            <></>}
             
             <section id="game-bottom">
                 <section id="game-reviews">

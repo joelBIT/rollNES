@@ -8,7 +8,7 @@ export * from "./footer/Divider";
 export * from "./footer/Footer";
 export * from "./footer/FooterList";
 export * from "./footer/Newsletter";
-export * from "./GameCard";
+export * from "./game/GameCard";
 export * from "./header/Carousel";
 export * from "./header/Header";
 export * from "./header/HeaderBanner";

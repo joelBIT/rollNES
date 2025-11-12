@@ -1,9 +1,9 @@
 import { type ReactElement } from "react";
 import { NavLink } from "react-router";
-import { useFavourites } from "../hooks/useFavourites";
-import type { Game } from "../types/types";
-import { COVER_URL, getAverageRating, URL_GAME_PAGE } from "../utils";
-import { Rating } from ".";
+import { useFavourites } from "../../hooks/useFavourites";
+import type { Game } from "../../types/types";
+import { COVER_URL, getAverageRating, URL_GAME_PAGE } from "../../utils";
+import { Rating } from "..";
 
 import "./GameCard.css";
 
