@@ -10,7 +10,7 @@ import "./GamePage.css";
 export default function GamePage(): ReactElement {
     const game = useLoaderData() as Game;
     const [sortedReviews, setSortedReviews] = useState<Review[]>(game.reviews ?? []);
-    const [tabTitles] = useState<string[]>(["Details", "Play"]);
+    const tabTitles = ["Details", "Play"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
     const favourite = isFavourite(game.id);
@@ -74,7 +74,7 @@ export default function GamePage(): ReactElement {
             </section>
 
             : 
-                <Emulator />
+                <Emulator gameId={game.id} />
             }
             
             <section id="game-bottom">

@@ -3,11 +3,8 @@ import { getControllerConfiguration } from "../../config/config";
 
 import "./Emulator.css";
 
-const urlParams = new URLSearchParams(window.location.search);
-const gameId = urlParams.get('id');
-const worker = new Worker('./src/emulator.js',{ type: "module" });
-
-export function Emulator(): ReactElement {
+export function Emulator({gameId}: {gameId: number}): ReactElement {
+    let worker: Worker;
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
     let userInteraction: boolean = false;
@@ -18,19 +15,18 @@ export function Emulator(): ReactElement {
      * too much lag. The Audio Context and Audio Source are also initialized when the page has loaded.
      */
     useEffect(() => {
-        if (audioContext) {
-            return;     // transferControlToOffscreen() has already executed (can only run once)
-        }
-
         try {
-            const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
-            worker.postMessage({ canvas: canvas }, [canvas]);
+            if (!worker) {
+                worker = new Worker('../../src/emulator.js',{ type: "module" });
+                const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
+                worker.postMessage({ canvas: canvas }, [canvas]);
+            }
         } catch (error) {
             console.log(error);
         }
-      
+
         audioContext = new AudioContext();
-        nesWorkletNode = audioContext.audioWorklet.addModule('./src/apu-worklet.js', { credentials: "omit" }).then(() => {
+        nesWorkletNode = audioContext.audioWorklet.addModule('../../src/apu-worklet.js', { credentials: "omit" }).then(() => {
             nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
             nesWorkletNode.connect(audioContext.destination);
             const source = audioContext.createBufferSource();
@@ -41,8 +37,9 @@ export function Emulator(): ReactElement {
                 } else {
                     console.log('Failed to post message on AudioWorkletNode');
                 }
-              
+            
             };
+
         }).catch(error => console.log(error));
 
         document.addEventListener("keyup", keyUpEventLogger, true);
@@ -52,6 +49,7 @@ export function Emulator(): ReactElement {
         return () => {
             document.removeEventListener("keyup", keyUpEventLogger);
             document.removeEventListener("keydown", keyDownEventLogger);
+            audioContext.close();
         };
     }, []);
 
