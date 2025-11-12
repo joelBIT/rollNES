@@ -39,9 +39,9 @@ export default function GamePage(): ReactElement {
                     <h2 id="game-information__heading"> {game.title} </h2> 
 
                     <section className="reviews-and-favourite-button">
-                        <h2 className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
+                        <article className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
                             {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <h2>&#9825;</h2>}
-                        </h2>
+                        </article>
 
                         <section className="game-reviews-summary">
                             <Rating rating={getAverageRating(game.reviews)} />
