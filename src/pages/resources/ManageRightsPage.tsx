@@ -11,7 +11,7 @@ export default function ManageRightsPage(): ReactElement {
             <h2 id="manageRightsPage__heading"> Data Rights Notice </h2>
 
             <section className="privacy-rights">
-                <h2 className="privacy-rights__heading"> Game additions </h2>
+                <h2 className="privacy-rights__heading"> Game support </h2>
 
                 <p className="privacy-rights__text">
                     RollNES has a legitimate interest in using your email address to notify you when support for new games have been added. 

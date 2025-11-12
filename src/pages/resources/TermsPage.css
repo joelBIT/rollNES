@@ -1,0 +1,73 @@
+#termsPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding: 4rem;
+
+    & #termsPage__heading {
+        font-family: 'Zen Old Mincho';
+        font-size: 3rem;
+        text-transform: uppercase;
+    }
+
+    & .terms-sections {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 60rem;
+        text-align: left;
+
+        & .terms-sections__heading {
+            font-family: 'Zen Old Mincho';
+            font-size: 2rem;
+        }
+
+        & .terms-sections__text {
+            font-family: 'Zen Old Mincho';
+            font-size: 1.3rem;
+        }
+
+        & .terms-sections__list {
+            font-family: 'Zen Old Mincho';
+            font-size: 1.3rem;
+            margin-left: 4rem;
+        }
+    }
+}
+
+@media (max-width: 1100px) {
+    #termsPage {
+        padding: 2rem;
+
+        & .terms-sections {
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    #termsPage {
+        padding: 1rem;
+        padding-bottom: 3rem;
+
+        & #termsPage__heading {
+            font-size: 2rem;
+        }
+
+        & .terms-sections {
+            & .terms-sections__heading {
+                font-size: 1.4rem;
+            }
+
+            & .terms-sections__text {
+                font-size: 1rem;
+            }
+
+            & .terms-sections__list {
+                font-size: 1rem;
+                margin-left: 2rem;
+            }
+        }
+    }
+}

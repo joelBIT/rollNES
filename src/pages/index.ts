@@ -10,3 +10,4 @@ export * from "./LandingPage";
 export * from "./NotFoundPage";
 export * from "./resources/HelpCenterPage";
 export * from "./resources/ManageRightsPage";
+export * from "./resources/TermsPage";
