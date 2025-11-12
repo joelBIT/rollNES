@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { URL_COMPANY_PAGE, URL_CONTACT_PAGE, URL_GAME_PAGE, URL_GAMES_PAGE, URL_HOME, URL_LOGIN_PAGE, URL_NOT_FOUND_PAGE, URL_REGISTER_PAGE, URL_TEAM_PAGE, URL_VISION_PAGE } from "./utils";
+import { URL_COMPANY_PAGE, URL_CONTACT_PAGE, URL_GAME_PAGE, URL_GAMES_PAGE, URL_HELP_CENTER_PAGE, URL_HOME, URL_LOGIN_PAGE, URL_NOT_FOUND_PAGE, URL_REGISTER_PAGE, URL_TEAM_PAGE, URL_VISION_PAGE } from "./utils";
 import { App } from "./components";
 import LandingPage from "./pages/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -14,6 +14,7 @@ import CompanyPage from "./pages/about/CompanyPage";
 import TeamPage from "./pages/about/TeamPage";
 import VisionPage from "./pages/about/VisionPage";
 import ContactPage from "./pages/about/ContactPage";
+import HelpCenterPage from "./pages/resources/HelpCenterPage";
 
 export const routes = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ export const routes = createBrowserRouter([
                 path: URL_GAMES_PAGE,
                 Component: GamesPage,
                 loader: GamesLoader
+            },
+            {
+                path: URL_HELP_CENTER_PAGE,
+                Component: HelpCenterPage
             },
             {
                 path: URL_LOGIN_PAGE,

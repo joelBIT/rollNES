@@ -33,7 +33,7 @@ export function Carousel(): ReactElement {
 
             <section id="slide-space">
                 <h1 className={slide === 0 ? "active" : "inactive"}> PLAY NES GAMES IN A BROWSER </h1>
-                <h1 className={slide === 1 ? "active" : "inactive"}> NEW: BATTLE TOADS VS DOUBLE DRAGON <NavLink to={`${URL_GAME_PAGE}/113`}> PLAY NOW </NavLink> </h1>
+                <h1 className={slide === 1 ? "active" : "inactive"}> NEW: BATTLETOADS VS DOUBLE DRAGON <NavLink to={`${URL_GAME_PAGE}/113`}> PLAY NOW </NavLink> </h1>
                 <h1 className={slide === 2 ? "active" : "inactive"}> CONTINUOUSLY UPDATED WITH MORE GAMES </h1>
             </section>
 

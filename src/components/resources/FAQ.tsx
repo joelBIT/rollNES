@@ -18,7 +18,7 @@ export function FAQ({ faq }: { faq: FrequentlyAskedQuestion }): ReactElement {
             </section>
 
             <div className={isShowing ? "accordion-panel dropdown" : "accordion-panel"}>
-                <p className="accordion__text"> { faq.answer } </p>
+                <article className="accordion__text"> { faq.answer } </article>
             </div>
         </section>
     );

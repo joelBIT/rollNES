@@ -5,7 +5,7 @@ import type { Game } from "../types/types";
  * Retrieve games from backend.
  */
 export const GamesLoader = async (): Promise<Game[]> => {
-    const { data } = await supabase.from("games").select().limit(10).order("title");
+    const { data } = await supabase.from("games").select().eq("rom", true).limit(10).order("title");    // Only retrieve games that are playable
 
     if (data) {
         const games = [];
