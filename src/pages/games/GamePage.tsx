@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
 import { Emulator, Rating, ReviewCard } from "../../components";
 import { COVER_URL, getAverageRating } from "../../utils";
@@ -14,6 +14,10 @@ export default function GamePage(): ReactElement {
     const [active, setActive] = useState<string>(tabTitles[0]);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
     const favourite = isFavourite(game.id);
+
+    useEffect(() => {
+        setActive(tabTitles[0]);    // Always show Details tab as default when choosing a new game
+    }, [game.id])
 
     /**
      * Sort reviews according to selected option.
