@@ -7,7 +7,6 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
     let worker: Worker;
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
-    let userInteraction: boolean = false;
 
     /**
      * The control of the canvas is transferred to the NES worker thread when the page has been loaded. As a result, the
@@ -26,21 +25,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
         }
 
         audioContext = new AudioContext();
-        nesWorkletNode = audioContext.audioWorklet.addModule('../../src/apu-worklet.js', { credentials: "omit" }).then(() => {
-            nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
-            nesWorkletNode.connect(audioContext.destination);
-            const source = audioContext.createBufferSource();
-            source.buffer = audioContext.createBuffer(2, audioContext.sampleRate, audioContext.sampleRate);
-            worker.onmessage = function(message) {
-                if (nesWorkletNode instanceof AudioWorkletNode) {
-                    nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
-                } else {
-                    console.log('Failed to post message on AudioWorkletNode');
-                }
-            
-            };
-
-        }).catch(error => console.log(error));
+        initSound();
 
         document.addEventListener("keyup", keyUpEventLogger, true);
         document.addEventListener("keydown", keyDownEventLogger, true);
@@ -52,6 +37,27 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
             audioContext.close();
         };
     }, []);
+
+    async function initSound(): Promise<void> {
+        await audioContext.audioWorklet.addModule('../../src/apu-worklet.js', { credentials: "omit" });
+        if (!(nesWorkletNode instanceof AudioWorkletNode)) {
+            nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
+        }
+
+        if (nesWorkletNode && nesWorkletNode instanceof AudioWorkletNode) {
+            nesWorkletNode.connect(audioContext.destination);
+        }
+        
+        const source = audioContext.createBufferSource();
+        source.buffer = audioContext.createBuffer(2, audioContext.sampleRate, audioContext.sampleRate);
+        worker.onmessage = function(message) {
+            if (nesWorkletNode instanceof AudioWorkletNode) {
+                nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
+            } else {
+                console.log('Failed to post message on AudioWorkletNode');
+            }
+        };
+    }
 
     /**
      * Loads a game from query parameter 'id' if available.
@@ -86,10 +92,6 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
      */
     async function startGame(): Promise<void> {
         await getRom();
-        if (navigator.userActivation.isActive && !userInteraction) {    // A user needs to interact with the page before the audio context can be resumed
-            userInteraction = true;
-            audioContext.resume();
-        }
     }
 
     /**
@@ -99,11 +101,6 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
      */
     const keyUpEventLogger = function(event: any) {
         worker.postMessage({event: 'keyup', value: event.code});
-
-        if (navigator.userActivation.isActive && !userInteraction) {    // A user needs to interact with the page before the audio context can be resumed
-            userInteraction = true;
-            audioContext.resume();
-        }
     };
 
     const keyDownEventLogger = function(event: any) {
