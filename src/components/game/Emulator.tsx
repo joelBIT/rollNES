@@ -41,7 +41,11 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
     async function initSound(): Promise<void> {
         await audioContext.audioWorklet.addModule('../../src/apu-worklet.js', { credentials: "omit" });
         if (!(nesWorkletNode instanceof AudioWorkletNode)) {
-            nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
+            try {
+                nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
+            } catch (error) {
+                console.log(error);
+            }
         }
 
         if (nesWorkletNode && nesWorkletNode instanceof AudioWorkletNode) {
@@ -88,22 +92,15 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
     }
 
     /**
-     * Start game and enable sound when user clicks on the start button.
-     */
-    async function startGame(): Promise<void> {
-        await getRom();
-    }
-
-    /**
      * |*************************|
      * | Handle controller input |
      * |*************************|
      */
-    const keyUpEventLogger = function(event: any) {
+    function keyUpEventLogger(event: any): void {
         worker.postMessage({event: 'keyup', value: event.code});
     };
 
-    const keyDownEventLogger = function(event: any) {
+    function keyDownEventLogger(event: any): void {
         worker.postMessage({event: 'keydown', value: event.code});
 
         if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
@@ -113,9 +110,9 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
 
     return (
         <section id="emulator">
-            <button className='retro-button' onClick={startGame}> Start Game </button>
+            <h2>D-Pad</h2>
             <canvas id="canvas" width="256" height="240"></canvas>
-            <h2>Controls</h2>
+            <h2>Buttons</h2>
         </section>
     )
 }
