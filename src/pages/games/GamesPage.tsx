@@ -6,11 +6,11 @@ import { GameCard } from "../../components";
 import "./GamesPage.css";
 
 /**
- * Page for filtering playable games.
+ * Page for filtering playable games. A user can choose how many of the filtered games to show on the page.
  */
 export default function GamesPage(): ReactElement {
-    const { games, allCategories, matchesFilter } = useGames();
-    const [ filteredGames ] = useState<Game[]>(games.slice(0, 10));
+    const { filteredGames, allCategories, matchesFilter, addFilter } = useGames();
+    const [ reducedGames ] = useState<Game[]>(filteredGames.slice(0, 10));
 
     return (
         <main id="gamesPage">
@@ -23,10 +23,16 @@ export default function GamesPage(): ReactElement {
 
                     {
                         allCategories().map(category => 
-                            <article className="filter-card-collapsible">
+                            <article className="filter-card-collapsible" key={category}>
                                 <section className="filter-card-body">
                                     <section className="filter-card-body-data">
-                                        <input type="checkbox" name={`category-${category}`} id={`category-${category}`} />
+                                        <input 
+                                            type="checkbox" 
+                                            name={`category-${category}`} 
+                                            id={`category-${category}`} 
+                                            onClick={() => addFilter("category", category)} 
+                                        />
+
                                         <h3 className="filter-card-body-data__title"> {category} </h3>
                                     </section>
                                     
@@ -67,7 +73,7 @@ export default function GamesPage(): ReactElement {
 
             <section id="games-list">
                 {
-                    filteredGames?.length > 0 ? filteredGames.map(game => <GameCard key={game.id} game={game} />) : ""
+                    reducedGames?.length > 0 ? reducedGames.map(game => <GameCard key={game.id} game={game} />) : ""
                 }
             </section>
         </main>

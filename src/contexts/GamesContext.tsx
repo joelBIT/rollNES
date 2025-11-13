@@ -36,17 +36,23 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
 
     /**
+     * Apply selected filters on games.
+     */
+    function applyFilters(): void {
+        let result = [...games];
+        for (let i = 0; i > filters.length; i++) {
+            result = result.filter(game => game[filters[i].type] === filters[i].value);
+        }
+
+        setFilteredGames(result);
+    }
+
+    /**
      * Remove specific filter when a user deactivates corresponding filter option. 
      */
     function removeFilter(type: Filter, value: string): void {
         setFilters((_oldValues) => filters.filter(filter => filter.type !== type && filter.value !== value));
-
-        const result = [...games];
-        for (let i = 0; i > filters.length; i++) {
-
-        }
-
-        setFilteredGames(result);
+        applyFilters();
     }
 
     /**
@@ -54,7 +60,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      */
     function addFilter(type: Filter, value: string): void {
         setFilters([...filters, {type, value}]);
-        setFilteredGames(filteredGames.filter(game => game[type] === value));
+        applyFilters();
     }
 
     /**
