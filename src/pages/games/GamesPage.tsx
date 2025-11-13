@@ -11,6 +11,8 @@ export default function GamesPage(): ReactElement {
     const { filteredGames, allCategories, matchesFilter, addFilter, removeFilter } = useGames();
     const [isShowingCategory, setIsShowingCategory] = useState(false);
     const [isShowingRange, setIsShowingRange] = useState(false);
+    const [minRange] = useState<number>(filteredGames.length > 10 ? 10 : filteredGames.length);     // Minimum 10 games are rendered on the page (or fewer due to chosen filters)
+    const [numberGamesShowing, setNumberGamesShowing] = useState<number>(minRange);
 
     return (
         <main id="gamesPage">
@@ -51,7 +53,7 @@ export default function GamesPage(): ReactElement {
 
                     <article className={isShowingRange ? "filter-card-collapsible dropdown" : "filter-card-collapsible"}>
                         <section className="filter-card-body">
-                            <RangeSlider max={filteredGames.length} />
+                            <RangeSlider min={minRange} max={filteredGames.length} setSliderValue={setNumberGamesShowing} />
                         </section>
                     </article>
                 </section>
@@ -71,7 +73,7 @@ export default function GamesPage(): ReactElement {
 
             <section id="games-list">
                 {
-                    filteredGames?.length > 0 ? filteredGames.slice(0, 10).map(game => <GameCard key={game.id} game={game} />) : ""
+                    filteredGames?.length > 0 ? filteredGames.slice(0, numberGamesShowing).map(game => <GameCard key={game.id} game={game} />) : ""
                 }
             </section>
         </main>
