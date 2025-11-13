@@ -8,7 +8,6 @@ import RegisterPage from "./pages/auth/RegisterPage";
 import GamePage from "./pages/games/GamePage";
 import { GameLoader } from "./loaders/GameLoader";
 import GamesPage from "./pages/games/GamesPage";
-import { GamesLoader } from "./loaders/GamesLoader";
 import { LandingLoader } from "./loaders/LandingLoader";
 import CompanyPage from "./pages/about/CompanyPage";
 import TeamPage from "./pages/about/TeamPage";
@@ -44,8 +43,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: URL_GAMES_PAGE,
-                Component: GamesPage,
-                loader: GamesLoader
+                Component: GamesPage
             },
             {
                 path: URL_HELP_CENTER_PAGE,

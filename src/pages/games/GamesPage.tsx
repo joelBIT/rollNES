@@ -1,15 +1,16 @@
 import { useEffect, useState, type ReactElement } from "react";
-import { useLoaderData, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
+import { useGames } from "../../hooks/useGames";
 import type { Game } from "../../types/types";
 import { GameCard } from "../../components";
 
 import "./GamesPage.css";
 
 export default function GamesPage(): ReactElement {
-    const games = useLoaderData() as Game[];
+    const { games } = useGames();
     const [ searchParams ] = useSearchParams();
     const category = searchParams.get("category") as string;
-    const [ filteredGames, setFilteredGames ] = useState<Game[]>(games);
+    const [ filteredGames, setFilteredGames ] = useState<Game[]>(games.slice(0, 10));
     const [ activeCategory, setActiveCategory ] = useState<string>(category ? category : "");
 
     useEffect(() => {
