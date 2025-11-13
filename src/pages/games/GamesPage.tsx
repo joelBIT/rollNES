@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
-import { GameCard } from "../../components";
+import { GameCard, RangeSlider } from "../../components";
 
 import "./GamesPage.css";
 
@@ -10,6 +10,7 @@ import "./GamesPage.css";
 export default function GamesPage(): ReactElement {
     const { filteredGames, allCategories, matchesFilter, addFilter, removeFilter } = useGames();
     const [isShowingCategory, setIsShowingCategory] = useState(false);
+    const [isShowingRange, setIsShowingRange] = useState(false);
 
     return (
         <main id="gamesPage">
@@ -43,16 +44,14 @@ export default function GamesPage(): ReactElement {
                 </section>
 
                 <section className="game-filters-panel__accordion">
-                    <article className="filter-card-header"> 
-                        <span className="rotate-up">  &#94; </span>
+                    <article className="filter-card-header" onClick={() => setIsShowingRange(!isShowingRange)}> 
+                        <span className={isShowingRange ? "rotate-down" : "rotate-up"}> &#94; </span>
                         <h5 className="filter-card-title"> Result Range </h5>
                     </article>
 
-                    <article className="filter-card-collapsible">
+                    <article className={isShowingRange ? "filter-card-collapsible dropdown" : "filter-card-collapsible"}>
                         <section className="filter-card-body">
-                            <section className="filter-card-body-data">
-                                
-                            </section>
+                            <RangeSlider max={filteredGames.length} />
                         </section>
                     </article>
                 </section>

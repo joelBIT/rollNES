@@ -10,6 +10,7 @@ export * from "./footer/FooterList";
 export * from "./footer/Newsletter";
 export * from "./game/Emulator";
 export * from "./game/GameCard";
+export * from "./game/RangeSlider";
 export * from "./header/Carousel";
 export * from "./header/Header";
 export * from "./header/HeaderBanner";
