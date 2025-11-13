@@ -26,19 +26,19 @@ export default function LandingPage(): ReactElement {
                 <h2 id="landing-promises__heading"> Our Promises </h2>
 
                 <section id="landing-promises-list">
-                    <section id="landing-promises-shipping">
-                        <img src="/shipping.webp" alt="Shipping image" />
-                        <h2 className="landing-promises-list__heading"> Free Shipping Over $50 </h2>
+                    <section className="landing-promises">
+                        <img src="/response.webp" alt="Fast Response image" />
+                        <h2 className="landing-promises-list__heading"> Fast Response Times </h2>
                     </section>
 
-                    <section id="landing-promises-warranty">
+                    <section className="landing-promises">
                         <img src="/warranty.webp" alt="Warranty image" />
                         <h2 className="landing-promises-list__heading"> Two Year Warranty </h2>
                     </section>
 
-                    <section id="landing-promises-return">
-                        <img src="/returns.webp" alt="Return products image" />
-                        <h2 className="landing-promises-list__heading"> Easy Returns </h2>
+                    <section className="landing-promises">
+                        <img src="/wishlist.webp" alt="Wishlist image" />
+                        <h2 className="landing-promises-list__heading"> Wishlist Achievements </h2>
                     </section>
                 </section>
             </section>

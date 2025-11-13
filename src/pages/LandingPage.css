@@ -45,9 +45,13 @@
             display: flex;
             gap: 4rem;
 
-            & .landing-promises-list__heading {
-                font-family: "brandon-grotesque";
-                font-size: 1rem;
+            & .landing-promises {
+                text-align: center;
+
+                & .landing-promises-list__heading {
+                    font-family: "brandon-grotesque";
+                    font-size: 1rem;
+                }
             }
         }
     }
