@@ -8,6 +8,7 @@ export interface GamesContextProvider {
     filters: AppliedFilter[];
     addFilter: (type: Filter, value: string) => void;
     removeFilter: (type: Filter, value: string) => void;
+    allCategories: () => string[];
 }
 
 export const GamesContext = createContext<GamesContextProvider>({} as GamesContextProvider);
@@ -37,7 +38,14 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Remove specific filter when a user deactivates corresponding filter option. 
      */
     function removeFilter(type: Filter, value: string): void {
-        setFilters(filters.filter(filter => filter.type !== type && filter.value !== value));
+        setFilters((_oldValues) => filters.filter(filter => filter.type !== type && filter.value !== value));
+
+        const result = [...games];
+        for (let i = 0; i > filters.length; i++) {
+
+        }
+
+        setFilteredGames(result);
     }
 
     /**
@@ -45,10 +53,18 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      */
     function addFilter(type: Filter, value: string): void {
         setFilters([...filters, {type, value}]);
+        setFilteredGames(filteredGames.filter(game => game[type] === value));
+    }
+
+    /**
+     * Returns a list containing all game categories.
+     */
+    function allCategories(): string[] {
+        return Array.from(new Set(games.map(game => game.category)));
     }
 
     return (
-        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter }}>
+        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter, allCategories }}>
             { children }
         </GamesContext.Provider>
     );

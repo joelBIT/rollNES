@@ -58,7 +58,7 @@ export type FrequentlyAskedQuestion = {
     answer: ReactNode
 }
 
-export type Filter = "category" | "players" | "publisher" | "developer" | "rating";
+export type Filter = "category" | "players" | "publisher" | "developer";
 
 export type AppliedFilter = {
     type: Filter,

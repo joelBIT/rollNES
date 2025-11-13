@@ -2,7 +2,7 @@ import { supabase } from "./components";
 import type { AuthenticationRequest, Game, RegisterRequest } from "./types/types";
 
 const GAMES_TABLE = "games";
-
+const FILTERS_TABLE = "filters";
 
 
 
