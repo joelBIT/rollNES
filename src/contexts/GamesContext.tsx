@@ -8,6 +8,7 @@ export interface GamesContextProvider {
     filters: AppliedFilter[];
     addFilter: (type: Filter, value: string) => void;
     removeFilter: (type: Filter, value: string) => void;
+    matchesFilter: (type: Filter, value: string) => number;
     allCategories: () => string[];
 }
 
@@ -57,14 +58,21 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
 
     /**
-     * Returns a list containing all game categories.
+     * Returns a sorted list containing all unique game categories.
      */
     function allCategories(): string[] {
-        return Array.from(new Set(games.map(game => game.category)));
+        return Array.from(new Set(games.map(game => game.category))).sort((a, b) => a.localeCompare(b));
+    }
+
+    /**
+     * Returns number of games matching supplied filter.
+     */
+    function matchesFilter(type: Filter, value: string): number {
+        return games.filter(game => game[type] === value).length;
     }
 
     return (
-        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter, allCategories }}>
+        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter, matchesFilter, allCategories }}>
             { children }
         </GamesContext.Provider>
     );

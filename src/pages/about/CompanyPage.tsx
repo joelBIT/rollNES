@@ -25,7 +25,7 @@ export default function CompanyPage(): ReactElement {
                     <section className="company-statistic sold-border">
                         <img src="/sold-products.svg" className="company-icon" alt="Sold products icon" title="Sold Products in total" />
                         <h2 className="company-statistic__heading"> Retro Games </h2>
-                        <p className="company-statistic__text"> 900+ </p>
+                        <p className="company-statistic__text"> 660+ </p>
                     </section>
 
                     <section className="company-statistic customers-border">
