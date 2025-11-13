@@ -20,7 +20,7 @@
             & .filter-card-header {
                 display: flex;
                 align-items: flex-start;
-                gap: 0.3rem;
+                gap: 0.5rem;
                 padding: 1rem;
                 border-bottom: 1px solid var(--color-border);
 
@@ -29,15 +29,27 @@
                     cursor: pointer;
                 }
 
-                & .filter-card-header__caret {
+                .rotate-down,
+                .rotate-up {
                     width: 10px;
-                    transform: scaleX(2);
+                    font-size: 1rem;
+                    transition: transform 0.2s ease-in-out;
+                    text-align: center;
+                }
+
+                .rotate-down {
+                    transform: scaleX(2) rotate(180deg);
+                }
+
+                .rotate-up {
+                    transform: scaleY(2) rotate(90deg);
                 }
 
                 & .filter-card-title {
                     font-family: 'regular-gibson';
                     font-size: 1rem;
                     font-weight: 100;
+                    align-self: flex-end;
                 }
             }
 

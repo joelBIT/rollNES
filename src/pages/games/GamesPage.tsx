@@ -16,7 +16,7 @@ export default function GamesPage(): ReactElement {
             <section id="game-filters-panel">
                 <section className="game-filters-panel__accordion">
                     <article className="filter-card-header" onClick={() => setIsShowingCategory(!isShowingCategory)}> 
-                        <span className="filter-card-header__caret"> &#94; </span>
+                        <span className={isShowingCategory ? "rotate-down" : "rotate-up"}> &#94; </span>
                         <h5 className="filter-card-title"> Category </h5>
                     </article>
 
@@ -44,7 +44,7 @@ export default function GamesPage(): ReactElement {
 
                 <section className="game-filters-panel__accordion">
                     <article className="filter-card-header"> 
-                        <img src="/caret-down.svg" className="filter-card-header__caret" />
+                        <span className="rotate-up">  &#94; </span>
                         <h5 className="filter-card-title"> Result Range </h5>
                     </article>
 
