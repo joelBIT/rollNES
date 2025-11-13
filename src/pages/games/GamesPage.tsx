@@ -1,4 +1,4 @@
-import { type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
 import { GameCard } from "../../components";
 
@@ -9,19 +9,20 @@ import "./GamesPage.css";
  */
 export default function GamesPage(): ReactElement {
     const { filteredGames, allCategories, matchesFilter, addFilter, removeFilter } = useGames();
+    const [isShowingCategory, setIsShowingCategory] = useState(false);
 
     return (
         <main id="gamesPage">
             <section id="game-filters-panel">
                 <section className="game-filters-panel__accordion">
-                    <article className="filter-card-header"> 
-                        <img src="/caret-down.svg" className="filter-card-header__caret" />
+                    <article className="filter-card-header" onClick={() => setIsShowingCategory(!isShowingCategory)}> 
+                        <span className="filter-card-header__caret"> &#94; </span>
                         <h5 className="filter-card-title"> Category </h5>
                     </article>
 
                     {
                         allCategories().map(category => 
-                            <article className="filter-card-collapsible" key={category}>
+                            <article className={isShowingCategory ? "filter-card-collapsible dropdown" : "filter-card-collapsible"} key={category}>
                                 <section className="filter-card-body">
                                     <section className="filter-card-body-data">
                                         <input 
