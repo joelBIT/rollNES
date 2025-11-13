@@ -12,7 +12,7 @@
         background-color: var(--color-white);
         border-radius: 1rem;
 
-        & .game-filters-panel__category-accordion {
+        & .game-filters-panel__accordion {
             display: flex;
             flex-direction: column;
 

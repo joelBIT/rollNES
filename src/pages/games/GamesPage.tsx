@@ -26,7 +26,7 @@ export default function GamesPage(): ReactElement {
     return (
         <main id="gamesPage">
             <section id="game-filters-panel">
-                <section className="game-filters-panel__category-accordion">
+                <section className="game-filters-panel__accordion">
                     <article className="filter-card-header"> 
                         <img src="/caret-down.svg" className="filter-card-header__caret" />
                         <h5 className="filter-card-title"> Category </h5>
@@ -35,11 +35,26 @@ export default function GamesPage(): ReactElement {
                     <article className="filter-card-collapsible">
                         <section className="filter-card-body">
                             <section className="filter-card-body-data">
-                                <input type="checkbox" name={`category-action`}/>
+                                <input type="checkbox" name={`category-action`} id={`category-action`} />
                                 <h3 className="filter-card-body-data__title"> Action </h3>
                             </section>
                             
                             <h3 className="filter-card-body-data__amount"> 256 </h3>
+                        </section>
+                    </article>
+                </section>
+
+                <section className="game-filters-panel__accordion">
+                    <article className="filter-card-header"> 
+                        <img src="/caret-down.svg" className="filter-card-header__caret" />
+                        <h5 className="filter-card-title"> Result Range </h5>
+                    </article>
+
+                    <article className="filter-card-collapsible">
+                        <section className="filter-card-body">
+                            <section className="filter-card-body-data">
+                                
+                            </section>
                         </section>
                     </article>
                 </section>
