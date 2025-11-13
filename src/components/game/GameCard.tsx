@@ -36,9 +36,9 @@ export function GameCard({game}: { game: Game}): ReactElement {
                     <p> {game.reviews?.length} review{game.reviews?.length > 1 || game.reviews?.length === 0 ? "s" : ""} </p>
                 </section>
 
-                <h2 className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
+                <section className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
                     {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <h2>&#9825;</h2>}
-                </h2>
+                </section>
             </section>
         </section>
     );

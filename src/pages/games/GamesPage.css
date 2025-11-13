@@ -1,6 +1,6 @@
 #gamesPage {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: #F2EBE7;
     gap: 2rem;
     padding: 2rem;
@@ -11,11 +11,91 @@
         flex: 1;
         background-color: var(--color-white);
         border-radius: 1rem;
+
+        & .game-filters-panel__category-accordion {
+            display: flex;
+            flex-direction: column;
+
+            & .filter-card-header {
+                display: flex;
+                align-items: center;
+                gap: 0.3rem;
+                padding: 1rem;
+                border-bottom: 1px solid var(--color-border);
+
+                & .filter-card-header__caret {
+                    width: 18px;
+                }
+
+                & .filter-card-title {
+                    font-family: 'regular-gibson';
+                    font-size: 1rem;
+                    font-weight: 100;
+                }
+            }
+
+            & .filter-card-collapsible {
+                display: flex;
+                
+                & .filter-card-body {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                    padding: 1rem;
+
+                    & .filter-card-body-data {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+
+                        & > input {
+                            position: relative;
+                            height: 20px;
+                            width: 20px;
+                            cursor: pointer;
+                            appearance: none;
+                            border: 1px solid var(--color-black);
+
+                            &::before {
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                text-align: center;
+                                white-space: pre;
+                                content: " ";
+                            }
+
+                            &:checked::before {
+                                background-color: var(--color-black);
+                                color: var(--color-white);
+                                content: "\2713";
+                                font-size: 1.4rem;
+                                line-height: 20px;
+                            }
+                        }
+
+                        & .filter-card-body-data__title {
+                            font-family: 'regular-gibson';
+                            font-size: 1rem;
+                            font-weight: 100;
+                        }
+                    }
+
+                    & .filter-card-body-data__amount {
+                        font-family: 'regular-gibson';
+                        font-size: 1rem;
+                        font-weight: 100;
+                    }
+                }
+            }
+        }
     }
 
     & #games-list {
         display: flex;
         flex-direction: column;
+        align-items: flex-end;
         gap: 2rem;
         flex: 3;
     }
