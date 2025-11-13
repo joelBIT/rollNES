@@ -37,6 +37,8 @@
 
             & .filter-card-collapsible {
                 display: flex;
+                padding-left: 0.5rem;
+                padding-right: 1rem;
                 
                 & .filter-card-body {
                     display: flex;

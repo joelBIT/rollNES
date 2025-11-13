@@ -1,6 +1,5 @@
-import { useState, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
-import type { Game } from "../../types/types";
 import { GameCard } from "../../components";
 
 import "./GamesPage.css";
@@ -9,8 +8,7 @@ import "./GamesPage.css";
  * Page for filtering playable games. A user can choose how many of the filtered games to show on the page.
  */
 export default function GamesPage(): ReactElement {
-    const { filteredGames, allCategories, matchesFilter, addFilter } = useGames();
-    const [ reducedGames ] = useState<Game[]>(filteredGames.slice(0, 10));
+    const { filteredGames, allCategories, matchesFilter, addFilter, removeFilter } = useGames();
 
     return (
         <main id="gamesPage">
@@ -30,7 +28,7 @@ export default function GamesPage(): ReactElement {
                                             type="checkbox" 
                                             name={`category-${category}`} 
                                             id={`category-${category}`} 
-                                            onClick={() => addFilter("category", category)} 
+                                            onClick={(e) => (e.target as HTMLInputElement).checked ? addFilter("category", category) : removeFilter("category", category)} 
                                         />
 
                                         <h3 className="filter-card-body-data__title"> {category} </h3>
@@ -73,7 +71,7 @@ export default function GamesPage(): ReactElement {
 
             <section id="games-list">
                 {
-                    reducedGames?.length > 0 ? reducedGames.map(game => <GameCard key={game.id} game={game} />) : ""
+                    filteredGames?.length > 0 ? filteredGames.slice(0, 10).map(game => <GameCard key={game.id} game={game} />) : ""
                 }
             </section>
         </main>
