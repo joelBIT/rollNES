@@ -110,9 +110,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
 
     return (
         <section id="emulator">
-            <h2>D-Pad</h2>
             <canvas id="canvas" width="256" height="240"></canvas>
-            <h2>Buttons</h2>
         </section>
     )
 }
