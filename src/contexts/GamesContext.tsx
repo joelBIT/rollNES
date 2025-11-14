@@ -36,15 +36,19 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
 
     /**
-     * Apply selected filters on games.
+     * Apply selected filters on games. If no filters are chosen, return all games.
+     * Filters within the same type are mutually inclusive. Filters are mutually exclusive between types.
      */
     function applyFilters(filters: AppliedFilter[]): void {
-        let result = [...games];
+        if (filters.length === 0) {
+            setFilteredGames([...games]);
+        }
+        let result = [] as Game[];
         for (let i = 0; i < filters.length; i++) {
-            result = result.filter(game => game[filters[i].type] === filters[i].value);
+            result = result.concat(games.filter(game => game[filters[i].type] === filters[i].value));
         }
 
-        setFilteredGames([...result]);
+        setFilteredGames([...Array.from(new Set(result))]);
     }
 
     /**
@@ -52,8 +56,8 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      */
     function removeFilter(type: Filter, value: string): void {
         const updatedFilters = filters.filter(filter => filter.type !== type && filter.value !== value);
-        setFilters((_oldValues) => _oldValues.filter(filter => filter.type !== type && filter.value !== value));
         applyFilters(updatedFilters);
+        setFilters((_oldValues) => _oldValues.filter(filter => filter.type !== type && filter.value !== value));
     }
 
     /**
