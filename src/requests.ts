@@ -2,7 +2,7 @@ import { supabase } from "./components";
 import type { AuthenticationRequest, Game, RegisterRequest } from "./types/types";
 
 const GAMES_TABLE = "games";
-
+const NEWSLETTER_TABLE = "newsletter";
 
 
 
@@ -128,4 +128,29 @@ export async function getThreeMatchingGamesRequest(word: string): Promise<Game[]
     }
 
     return [];
+}
+
+
+
+
+
+
+/**************
+ * NEWSLETTER *
+ **************/
+
+/**
+ * Function for subsribing to the newsletter.
+ */
+export async function subscribeToNewsletterRequest(email: string): Promise<void> {
+    const { error } = await supabase.from(NEWSLETTER_TABLE).insert({ email });
+    if (error) {
+        console.log(error);
+
+        if (error.code == '23505' && error.details.includes("email")) {
+            throw new Error(`The email ${email} has already subscribed`);
+        }
+
+        throw new Error(`Failed to subscribe`);
+    }
 }

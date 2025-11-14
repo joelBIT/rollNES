@@ -67,7 +67,10 @@
     --color-slider-knob: #04AA6D;
     --color-star-orange: #F2C265;
     --color-star-gray: #a9a9a9;
+    --color-success: #45ca4e;
     --color-text-heading: #D23C3C;
+    --color-warning: #ff3737;
+    --color-warning-text: #cb6f6f;
     --color-white: white;
 }
 
@@ -327,4 +330,35 @@ body {
     line-height: 1;
     height: auto;
     outline: none;
+}
+
+
+
+
+/*********************************************
+* Styling for messages when submitting forms *
+*********************************************/
+
+.message-success, 
+.message-failure {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content;
+    align-self: center;
+    padding: 0.2rem 0.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.message-success {
+    color: var(--color-success);
+    border: 2px solid var(--color-success);
+    background-color: hsl(from var(--color-success) h s l / 0.2);
+}
+
+.message-failure {
+    color: var(--color-warning-text);
+    border: 2px solid var(--color-warning);
+    background-color: hsl(from var(--color-warning) h s l / 0.2);
 }

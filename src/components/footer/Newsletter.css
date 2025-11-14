@@ -21,6 +21,11 @@
             text-transform: none;
         }
 
+        & .message-failure,
+        .message-success {
+            margin-top: 1rem;
+        }
+
         & #news-letter__text {
             font-family: Inter, Times New Roman, arial, sans-serif;
             color: var(--color-white);
