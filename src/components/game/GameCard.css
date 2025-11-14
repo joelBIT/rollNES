@@ -31,6 +31,7 @@
 
         & .game-information__link {
             text-decoration: none;
+            width: fit-content;
             transition: color 0.5s;
 
             &:visited {
