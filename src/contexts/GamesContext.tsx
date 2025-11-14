@@ -10,6 +10,7 @@ export interface GamesContextProvider {
     removeFilter: (type: Filter, value: string) => void;
     matchesFilter: (type: Filter, value: string) => number;
     allCategories: () => string[];
+    allPlayers: () => number[];
 }
 
 export const GamesContext = createContext<GamesContextProvider>({} as GamesContextProvider);
@@ -47,6 +48,10 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
 
         let result = [] as Game[];
         for (let i = 0; i < filters.length; i++) {
+            if (filters[i].type === "players") {
+                result = result.concat(games.filter(game => game[filters[i].type] === parseInt(filters[i].value)));
+                continue;
+            }
             result = result.concat(games.filter(game => game[filters[i].type] === filters[i].value));
         }
 
@@ -78,14 +83,24 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
 
     /**
+     * Returns a sorted list containing all unique number of possible players in games.
+     */
+    function allPlayers(): number[] {
+        return Array.from(new Set(games.map(game => game.players))).sort((a, b) => a - b);
+    }
+
+    /**
      * Returns number of games matching supplied filter.
      */
     function matchesFilter(type: Filter, value: string): number {
+        if (type === "players") {
+            return games.filter(game => game[type] === parseInt(value)).length;
+        }
+
         return games.filter(game => game[type] === value).length;
     }
-
     return (
-        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter, matchesFilter, allCategories }}>
+        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter, matchesFilter, allCategories, allPlayers }}>
             { children }
         </GamesContext.Provider>
     );
