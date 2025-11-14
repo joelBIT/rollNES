@@ -42,7 +42,9 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     function applyFilters(filters: AppliedFilter[]): void {
         if (filters.length === 0) {
             setFilteredGames([...games]);
+            return;
         }
+
         let result = [] as Game[];
         for (let i = 0; i < filters.length; i++) {
             result = result.concat(games.filter(game => game[filters[i].type] === filters[i].value));
@@ -55,9 +57,9 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Remove specific filter when a user deactivates corresponding filter option. 
      */
     function removeFilter(type: Filter, value: string): void {
-        const updatedFilters = filters.filter(filter => filter.type !== type && filter.value !== value);
+        const updatedFilters = filters.filter(filter => filter.type !== type || (filter.type === type && filter.value !== value));
         applyFilters(updatedFilters);
-        setFilters((_oldValues) => _oldValues.filter(filter => filter.type !== type && filter.value !== value));
+        setFilters((_oldValues) => [...updatedFilters]);
     }
 
     /**
