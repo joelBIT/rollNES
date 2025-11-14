@@ -11,6 +11,7 @@ export interface GamesContextProvider {
     matchesFilter: (type: Filter, value: string) => number;
     allCategories: () => string[];
     allPlayers: () => number[];
+    allPublishers: () => string[];
 }
 
 export const GamesContext = createContext<GamesContextProvider>({} as GamesContextProvider);
@@ -83,6 +84,13 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
 
     /**
+     * Returns a sorted list containing all unique game publishers.
+     */
+    function allPublishers(): string[] {
+        return Array.from(new Set(games.map(game => game.publisher))).sort((a, b) => a.localeCompare(b));
+    }
+
+    /**
      * Returns a sorted list containing all unique number of possible players in games.
      */
     function allPlayers(): number[] {
@@ -100,7 +108,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
         return games.filter(game => game[type] === value).length;
     }
     return (
-        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter, matchesFilter, allCategories, allPlayers }}>
+        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter, matchesFilter, allCategories, allPlayers, allPublishers }}>
             { children }
         </GamesContext.Provider>
     );

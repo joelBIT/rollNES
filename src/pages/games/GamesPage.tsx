@@ -8,10 +8,11 @@ import "./GamesPage.css";
  * Page for filtering playable games. A user can choose how many of the filtered games to show on the page.
  */
 export default function GamesPage(): ReactElement {
-    const { filteredGames, allCategories, allPlayers, matchesFilter, addFilter, removeFilter } = useGames();
+    const { filteredGames, allCategories, allPlayers, allPublishers, matchesFilter, addFilter, removeFilter } = useGames();
     const [isShowingCategory, setIsShowingCategory] = useState(false);
     const [isShowingRange, setIsShowingRange] = useState(false);
     const [isShowingPlayers, setIsShowingPlayers] = useState(false);
+    const [isShowingPublishers, setIsShowingPublishers] = useState(false);
     const [minRange] = useState<number>(filteredGames.length > 10 ? 10 : filteredGames.length);     // Minimum 10 games are rendered on the page (or fewer due to chosen filters)
     const [numberGamesShowing, setNumberGamesShowing] = useState<number>(minRange);
 
@@ -77,7 +78,7 @@ export default function GamesPage(): ReactElement {
                                             onClick={(e) => (e.target as HTMLInputElement).checked ? addFilter("players", players + "") : removeFilter("players", players + "")} 
                                         />
 
-                                        <h3 className="filter-card-body-data__title"> {players} </h3>
+                                        <h3 className="filter-card-body-data__title"> {players} player{players > 1 ? "s" : ""} </h3>
                                     </section>
                                     
                                     <h3 className="filter-card-body-data__amount"> { matchesFilter("players", players + "") } </h3>
@@ -87,8 +88,32 @@ export default function GamesPage(): ReactElement {
                     }
                 </section>
 
-                <section className="game-filters-panel__publisher-accordion">
-                    
+                <section className="game-filters-panel__accordion">
+                    <article className="filter-card-header" onClick={() => setIsShowingPublishers(!isShowingPublishers)}> 
+                        <span className={isShowingPublishers ? "rotate-down" : "rotate-up"}> &#94; </span>
+                        <h5 className="filter-card-title"> Publisher </h5>
+                    </article>
+
+                    {
+                        allPublishers().map(publisher => 
+                            <article className={isShowingPublishers ? "filter-card-collapsible dropdown" : "filter-card-collapsible"} key={publisher}>
+                                <section className="filter-card-body">
+                                    <section className="filter-card-body-data">
+                                        <input 
+                                            type="checkbox" 
+                                            name={`category-${publisher}`} 
+                                            id={`category-${publisher}`} 
+                                            onClick={(e) => (e.target as HTMLInputElement).checked ? addFilter("publisher", publisher) : removeFilter("publisher", publisher)} 
+                                        />
+
+                                        <h3 className="filter-card-body-data__title"> {publisher} </h3>
+                                    </section>
+                                    
+                                    <h3 className="filter-card-body-data__amount"> { matchesFilter("publisher", publisher) } </h3>
+                                </section>
+                            </article>
+                        )
+                    }
                 </section>
 
                 <section className="game-filters-panel__developer-accordion">
