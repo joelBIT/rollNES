@@ -10,7 +10,7 @@ export interface GamesContextProvider {
     removeFilter: (type: Filter, value: string) => void;
     matchesFilter: (type: Filter, value: string) => number;
     allCategories: () => string[];
-    allPlayers: () => number[];
+    allPlayers: () => string[];
     allPublishers: () => string[];
     allDevelopers: () => string[];
 }
@@ -101,8 +101,8 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     /**
      * Returns a sorted list containing all unique number of possible players in games.
      */
-    function allPlayers(): number[] {
-        return Array.from(new Set(games.map(game => game.players))).sort((a, b) => a - b);
+    function allPlayers(): string[] {
+        return Array.from(new Set(games.map(game => game.players))).sort((a, b) => a - b).map(players => players.toString());
     }
 
     /**
