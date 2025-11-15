@@ -17,22 +17,6 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         if (!modalRef.current?.open) {
             modalRef.current?.showModal();
         }
-
-        for (const key of keys) {
-            key.addEventListener('focus', removeInputCharacter);
-            key.addEventListener('focusout', addDefaultValueIfEmpty);
-            key.addEventListener('keydown', setKeyCode);
-            key.addEventListener('keyup', setDefaultValueIfKeyCodeMissing);
-        }
-
-        return () => {
-            for (const key of keys) {
-                key.removeEventListener('focus', removeInputCharacter);
-                key.removeEventListener('focusout', addDefaultValueIfEmpty);
-                key.removeEventListener('keydown', setKeyCode);
-                key.removeEventListener('keyup', setDefaultValueIfKeyCodeMissing);
-            }
-        };
     }, [])
     
     function closeModal(): void {
@@ -49,37 +33,11 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         console.log(formData);
         console.log(formData.get("A"));
         if (inputRef.current?.value && inputRef.current?.value.length > 0) {
-            saveConfigurations(player1, player2);
+            saveConfigurations();
             setShowMessage(false);
             closeModal();
         } else {
             setShowMessage(true);
-        }
-    }
-
-    /**
-     *  Remove the input character in order to prepare the field for the pressed key's code.
-     */
-    function removeInputCharacter(event: any) {
-        event.target.value = '';
-    }
-
-    /**
-     *  If input text field is empty when focus is removed, add the button's default value instead.
-     */
-    function addDefaultValueIfEmpty(event: any) {
-        event.target.classList.remove('missing');
-        if (!event.target.value) {
-            event.target.value = event.target.defaultValue;
-        }
-    }
-
-    /**
-     *  Set default value if button has no value.
-     */
-    function setDefaultValueIfKeyCodeMissing(event: any) {
-        if (!event.code) {
-            event.target.value = event.target.defaultValue;
         }
     }
 
@@ -114,56 +72,121 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                         <h2 className="bit-font">Player 1</h2>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player1.up.value} className="key form__field" id={player1.up.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player1.up.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player1.up.button} 
+                                autoComplete="off" 
+                            />
+
                             <legend className="form__field-label">
                                 Up
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player1.down.value} className="key form__field" id={player1.down.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player1.down.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player1.down.button} 
+                                autoComplete="off" 
+                            />
+
                             <legend className="form__field-label">
                                 Down
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player1.left.value} className="key form__field" id={player1.left.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player1.left.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player1.left.button} 
+                                autoComplete="off" 
+                            />
+
                             <legend className="form__field-label">
                                 Left
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player1.right.value} className="key form__field" id={player1.right.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player1.right.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player1.right.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Right
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player1.a.value} className="key form__field" id={player1.a.button} autoComplete="off" name="A" />
+                            <input 
+                                type="text" 
+                                defaultValue={player1.a.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player1.a.button} 
+                                autoComplete="off" 
+                                name="A" 
+                            />
+                            
                             <legend className="form__field-label">
                                 A
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player1.b.value} className="key form__field" id={player1.b.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player1.b.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player1.b.button} 
+                                autoComplete="off" 
+                            />
+
                             <legend className="form__field-label">
                                 B
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player1.start.value} className="key form__field" id={player1.start.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player1.start.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player1.start.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Start
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player1.select.value} className="key form__field" id={player1.select.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player1.select.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player1.select.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Select
                             </legend>
@@ -173,56 +196,120 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                     <section className="player2-controller">
                         <h2 className="bit-font">Player 2</h2>
                         <fieldset className="controller-input">
-                            <input type="text" value={player2.up.value} className="key form__field" id={player2.up.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player2.up.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player2.up.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Up
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player2.down.value} className="key form__field" id={player2.down.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player2.down.value} 
+                                className="key form__field"
+                                onKeyDown={setKeyCode} 
+                                id={player2.down.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Down
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player2.left.value} className="key form__field" id={player2.left.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player2.left.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player2.left.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Left
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player2.right.value} className="key form__field" id={player2.right.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player2.right.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player2.right.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Right
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player2.a.value} className="key form__field" id={player2.a.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player2.a.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player2.a.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 A
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player2.b.value} className="key form__field" id={player2.b.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player2.b.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player2.b.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 B
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player2.start.value} className="key form__field" id={player2.start.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player2.start.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player2.start.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Start
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={player2.select.value} className="key form__field" id={player2.select.button} autoComplete="off" />
+                            <input 
+                                type="text" 
+                                defaultValue={player2.select.value} 
+                                className="key form__field" 
+                                onKeyDown={setKeyCode}
+                                id={player2.select.button} 
+                                autoComplete="off" 
+                            />
+                            
                             <legend className="form__field-label">
                                 Select
                             </legend>

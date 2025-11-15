@@ -7,7 +7,7 @@ export interface GameControllerContextProvider {
     player1: GameController;
     player2: GameController;
     getControllersConfiguration: () => Button[];
-    saveConfigurations: (player1: GameController, player2: GameController) => void;
+    saveConfigurations: () => void;
 }
 
 export const GameControllerContext = createContext<GameControllerContextProvider>({} as GameControllerContextProvider);
@@ -33,12 +33,19 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
     }
 
     /**
-     * Store new controller configurations in localstorage, if available.
+     * Store controller configurations in localstorage, if available. The current configuration of player1 and player2 is stored.
      */
-    function saveConfigurations(player1: GameController, player2: GameController): void {
+    function saveConfigurations(): void {
         if (isLocalStorageAvailable()) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify({player1, player2}));
         }        
+    }
+
+    /**
+     * Update a button configuration.
+     */
+    function updateButton(button: Button): void {
+
     }
 
     /**
