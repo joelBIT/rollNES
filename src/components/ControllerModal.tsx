@@ -10,7 +10,7 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
     const [ showMessage, setShowMessage ] = useState<boolean>(false);
     const modalRef = useRef<HTMLDialogElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const { player1, player2 } = useControllers();
+    const { player1, player2, saveConfigurations } = useControllers();
     const keys = document.getElementsByClassName('key') as HTMLCollectionOf<HTMLInputElement>;
 
     useEffect(() => {
@@ -49,8 +49,8 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         console.log(formData);
         console.log(formData.get("A"));
         if (inputRef.current?.value && inputRef.current?.value.length > 0) {
+            saveConfigurations(player1, player2);
             setShowMessage(false);
-            confirm(inputRef.current?.value as string);
             closeModal();
         } else {
             setShowMessage(true);
