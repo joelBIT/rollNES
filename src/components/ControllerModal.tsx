@@ -1,5 +1,5 @@
 import { type ReactElement, useEffect, useRef, useState } from "react";
-import { getControllerConfigurationMap } from "../config/config";
+import { useControllers } from "../hooks/useControllers";
 
 import "./ControllerModal.css";
 
@@ -10,8 +10,8 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
     const [ showMessage, setShowMessage ] = useState<boolean>(false);
     const modalRef = useRef<HTMLDialogElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+    const { player1, player2 } = useControllers();
     const keys = document.getElementsByClassName('key') as HTMLCollectionOf<HTMLInputElement>;
-    const controllers = getControllerConfigurationMap();
 
     useEffect(() => {
         if (!modalRef.current?.open) {
@@ -114,56 +114,56 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                         <h2 className="bit-font">Player 1</h2>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('ArrowUp')} className="key form__field" id="ArrowUp" autoComplete="off" />
+                            <input type="text" value={player1.up.value} className="key form__field" id={player1.up.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Up
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('ArrowDown')} className="key form__field" id="ArrowDown" autoComplete="off" />
+                            <input type="text" value={player1.down.value} className="key form__field" id={player1.down.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Down
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('ArrowLeft')} className="key form__field" id="ArrowLeft" autoComplete="off" />
+                            <input type="text" value={player1.left.value} className="key form__field" id={player1.left.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Left
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('ArrowRight')} className="key form__field" id="ArrowRight" autoComplete="off" />
+                            <input type="text" value={player1.right.value} className="key form__field" id={player1.right.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Right
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('A')} className="key form__field" id="A" autoComplete="off" name="A" />
+                            <input type="text" value={player1.a.value} className="key form__field" id={player1.a.button} autoComplete="off" name="A" />
                             <legend className="form__field-label">
                                 A
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('B')} className="key form__field" id="B" autoComplete="off" />
+                            <input type="text" value={player1.b.value} className="key form__field" id={player1.b.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 B
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('Start')} className="key form__field" id="Start" autoComplete="off" />
+                            <input type="text" value={player1.start.value} className="key form__field" id={player1.start.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Start
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('Select')} className="key form__field" id="Select" autoComplete="off" />
+                            <input type="text" value={player1.select.value} className="key form__field" id={player1.select.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Select
                             </legend>
@@ -173,56 +173,56 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
                     <section className="player2-controller">
                         <h2 className="bit-font">Player 2</h2>
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('ArrowUp2')} className="key form__field" id="ArrowUp2" autoComplete="off" />
+                            <input type="text" value={player2.up.value} className="key form__field" id={player2.up.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Up
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('ArrowDown2')} className="key form__field" id="ArrowDown2" autoComplete="off" />
+                            <input type="text" value={player2.down.value} className="key form__field" id={player2.down.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Down
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('ArrowLeft2')} className="key form__field" id="ArrowLeft2" autoComplete="off" />
+                            <input type="text" value={player2.left.value} className="key form__field" id={player2.left.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Left
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('ArrowRight2')} className="key form__field" id="ArrowRight2" autoComplete="off" />
+                            <input type="text" value={player2.right.value} className="key form__field" id={player2.right.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Right
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('A2')} className="key form__field" id="A2" autoComplete="off" />
+                            <input type="text" value={player2.a.value} className="key form__field" id={player2.a.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 A
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('B2')} className="key form__field" id="B2" autoComplete="off" />
+                            <input type="text" value={player2.b.value} className="key form__field" id={player2.b.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 B
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('Start2')} className="key form__field" id="Start2" autoComplete="off" />
+                            <input type="text" value={player2.start.value} className="key form__field" id={player2.start.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Start
                             </legend>
                         </fieldset>
 
                         <fieldset className="controller-input">
-                            <input type="text" value={controllers.get('Select2')} className="key form__field" id="Select2" autoComplete="off" />
+                            <input type="text" value={player2.select.value} className="key form__field" id={player2.select.button} autoComplete="off" />
                             <legend className="form__field-label">
                                 Select
                             </legend>

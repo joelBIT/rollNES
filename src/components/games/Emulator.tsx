@@ -1,9 +1,10 @@
 import { useEffect, type ReactElement } from "react";
-import { getControllerConfiguration } from "../../config/config";
+import { useControllers } from "../../hooks/useControllers";
 
 import "./Emulator.css";
 
 export function Emulator({gameId}: {gameId: number}): ReactElement {
+    const { getControllersConfiguration } = useControllers();
     let worker: Worker;
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
@@ -68,7 +69,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
      */
     async function loadGame(): Promise<void> {
         if (gameId) {
-            worker.postMessage({ event: 'configuration', data: getControllerConfiguration() });
+            worker.postMessage({ event: 'configuration', data: getControllersConfiguration() });
             await getRom();
         }
     };

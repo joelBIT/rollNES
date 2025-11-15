@@ -64,3 +64,14 @@ export type AppliedFilter = {
     type: Filter,
     value: string
 }
+
+export type GameController = {
+    a: Button;
+    b: Button;
+    select: Button;
+    start: Button;
+    up: Button;
+    down: Button;
+    left: Button;
+    right: Button;
+}

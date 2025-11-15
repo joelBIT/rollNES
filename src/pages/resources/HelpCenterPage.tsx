@@ -21,7 +21,7 @@ export default function HelpCenterPage(): ReactElement {
             <h1 id="help__heading"> Help Center </h1>
             
             <p id="help__text">
-                Answers to some frequently asked questions. If you have any other issues not answered here, please let us know by emailing 
+                Answers to some frequently asked questions. If you have any other issues not answered here, please let me know by emailing 
                 <a href="mailto:contact@joel-rollny.eu"> contact@joel-rollny.eu</a>.
             </p>
 
