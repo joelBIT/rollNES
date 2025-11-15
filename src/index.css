@@ -448,6 +448,11 @@ body {
     & .dropdown {
         max-height: 2000px;
         transition: max-height 2s;
+
+        ~ .filter-card-collapsible:last-of-type {
+            border-bottom: 1px solid var(--color-border);
+            padding-bottom: 0.5rem;
+        }
     }
 }
 

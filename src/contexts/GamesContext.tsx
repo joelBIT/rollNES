@@ -46,7 +46,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
         }
 
         let result = [] as Game[];
-        for (let i = 0; i < filters.length; i++) {
+        for (let i = 0; i < filters.length; i++) {          // Add all games that match any filter
             if (filters[i].type === "players") {
                 result = result.concat(games.filter(game => game[filters[i].type] === parseInt(filters[i].value)));
                 continue;
