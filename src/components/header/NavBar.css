@@ -17,6 +17,11 @@
                 text-decoration: none;
                 color: var(--color-black);
             }
+
+            .navbar__list-title {
+                font-family: 'brandon-grotesque';
+                letter-spacing: 1px;
+            }
         }
     }
 }
