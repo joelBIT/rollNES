@@ -7,7 +7,7 @@ import type { Filter } from "../../types/types";
  */
 export function FilterAccordion({values, title, filterName}: {values: string[], title: string, filterName: Filter}): ReactElement {
     const [isShowingValues, setIsShowingValues] = useState(false);
-    const { matchesFilter, addFilter, removeFilter } = useGames();
+    const { appliedFilters, matchesFilter, addFilter, removeFilter } = useGames();
 
     return (
         <section className="game-filters-panel__accordion">
@@ -24,6 +24,7 @@ export function FilterAccordion({values, title, filterName}: {values: string[], 
                                 <input 
                                     type="checkbox" 
                                     name={`filter-${value}`} 
+                                    checked={appliedFilters.filter(filter => filter.type === filterName && filter.value === value).length > 0}
                                     id={`filter-${value}`} 
                                     onClick={(e) => (e.target as HTMLInputElement).checked ? addFilter(filterName, value) : removeFilter(filterName, value)} 
                                 />
