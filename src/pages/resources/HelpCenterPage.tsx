@@ -13,7 +13,8 @@ export default function HelpCenterPage(): ReactElement {
         {question: "I cannot find a specific game. Why?", answer: <AnswerOne />},
         {question: "Which mappers do you have support for?", answer: <AnswerTwo />},
         {question: "Can I use this site to see all games released for the NES?", answer: <AnswerThree />},
-        {question: "What should I do if I want to play an unsupported game?", answer: <AnswerFour />}
+        {question: "What should I do if I want to play an unsupported game?", answer: <AnswerFour />},
+        {question: "Why is the game slow?", answer: <AnswerFive />}
     ]
 
     return (
@@ -76,6 +77,17 @@ function AnswerFour(): ReactNode {
                 You can add desired games to your wishlist in your account, or contact me directly at
                 <a href="mailto:contact@joel-rollny.eu" className="answer-section__link"> contact@joel-rollny.eu</a>.
                 I will implement corresponding mapper to enable support as soon as possible.
+            </p>
+        </section>
+    );
+}
+
+function AnswerFive(): ReactNode {
+    return (
+        <section className="answer-section">
+            <p className="answer-section__text">
+                Some browsers, like Mozilla Firefox, have an inferior implementation affecting the performance of games. Chrome is an example 
+                of a browser with good gaming performance.
             </p>
         </section>
     );
