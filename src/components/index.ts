@@ -9,6 +9,7 @@ export * from "./footer/Footer";
 export * from "./footer/FooterList";
 export * from "./footer/Newsletter";
 export * from "./game/Emulator";
+export * from "./game/FilterAccordion";
 export * from "./game/GameCard";
 export * from "./game/RangeSlider";
 export * from "./header/Carousel";

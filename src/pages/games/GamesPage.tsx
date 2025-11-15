@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
-import { GameCard, RangeSlider } from "../../components";
+import { FilterAccordion, GameCard, RangeSlider } from "../../components";
 
 import "./GamesPage.css";
 
@@ -9,7 +9,6 @@ import "./GamesPage.css";
  */
 export default function GamesPage(): ReactElement {
     const { filteredGames, allCategories, allPlayers, allPublishers, allDevelopers, matchesFilter, addFilter, removeFilter } = useGames();
-    const [isShowingCategory, setIsShowingCategory] = useState(false);
     const [isShowingRange, setIsShowingRange] = useState(false);
     const [isShowingPlayers, setIsShowingPlayers] = useState(false);
     const [isShowingPublishers, setIsShowingPublishers] = useState(false);
@@ -20,33 +19,7 @@ export default function GamesPage(): ReactElement {
     return (
         <main id="gamesPage">
             <section id="game-filters-panel">
-                <section className="game-filters-panel__accordion">
-                    <article className="filter-card-header" onClick={() => setIsShowingCategory(!isShowingCategory)}> 
-                        <span className={isShowingCategory ? "rotate-down" : "rotate-up"}> &#94; </span>
-                        <h5 className="filter-card-title"> Category </h5>
-                    </article>
-
-                    {
-                        allCategories().map(category => 
-                            <article className={isShowingCategory ? "filter-card-collapsible dropdown" : "filter-card-collapsible"} key={category}>
-                                <section className="filter-card-body">
-                                    <section className="filter-card-body-data">
-                                        <input 
-                                            type="checkbox" 
-                                            name={`category-${category}`} 
-                                            id={`category-${category}`} 
-                                            onClick={(e) => (e.target as HTMLInputElement).checked ? addFilter("category", category) : removeFilter("category", category)} 
-                                        />
-
-                                        <h3 className="filter-card-body-data__title"> {category} </h3>
-                                    </section>
-                                    
-                                    <h3 className="filter-card-body-data__amount"> { matchesFilter("category", category) } </h3>
-                                </section>
-                            </article>
-                        )
-                    }
-                </section>
+                <FilterAccordion title="Category" values={allCategories()} filterName="category" />
 
                 <section className="game-filters-panel__accordion">
                     <article className="filter-card-header" onClick={() => setIsShowingRange(!isShowingRange)}> 
