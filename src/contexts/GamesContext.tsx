@@ -9,10 +9,7 @@ export interface GamesContextProvider {
     addFilter: (type: Filter, value: string) => void;
     removeFilter: (type: Filter, value: string) => void;
     matchesFilter: (type: Filter, value: string) => number;
-    allCategories: () => string[];
-    allPlayers: () => string[];
-    allPublishers: () => string[];
-    allDevelopers: () => string[];
+    allFilterValues: (filter: Filter) => string[];
 }
 
 export const GamesContext = createContext<GamesContextProvider>({} as GamesContextProvider);
@@ -78,31 +75,15 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
 
     /**
-     * Returns a sorted list containing all unique game categories.
+     * Returns a sorted list containing all unique filter values.
      */
-    function allCategories(): string[] {
-        return Array.from(new Set(games.map(game => game.category))).sort((a, b) => a.localeCompare(b));
-    }
-
-    /**
-     * Returns a sorted list containing all unique game publishers.
-     */
-    function allPublishers(): string[] {
-        return Array.from(new Set(games.map(game => game.publisher))).sort((a, b) => a.localeCompare(b));
-    }
-
-    /**
-     * Returns a sorted list containing all unique game developers.
-     */
-    function allDevelopers(): string[] {
-        return Array.from(new Set(games.map(game => game.developer))).sort((a, b) => a.localeCompare(b));
-    }
-
-    /**
-     * Returns a sorted list containing all unique number of possible players in games.
-     */
-    function allPlayers(): string[] {
-        return Array.from(new Set(games.map(game => game.players))).sort((a, b) => a - b).map(players => players.toString());
+    function allFilterValues(filter: Filter): string[] {
+        switch(filter) {
+            case "players":
+                return Array.from(new Set(games.map(game => game.players))).sort((a, b) => a - b).map(player => player.toString());
+            default:
+                return Array.from(new Set(games.map(game => game[filter]))).sort((a, b) => a.localeCompare(b));
+        }
     }
 
     /**
@@ -116,7 +97,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
         return games.filter(game => game[type] === value).length;
     }
     return (
-        <GamesContext.Provider value={{ games, filteredGames, filters, addFilter, removeFilter, matchesFilter, allCategories, allPlayers, allPublishers, allDevelopers }}>
+        <GamesContext.Provider value={{ games, filteredGames, filters, allFilterValues, addFilter, removeFilter, matchesFilter }}>
             { children }
         </GamesContext.Provider>
     );
