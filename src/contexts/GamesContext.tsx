@@ -5,7 +5,7 @@ import { getAllGamesRequest } from "../requests";
 export interface GamesContextProvider {
     games: Game[];
     filteredGames: Game[];
-    filters: AppliedFilter[];
+    appliedFilters: AppliedFilter[];
     addFilter: (type: Filter, value: string) => void;
     removeFilter: (type: Filter, value: string) => void;
     matchesFilter: (type: Filter, value: string) => number;
@@ -18,16 +18,16 @@ export const GamesContext = createContext<GamesContextProvider>({} as GamesConte
  * Applies chosen filters to the list of all playable games.
  */
 export function GamesProvider({ children }: { children: ReactNode }): ReactElement {
-    const [games, setGames] = useState<Game[]>([]);
+    const [games, setGames] = useState<Game[]>([]);         // All playable games available to the application
     const [filteredGames, setFilteredGames] = useState<Game[]>([]);
-    const [filters, setFilters] = useState<AppliedFilter[]>([]);
+    const [appliedFilters, setAppliedFilters] = useState<AppliedFilter[]>([]);
 
     useEffect(() => {
         loadGames();
     }, []);
 
     /**
-     * Retrieve games from backend.
+     * Retrieve all playable games from the backend.
      */
     async function loadGames(): Promise<void> {
         const result = await getAllGamesRequest();
@@ -61,17 +61,17 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Remove specific filter when a user deactivates corresponding filter option. 
      */
     function removeFilter(type: Filter, value: string): void {
-        const updatedFilters = filters.filter(filter => filter.type !== type || (filter.type === type && filter.value !== value));
+        const updatedFilters = appliedFilters.filter(filter => filter.type !== type || (filter.type === type && filter.value !== value));
         applyFilters(updatedFilters);
-        setFilters((_oldValues) => [...updatedFilters]);
+        setAppliedFilters((_oldValues) => [...updatedFilters]);
     }
 
     /**
      * Add specific filter when a user clicks on corresponding filter option. 
      */
     function addFilter(type: Filter, value: string): void {
-        applyFilters([...filters, {type, value}]);
-        setFilters((_oldValues) => [..._oldValues, {type, value}]);
+        applyFilters([...appliedFilters, {type, value}]);
+        setAppliedFilters((_oldValues) => [..._oldValues, {type, value}]);
     }
 
     /**
@@ -97,7 +97,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
         return games.filter(game => game[type] === value).length;
     }
     return (
-        <GamesContext.Provider value={{ games, filteredGames, filters, allFilterValues, addFilter, removeFilter, matchesFilter }}>
+        <GamesContext.Provider value={{ games, filteredGames, appliedFilters, allFilterValues, addFilter, removeFilter, matchesFilter }}>
             { children }
         </GamesContext.Provider>
     );
