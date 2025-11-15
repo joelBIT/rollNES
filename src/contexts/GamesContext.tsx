@@ -54,7 +54,29 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
             result = result.concat(games.filter(game => game[filters[i].type] === filters[i].value));
         }
 
-        setFilteredGames([...Array.from(new Set(result))]);
+        result = Array.from(new Set(result));       // Remove duplicate games
+        const filteredGames = [] as Game[];
+
+        for (let i = 0; i < result.length; i++) {
+            if (included(result[i], filters, "category") && included(result[i], filters, "players")
+                    && included(result[i], filters, "publisher") && included(result[i], filters, "developer")) {
+                filteredGames.push(result[i]);      // Add game that matches all applied filter types (mutually exclusive between filter types)
+            }
+        }
+
+        setFilteredGames([...filteredGames]);
+    }
+
+    /**
+     * Return true if filter is applied to supplied game. Also return true if length of filters is 0 because all games should be shown in GamesPage
+     * then (due to no filter being applied).
+     */
+    function included(game: Game, filters: AppliedFilter[], type: Filter): boolean {
+        const values = filters.filter(filter => filter.type === type).map(filter => filter.value);
+        if (values.length === 0) {      // No filter of this type is applied
+            return true;
+        }
+        return values.includes(game[type].toString());
     }
 
     /**
