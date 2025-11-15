@@ -36,7 +36,7 @@ export default function GamesPage(): ReactElement {
 
                             <section className="applied-filters__list">
                                 {
-                                    appliedFilters.map(filter => <AppliedFilter filter={filter} />)
+                                    appliedFilters.map(filter => <AppliedFilter filter={filter} key={filter.type + filter.value} />)
                                 }
                             </section>
                         </section>

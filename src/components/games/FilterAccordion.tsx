@@ -26,7 +26,7 @@ export function FilterAccordion({values, title, filterName}: {values: string[], 
                                     name={`filter-${value}`} 
                                     checked={appliedFilters.filter(filter => filter.type === filterName && filter.value === value).length > 0}
                                     id={`filter-${value}`} 
-                                    onClick={(e) => (e.target as HTMLInputElement).checked ? addFilter(filterName, value) : removeFilter(filterName, value)} 
+                                    onChange={(e) => (e.target as HTMLInputElement).checked ? addFilter(filterName, value) : removeFilter(filterName, value)}
                                 />
 
                                 <h3 className="filter-card-body-data__title"> {value} </h3>
