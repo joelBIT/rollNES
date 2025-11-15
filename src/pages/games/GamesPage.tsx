@@ -14,7 +14,7 @@ export default function GamesPage(): ReactElement {
     const [isShowingPlayers, setIsShowingPlayers] = useState(false);
     const [isShowingPublishers, setIsShowingPublishers] = useState(false);
     const [isShowingDevelopers, setIsShowingDevelopers] = useState(false);
-    const [minRange] = useState<number>(filteredGames.length > 10 ? 10 : filteredGames.length);     // Minimum 10 games are rendered on the page (or fewer due to chosen filters)
+    const [minRange] = useState<number>(filteredGames?.length > 10 ? 10 : filteredGames.length);     // Minimum 10 games are rendered on the page (or fewer due to chosen filters)
     const [numberGamesShowing, setNumberGamesShowing] = useState<number>(minRange);
 
     return (
