@@ -2,8 +2,9 @@ import { useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
 import type { Filter } from "../../types/types";
 
-import "./FilterAccordion.css";
-
+/**
+ * Filter used in GamesPage to filter games that are of interest.
+ */
 export function FilterAccordion({values, title, filterName}: {values: string[], title: string, filterName: Filter}): ReactElement {
     const [isShowingValues, setIsShowingValues] = useState(false);
     const { matchesFilter, addFilter, removeFilter } = useGames();

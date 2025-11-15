@@ -335,6 +335,129 @@ body {
 
 
 
+
+
+/************************
+* GAME FILTER ACCORDION *
+*************************/
+
+& .game-filters-panel__accordion {
+    display: flex;
+    flex-direction: column;
+
+    & .filter-card-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid var(--color-border);
+
+        &:hover {
+            color: var(--color-text-heading);
+            cursor: pointer;
+        }
+
+        .rotate-down,
+        .rotate-up {
+            width: 10px;
+            font-size: 1rem;
+            transition: transform 0.2s ease-in-out;
+            text-align: center;
+        }
+
+        .rotate-down {
+            transform: scaleX(2) rotate(180deg);
+        }
+
+        .rotate-up {
+            transform: scaleY(2) rotate(90deg);
+        }
+
+        & .filter-card-title {
+            font-family: 'regular-gibson';
+            font-size: 1rem;
+            font-weight: 100;
+            align-self: flex-end;
+        }
+    }
+
+    & .filter-card-collapsible {
+        display: flex;
+        padding-left: 0.5rem;
+        padding-right: 1rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.2s;
+        
+        & .filter-card-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.5rem;
+            padding-top: 0.7rem;
+
+            & .filter-card-body-data {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+
+                & > input {
+                    position: relative;
+                    height: 20px;
+                    width: 20px;
+                    cursor: pointer;
+                    appearance: none;
+                    border: 1px solid var(--color-black);
+                    border-radius: 4px;
+
+                    &::before {
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        text-align: center;
+                        white-space: pre;
+                        content: " ";
+                    }
+
+                    &:checked::before {
+                        background-color: var(--color-black);
+                        color: var(--color-white);
+                        content: "\2713";
+                        font-size: 1.4rem;
+                        line-height: 20px;
+                    }
+                }
+
+                & .filter-card-body-data__title {
+                    font-family: 'brandon-grotesque';
+                    font-size: 1rem;
+                    font-weight: 100;
+                }
+            }
+
+            & .filter-card-body-data__amount {
+                font-family: 'brandon-grotesque';
+                font-size: 1rem;
+                font-weight: 100;
+            }
+        }
+    }
+
+    & .dropdown {
+        max-height: 2000px;
+        transition: max-height 2s;
+    }
+}
+
+
+
+
+
+
+
+
 /*********************************************
 * Styling for messages when submitting forms *
 *********************************************/
