@@ -141,6 +141,22 @@ export async function getGameByIdRequest(id: number): Promise<Game> {
     throw new Error(`Could not find game with id ${id}`);
 }
 
+/**
+ * Send a GET request and retrieve games with supplied IDs.
+ */
+export async function getGamesByIdsRequest(ids: number[]): Promise<Game[]> {
+    try {
+        const { data } = await supabase.from("games").select().in("id", ids);
+
+        if (data) {
+            return data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    return [];
+}
 
 
 
