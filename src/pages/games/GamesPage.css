@@ -1,7 +1,7 @@
 #gamesPage {
     display: flex;
     flex-direction: row;
-    background-color: #F2EBE7;
+    background-color: var(--color-games-background);
     gap: 2rem;
     padding: 2rem;
 

@@ -59,10 +59,12 @@
     --color-form-border: rgba(255, 255, 255, .25);
     --color-form-border-bottom: #6b6767;
     --color-logo-background: #f9f9f9;
+    --color-games-background: #F2EBE7;
     --color-message-failure: red;
     --color-modal-background: #19251F;
     --color-player-1: rgb(237 111 111);
     --color-player-2: rgb(10 231 95);
+    --color-promises-background: rgb(238, 242, 244);
     --color-search-text: #495057;
     --color-slider-knob: #04AA6D;
     --color-star-orange: #F2C265;
