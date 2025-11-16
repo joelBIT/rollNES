@@ -21,7 +21,8 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         }
     }, [])
     
-    function closeModal(): void {
+    function closeModal(event?: any): void {
+        event?.preventDefault();
         modalRef.current?.close();
         setShowMessage(false);
         close(true);
