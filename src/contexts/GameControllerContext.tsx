@@ -45,7 +45,7 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
      * Update a button configuration.
      */
     function updateButton(button: Button): void {
-
+        
     }
 
     /**

@@ -69,39 +69,40 @@ export async function createFavouriteRequest(game: Game): Promise<void> {
  * GAMES *
  *********/
 
-
 /**
  * Send a GET request and retrieve all playable games.
  */
 export async function getAllGamesRequest(): Promise<Game[]> {
-
     try {
-        const { data } = await supabase.from("games").select().eq("rom", true).order("title");    // Only retrieve games that are playable
+        const { data } = await supabase.from("games").select(`
+            id,
+            title,
+            publisher,
+            developer,
+            category,
+            players,
+            cover,
+            release_date,
+            description,
+            reviews (
+                game_id,
+                reviewer_name,
+                date,
+                heading,
+                rating,
+                review,
+                reviewer_id
+            )
+        `).eq("rom", true).order("title");    // Only retrieve games that are playable
 
         if (data) {
-            const games = [];
-
-            for (let i = 0; i < data?.length; i++) {
-                games.push(data[i]);
-                data[i].reviews = [];
-            }
-
-            return games;
+            return data;
         }
     } catch (error) {
         console.log(error);
     }
 
     return [];
-}
-
-/**
- * Send a GET request and retrieve the game matching the supplied ID, if any.
- */
-export async function getFavouriteByIdRequest(id: number): Promise<Game> {
-    console.log(id);
-
-    return {} as Game;
 }
 
 

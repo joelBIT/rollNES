@@ -15,8 +15,7 @@ export type Game = {
     reviews: Review[],
     cover: string,
     players: number,
-    description: string,
-    rom: boolean
+    description: string
 }
 
 export type AuthenticationRequest = {

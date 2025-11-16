@@ -17,6 +17,7 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
         if (!modalRef.current?.open) {
             modalRef.current?.showModal();
         }
+
     }, [])
     
     function closeModal(): void {
@@ -44,17 +45,16 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
     /**
      *  Show key code in input text field.
      */
-    function setKeyCode(event: any) {
-        removeKeyWhereAlreadyUsed(event);
-        event.target.value = event.code;
+    function setKeyCode(event: React.KeyboardEvent<HTMLInputElement>) {
+        removeKeyWhereAlreadyUsed(event.code);
+        (event.target as HTMLInputElement).value = event.code;
         event.preventDefault();
     }
 
     /**
      *  Removes the chosen key from other buttons if already in use.
      */
-    function removeKeyWhereAlreadyUsed(event: any) {
-        const keyCode = event.code;
+    function removeKeyWhereAlreadyUsed(keyCode: string) {
         for (const key of keys) {
             if (Object.is(key.value, keyCode)) {
                 key.value = '';
