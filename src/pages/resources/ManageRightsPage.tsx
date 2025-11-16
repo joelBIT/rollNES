@@ -15,11 +15,11 @@ export default function ManageRightsPage(): ReactElement {
 
                 <p className="privacy-rights__text">
                     RollNES has a legitimate interest in using your email address to notify you when support for new games have been added. 
-                    Your email address will be retained until you are notified and will be available to our marketing and e-commerce teams, as 
+                    Your email address will be retained until you are notified and will be available to our marketing and support teams, as 
                     well as to our service providers. It may be transferred to non-European countries that ensure an adequate level of protection
                     or under the standard contractual clauses adopted by the EU Commission. Please note that you may access your data and request
                     their rectification or deletion. You may also object to, or request the limitation of, the processing of your data. 
-                    To exercise your rights or for any question on the processing of your data, please contact Retro Store's Data Protection Officer.
+                    To exercise your rights or for any question on the processing of your data, please contact RollNES' Data Protection Officer.
                     If nevertheless you believe RollNES did not adequately address your concerns and mishandled your data, you may lodge 
                     a complaint with the personal data protection authority of your country. 
                 </p>
