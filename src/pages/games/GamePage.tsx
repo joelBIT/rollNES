@@ -7,30 +7,38 @@ import { useFavourites } from "../../hooks/useFavourites";
 
 import "./GamePage.css";
 
+/**
+ * Page for a game. Shows information about the game as well as reviews. There are two tabs ("Details", "Play") a user can click on.
+ * The "Details" tab shows information about the game. The "Play" tab starts the game in the ROllNES emulator. Reviews are only
+ * shown in the "Details" tab.
+ */
 export default function GamePage(): ReactElement {
     const game = useLoaderData() as Game;
-    const [sortedReviews, setSortedReviews] = useState<Review[]>(game.reviews ?? []);
+    const [selectedGame, setSelectedGame] = useState<Game>(game);
+    const [sortedReviews, setSortedReviews] = useState<Review[]>([]);
     const tabTitles = ["Details", "Play"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
     const favourite = isFavourite(game.id);
 
     useEffect(() => {
-        setActive(tabTitles[0]);    // Always show Details tab as default when choosing a new game
+        setActive(tabTitles[0]);    // Always show "Details" tab as default when choosing a new game
+        setSelectedGame(game);
+        setSortedReviews(game.reviews);
     }, [game.id])
 
     /**
      * Sort reviews according to selected option.
      */
     function sortReviews(sort: string): void {
-        const reviewsToSort = [...sortedReviews];
+        const reviewsToSort = [...selectedGame.reviews];
 
         if (sort === "name") {
             const sorted = reviewsToSort.sort((a, b) => a.reviewer_name.localeCompare(b.reviewer_name));
-            setSortedReviews(sorted);
+            setSortedReviews([...sorted]);
         } else if (sort === "date") {
             const sorted = reviewsToSort.sort((a, b) => (Date.parse(a.date) > Date.parse(b.date)) ? -1 : 1);
-            setSortedReviews(sorted);
+            setSortedReviews([...sorted]);
         }
     }
 
@@ -50,68 +58,74 @@ export default function GamePage(): ReactElement {
                 }
             </section>
 
-            {active === tabTitles[0] ? 
+            {
+                active === tabTitles[0] ? 
+                    <>
+                        <section id="game-top">
+                            <section id="game-images">
+                                <img src={COVER_URL + game?.cover} alt="Game cover" />
+                            </section>
 
-            <section id="game-top">
-                <section id="game-images">
-                    <img src={COVER_URL + game?.cover} alt="Game cover" />
-                </section>
+                            <section id="game-details">
+                                <h2 id="game-information__heading"> {game.title} </h2> 
 
-                <section id="game-details">
-                    <h2 id="game-information__heading"> {game.title} </h2> 
+                                <section className="reviews-and-favourite-button">
+                                    <article className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
+                                        {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <h2>&#9825;</h2>}
+                                    </article>
 
-                    <section className="reviews-and-favourite-button">
-                        <article className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
-                            {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <h2>&#9825;</h2>}
-                        </article>
+                                    <section className="game-reviews-summary">
+                                        <Rating rating={getAverageRating(game.reviews)} />
+                                        <p> {game.reviews?.length} review{game.reviews?.length > 1 || game.reviews?.length === 0 ? "s" : ""} </p>
+                                    </section>
+                                </section>
 
-                        <section className="game-reviews-summary">
-                            <Rating rating={getAverageRating(game.reviews)} />
-                            <p> {game.reviews?.length} review{game.reviews?.length > 1 || game.reviews?.length === 0 ? "s" : ""} </p>
+                                <h2 id="game-information__description"> 
+                                    {game.description} 
+                                </h2>
+                            </section>
                         </section>
-                    </section>
 
-                    <h2 id="game-information__description"> 
-                        {game.description} 
-                    </h2>
-                </section>
-            </section>
+                        <section id="game-bottom">
+                            <section id="game-reviews">
+                                <h2 id="game-reviews__heading"> Reviews </h2>
 
-            : 
-                <Emulator gameId={game.id} />
+                                <section id="reviews-content">
+                                    
+                                    <section id="reviews-rating"> 
+                                        <Rating rating={getAverageRating(selectedGame.reviews)} /> | 
+                                        <p>Based on {selectedGame.reviews.length} reviews</p> 
+                                    </section>
+
+                                    {
+                                        selectedGame.reviews?.length > 0 ? 
+                                        <>
+                                            <section id="reviews-sort">
+                                                <label id="reviews-sort-label" htmlFor="reviews-sort-select"> Sort by: </label> 
+                                                <select id="reviews-sort-select" name="reviews-sort-select" onChange={e => sortReviews(e.target.value)}>
+                                                    <option value="none" defaultChecked> ------ </option>
+                                                    <option value="name"> Name </option>
+                                                    <option value="date"> Newest </option>
+                                                </select>
+                                            </section>
+                                            
+                                            <section id="reviews">
+                                                {
+                                                    sortedReviews.map((review, i) => <ReviewCard key={i} review={review} />)
+                                                }
+                                            </section>
+                                        </>
+                                            
+                                        : <></>
+                                    }
+                                    
+                                </section>
+                            </section>
+                        </section>
+                    </>
+                : 
+                    <Emulator gameId={game.id} />
             }
-            
-            <section id="game-bottom">
-                <section id="game-reviews">
-                    <h2 id="game-reviews__heading"> Reviews </h2>
-
-                    <section id="reviews-content">
-                        
-                        <section id="reviews-rating"> 
-                            <Rating rating={getAverageRating(game.reviews)} /> | 
-                            <p>Based on {game.reviews?.length} reviews</p> 
-                        </section>
-
-                        {
-                            game.reviews?.length > 0 ? 
-                                <section id="reviews-sort">
-                                    <label id="reviews-sort-label" htmlFor="reviews-sort-select"> Sort by: </label> 
-                                    <select id="reviews-sort-select" name="reviews-sort-select" onChange={e => sortReviews(e.target.value)}>
-                                        <option value="none" defaultChecked> ------ </option>
-                                        <option value="name"> Name </option>
-                                        <option value="date"> Newest </option>
-                                    </select>
-                                </section> : <></>
-                        }
-
-                        <section id="reviews">
-                            {
-                                sortedReviews.map((review, i) => <ReviewCard key={i} review={review} />)
-                            }
-                        </section>
-                    </section>
-                </section>
-            </section>
         </main>
     );
 }
