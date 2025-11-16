@@ -286,10 +286,13 @@ body {
     }
 
     &:hover,
-    &:focus {
+    &:focus,
+    &:focus-within {
         background: rgba(255, 255, 255, .1);
         transition: all .3s;
     }
+
+
 }
 
 .missing {
