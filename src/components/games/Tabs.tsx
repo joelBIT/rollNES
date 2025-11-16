@@ -3,11 +3,15 @@ import { useState, type ReactElement } from "react";
 import "./Tabs.css";
 
 /**
- * Takes a number of tab titles and creates corresponding tabs. The supplied 'setActive' function is used by the parent to do something
- * desired when the user clicks on a tab.
+ * 
+ * Takes a number of tab titles and creates corresponding tabs.
+ * 
+ * @param titles        List of titles where each title is shown on a tab.
+ * @param defaultTab    The tab (title) set as active when the component is rendered.
+ * @param setActive     Function that informs the parent component when a tab has been activated.
  */
-export function Tabs({titles, setActive}: {titles: string[], setActive: (tab: string) => void}): ReactElement {
-    const [activeTab, setActiveTab] = useState<string>(titles[0]);
+export function Tabs({titles, defaultTab, setActive}: {titles: string[], defaultTab?: string, setActive: (tab: string) => void}): ReactElement {
+    const [activeTab, setActiveTab] = useState<string>(defaultTab ? defaultTab : titles[0]);
 
     function changeActiveTab(tab: string) {
         setActive(tab);         // Inform parent which tab has been clicked
