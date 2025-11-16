@@ -10,9 +10,9 @@ export default function PrivacyPage(): ReactElement {
             <section className="privacy-sections">
                 <p className="privacy-sections__text">
                     RollNES operates this emulator and website, including all related information, content, features, tools, products and services, 
-                    in order to provide you, the user, with a curated retro experience. This Privacy Policy describes how we collect, 
+                    in order to provide you, the user, with a curated retro experience. This Privacy Policy describes how RollNES collect, 
                     use, and disclose your personal information when you visit or use the 
-                    Services or otherwise communicate with us. If there is a conflict between our Terms of Service and this Privacy Policy, this 
+                    Services or otherwise communicate with RollNES. If there is a conflict between RollNES' Terms of Service and this Privacy Policy, this 
                     Privacy Policy controls with respect to the collection, processing, and disclosure of your personal information.
                 </p>
 
@@ -23,12 +23,12 @@ export default function PrivacyPage(): ReactElement {
             </section>
 
             <section className="privacy-sections">
-                <h2 className="privacy-sections__heading"> Personal Information We Collect or Process </h2>
+                <h2 className="privacy-sections__heading"> Personal Information RollNES Collect or Process </h2>
 
                 <p className="privacy-sections__text">
-                    When we use the term “personal information,” we are referring to information that identifies or can reasonably be linked to you 
+                    When RollNES use the term “personal information,” RollNES are referring to information that identifies or can reasonably be linked to you 
                     or another person. Personal information does not include information that is collected anonymously or that has been de-identified,
-                    so that it cannot identify or be reasonably linked to you. We may collect or process the following categories of personal 
+                    so that it cannot identify or be reasonably linked to you. RollNES may collect or process the following categories of personal 
                     information, including inferences drawn from this personal information, depending on how you interact with the Services, 
                     where you live, and as permitted or required by applicable law:
                 </p>
@@ -36,7 +36,7 @@ export default function PrivacyPage(): ReactElement {
                 <ul className="privacy-sections__list">
                     <li><b>Contact details</b> including your name, address, phone number, and email address.</li>
                     <li><b>Account information</b> including your username, password, preferences and settings.</li>
-                    <li><b>Communications with us</b> including the information you include in communications with us, for example, when sending a customer support inquiry.</li>
+                    <li><b>Communications with RollNES</b> including the information you include in communications with RollNES, for example, when sending a customer support inquiry.</li>
                     <li><b>Device information</b> including information about your device, browser, or network connection, your IP address, and other unique identifiers.</li>
                     <li><b>Usage information</b> including information regarding your interaction with the Services, including how and when you interact with or navigate the Services.</li>
                 </ul>
