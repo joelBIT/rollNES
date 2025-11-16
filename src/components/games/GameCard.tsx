@@ -26,7 +26,7 @@ export function GameCard({game}: { game: Game}): ReactElement {
                 </NavLink>
                 
                 <h2 className="game-information__description"> 
-                    {game.description.substring(0, 300)}{game.description.length > 300 ? "..." : ""} 
+                    {game.description.substring(0, 300)}{game.description.length > 250 ? "..." : ""} 
                 </h2>
             </section>
             
