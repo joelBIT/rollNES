@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     padding: 2rem;
+    background-color: var(--color-games-background);
 
     & #game-top {
         display: flex;
@@ -30,7 +31,7 @@
         flex: 10;
         gap: 3rem;
         text-align: left;
-        background-color: var(--color-promises-background);
+        background-color: var(--color-almost-white);
         padding: 1rem;
         border-radius: 9px;
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
