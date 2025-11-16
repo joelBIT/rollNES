@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 export type Button = {
-    button: string,
+    button: "A" | "B" | "Start" | "Select" | "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight" | "A2" | "B2" | "Start2" | "Select2" | "ArrowUp2" | "ArrowDown2" | "ArrowLeft2" | "ArrowRight2",
     value: string
 }
 
