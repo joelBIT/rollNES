@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
-import { Emulator, Rating, ReviewCard } from "../../components";
+import { Emulator, Rating, ReviewCard, Tabs } from "../../components";
 import { COVER_URL, getAverageRating } from "../../utils";
 import type { Game, Review } from "../../types/types";
 import { useFavourites } from "../../hooks/useFavourites";
@@ -44,19 +44,7 @@ export default function GamePage(): ReactElement {
 
     return (
         <main id="gamePage">
-            <section className="tabs">
-                {
-                    tabTitles.map((title) => (
-                        <section
-                            key={title}
-                            className={active === title ? "tab selected" : "tab"}
-                            onClick={() => setActive(title)}
-                        >
-                            {title}
-                        </section>
-                    ))
-                }
-            </section>
+            <Tabs titles={tabTitles} setActive={setActive} />
 
             {
                 active === tabTitles[0] ? 

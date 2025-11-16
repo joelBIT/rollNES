@@ -1,0 +1,22 @@
+.tabs {
+    display: flex;
+    gap: 1rem;
+
+    & .tab {
+        width: fit-content;
+        padding-right: 10px;
+        padding-left: 10px;
+        padding-bottom: 7px;
+        border-bottom: 2px solid #eee;
+        font-family: Lato, sans-serif;
+        letter-spacing: 1px;
+        font-weight: 300;
+        cursor: pointer;
+        color: #aaa;
+    }
+
+    & .selected {
+        border-bottom: 2px solid #337ab7;
+        color: #444;
+    }
+}
