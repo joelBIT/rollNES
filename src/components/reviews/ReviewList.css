@@ -1,0 +1,47 @@
+#game-reviews {
+    display: flex;
+    flex-direction: column;
+
+    & #game-reviews__heading {
+        font-family: "ivy-presto-headline-light", Helvetica, Arial, sans-serif;
+        font-size: 40px;
+        line-height: 1.2;
+        align-self: center;
+    }
+
+    & #reviews-content {
+        display: flex;
+        flex-direction: column;
+
+        & #reviews-rating {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1rem;
+            font-family: "brandon-grotesque", sans-serif;
+            font-size: 14px;
+        }
+
+        & #reviews-sort {
+            align-self: flex-end;
+            font-family: "brandon-grotesque", sans-serif;
+            padding-right: 4rem;
+
+            & #reviews-sort-select {
+                align-items: center;
+                width: fit-content;
+                font-family: "brandon-grotesque", sans-serif;
+                padding: 0.1rem;
+                cursor: pointer;
+                border-radius: 3px;
+            }
+        }
+
+        & #reviews {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
