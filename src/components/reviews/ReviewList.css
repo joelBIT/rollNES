@@ -1,8 +1,8 @@
-#game-reviews {
+#reviews-list {
     display: flex;
     flex-direction: column;
 
-    & #game-reviews__heading {
+    & #reviews-list__heading {
         font-family: "ivy-presto-headline-light", Helvetica, Arial, sans-serif;
         font-size: 40px;
         line-height: 1.2;

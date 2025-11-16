@@ -1,12 +1,19 @@
-import { useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import type { Review } from "../../types/types";
 import { getAverageRating } from "../../utils";
 import { Rating, ReviewCard } from "..";
 
 import "./ReviewList.css";
 
+/**
+ * Creates a list of reviews, where it is possible to sort the list by 'name' or 'date'.
+ */
 export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
     const [sortedReviews, setSortedReviews] = useState<Review[]>([...reviews]);
+
+    useEffect(() => {
+        setSortedReviews([...reviews]);
+    }, [reviews])
 
     /**
      * Sort reviews according to selected option.
@@ -24,8 +31,8 @@ export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
     }
 
     return (
-        <section id="game-reviews">
-            <h2 id="game-reviews__heading"> Reviews </h2>
+        <section id="reviews-list">
+            <h2 id="reviews-list__heading"> Reviews </h2>
 
             <section id="reviews-content">
                 
