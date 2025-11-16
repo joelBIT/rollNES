@@ -1,5 +1,5 @@
 import { useState, type ReactElement } from "react";
-import type { Button } from "../types/types";
+import type { Button } from "../../types/types";
 
 import "./ControllerInput.css";
 

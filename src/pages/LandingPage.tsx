@@ -23,7 +23,7 @@ export default function LandingPage(): ReactElement {
             </section>
 
             <section id="landing-promises">
-                <h2 id="landing-promises__heading"> Our Promises </h2>
+                <h2 id="landing-promises__heading"> RollNES Promises </h2>
 
                 <section id="landing-promises-list">
                     <section className="landing-promises">

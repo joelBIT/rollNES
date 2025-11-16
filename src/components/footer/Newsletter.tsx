@@ -54,7 +54,7 @@ export function Newsletter(): ReactElement {
 
                 <section id="newsletter-disclaimer">
                     <p id="newsletter-disclaimer__text"> 
-                        Your email address will only be used to send you our newsletter, as well as updates and such. 
+                        Your email address will only be used to send you the newsletter and such. 
                         You can unsubscribe at any time using the link included in the newsletter.
                     </p>
 

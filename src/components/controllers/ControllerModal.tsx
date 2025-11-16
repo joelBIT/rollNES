@@ -1,7 +1,7 @@
 import { type ReactElement, useEffect, useRef, useState } from "react";
-import { useControllers } from "../hooks/useControllers";
-import { ControllerInput } from ".";
-import { extractPlayer1Configuration, extractPlayer2Configuration } from "../utils";
+import { useControllers } from "../../hooks/useControllers";
+import { ControllerInput } from "..";
+import { extractPlayer1Configuration, extractPlayer2Configuration } from "../../utils";
 
 import "./ControllerModal.css";
 
