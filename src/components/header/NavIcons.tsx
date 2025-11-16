@@ -70,7 +70,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
                 <ul id="my-account-menu__list">
                     <li> Personalized settings and services </li>
                     <li> Store controller configurations </li>
-                    <li> Track your favourite games </li>
+                    <li> Add reviews for games </li>
                     <li> Create and view a wishlist </li>
                 </ul>
             </section>

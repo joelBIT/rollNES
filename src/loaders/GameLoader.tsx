@@ -1,28 +1,27 @@
-import type { LoaderFunctionArgs } from "react-router";
-import { supabase } from "../components";
+import { data, type LoaderFunctionArgs } from "react-router";
 import type { Game } from "../types/types";
+import { getGameByIdRequest } from "../requests";
 
 /**
  * Retrieve game from backend.
  */
 export const GameLoader = async ({params}: LoaderFunctionArgs): Promise<Game> => {
-    const id = params.id;
+    const id = params.id as string;
 
-    const { data } = await supabase.from("games").select().eq("id", id).single();
+    try {
+        const game = await getGameByIdRequest(parseInt(id));
+        if (game) {
+            for (let i = 0; i < game.reviews.length; i++) {
+                const date = new Date(game.reviews[i].date);
+                game.reviews[i].date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getUTCFullYear();
+            }
 
-    if (data) {
-        const game = data;
-
-        const reviews = await supabase.from("reviews").select().eq("game_id", id);
-        game.reviews = reviews.data ? reviews.data: [];
-
-        for (let i = 0; i < game.reviews.length; i++) {
-            const date = new Date(game.reviews[i].created_at);
-            game.reviews[i].date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getUTCFullYear();
+            return game;
         }
-
-        return game;
+    } catch (error) {
+        console.log(error);
+        throw data(`Error retrieving game with id ${id}`, { status: 500 });
     }
 
-    return data;
+    throw data(`Game with id ${id} not found`, { status: 404 });
 };

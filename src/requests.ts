@@ -105,6 +105,42 @@ export async function getAllGamesRequest(): Promise<Game[]> {
     return [];
 }
 
+/**
+ * Send a GET request and retrieve a specific game by ID.
+ */
+export async function getGameByIdRequest(id: number): Promise<Game> {
+    try {
+        const { data } = await supabase.from("games").select(`
+            id,
+            title,
+            publisher,
+            developer,
+            category,
+            players,
+            cover,
+            release_date,
+            description,
+            reviews (
+                game_id,
+                reviewer_name,
+                date,
+                heading,
+                rating,
+                review,
+                reviewer_id
+            )
+        `).eq("rom", true).eq("id", id).single();
+
+        if (data) {
+            return data;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    throw new Error(`Could not find game with id ${id}`);
+}
+
 
 
 

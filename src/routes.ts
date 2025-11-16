@@ -17,11 +17,13 @@ import HelpCenterPage from "./pages/resources/HelpCenterPage";
 import ManageRightsPage from "./pages/resources/ManageRightsPage";
 import TermsPage from "./pages/resources/TermsPage";
 import PrivacyPage from "./pages/resources/PrivacyPage";
+import { ErrorPage } from "./pages/ErrorPage";
 
 export const routes = createBrowserRouter([
     {
         path: URL_HOME,
         Component: App,
+        ErrorBoundary: ErrorPage,
         children: [
             {
                 path: URL_COMPANY_PAGE,
@@ -39,7 +41,8 @@ export const routes = createBrowserRouter([
             {
                 path: URL_GAME_PAGE + "/:id",
                 Component: GamePage,
-                loader: GameLoader
+                loader: GameLoader,
+                ErrorBoundary: ErrorPage
             },
             {
                 path: URL_GAMES_PAGE,

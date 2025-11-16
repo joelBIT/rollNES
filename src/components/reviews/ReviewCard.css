@@ -38,6 +38,7 @@
         & .review-text {
             font-size: 1rem;
             font-weight: 100;
+            white-space: pre-line;
         }
     }
 }
