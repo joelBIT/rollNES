@@ -1,6 +1,7 @@
 export * from "./about/ContactForm";
 export * from "./about/TeamMemberCard";
 export * from "./App";
+export * from "./ControllerInput";
 export * from "./ControllerModal";
 export * from "./favourites/FavouriteCard";
 export * from "./favourites/FavouriteMenu";

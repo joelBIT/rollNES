@@ -39,11 +39,6 @@
                     color: var(--color-player-2);
                 }
             }
-
-            .controller-input {
-                margin: 1rem;
-                width: 120px;
-            }
         }
 
         & .dialog-buttons {
