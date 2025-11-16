@@ -15,7 +15,7 @@ import "./GamePage.css";
 export default function GamePage(): ReactElement {
     const game = useLoaderData() as Game;
     const [selectedGame, setSelectedGame] = useState<Game>(game);
-    const [sortedReviews, setSortedReviews] = useState<Review[]>([]);
+    const [sortedReviews, setSortedReviews] = useState<Review[]>([...game.reviews]);
     const tabTitles = ["Details", "Play"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
@@ -24,7 +24,7 @@ export default function GamePage(): ReactElement {
     useEffect(() => {
         setActive(tabTitles[0]);    // Always show "Details" tab as default when choosing a new game
         setSelectedGame(game);
-        setSortedReviews(game.reviews);
+        setSortedReviews([...game.reviews]);
     }, [game.id])
 
     /**
