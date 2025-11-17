@@ -5,9 +5,10 @@
     justify-self: center;
     border-radius: 6px;
     background-color: var(--color-modal-background);
-    scrollbar-width: none;
+    scrollbar-width: thin;
     padding-left: 2rem;
     padding-right: 2rem;
+    scrollbar-color: var(--color-black) #FFFFFF20;
 
     & .modal-text {
         font-family: 'ivy-presto-headline-light';
@@ -61,12 +62,19 @@
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
     #controllerModal {
-        & .modal__text {
-            font-size: 1rem;
-            margin-left: 2rem;
-            margin-right: 2rem;
+        & .modal-text {
+            font-size: 1.5rem;
+            margin: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        & .modal-content {
+            & .controllers {
+                flex-direction: column;
+                gap: 2rem;
+            }
         }
     }
 }
