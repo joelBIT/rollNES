@@ -85,6 +85,7 @@
                     backdrop-filter: brightness(0.5);
                     padding: 0.5rem 1rem;
                     border-radius: 99%;
+                    color: var(--color-almost-white);
                 }
 
                 & .mapper-cartridges__text {
@@ -99,12 +100,13 @@
                     padding: 0.5rem 1rem;
                     margin-top: 1rem;
                     margin-bottom: 2rem;
+                    color: var(--color-almost-white);
                 }
 
                 & .play-button {
                     align-self: flex-end;
                     color: var(--color-black);
-                    background-color: var(--color-white);
+                    background-color: var(--color-almost-white);
                 }
             }
         }

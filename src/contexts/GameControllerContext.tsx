@@ -18,7 +18,7 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
     const STORAGE_KEY = 'gameController';
 
     useEffect(() => {
-        loadSavedControllers();     
+        loadSavedControllers();
     }, []);
 
     /**
