@@ -4,6 +4,9 @@ import { URL_GAME_PAGE } from "../../utils";
 
 import "./Carousel.css";
 
+/**
+ * Rotates a number of banner slides.
+ */
 export function Carousel(): ReactElement {
     const [ slide, setSlide ] = useState<number>(0);
 

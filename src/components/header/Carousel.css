@@ -10,11 +10,11 @@
         letter-spacing: .125rem;
         width: 50%;
 
-        .inactive {
+        & .inactive {
             display: none;
         }
 
-        .active {
+        & .active {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -72,7 +72,7 @@
     }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 900px) {
     #carousel {
         justify-content: center;
 
@@ -82,13 +82,17 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     #carousel {
         & #slide-space {
-            width: 80%;
+            text-align: center;
 
             & .active {
-                font-size: 9px;
+                font-size: 10px;
+
+                & > a {
+                    display: none;
+                }
             }
         }
     }
