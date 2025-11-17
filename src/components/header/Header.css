@@ -14,9 +14,10 @@ header {
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
     header {
         & #header-nav {
+            flex-wrap: wrap;
             padding: 0 1rem;
         }
     }

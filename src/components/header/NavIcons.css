@@ -94,8 +94,20 @@
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     #nav-icons {
-        margin-right: 1rem;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 400px) {
+    #nav-icons {
+        margin-right: 0;
+
+        & #icons-navbar {
+            & #icons-navbar__list {
+                gap: 0.6rem;
+            }
+        }
     }
 }

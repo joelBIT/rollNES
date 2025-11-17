@@ -31,9 +31,11 @@ export function Header(): ReactElement {
         <header>
             <section id="header-nav">
                 <NavBar />
+
                 <NavLink to={URL_HOME} id="rollnes-logo">
                     <Logo />
                 </NavLink>
+                
                 <NavIcons toggleShowDropdown={() => setShowSearchDropdown(!showSearchDropdown)} isDropdownShowing={showSearchDropdown} />
             </section>
 
