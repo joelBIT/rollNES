@@ -24,3 +24,9 @@
         }
     }
 }
+
+@media (max-width: 400px) {
+    #footer-list {
+        text-align: center;
+    }
+}

@@ -80,6 +80,11 @@ footer {
             align-items: center;
             gap: 0.7rem;
         }
+
+        & #footer-contact {
+            align-items: center;
+            width: auto;
+        }
     }
 }
 
@@ -93,8 +98,15 @@ footer {
     footer {
         padding: 1rem;
 
-        & #footer-contact {
-            align-items: center;
+        & #footer-list-links {
+            flex-direction: column;
+            align-content: center;
+        }
+
+        & #footer-copyright {
+            & #footer-copyright__links {
+                text-align: center;
+            }
         }
     }
 }
