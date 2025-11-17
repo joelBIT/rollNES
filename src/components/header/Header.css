@@ -1,7 +1,6 @@
 header {
     display: flex;
     flex-direction: column;
-    min-height: 6rem;
 
     & #header-nav {
         display: flex;
