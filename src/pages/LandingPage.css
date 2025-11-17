@@ -1,6 +1,7 @@
 #landingPage {
     display: flex;
     flex-direction: column;
+    gap: 3rem;
 
     & #landing-popular {
         display: flex;
@@ -21,6 +22,8 @@
 
         & #landing-popular-list {
             display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             gap: 5rem;
         }
     }
@@ -43,6 +46,8 @@
 
         & #landing-promises-list {
             display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             gap: 4rem;
 
             & .landing-promises {

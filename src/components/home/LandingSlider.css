@@ -10,7 +10,9 @@
 
         & #slides {
             display: flex;
+            align-items: center;
             width: 100%;
+            height: 100%;
             overflow-x: hidden;
         }
 
@@ -52,17 +54,19 @@
 
         & #slide-cartridges {
             position: relative;
+            height: 100%;
 
-            & #shop-cartridges__image {
+            & #slide-cartridges__image {
                 display: flex;
                 width: 100%;
 
                 & > img {
                     width: 100%;
+                    object-fit: cover;
                 }
             }
 
-            & #shop-cartridges {
+            & #mapper-cartridges {
                 display: flex;
                 flex-direction: column;
                 align-self: flex-start;
@@ -71,26 +75,34 @@
                 bottom: 0;
                 right: 0;
                 color: var(--color-white);
-                width: 50%;
+                width: fit-content;
+                padding-right: 1rem;
+                text-align: right;
 
-                & .shop-cartridges__heading {
+                & .mapper-cartridges__heading {
                     font-family: "ivy-presto-headline-light";
                     font-size: 3rem;
+                    backdrop-filter: brightness(0.5);
+                    padding: 0.5rem 1rem;
+                    border-radius: 99%;
                 }
 
-                & .shop-cartridges__text {
+                & .mapper-cartridges__text {
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    align-self: flex-end;
+                    width: fit-content;
                     gap: 0.5rem;
                     font-family: "brandon-grotesque";
                     font-size: 1rem;
+                    backdrop-filter: brightness(0.5);
+                    border-radius: 80%;
+                    padding: 0.5rem 1rem;
                     margin-top: 1rem;
                     margin-bottom: 2rem;
                 }
 
                 & .play-button {
-                    align-self: center;
+                    align-self: flex-end;
                     color: var(--color-black);
                     background-color: var(--color-white);
                 }
@@ -123,7 +135,8 @@
         }
     }
 
-    & #prevButton, #nextButton {
+    & #prevButton, 
+    #nextButton {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -184,5 +197,78 @@
 
     to {
         transform: translateX(100%);
+    }
+}
+
+@media (max-width: 1300px) {
+    #landing-slider {
+        & #slide-space {
+            align-items: center;
+            height: 50rem;
+
+            & #slide-battletoads {
+                flex-direction: column-reverse;
+                align-items: center;
+
+                & #game-battletoads__image {
+                    height: 400px;
+                }
+            }
+
+            & #slide-cartridges {
+                & #mapper-cartridges {
+                    & .mapper-cartridges__heading {
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+
+        & #prevButton, 
+        #nextButton {
+            top: auto;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    #landing-slider {
+        & #slide-space {
+            height: 40rem;
+
+            & #slide-battletoads {
+                & #game-battletoads__image {
+                    height: 300px;
+                }
+
+                & #game-battletoads {
+                    & .game-battletoads__italic {
+                        font-size: 22px;
+                        padding-top: 1rem;
+                    }
+
+                    & .game-battletoads__heading {
+                        font-size: 2rem;
+                    }
+                }
+            }
+
+            & #slide-cartridges {
+                 & #mapper-cartridges {
+                    & .mapper-cartridges__heading {
+                        backdrop-filter: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    #landing-slider {
+        & #nextButton,
+        #prevButton {
+            display: none;
+        }
     }
 }

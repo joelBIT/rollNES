@@ -49,13 +49,13 @@ export function LandingSlider(): ReactElement {
                     </section>
 
                     <section id="slide-cartridges" className={slide === 1 ? isNext ? "active-slide" : "active-slide-reverse" : isNext ? "slide" : "slide-reverse"}>
-                        <section id="shop-cartridges__image">
+                        <section id="slide-cartridges__image">
                             <img src="/nes-game-cartridges-hero.avif" alt="Cartridges" />
                         </section>
 
-                        <section id="shop-cartridges">
-                            <h2 className="shop-cartridges__heading"> Most common mappers implemented</h2>
-                            <p className="shop-cartridges__text"> Nearly all games supported </p>
+                        <section id="mapper-cartridges">
+                            <h2 className="mapper-cartridges__heading"> Most common mappers implemented</h2>
+                            <p className="mapper-cartridges__text"> Nearly all games supported </p>
 
                             <NavLink className="play-button" to={URL_GAMES_PAGE}>
                                 Play Nintendo
