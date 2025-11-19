@@ -4,9 +4,13 @@ import type { Filter } from "../../types/types";
 
 /**
  * Filter used in GamesPage to filter games that are of interest.
+ * 
+ * @param values        All filter values
+ * @param title         Title of the filter (Category, Players, etc)
+ * @param filterName    Name of the game property to filter on (category, players, etc)
  */
 export function FilterAccordion({values, title, filterName}: {values: string[], title: string, filterName: Filter}): ReactElement {
-    const [isShowingValues, setIsShowingValues] = useState(false);
+    const [isShowingValues, setIsShowingValues] = useState<boolean>(false);
     const { appliedFilters, matchesFilter, addFilter, removeFilter } = useGames();
 
     return (
