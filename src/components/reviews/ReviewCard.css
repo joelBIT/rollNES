@@ -46,3 +46,15 @@
         }
     }
 }
+
+@media (max-width: 500px) {
+    .review-card {
+        flex-direction: column;
+
+        & .reviewer {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}

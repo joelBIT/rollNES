@@ -47,3 +47,13 @@
         }
     }
 }
+
+@media (max-width: 500px) {
+    #reviews-list {
+        & #reviews-content {
+            & #reviews-rating {
+                font-size: 13px;
+            }
+        }
+    }
+}
