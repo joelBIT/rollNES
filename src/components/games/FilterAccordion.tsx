@@ -21,7 +21,7 @@ export function FilterAccordion({values, title, filterName}: {values: string[], 
             </article>
 
             {
-                values.map(value => 
+                values.filter(value => matchesFilter(filterName, value) > 0).map(value => 
                     <article className={isShowingValues ? "filter-card-collapsible dropdown" : "filter-card-collapsible"} key={value}>
                         <section className="filter-card-body">
                             <section className="filter-card-body-data">

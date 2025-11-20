@@ -113,11 +113,13 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Returns a sorted list containing all unique filter values.
      */
     function allFilterValues(filter: Filter): string[] {
+        //const gameList = filter === firstSelected ? games : filteredGames;        // First selected filter type should match against all games
+
         switch(filter) {
             case "players":
-                return Array.from(new Set(games.map(game => game.players))).sort((a, b) => a - b).map(player => player.toString());
+                return Array.from(new Set(games.filter(game => included(game, appliedFilters, filter)).map(game => game.players))).sort((a, b) => a - b).map(player => player.toString());
             default:
-                return Array.from(new Set(games.map(game => game[filter]))).sort((a, b) => a.localeCompare(b));
+                return Array.from(new Set(games.filter(game => included(game, appliedFilters, filter)).map(game => game[filter]))).sort((a, b) => a.localeCompare(b));
         }
     }
 
@@ -125,7 +127,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Returns number of games matching supplied filter among the filtered games.
      */
     function matchesFilter(type: Filter, value: string): number {
-        const gameList = firstSelected === type ? games : filteredGames;
+        const gameList = type === firstSelected ? games : filteredGames;        // First selected filter type should match against all games
 
         if (type === "players") {
             return gameList.filter(game => game[type] === parseInt(value)).length;
