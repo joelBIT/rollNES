@@ -21,6 +21,11 @@
             padding: 1rem;
             font-family: "brandon-grotesque", sans-serif;
             font-size: 14px;
+
+            & .reviews-border {
+                border-left: 1px solid;
+                height: 19px;
+            }
         }
 
         & #reviews-sort {

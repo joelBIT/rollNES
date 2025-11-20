@@ -37,7 +37,8 @@ export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
             <section id="reviews-content">
                 
                 <section id="reviews-rating"> 
-                    <Rating rating={getAverageRating(sortedReviews)} /> | 
+                    <Rating rating={getAverageRating(sortedReviews)} />
+                    <p className="reviews-border"></p>
                     <p>Based on {sortedReviews.length} reviews</p> 
                 </section>
 
