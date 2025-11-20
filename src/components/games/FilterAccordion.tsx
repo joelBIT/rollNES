@@ -29,7 +29,6 @@ export function FilterAccordion({values, title, filterName}: {values: string[], 
                                     type="checkbox" 
                                     name={`filter-${value}`} 
                                     checked={appliedFilters.filter(filter => filter.type === filterName && filter.value === value).length > 0}
-                                    id={`filter-${value}`} 
                                     onChange={(e) => (e.target as HTMLInputElement).checked ? addFilter(filterName, value) : removeFilter(filterName, value)}
                                 />
 

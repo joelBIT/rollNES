@@ -11,11 +11,10 @@ export function ControllerInput({defaultButton, label, onKeyDown}: {defaultButto
             <input 
                 type="text" 
                 defaultValue={button.value} 
-                className="key form__field" 
+                className="key-controller form__field" 
                 onKeyDown={e => onKeyDown(e)}
                 form="controller-form"
                 name={button.button}
-                id={button.button} 
                 autoComplete="off" 
             />
 

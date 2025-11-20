@@ -19,11 +19,11 @@ export default function GamesPage(): ReactElement {
 
                 <SliderAccordion title="Result Range" setValue={setNumberGamesShowing} min={minRange} max={filteredGames.length}/>
 
-                <FilterAccordion values={allFilterValues("players")} title={"Players"} filterName={"players"} />
+                <FilterAccordion values={allFilterValues("players")} title="Players" filterName="players" />
 
-                <FilterAccordion values={allFilterValues("publisher")} title={"Publisher"} filterName={"publisher"} />
+                <FilterAccordion values={allFilterValues("publisher")} title="Publisher" filterName="publisher" />
 
-                <FilterAccordion values={allFilterValues("developer")} title={"Developer"} filterName={"developer"} />
+                <FilterAccordion values={allFilterValues("developer")} title="Developer" filterName="developer" />
             </section>
 
             <section id="games-list">

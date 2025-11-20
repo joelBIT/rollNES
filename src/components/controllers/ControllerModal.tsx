@@ -13,7 +13,7 @@ export function ControllerModal({ text, close }: { text: string, close: (toggle:
     const [ message, setMessage ] = useState<string>("Could not save controller settings");
     const modalRef = useRef<HTMLDialogElement>(null);
     const { player1, player2, saveConfigurations } = useControllers();
-    const keys = document.getElementsByClassName('key') as HTMLCollectionOf<HTMLInputElement>;
+    const keys = document.getElementsByClassName('key-controller') as HTMLCollectionOf<HTMLInputElement>;
 
     useEffect(() => {
         if (!modalRef.current?.open) {
