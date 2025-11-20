@@ -20,6 +20,7 @@
             line-height: 1.2;
             text-transform: uppercase;
             align-self: center;
+            text-align: center;
         }
 
         & .register-section__text {
@@ -30,6 +31,7 @@
             color: #5c5c5c;
             letter-spacing: .03125rem;
             align-self: center;
+            text-align: center;
         }
 
         & #register-form {
