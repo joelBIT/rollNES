@@ -22,7 +22,6 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     const [games, setGames] = useState<Game[]>([]);         // All playable games available to the application
     const [filteredGames, setFilteredGames] = useState<Game[]>([]);
     const [appliedFilters, setAppliedFilters] = useState<AppliedFilter[]>([]);
-    const [firstSelected, setFirstSelected] = useState<Filter | null>(null);          // Marks the first selected filter type
 
     useEffect(() => {
         loadGames();
@@ -88,23 +87,12 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
         const updatedFilters = appliedFilters.filter(filter => filter.type !== type || (filter.type === type && filter.value !== value));
         applyFilters(updatedFilters);
         setAppliedFilters((_oldValues) => [...updatedFilters]);
-        if (updatedFilters.length === 0) {
-            setFirstSelected(null);     // No filters selected anymore
-        }
-
-        if (updatedFilters.length === 1 && type !== updatedFilters[0].type) {
-            setFirstSelected(updatedFilters[0].type);       // Update selected filter type if the last remaining applied filter is of different type than the first selected filter
-        }
     }
 
     /**
      * Add specific filter when a user clicks on corresponding filter option. 
      */
-    function addFilter(type: Filter, value: string): void {
-        if (appliedFilters.length === 0) {
-            setFirstSelected(type);
-        }
-        
+    function addFilter(type: Filter, value: string): void {        
         applyFilters([...appliedFilters, {type, value}]);
         setAppliedFilters((_oldValues) => [..._oldValues, {type, value}]);
     }
@@ -113,8 +101,6 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Returns a sorted list containing all unique filter values.
      */
     function allFilterValues(filter: Filter): string[] {
-        //const gameList = filter === firstSelected ? games : filteredGames;        // First selected filter type should match against all games
-
         switch(filter) {
             case "players":
                 return Array.from(new Set(games.filter(game => included(game, appliedFilters, filter)).map(game => game.players))).sort((a, b) => a - b).map(player => player.toString());
@@ -127,14 +113,13 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Returns number of games matching supplied filter among the filtered games.
      */
     function matchesFilter(type: Filter, value: string): number {
-        const gameList = type === firstSelected ? games : filteredGames;        // First selected filter type should match against all games
-
         if (type === "players") {
-            return gameList.filter(game => game[type] === parseInt(value)).length;
+            return filteredGames.filter(game => game[type] === parseInt(value)).length;
         }
 
-        return gameList.filter(game => game[type] === value).length;
+        return filteredGames.filter(game => game[type] === value).length;
     }
+    
     return (
         <GamesContext.Provider value={{ games, filteredGames, appliedFilters, allFilterValues, addFilter, removeFilter, matchesFilter }}>
             { children }
