@@ -16,7 +16,12 @@ export default function GamesPage(): ReactElement {
     return (
         <main id="gamesPage">
             <section id="games-page-header">
-                <button className="retro-button" onClick={() => setShowFilters(!showFilters)}> {showFilters ? <h2> Hide filters </h2> : <h2> Show filters </h2>} </button>
+                <button 
+                    className="retro-button" 
+                    onClick={() => setShowFilters(!showFilters)}
+                > 
+                    {showFilters ? <h2 className="filter-button-text"> Hide filters </h2> : <h2 className="filter-button-text"> Show filters </h2>} 
+                </button>
             </section>
 
             <section className={showFilters ? "game-filters-panel show-filters" : "game-filters-panel hide-filters"}>
