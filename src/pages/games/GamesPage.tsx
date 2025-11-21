@@ -14,6 +14,10 @@ export default function GamesPage(): ReactElement {
 
     return (
         <main id="gamesPage">
+            <section id="games-page-header">
+                <button className="retro-button"> Filter </button>
+            </section>
+
             <section id="game-filters-panel">
                 <FilterAccordion title="Category" values={allFilterValues("category")} filterName="category" />
 

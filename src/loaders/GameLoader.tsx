@@ -11,7 +11,7 @@ export const GameLoader = async ({params}: LoaderFunctionArgs): Promise<Game> =>
     try {
         const game = await getGameByIdRequest(parseInt(id));
         if (game) {
-            for (let i = 0; i < game.reviews.length; i++) {
+            for (let i = 0; i < game.reviews?.length; i++) {
                 const date = new Date(game.reviews[i].date);
                 game.reviews[i].date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getUTCFullYear();
             }

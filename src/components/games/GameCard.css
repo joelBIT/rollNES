@@ -83,3 +83,24 @@
         }
     }
 }
+
+@media (max-width: 800px) {
+    .game-card {
+        flex-direction: column;
+
+        & .game-image {
+            display: none;
+        }
+        & .game-information {
+            width: 100%;
+            padding-left: 0;
+        }
+
+        & .game-details {
+            flex-direction: row;
+            align-self: flex-start;
+            justify-content: flex-end;
+            width: 100%;
+        }
+    }
+}

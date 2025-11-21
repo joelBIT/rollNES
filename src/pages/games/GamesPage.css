@@ -5,6 +5,10 @@
     gap: 2rem;
     padding: 2rem;
 
+    #games-page-header {
+        display: none;
+    }
+
     & #game-filters-panel {
         display: flex;
         flex-direction: column;
@@ -45,6 +49,40 @@
                 gap: 1rem;
                 padding: 1rem;
             }
+        }
+    }
+}
+
+@media (max-width: 1250px) {
+    #gamesPage {
+        flex-direction: column;
+        padding-top: 0;
+        padding-left: 0;
+        padding-right: 0;
+
+        #games-page-header {
+            display: flex;
+            background-color: var(--color-logo-background);
+            padding: 1rem;
+        }
+
+        & #game-filters-panel {
+            display: none;
+        }
+
+        & #games-list {
+            align-items: center;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+    #gamesPage {
+        & #games-list {
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
     }
 }
