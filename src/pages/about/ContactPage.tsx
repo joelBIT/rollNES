@@ -7,8 +7,8 @@ export default function ContactPage(): ReactElement {
     return (
         <main id="contactPage">
             <section id="contactPage-heading">
-                <h2 id="contactPage-heading__heading"> Contact Me </h2>
-                <p id="contactPage-heading__text"> Get in touch! I am here to quickly provide you with the info and services you need & answer any question you may have. </p>
+                <h2 id="contactPage-heading__heading"> Contact RollNES </h2>
+                <p id="contactPage-heading__text"> Get in touch! I am here to quickly provide you with the info and services you need and answer any question you may have. </p>
             </section>
 
             <section id="contact-information">
