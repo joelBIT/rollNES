@@ -56,6 +56,7 @@
                 font-family: 'brandon-grotesque';
                 font-size: 1.2rem;
                 color: var(--color-footer-text);
+                text-align: center;
             }
         }
 
