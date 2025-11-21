@@ -11,14 +11,15 @@ export default function GamesPage(): ReactElement {
     const { filteredGames, allFilterValues, appliedFilters } = useGames();
     const [minRange] = useState<number>(filteredGames?.length > 10 ? 10 : filteredGames.length);     // Minimum 10 games are rendered on the page (or fewer due to chosen filters)
     const [numberGamesShowing, setNumberGamesShowing] = useState<number>(minRange);
+    const [showFilters, setShowFilters] = useState<boolean>(false);
 
     return (
         <main id="gamesPage">
             <section id="games-page-header">
-                <button className="retro-button"> Filter </button>
+                <button className="retro-button" onClick={() => setShowFilters(!showFilters)}> {showFilters ? <h2> Hide filters </h2> : <h2> Show filters </h2>} </button>
             </section>
 
-            <section id="game-filters-panel">
+            <section className={showFilters ? "game-filters-panel show-filters" : "game-filters-panel hide-filters"}>
                 <FilterAccordion title="Category" values={allFilterValues("category")} filterName="category" />
 
                 <SliderAccordion title="Result Range" setValue={setNumberGamesShowing} min={minRange} max={filteredGames.length}/>

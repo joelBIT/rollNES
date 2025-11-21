@@ -1,18 +1,19 @@
 #gamesPage {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     background-color: var(--color-games-background);
-    gap: 2rem;
     padding: 2rem;
+    gap: 2rem;
 
     #games-page-header {
         display: none;
     }
 
-    & #game-filters-panel {
+    & .game-filters-panel {
         display: flex;
         flex-direction: column;
-        flex: 1;
+        width: 20rem;
         background-color: var(--color-white);
         border-radius: 1rem;
         box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -23,7 +24,6 @@
         flex-direction: column;
         align-items: flex-end;
         gap: 2rem;
-        flex: 3;
 
         & #applied-filters {
             display: flex;
@@ -64,9 +64,22 @@
             display: flex;
             background-color: var(--color-logo-background);
             padding: 1rem;
+
+            & .retro-button {
+                font-family: 'brandon-grotesque', sans-serif;
+                font-size: 1rem;
+            }
         }
 
-        & #game-filters-panel {
+        & .show-filters {
+            display: flex;
+            width: 95vw;
+            align-self: center;
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+
+        & .hide-filters {
             display: none;
         }
 
@@ -80,6 +93,11 @@
 
 @media (max-width: 800px) {
     #gamesPage {
+        & .show-filters {
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
         & #games-list {
             padding-left: 1rem;
             padding-right: 1rem;
