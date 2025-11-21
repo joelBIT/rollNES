@@ -21,7 +21,7 @@ export function GameCard({game}: { game: Game}): ReactElement {
             </section>
 
             <section className="game-information">
-                <NavLink to={URL_GAME_PAGE + "/" + game.id} className="game-information__link"> 
+                <NavLink to={URL_GAME_PAGE + "/" + game.id} className="game-information__link" title="View game"> 
                     <h2 className="game-information__heading"> {game.title} </h2> 
                 </NavLink>
                 
