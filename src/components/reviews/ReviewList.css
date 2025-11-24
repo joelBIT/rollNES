@@ -33,13 +33,45 @@
             font-family: "brandon-grotesque", sans-serif;
             padding-right: 4rem;
 
-            & #reviews-sort-select {
+            & #reviews-sort-label {
+                vertical-align: top;
+            }
+
+            & #reviews-sort-select,
+            ::picker(select) {
+                appearance: base-select;
                 align-items: center;
                 width: fit-content;
                 font-family: "brandon-grotesque", sans-serif;
                 padding: 0.1rem;
                 cursor: pointer;
-                border-radius: 3px;
+                border: none;
+                outline: none;
+                background-color: var(--color-games-background);
+
+                & .reviews-sort-select__options {
+                    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+                    border: 1px solid var(--color-border);
+                    border-radius: 3px;
+                }
+            }
+
+            option {
+                display: flex;
+                flex-direction: row-reverse;
+                justify-content: space-between;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+                width: 200px;
+
+                &:checked {
+                    background: lightgray;
+                }
+            }
+
+            option::checkmark {
+                color: var(--color-success);
+                font-size: 1.5rem;
             }
         }
 

@@ -27,6 +27,9 @@ export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
         } else if (sort === "date") {
             const sorted = reviewsToSort.sort((a, b) => (Date.parse(a.date) > Date.parse(b.date)) ? -1 : 1);
             setSortedReviews([...sorted]);
+        } else if (sort === "oldest") {
+            const sorted = reviewsToSort.sort((a, b) => (Date.parse(a.date) < Date.parse(b.date)) ? -1 : 1);
+            setSortedReviews([...sorted]);
         }
     }
 
@@ -48,9 +51,11 @@ export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
                         <section id="reviews-sort">
                             <label id="reviews-sort-label" htmlFor="reviews-sort-select"> Sort by: </label> 
                             <select id="reviews-sort-select" name="reviews-sort-select" onChange={e => sortReviews(e.target.value)}>
-                                <option value="none" defaultChecked> ------ </option>
-                                <option value="name"> Name </option>
-                                <option value="date"> Newest </option>
+                                <optgroup className="reviews-sort-select__options">
+                                    <option value="oldest" defaultChecked> Oldest </option>
+                                    <option value="name"> Name </option>
+                                    <option value="date"> Newest </option>
+                                </optgroup>
                             </select>
                         </section>
                         
