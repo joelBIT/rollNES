@@ -29,5 +29,6 @@ export * from "./home/PopularGameCard";
 export * from "./resources/FAQ";
 export * from "./reviews/Rating";
 export * from "./reviews/ReviewCard";
+export * from "./reviews/ReviewForm";
 export * from "./reviews/ReviewList";
 export * from "./reviews/Star";
