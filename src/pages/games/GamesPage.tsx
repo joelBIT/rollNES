@@ -9,7 +9,7 @@ import "./GamesPage.css";
  */
 export default function GamesPage(): ReactElement {
     const { filteredGames, allFilterValues, appliedFilters } = useGames();
-    const [minRange] = useState<number>(filteredGames?.length > 10 ? 10 : filteredGames.length);     // Minimum 10 games are rendered on the page (or fewer due to chosen filters)
+    const [minRange] = useState<number>(filteredGames?.length > 10 ? 10 : filteredGames?.length);     // Minimum 10 games are rendered on the page (or fewer due to chosen filters)
     const [numberGamesShowing, setNumberGamesShowing] = useState<number>(minRange);
     const [showFilters, setShowFilters] = useState<boolean>(false);
 
@@ -27,7 +27,7 @@ export default function GamesPage(): ReactElement {
             <section className={showFilters ? "game-filters-panel show-filters" : "game-filters-panel hide-filters"}>
                 <FilterAccordion title="Category" values={allFilterValues("category")} filterName="category" />
 
-                <SliderAccordion title="Result Range" setValue={setNumberGamesShowing} min={minRange} max={filteredGames.length}/>
+                <SliderAccordion title="Result Range" setValue={setNumberGamesShowing} min={minRange} max={filteredGames?.length}/>
 
                 <FilterAccordion values={allFilterValues("players")} title="Players" filterName="players" />
 
@@ -38,7 +38,7 @@ export default function GamesPage(): ReactElement {
 
             <section id="games-list">
                 {
-                    appliedFilters.length === 0 ? <></> : 
+                    appliedFilters?.length === 0 ? <></> : 
                         <section id="applied-filters">
                             <h2 className="applied-filters__title"> 
                                 {appliedFilters.length} Applied filter{appliedFilters.length > 1 ? "s" : ""}:
