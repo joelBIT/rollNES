@@ -7,7 +7,7 @@ import "./ReviewForm.css";
 /**
  * Form used to create reviews for a game with the supplied gameId.
  */
-export function ReviewForm({gameId}: {gameId: number}): ReactElement {
+export function ReviewForm({gameId, updateReviews}: {gameId: number, updateReviews?: () => void}): ReactElement {
     const [ state, formAction ] = useActionState(createReview, null);
     const [isShowing, setIsShowing] = useState<boolean>(false);
     const [rating, setRating] = useState<number>(0);
@@ -18,12 +18,7 @@ export function ReviewForm({gameId}: {gameId: number}): ReactElement {
     const [review, setReview] = useState<string>('');
 
     useEffect(() => {
-        setIsShowing(false);
-        setIsError(false);
-        setRating(0);
-        setTitle('');
-        setReview('');
-        setName('');
+        resetForm();
     }, [gameId])
 
     async function createReview(): Promise<void> {
@@ -32,24 +27,39 @@ export function ReviewForm({gameId}: {gameId: number}): ReactElement {
             setMessage('You must choose a rating');
             return;
         }
+
+        const newReview = {
+            reviewer_name: name,
+            heading: title,
+            review, 
+            rating, 
+            game_id: gameId
+        }
         
         try {
-            await createReviewRequest({reviewer_name: name, heading: title, review, rating, game_id: gameId});
+            await createReviewRequest(newReview);
+            resetForm();
+            setMessage('Review added');
+            setTimeout(() => setMessage(''), 5000);
         } catch (error) {
             setIsError(true);
             setMessage('Could not create review');
             return;
         }
         
+        if (updateReviews) {
+            updateReviews();        // Inform parent to update list of reviews with a new review
+            console.log(state);
+        }
+    }
+
+    function resetForm(): void {
         setIsError(false);
-        setMessage('Review added');
-        setTimeout(() => setMessage(''), 5000);
         setRating(0);
         setTitle('');
         setReview('');
         setName('');
         setIsShowing(false);
-        console.log(state);
     }
     
     return (

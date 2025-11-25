@@ -1,5 +1,5 @@
 import { supabase } from "./components";
-import type { AuthenticationRequest, CreateReview, Game, RegisterRequest } from "./types/types";
+import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, Review } from "./types/types";
 
 const GAMES_TABLE = "games";
 const NEWSLETTER_TABLE = "newsletter";
@@ -227,4 +227,17 @@ export async function createReviewRequest(review: CreateReview): Promise<void> {
         console.log(error);
         throw new Error(`Failed to create review`);
     }
+}
+
+/**
+ * Send a GET request to retrieve all reviews for the game with the supplied game ID.
+ */
+export async function getReviewsByGameIdRequest(id: number): Promise<Review[]> {
+    const { data, error } = await supabase.from(REVIEW_TABLE).select().eq("game_id", id);
+    if (error) {
+        console.log(error);
+        throw new Error(`Failed to create review`);
+    }
+
+    return data;
 }

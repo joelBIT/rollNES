@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import type { Game, Review } from "../../types/types";
 import { getAverageRating } from "../../utils";
 import { Rating, ReviewCard, ReviewForm } from "..";
+import { getReviewsByGameIdRequest } from "../../requests";
 
 import "./ReviewList.css";
 
@@ -33,6 +34,14 @@ export function ReviewList({game}: {game: Game}): ReactElement {
         }
     }
 
+    /**
+     * Update current list of reviews when a new review has been created.
+     */
+    async function updateReviews(): Promise<void> {
+        const updatedReviews = await getReviewsByGameIdRequest(game.id);
+        setSortedReviews([...updatedReviews]);
+    }
+
     return (
         <section id="reviews-list">
             <h2 id="reviews-list__heading"> Reviews </h2>
@@ -45,7 +54,7 @@ export function ReviewList({game}: {game: Game}): ReactElement {
                     <p>Based on {sortedReviews.length} reviews</p> 
                 </section>
 
-                <ReviewForm gameId={game.id}/>
+                <ReviewForm gameId={game.id} updateReviews={updateReviews} />
 
                 {
                     sortedReviews.length > 0 ? 
