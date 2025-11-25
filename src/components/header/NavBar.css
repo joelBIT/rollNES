@@ -41,7 +41,7 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
     #navbar {
         & .navbar__list {
             & .navbar__list-title {

@@ -1,10 +1,12 @@
 import { useActionState, useState, type ReactElement } from "react";
+import { Rating } from "..";
 
 import "./ReviewForm.css";
 
 export function ReviewForm(): ReactElement {
     const [ state, formAction ] = useActionState(createReview,  null);
     const [isShowing, setIsShowing] = useState<boolean>(false);
+    const [rating, setRating] = useState<number>(0);
 
     function createReview(): void {
         // call supabase
@@ -56,33 +58,29 @@ export function ReviewForm(): ReactElement {
                     </section>
                 </article>
 
-                <section className="information-input">
-                    <label className="input-label" htmlFor="rating">
-                        Rating
-                    </label>
+                <article id="rating-title-section">
+                    <section className="information-input rating-input">
+                        <label className="input-label" htmlFor="rating">
+                            Rating
+                        </label>
 
-                    <input 
-                        id="rating"
-                        name="rating"
-                        type="text"
-                        className={`input-field`}
-                        autoComplete="none" 
-                    />
-                </section>
+                        <Rating rating={rating} setRating={setRating}/>
+                    </section>
 
-                <section className="information-input">
-                    <label className="input-label" htmlFor="title">
-                        Title
-                    </label>
+                    <section className="information-input">
+                        <label className="input-label" htmlFor="title">
+                            Title of Review
+                        </label>
 
-                    <input 
-                        id="title"
-                        name="title"
-                        type="text"
-                        className={`input-field`}
-                        autoComplete="none" 
-                    />
-                </section>
+                        <input 
+                            id="title"
+                            name="title"
+                            type="text"
+                            className={`input-field`}
+                            autoComplete="none" 
+                        />
+                    </section>
+                </article>
 
                 <section className="information-input">
                     <label className="input-label" htmlFor="review">
