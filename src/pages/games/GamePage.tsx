@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
-import { Emulator, Rating, ReviewList, Tabs } from "../../components";
+import { Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
 import { COVER_URL, getAverageRating } from "../../utils";
 import type { Game } from "../../types/types";
 import { useFavourites } from "../../hooks/useFavourites";
@@ -47,6 +47,13 @@ export default function GamePage(): ReactElement {
                                         <Rating rating={getAverageRating(game.reviews)} />
                                         <p> {game.reviews?.length} review{game.reviews?.length > 1 || game.reviews?.length === 0 ? "s" : ""} </p>
                                     </section>
+                                </section>
+
+                                <section id="tags">
+                                    <Tag text={game.category} type="category" />
+                                    <Tag text={game.players.toString()} type="players" />
+                                    <Tag text={game.developer} type="developer" />
+                                    <Tag text={game.publisher} type="publisher" />
                                 </section>
 
                                 <h2 id="game-information__description"> 

@@ -1,0 +1,32 @@
+.tag {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 10px 18px;
+    border-radius: 30px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+    background-color: #FEE7AE;
+    color: #B67F1A;
+    width: fit-content;
+
+    & .tag-type {
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+    }
+}
+
+.tag-category {
+    background-color: #FFD4B8;
+    color: #BA5730;
+}
+
+.tag-players {
+    background-color: #C9F2C7;
+    color: #358241;
+}
+
+.tag-developer {
+    background-color: #C1E8E0;
+    color: #2A7D6E;
+}

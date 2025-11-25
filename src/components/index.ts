@@ -16,6 +16,7 @@ export * from "./games/GameCard";
 export * from "./games/RangeSlider";
 export * from "./games/SliderAccordion";
 export * from "./games/Tabs";
+export * from "./games/Tag";
 export * from "./header/Carousel";
 export * from "./header/Header";
 export * from "./header/HeaderBanner";
