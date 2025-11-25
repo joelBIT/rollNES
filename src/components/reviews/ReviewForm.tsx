@@ -61,16 +61,29 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
         setName('');
         setIsShowing(false);
     }
+
+    function toggleForm(): void {
+        if (isShowing) {
+            resetForm();
+        }
+        setIsShowing(!isShowing);
+    }
     
     return (
         <>
             <button 
                 className="retro-button add-review-button"
-                onClick={() => setIsShowing(true)} 
-                disabled={isShowing}
+                onClick={toggleForm} 
             >
-                <span className="material-symbols-outlined">rate_review</span>
-                <h2 className="add-review-button-text"> Write a Review </h2>
+                {
+                    isShowing ? 
+                        <h2 className="add-review-button-text"> Close Form </h2>
+                        :
+                        <>
+                            <span className="material-symbols-outlined">rate_review</span>
+                            <h2 className="add-review-button-text"> Write a Review </h2>
+                        </>
+                }
             </button>
         
             <form action={formAction} className={isShowing ? "reviewForm review-dropdown" : "reviewForm"}>
