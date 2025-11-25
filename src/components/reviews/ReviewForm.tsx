@@ -65,6 +65,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
     function toggleForm(): void {
         if (isShowing) {
             resetForm();
+            setMessage('');
         }
         setIsShowing(!isShowing);
     }
