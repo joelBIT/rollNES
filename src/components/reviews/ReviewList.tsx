@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactElement } from "react";
 import type { Review } from "../../types/types";
 import { getAverageRating } from "../../utils";
-import { Rating, ReviewCard } from "..";
+import { Rating, ReviewCard, ReviewForm } from "..";
 
 import "./ReviewList.css";
 
@@ -44,6 +44,8 @@ export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
                     <p className="reviews-border"></p>
                     <p>Based on {sortedReviews.length} reviews</p> 
                 </section>
+
+                <ReviewForm />
 
                 {
                     sortedReviews.length > 0 ? 

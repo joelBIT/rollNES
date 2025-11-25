@@ -3,9 +3,12 @@ import { type ReactElement, useActionState } from "react";
 import "./ContactForm.css";
 
 export function ContactForm(): ReactElement {
-    const [ state, formAction ] = useActionState(() => console.log("sent"),  null);
+    const [ state, formAction ] = useActionState(sendMessage,  null);
 
-    console.log(state);
+    function sendMessage(): void {
+        console.log("sent");
+        console.log(state);
+    }
     
     return (
         <form id="contactForm" action={formAction}>
@@ -61,7 +64,7 @@ export function ContactForm(): ReactElement {
             </section>
 
             <button id="sendButton" className="sendButton" type="submit">
-                <span className="sendButton__text"> Send </span>
+                <span> Send </span>
             </button>
         </form>
     );

@@ -1,23 +1,69 @@
-import { useActionState, type ReactElement } from "react";
+import { useActionState, useState, type ReactElement } from "react";
 
 import "./ReviewForm.css";
 
 export function ReviewForm(): ReactElement {
-    const [ state, formAction ] = useActionState(() => console.log("sent"),  null);
+    const [ state, formAction ] = useActionState(createReview,  null);
+    const [isShowing, setIsShowing] = useState<boolean>(false);
 
-    console.log(state);
+    function createReview(): void {
+        // call supabase
+        console.log("SUBMIT");
+        setIsShowing(false);
+        console.log(state);
+    }
     
     return (
-        <form id="reviewForm" action={formAction}>
-            <article id="name-email-section">
+        <>
+            <button 
+                className="retro-button add-review-button"
+                onClick={() => setIsShowing(true)} 
+                disabled={isShowing}
+            >
+                <span className="material-symbols-outlined">rate_review</span>
+                <h2 className="add-review-button-text"> Write a Review </h2>
+            </button>
+        
+            <form action={formAction} className={isShowing ? "reviewForm dropdown" : "reviewForm"}>
+                <article id="name-email-section">
+                    <section className="information-input">
+                        <label className="input-label" htmlFor="name">
+                            Name
+                        </label>
+
+                        <input 
+                            id="name"
+                            name="name"
+                            type="text"
+                            className={`input-field`}
+                            autoComplete="none" 
+                        />
+                    </section>
+
+                    <section className="information-input">
+                        <label className="input-label" htmlFor="email">
+                            Email
+                        </label>
+
+                        <input 
+                            id="email"
+                            name="email" 
+                            type="email"
+                            className={`input-field`}
+                            autoComplete="off" 
+                            required 
+                        />
+                    </section>
+                </article>
+
                 <section className="information-input">
-                    <label className="input-label" htmlFor="name">
-                        Name
+                    <label className="input-label" htmlFor="rating">
+                        Rating
                     </label>
 
                     <input 
-                        id="name"
-                        name="name"
+                        id="rating"
+                        name="rating"
                         type="text"
                         className={`input-field`}
                         autoComplete="none" 
@@ -25,60 +71,31 @@ export function ReviewForm(): ReactElement {
                 </section>
 
                 <section className="information-input">
-                    <label className="input-label" htmlFor="email">
-                        Email
+                    <label className="input-label" htmlFor="title">
+                        Title
                     </label>
 
                     <input 
-                        id="email"
-                        name="email" 
-                        type="email"
+                        id="title"
+                        name="title"
+                        type="text"
                         className={`input-field`}
-                        autoComplete="off" 
-                        required 
+                        autoComplete="none" 
                     />
                 </section>
-            </article>
 
-            <section className="information-input">
-                <label className="input-label" htmlFor="rating">
-                    Rating
-                </label>
+                <section className="information-input">
+                    <label className="input-label" htmlFor="review">
+                        Review
+                    </label>
 
-                <input 
-                    id="rating"
-                    name="rating"
-                    type="text"
-                    className={`input-field`}
-                    autoComplete="none" 
-                />
-            </section>
+                        <textarea id="review" name="review"  className={`input-field`} required />
+                </section>
 
-             <section className="information-input">
-                <label className="input-label" htmlFor="title">
-                    Title
-                </label>
-
-                <input 
-                    id="title"
-                    name="title"
-                    type="text"
-                    className={`input-field`}
-                    autoComplete="none" 
-                />
-            </section>
-
-            <section className="information-input">
-                <label className="input-label" htmlFor="review">
-                    Review
-                </label>
-
-                    <textarea id="review" name="review" className={`input-field`} required />
-            </section>
-
-            <button id="submitButton" className="submitButton" type="submit">
-                <span className="submitButton__text"> Submit </span>
-            </button>
-        </form>
+                <button id="submitButton" className="sendButton" type="submit">
+                    <span> Submit </span>
+                </button>
+            </form>
+        </>
     );
 }

@@ -33,10 +33,6 @@
             font-family: "brandon-grotesque", sans-serif;
             padding-right: 4rem;
 
-            & #reviews-sort-label {
-                vertical-align: top;
-            }
-
             & #reviews-sort-select,
             ::picker(select) {
                 appearance: base-select;
