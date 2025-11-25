@@ -15,8 +15,7 @@
     max-height: 0;
     overflow: hidden;
 
-    & #name-email-section,
-    #rating-title-section {
+    & #rating-title-section {
         display: flex;
         width: 100%;
     }
@@ -92,7 +91,7 @@
     }
 }
 
-.dropdown {
+.review-dropdown {
     display: flex;
     justify-content: space-between;
     align-self: center;
@@ -122,8 +121,7 @@
 
 @media (max-width: 650px) {
     .reviewForm {
-        & #name-email-section,
-        #rating-title-section {
+        & #rating-title-section {
             flex-direction: column;
             align-items: center;
         }

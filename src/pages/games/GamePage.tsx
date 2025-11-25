@@ -56,7 +56,7 @@ export default function GamePage(): ReactElement {
                         </section>
 
                         <section id="game-bottom">
-                            <ReviewList reviews={game.reviews} />
+                            <ReviewList game={game} />
                         </section>
                     </>
                 : 

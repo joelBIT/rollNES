@@ -1,4 +1,8 @@
 .rating {
     display: flex;
     margin-bottom: 0.2rem;
+
+    & .clickable-star {
+        cursor: pointer;
+    }
 }

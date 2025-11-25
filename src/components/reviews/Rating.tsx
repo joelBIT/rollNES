@@ -18,7 +18,7 @@ export function Rating({rating, setRating}: {rating: number, setRating?: (rating
             {
                 Array.from({ length: 5 }).map((_, index) => (
                     setRating ? 
-                        <div onClick={() => setRating(index + 1)}> <Star key={index} width={getWidth(index)} /> </div>
+                        <div className="clickable-star" key={index} onClick={() => setRating(index + 1)}> <Star width={getWidth(index)} /> </div>
                         : 
                         <Star key={index} width={getWidth(index)} />
                     ))

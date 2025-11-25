@@ -40,7 +40,8 @@ export type Review = {
 }
 
 export type CreateReview = {
-    reviewer_id: number,
+    reviewer_name: string,
+    reviewer_id?: number,
     game_id: number,
     heading: string,
     rating: number,

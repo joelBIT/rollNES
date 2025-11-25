@@ -1,8 +1,9 @@
 import { supabase } from "./components";
-import type { AuthenticationRequest, Game, RegisterRequest } from "./types/types";
+import type { AuthenticationRequest, CreateReview, Game, RegisterRequest } from "./types/types";
 
 const GAMES_TABLE = "games";
 const NEWSLETTER_TABLE = "newsletter";
+const REVIEW_TABLE = "reviews";
 
 
 
@@ -205,5 +206,25 @@ export async function subscribeToNewsletterRequest(email: string): Promise<void>
         }
 
         throw new Error(`Failed to subscribe`);
+    }
+}
+
+
+
+
+
+
+/***********
+ * REVIEWS *
+ ***********/
+
+/**
+ * Send a POST request to create a review for the game with the supplied game ID.
+ */
+export async function createReviewRequest(review: CreateReview): Promise<void> {
+    const { error } = await supabase.from(REVIEW_TABLE).insert(review);
+    if (error) {
+        console.log(error);
+        throw new Error(`Failed to create review`);
     }
 }

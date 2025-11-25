@@ -1,19 +1,19 @@
 import { useEffect, useState, type ReactElement } from "react";
-import type { Review } from "../../types/types";
+import type { Game, Review } from "../../types/types";
 import { getAverageRating } from "../../utils";
 import { Rating, ReviewCard, ReviewForm } from "..";
 
 import "./ReviewList.css";
 
 /**
- * Creates a list of reviews, where it is possible to sort the list by 'name' or 'date'.
+ * Creates a list of reviews for the supplied game, where it is possible to sort the list by 'name' or date.
  */
-export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
-    const [sortedReviews, setSortedReviews] = useState<Review[]>([...reviews]);
+export function ReviewList({game}: {game: Game}): ReactElement {
+    const [sortedReviews, setSortedReviews] = useState<Review[]>([...game.reviews]);
 
     useEffect(() => {
-        setSortedReviews([...reviews]);
-    }, [reviews])
+        setSortedReviews([...game.reviews]);
+    }, [game.reviews])
 
     /**
      * Sort reviews according to selected option.
@@ -24,7 +24,7 @@ export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
         if (sort === "name") {
             const sorted = reviewsToSort.sort((a, b) => a.reviewer_name.localeCompare(b.reviewer_name));
             setSortedReviews([...sorted]);
-        } else if (sort === "date") {
+        } else if (sort === "newest") {
             const sorted = reviewsToSort.sort((a, b) => (Date.parse(a.date) > Date.parse(b.date)) ? -1 : 1);
             setSortedReviews([...sorted]);
         } else if (sort === "oldest") {
@@ -45,7 +45,7 @@ export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
                     <p>Based on {sortedReviews.length} reviews</p> 
                 </section>
 
-                <ReviewForm />
+                <ReviewForm gameId={game.id}/>
 
                 {
                     sortedReviews.length > 0 ? 
@@ -56,7 +56,7 @@ export function ReviewList({reviews}: {reviews: Review[]}): ReactElement {
                                 <optgroup className="reviews-sort-select__options">
                                     <option value="oldest" defaultChecked> Oldest </option>
                                     <option value="name"> Name </option>
-                                    <option value="date"> Newest </option>
+                                    <option value="newest"> Newest </option>
                                 </optgroup>
                             </select>
                         </section>
