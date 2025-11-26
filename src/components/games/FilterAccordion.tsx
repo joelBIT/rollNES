@@ -16,7 +16,7 @@ export function FilterAccordion({values, title, filterName}: {values: string[], 
     return (
         <section className="game-filters-panel__accordion">
             <article className="filter-card-header" onClick={() => setIsShowingValues(!isShowingValues)}> 
-                <span className={isShowingValues ? "rotate-down" : "rotate-up"}> &#94; </span>
+                <div className={isShowingValues ? "filter-open" : "filter-closed"} />
                 <h5 className="filter-card-title"> {title} </h5>
             </article>
 

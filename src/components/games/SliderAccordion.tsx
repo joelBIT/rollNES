@@ -10,7 +10,7 @@ export function SliderAccordion({title, setValue, min, max}: {title: string, set
     return (
         <section className="game-filters-panel__accordion">
             <article className="filter-card-header" onClick={() => setIsShowingRange(!isShowingRange)}> 
-                <span className={isShowingRange ? "rotate-down" : "rotate-up"}> &#94; </span>
+                <div className={isShowingRange ? "filter-open" : "filter-closed"} /> 
                 <h5 className="filter-card-title"> {title} </h5>
             </article>
 

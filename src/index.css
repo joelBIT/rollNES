@@ -359,27 +359,37 @@ body {
             cursor: pointer;
         }
 
-        .rotate-down,
-        .rotate-up {
-            width: 10px;
-            font-size: 1rem;
-            transition: transform 0.2s ease-in-out;
-            text-align: center;
+        .filter-open,
+        .filter-closed {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            border: 1px solid #f0cca430;
+            width: 2rem;
+            min-width: 2rem;
+            height: 2rem;
+            border-radius: 100%;
+            font-size: 1.5rem;
+            color: var(--color-black);
         }
 
-        .rotate-down {
-            transform: scaleX(2) rotate(180deg);
+        .filter-open {
+            backdrop-filter: contrast(0.7);
         }
 
-        .rotate-up {
-            transform: scaleY(2) rotate(90deg);
+        .filter-open::before {
+            content: "-";
+        }
+
+        .filter-closed::before {
+            content: "+";
         }
 
         & .filter-card-title {
             font-family: 'regular-gibson';
             font-size: 1rem;
             font-weight: 100;
-            align-self: flex-end;
+            align-self: center;
         }
     }
 
