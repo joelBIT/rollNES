@@ -7,6 +7,7 @@
     background-color: var(--color-almost-white);
     padding: 1rem;
     border-radius: 9px;
+    border: 1px solid lightgray;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
     & .reviewer {
