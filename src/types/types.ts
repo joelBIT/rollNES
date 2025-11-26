@@ -23,21 +23,9 @@ export type AuthenticationRequest = {
     password: string
 }
 
-export type RegisterRequest = {
-    email: string,
-    firstName: string,
-    lastName: string,
-    password: string
-}
+export type RegisterRequest = AuthenticationRequest &  { firstName: string, lastName: string }
 
-export type Review = {
-    reviewer_name: string,
-    game_id: number,
-    date: string,
-    heading: string,
-    rating: number,
-    review: string
-}
+export type Review = CreateReview & { date: string }
 
 export type CreateReview = {
     reviewer_name: string,
