@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import type { Game, Review } from "../../types/types";
 import { getAverageRating } from "../../utils";
 import { Rating, ReviewCard, ReviewForm } from "..";
@@ -8,13 +8,10 @@ import "./ReviewList.css";
 
 /**
  * Creates a list of reviews for the supplied game, where it is possible to sort the list by 'name' or date.
+ * The optional setReviews function is used to send the updated list of reviews to the parent.
  */
-export function ReviewList({game}: {game: Game}): ReactElement {
+export function ReviewList({game, setReviews}: {game: Game, setReviews?: (reviews: Review[]) => void}): ReactElement {
     const [sortedReviews, setSortedReviews] = useState<Review[]>([...game.reviews]);
-
-    useEffect(() => {
-        setSortedReviews([...game.reviews]);
-    }, [game.reviews])
 
     /**
      * Sort reviews according to selected option.
@@ -35,11 +32,15 @@ export function ReviewList({game}: {game: Game}): ReactElement {
     }
 
     /**
-     * Update current list of reviews when a new review has been created.
+     * Update current list of reviews when a new review has been created. 
+     * Also send the updated list to the parent.
      */
     async function updateReviews(): Promise<void> {
         const updatedReviews = await getReviewsByGameIdRequest(game.id);
         setSortedReviews([...updatedReviews]);
+        if (setReviews) {
+            setReviews([...updatedReviews]);
+        }
     }
 
     return (
@@ -47,7 +48,6 @@ export function ReviewList({game}: {game: Game}): ReactElement {
             <h2 id="reviews-list__heading"> Reviews </h2>
 
             <section id="reviews-content">
-                
                 <section id="reviews-rating"> 
                     <Rating rating={getAverageRating(sortedReviews)} />
                     <p className="reviews-border"></p>

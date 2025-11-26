@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
 import { Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
 import { COVER_URL, getAverageRating } from "../../utils";
-import type { Game } from "../../types/types";
+import type { Game, Review } from "../../types/types";
 import { useFavourites } from "../../hooks/useFavourites";
 
 import "./GamePage.css";
@@ -16,12 +16,20 @@ export default function GamePage(): ReactElement {
     const game = useLoaderData() as Game;
     const tabTitles = ["Details", "Play"];
     const [active, setActive] = useState<string>(tabTitles[0]);
+    const [reviews, setReviews] = useState<Review[]>(game.reviews);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
     const favourite = isFavourite(game.id);
 
     useEffect(() => {
         setActive(tabTitles[0]);                    // Always show "Details" tab as default when viewing a new game
     }, [game.id])
+
+    /**
+     * Update current list of reviews when a new review has been created.
+     */
+    async function updateReviews(updatedReviews: Review[]): Promise<void> {
+        setReviews([...updatedReviews]);
+    }
 
     return (
         <main id="gamePage">
@@ -44,8 +52,8 @@ export default function GamePage(): ReactElement {
                                     </article>
 
                                     <section className="game-reviews-summary">
-                                        <Rating rating={getAverageRating(game.reviews)} />
-                                        <p> {game.reviews?.length} review{game.reviews?.length > 1 || game.reviews?.length === 0 ? "s" : ""} </p>
+                                        <Rating rating={getAverageRating(reviews)} />
+                                        <p> {reviews?.length} review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""} </p>
                                     </section>
                                 </section>
 
@@ -63,7 +71,7 @@ export default function GamePage(): ReactElement {
                         </section>
 
                         <section id="game-bottom">
-                            <ReviewList game={game} />
+                            <ReviewList game={game} setReviews={updateReviews} />
                         </section>
                     </>
                 : 
