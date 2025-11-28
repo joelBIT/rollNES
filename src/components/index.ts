@@ -3,6 +3,7 @@ export * from "./about/TeamMemberCard";
 export * from "./App";
 export * from "./controllers/ControllerInput";
 export * from "./controllers/ControllerModal";
+export * from "./dashboard/ProfileForm";
 export * from "./favourites/FavouriteCard";
 export * from "./favourites/FavouriteMenu";
 export * from "./footer/Divider";

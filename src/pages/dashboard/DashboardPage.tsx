@@ -2,7 +2,7 @@ import { useState, type ReactElement } from "react";
 import { useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import { URL_LOGIN_PAGE } from "../../utils";
-import { Tabs } from "../../components";
+import { ProfileForm, Tabs } from "../../components";
 
 import "./DashboardPage.css";
 
@@ -50,7 +50,8 @@ export default function DashboardPage(): ReactElement {
     return (
         <main id="dashboardPage">
             <Tabs titles={tabTitles} setActive={setActive} />
-            <h2 className="dashboard-title"> Profile </h2>
+            
+            <ProfileForm />
             <button className="retro-button logout-button" onClick={signOut}> Logout </button>
         </main>
     )

@@ -1,0 +1,12 @@
+#profileForm {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 40rem;
+    padding: 2rem;
+    margin: 10rem 2rem;
+
+    & .update-button {
+        align-self: flex-end;
+    }
+}
