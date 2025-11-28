@@ -1,5 +1,5 @@
 import { supabase } from "./components";
-import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, Review } from "./types/types";
+import type { AuthenticationRequest, AuthenticationResponse, CreateReview, Game, RegisterRequest, Review } from "./types/types";
 
 const GAMES_TABLE = "games";
 const NEWSLETTER_TABLE = "newsletter";
@@ -27,6 +27,7 @@ export async function registrationRequest(body: RegisterRequest): Promise<void> 
             throw error;
         }
     } catch (error) {
+        console.log(error);
         throw error;
     }
 }
@@ -34,8 +35,28 @@ export async function registrationRequest(body: RegisterRequest): Promise<void> 
 /**
  * Send a POST request to the login endpoint.
  */
-export async function login(body: AuthenticationRequest): Promise<void> {
-    console.log(body);
+export async function loginRequest(body: AuthenticationRequest): Promise<AuthenticationResponse> {
+    try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: body.email,
+            password: body.password
+        });
+
+        if (error) {
+            console.log(error);
+            throw error;
+        }
+
+        if (data) {
+            console.log(data);
+            return {access_token: data.session.access_token, refresh_token: data.session.refresh_token};
+        }
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+
+    throw new Error('Login failed');
 }
 
 

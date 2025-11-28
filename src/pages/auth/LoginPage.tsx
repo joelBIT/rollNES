@@ -1,6 +1,6 @@
-import { useRef, type ReactElement } from "react";
+import { useRef, useState, type ReactElement } from "react";
 import type { AuthenticationRequest } from "../../types/types";
-import { login } from "../../requests";
+import { loginRequest } from "../../requests";
 
 import "./LoginPage.css";
 
@@ -8,6 +8,7 @@ import "./LoginPage.css";
  * Authenticate an existing user/account.
  */
 export default function LoginPage(): ReactElement {
+    const [message, setMessage] = useState<string>('');
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -15,12 +16,22 @@ export default function LoginPage(): ReactElement {
      * Send a request to the authentication endpoint to perform a login.
      */
     async function loginUser(): Promise<void> {
+        setMessage('');
         const request: AuthenticationRequest = {
             email: emailRef.current?.value ?? "",
             password: passwordRef.current?.value ?? ""
         }
 
-        await login(request);
+        try {
+            const response = await loginRequest(request);
+        } catch (error) {
+            console.log(error);
+            if (error instanceof Error) {
+                setMessage(error.message);
+            } else {
+                setMessage('Login failed');
+            }
+        }
     }
 
     return (
@@ -40,6 +51,7 @@ export default function LoginPage(): ReactElement {
                             type="email" 
                             placeholder="Email" 
                             autoComplete="off"
+                            ref={emailRef}
                             className="form-control" 
                             required
                         />
@@ -53,6 +65,7 @@ export default function LoginPage(): ReactElement {
                             type="password" 
                             placeholder="Password" 
                             autoComplete="off"
+                            ref={passwordRef}
                             className="form-control" 
                             required
                         />
@@ -61,6 +74,10 @@ export default function LoginPage(): ReactElement {
                     <button type="submit" className="retro-button"> Sign in </button>
                 </form>
             </section>
+
+            {
+                message ? <h2 className="message-failure"> { message } </h2> : <></>
+            }
         </main>
     )
 }

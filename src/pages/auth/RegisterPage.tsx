@@ -39,7 +39,7 @@ export default function RegisterPage(): ReactElement {
 
         try {
             await registrationRequest(request);
-            setMessage(`Registration for ${request.email} successful.`);
+            setMessage(`Registration successful.`);
         } catch (error) {
             setIsError(true);
             if (error instanceof Error) {
