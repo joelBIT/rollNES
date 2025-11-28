@@ -1,11 +1,12 @@
 import { useRef, useState, type ReactElement } from "react";
+import type { RetroUser } from "../../types/types";
 
 import "./ProfileForm.css";
 
 /**
  * Profile information.
  */
-export function ProfileForm(): ReactElement {
+export function ProfileForm({user}: {user: RetroUser}): ReactElement {
     const [message, setMessage] = useState<string>('');
     const [isError, setIsError] = useState<boolean>(false);
     const firstNameRef = useRef<HTMLInputElement>(null);
@@ -23,8 +24,11 @@ export function ProfileForm(): ReactElement {
         <>
             <form id="profileForm" autoComplete="off" action={updateProfile}>
                 <section className="form-group">
-                    <label className="form-control__label" htmlFor="register-form-email"> Email </label>
+                    <label className="form-control__label" htmlFor="profile-form-email"> Email </label>
                     <input 
+                        id="profile-form-email"
+                        name="profile-form-email"
+                        value={user.email}
                         readOnly
                         disabled
                         className="form-control" 
@@ -34,10 +38,11 @@ export function ProfileForm(): ReactElement {
                 <section className="form-group">
                     <label className="form-control__label" htmlFor="register-form-firstName"> First name </label>
                     <input 
-                        id="register-form-firstName" 
-                        name="register-form-firstName" 
+                        id="profile-form-firstName" 
+                        name="profile-form-firstName" 
                         type="text" 
                         placeholder="First Name" 
+                        defaultValue={user.first_name}
                         autoComplete="off"
                         className="form-control" 
                         ref={firstNameRef}
@@ -46,12 +51,13 @@ export function ProfileForm(): ReactElement {
                 </section>
 
                 <section className="form-group">
-                    <label className="form-control__label" htmlFor="register-form-lastName"> Last name </label>
+                    <label className="form-control__label" htmlFor="profile-form-lastName"> Last name </label>
                     <input 
-                        id="register-form-lastName" 
-                        name="register-form-lastName" 
+                        id="profile-form-lastName" 
+                        name="profile-form-lastName" 
                         type="text" 
                         placeholder="Last Name" 
+                        defaultValue={user.last_name}
                         autoComplete="off"
                         className="form-control" 
                         ref={lastNameRef}

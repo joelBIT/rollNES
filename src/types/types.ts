@@ -41,6 +41,12 @@ export type CreateReview = {
     review: string
 }
 
+export type RetroUser = {       // User of this application
+    email: string,
+    last_name: string,
+    first_name: string
+}
+
 export type FooterLink = {
     title: string,
     link: string
