@@ -52,7 +52,10 @@ export default function DashboardPage(): ReactElement {
             <Tabs titles={tabTitles} setActive={setActive} />
             
             <ProfileForm />
-            <button className="retro-button logout-button" onClick={signOut}> Logout </button>
+            <button className="retro-button logout-button" onClick={signOut}> 
+                <span className="material-symbols-outlined">logout</span>
+                <h2 className="logout-button-text"> Logout </h2>
+            </button>
         </main>
     )
 }
