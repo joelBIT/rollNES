@@ -30,16 +30,6 @@ export type AuthenticationResponse = {
 
 export type RegisterRequest = AuthenticationRequest &  { firstName: string, lastName: string }
 
-export type JWT = {
-    key: string,
-    value: string
-}
-
-export type User = {
-    email: string;
-    password: string;
-}
-
 export type Review = CreateReview & { date: string }
 
 export type CreateReview = {

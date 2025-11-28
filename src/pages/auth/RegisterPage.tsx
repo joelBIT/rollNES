@@ -1,5 +1,5 @@
 import { useRef, useState, type ReactElement } from "react";
-import { registrationRequest } from "../../requests";
+import { useUser } from "../../hooks/useUser";
 import type { RegisterRequest } from "../../types/types";
 
 import "./RegisterPage.css";
@@ -10,6 +10,7 @@ import "./RegisterPage.css";
 export default function RegisterPage(): ReactElement {
     const [message, setMessage] = useState<string>('');
     const [isError, setIsError] = useState<boolean>(false);
+    const { register } = useUser();
     const firstNameRef = useRef<HTMLInputElement>(null);
     const lastNameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
@@ -38,7 +39,7 @@ export default function RegisterPage(): ReactElement {
         }
 
         try {
-            await registrationRequest(request);
+            await register(request);
             setMessage(`Registration successful.`);
         } catch (error) {
             setIsError(true);

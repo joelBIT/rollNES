@@ -1,6 +1,8 @@
 import { useRef, useState, type ReactElement } from "react";
+import { useNavigate } from "react-router";
+import { useUser } from "../../hooks/useUser";
 import type { AuthenticationRequest } from "../../types/types";
-import { loginRequest } from "../../requests";
+import { URL_DASHBOARD_PAGE } from "../../utils";
 
 import "./LoginPage.css";
 
@@ -9,13 +11,15 @@ import "./LoginPage.css";
  */
 export default function LoginPage(): ReactElement {
     const [message, setMessage] = useState<string>('');
+    const navigate = useNavigate();
+    const { login } = useUser();
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
     /**
      * Send a request to the authentication endpoint to perform a login.
      */
-    async function loginUser(): Promise<void> {
+    async function signIn(): Promise<void> {
         setMessage('');
         const request: AuthenticationRequest = {
             email: emailRef.current?.value ?? "",
@@ -23,9 +27,9 @@ export default function LoginPage(): ReactElement {
         }
 
         try {
-            const response = await loginRequest(request);
+            await login(request);
+            navigate(URL_DASHBOARD_PAGE);
         } catch (error) {
-            console.log(error);
             if (error instanceof Error) {
                 setMessage(error.message);
             } else {
@@ -40,7 +44,7 @@ export default function LoginPage(): ReactElement {
                 <h1 className="login-section__heading"> Welcome Back </h1>
                 <p className="login-section__text"> Sign in to your existing account for personalized services. </p>
 
-                <form id="login-form" autoComplete="off" action={loginUser}>
+                <form id="login-form" autoComplete="off" action={signIn}>
                     <input autoComplete="false" name="hidden" type="text" style={{"display": "none"}} />
 
                     <section className="form-group">

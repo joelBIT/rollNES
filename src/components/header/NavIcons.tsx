@@ -1,6 +1,8 @@
 import {useState, type ReactElement} from "react";
 import {NavLink} from "react-router";
-import {URL_LOGIN_PAGE, URL_REGISTER_PAGE} from "../../utils.ts";
+import { useNavigate } from "react-router";
+import { useUser } from "../../hooks/useUser.tsx";
+import {URL_DASHBOARD_PAGE, URL_LOGIN_PAGE, URL_REGISTER_PAGE} from "../../utils.ts";
 import { FavouriteMenu } from "../index.ts";
 
 import "./NavIcons.css";
@@ -11,6 +13,8 @@ import "./NavIcons.css";
 export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDropdown: () => void, isDropdownShowing: boolean}): ReactElement {
     const [ showAccountMenu, setShowAccountMenu ] = useState<boolean>(false);
     const [ showFavourites, setShowFavourites ] = useState<boolean>(false);
+    const navigate = useNavigate();
+    const { isAuthenticated } = useUser();
     const favourites = [];
 
     /**
@@ -31,13 +35,24 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
                         <span className="material-symbols-outlined"> search </span>
                     </li>
 
-                    <li
-                        className="icons-navbar__list-element"
-                        onClick={() => setShowAccountMenu(!showAccountMenu)}
-                        title="Account"
-                    >
-                        <span className="material-symbols-outlined"> person </span>
-                    </li>
+                    {
+                        isAuthenticated ?
+                            <li
+                                className="icons-navbar__list-element"
+                                onClick={() => navigate(URL_DASHBOARD_PAGE)}
+                                title="Dashboard"
+                            >
+                                <span className="material-symbols-outlined"> dashboard </span>
+                            </li>
+                            :
+                            <li
+                                className="icons-navbar__list-element"
+                                onClick={() => setShowAccountMenu(!showAccountMenu)}
+                                title="Account"
+                            >
+                                <span className="material-symbols-outlined"> person </span>
+                            </li>
+                    }
 
                     <li 
                         className="icons-navbar__list-element" 

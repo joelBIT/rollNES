@@ -1,74 +1,73 @@
 import { createContext, type ReactNode, useEffect, useState } from "react";
-import type { JWT, User } from "../types/types";
 import { isAuthenticatedRequest, loginRequest, logoutRequest, registrationRequest } from "../requests";
+import type { AuthenticationRequest, RegisterRequest } from "../types/types";
+
 export interface UserContextProvider {
-    user: User | null;
-    token: JWT | null;
-    authenticated: boolean;
-    authChecked: boolean;
-    login: (email: string, password: string) => void;
-    register: (email: string, password: string, firstName: string, lastName: string) => void;
+    isAuthenticated: boolean;
+    login: (body: AuthenticationRequest) => void;
+    register: (body: RegisterRequest) => void;
     logout: () => void;
 }
 
 export const UserContext = createContext<UserContextProvider>({} as UserContextProvider);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<JWT | null>(null);
-    const [authenticated, setAuthenticated] = useState<boolean>(false);
-    const [authChecked, setAuthChecked] = useState<boolean>(false);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
-        isAuthenticated();
+        checkActiveSession();
     }, [])
 
-    async function isAuthenticated() {
+    /**
+     * Check if user has an active session already (i.e., is authenticated).
+     */
+    async function checkActiveSession(): Promise<void> {
         try {
             const authenticated = await isAuthenticatedRequest();
-            setAuthenticated(authenticated);
+            setIsAuthenticated(authenticated);
         } catch (error) {
             console.log(error);
-            setAuthenticated(false);
-            setUser(null);
-        } finally {
-            setAuthChecked(true);
         }
     }
 
-    async function login(email: string, password: string) {
+    /**
+     * Perform login and authenticate user.
+     */
+    async function login(body: AuthenticationRequest): Promise<void> {
         try {
-            await loginRequest({email, password});
-            setUser({email, password});
+            await loginRequest(body);
+            setIsAuthenticated(true);
         } catch (error) {
-            console.log(error);
-            throw new Error("Login attempt failed.");
+            throw error;
         }
     }
 
-    async function register(email: string, password: string, firstName: string, lastName: string) {
+    /**
+     * Perform registration and authenticate user.
+     */
+    async function register(body: RegisterRequest): Promise<void> {
         try {
-            await registrationRequest({email, password, firstName, lastName});
-            setUser({email, password});
+            await registrationRequest(body);
+            setIsAuthenticated(true);
         } catch (error) {
-            console.log(error);
-            throw new Error("Registration failed.");
+            throw error;
         }
     }
 
-    async function logout() {
+    /**
+     * Perform logout and delete session.
+     */
+    async function logout(): Promise<void> {
         try {
             await logoutRequest();
-            setToken(null);
-            setUser(null);
+            setIsAuthenticated(false);
         } catch (error) {
-            console.log(error);
-            throw new Error("Logout failed.");
+            throw error;
         }
     }
 
     return (
-        <UserContext.Provider value={{ user, token, authenticated, authChecked, login, register, logout }}>
+        <UserContext.Provider value={{ isAuthenticated, login, register, logout }}>
             { children }
         </UserContext.Provider>
     );

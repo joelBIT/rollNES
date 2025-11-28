@@ -36,9 +36,9 @@ export async function registrationRequest(body: RegisterRequest): Promise<void> 
 /**
  * Send a POST request to the login endpoint.
  */
-export async function loginRequest(body: AuthenticationRequest): Promise<AuthenticationResponse> {
+export async function loginRequest(body: AuthenticationRequest): Promise<void> {
     try {
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signInWithPassword({
             email: body.email,
             password: body.password
         });
@@ -47,17 +47,10 @@ export async function loginRequest(body: AuthenticationRequest): Promise<Authent
             console.log(error);
             throw new Error('Login failed');
         }
-
-        if (data) {
-            console.log(data);
-            return {access_token: data.session.access_token, refresh_token: data.session.refresh_token};
-        }
     } catch (error) {
         console.log(error);
         throw error;
     }
-
-    throw new Error('Login failed');
 }
 
 /**
