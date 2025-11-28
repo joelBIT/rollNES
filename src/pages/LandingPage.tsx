@@ -32,11 +32,6 @@ export default function LandingPage(): ReactElement {
                     </section>
 
                     <section className="landing-promises">
-                        <img src="/warranty.webp" alt="Warranty image" />
-                        <h2 className="landing-promises-list__heading"> Two Year Warranty </h2>
-                    </section>
-
-                    <section className="landing-promises">
                         <img src="/wishlist.webp" alt="Wishlist image" />
                         <h2 className="landing-promises-list__heading"> Wishlist Achievements </h2>
                     </section>
