@@ -48,6 +48,11 @@
             }
         }
     }
+
+    & .message-success, 
+    .message-failure {
+        margin-top: 1rem;
+    }
 }
 
 @media (max-width: 700px) {

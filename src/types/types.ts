@@ -23,13 +23,23 @@ export type AuthenticationRequest = {
     password: string
 }
 
+export type AuthenticationResponse = {
+    access_token: string,
+    refresh_token: string
+}
+
 export type RegisterRequest = AuthenticationRequest &  { firstName: string, lastName: string }
+
+export type JWT = {
+    key: string,
+    value: string
+}
 
 export type Review = CreateReview & { date: string }
 
 export type CreateReview = {
     reviewer_name: string,
-    reviewer_id?: number,
+    reviewer_id?: number,           // Users that are logged in store their ID with the review
     game_id: number,
     heading: string,
     rating: number,

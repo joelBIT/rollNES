@@ -16,8 +16,19 @@ const REVIEW_TABLE = "reviews";
 /**
  * Send a POST request to the registration endpoint.
  */
-export async function register(body: RegisterRequest): Promise<void> {
-    console.log(body);
+export async function registrationRequest(body: RegisterRequest): Promise<void> {
+    try {
+        const { error } = await supabase.auth.signUp({
+            email: body.email,
+            password: body.password
+        });
+
+        if (error) {
+            throw error;
+        }
+    } catch (error) {
+        throw error;
+    }
 }
 
 /**

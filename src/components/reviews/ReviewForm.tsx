@@ -72,10 +72,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
     
     return (
         <>
-            <button 
-                className="retro-button add-review-button"
-                onClick={toggleForm} 
-            >
+            <button className="retro-button add-review-button" onClick={toggleForm}>
                 {
                     isShowing ? 
                         <h2 className="add-review-button-text"> Close Form </h2>

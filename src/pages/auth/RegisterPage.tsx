@@ -1,5 +1,5 @@
-import { useRef, type ReactElement } from "react";
-import { register } from "../../requests";
+import { useRef, useState, type ReactElement } from "react";
+import { registrationRequest } from "../../requests";
 import type { RegisterRequest } from "../../types/types";
 
 import "./RegisterPage.css";
@@ -8,6 +8,8 @@ import "./RegisterPage.css";
  * Register a new account/user.
  */
 export default function RegisterPage(): ReactElement {
+    const [message, setMessage] = useState<string>('');
+    const [isError, setIsError] = useState<boolean>(false);
     const firstNameRef = useRef<HTMLInputElement>(null);
     const lastNameRef = useRef<HTMLInputElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
@@ -18,6 +20,8 @@ export default function RegisterPage(): ReactElement {
      * Send a request to the registration endpoint if passwords match.
      */
     async function registerUser(): Promise<void> {
+        setMessage('');
+        setIsError(false);
         const password = passwordRef.current?.value;
         const confirmPassword = confirmPasswordRef.current?.value;
 
@@ -33,7 +37,17 @@ export default function RegisterPage(): ReactElement {
             password: password ?? ""
         }
 
-        await register(request);
+        try {
+            await registrationRequest(request);
+            setMessage(`Registration for ${request.email} successful.`);
+        } catch (error) {
+            setIsError(true);
+            if (error instanceof Error) {
+                setMessage(error.message);
+            } else {
+                setMessage(`Could not register with email ${request.email}`);
+            }
+        }
     }
 
     return (
@@ -118,6 +132,10 @@ export default function RegisterPage(): ReactElement {
                     <button type="submit" className="retro-button"> Create Account </button>
                 </form>
             </section>
+
+            {
+                message ? <h2 className={isError ? "message-failure" : "message-success"}> { message }</h2> : <></>
+            }
         </main>
     )
 }
