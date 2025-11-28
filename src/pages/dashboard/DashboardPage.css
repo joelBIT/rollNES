@@ -1,3 +1,18 @@
 #dashboardPage {
     display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: var(--color-games-background);
+
+    & .dashboard-title {
+        align-self: center;
+        font-size: 2rem;
+        font-family: regular-gibson, sans-serif;
+        letter-spacing: 1px;
+    }
+
+    & .logout-button {
+        align-self: center;
+        margin: 1rem;
+    }
 }

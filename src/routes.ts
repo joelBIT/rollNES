@@ -21,6 +21,7 @@ import { ErrorPage } from "./pages/ErrorPage";
 import { LoginLoader } from "./loaders/LoginLoader";
 import { RegisterLoader } from "./loaders/RegisterLoader";
 import DashboardPage from "./pages/dashboard/DashboardPage";
+import { DashboardLoader } from "./loaders/DashboardLoader";
 
 export const routes = createBrowserRouter([
     {
@@ -43,7 +44,8 @@ export const routes = createBrowserRouter([
             },
             {
                 path: URL_DASHBOARD_PAGE,
-                Component: DashboardPage
+                Component: DashboardPage,
+                loader: DashboardLoader
             },
             {
                 path: URL_GAME_PAGE + "/:id",

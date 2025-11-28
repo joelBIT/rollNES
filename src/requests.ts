@@ -1,5 +1,5 @@
 import { supabase } from "./components";
-import type { AuthenticationRequest, AuthenticationResponse, CreateReview, Game, RegisterRequest, Review } from "./types/types";
+import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, Review } from "./types/types";
 
 const GAMES_TABLE = "games";
 const NEWSLETTER_TABLE = "newsletter";
