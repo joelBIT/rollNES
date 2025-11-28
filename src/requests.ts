@@ -24,7 +24,8 @@ export async function registrationRequest(body: RegisterRequest): Promise<void> 
         });
 
         if (error) {
-            throw error;
+            console.log(error);
+            throw new Error('Registration failed');
         }
     } catch (error) {
         console.log(error);
@@ -44,7 +45,7 @@ export async function loginRequest(body: AuthenticationRequest): Promise<Authent
 
         if (error) {
             console.log(error);
-            throw error;
+            throw new Error('Login failed');
         }
 
         if (data) {
@@ -59,42 +60,37 @@ export async function loginRequest(body: AuthenticationRequest): Promise<Authent
     throw new Error('Login failed');
 }
 
-export async function logoutRequest() {
-    
-}
-
-
-
-
-
-
-/**************
- * FAVOURITES *
- **************/
-
 /**
- * Send a GET request and retrieve all favourite games for a specific user.
+ * Send a request to delete the user session.
  */
-export async function getAllFavouritesRequest(user_id: number): Promise<Game[]> {
-    console.log(user_id);
-
-    return [];
+export async function logoutRequest(): Promise<void> {
+    try {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.log(error);
+            throw new Error('Logout failed');
+        }
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
 }
 
 /**
- * Send a DELETE request and delete the favourite game matching the supplied ID, if any.
+ * Check if a user has an active session.
  */
-export async function deleteFavouriteByIdRequest(id: number): Promise<void> {
-    console.log(id);
-}
+export async function isAuthenticatedRequest(): Promise<boolean> {
+    try {
+        const { data } = await supabase.auth.getSession();
+        if (data && data.session?.user && data.session?.user.aud === "authenticated") {
+            return true;
+        }
+    } catch (error) {
+        console.log(error);
+    }
 
-/**
- * Send a POST request and add the supplied game as a favourite.
- */
-export async function createFavouriteRequest(game: Game): Promise<void> {
-    console.log(game);
+    return false;
 }
-
 
 
 

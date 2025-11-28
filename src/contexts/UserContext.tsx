@@ -1,11 +1,13 @@
-import { createContext, useState, type ReactNode } from "react";
+import { createContext, type ReactNode, useEffect, useState } from "react";
 import type { JWT, User } from "../types/types";
-import { logoutRequest } from "../requests";
+import { isAuthenticatedRequest, loginRequest, logoutRequest, registrationRequest } from "../requests";
 export interface UserContextProvider {
     user: User | null;
     token: JWT | null;
-    setJWT: (token: JWT) => void;
-    setSessionUser: (user: User) => void;
+    authenticated: boolean;
+    authChecked: boolean;
+    login: (email: string, password: string) => void;
+    register: (email: string, password: string, firstName: string, lastName: string) => void;
     logout: () => void;
 }
 
@@ -14,6 +16,45 @@ export const UserContext = createContext<UserContextProvider>({} as UserContextP
 export function UserProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<JWT | null>(null);
+    const [authenticated, setAuthenticated] = useState<boolean>(false);
+    const [authChecked, setAuthChecked] = useState<boolean>(false);
+
+    useEffect(() => {
+        isAuthenticated();
+    }, [])
+
+    async function isAuthenticated() {
+        try {
+            const authenticated = await isAuthenticatedRequest();
+            setAuthenticated(authenticated);
+        } catch (error) {
+            console.log(error);
+            setAuthenticated(false);
+            setUser(null);
+        } finally {
+            setAuthChecked(true);
+        }
+    }
+
+    async function login(email: string, password: string) {
+        try {
+            await loginRequest({email, password});
+            setUser({email, password});
+        } catch (error) {
+            console.log(error);
+            throw new Error("Login attempt failed.");
+        }
+    }
+
+    async function register(email: string, password: string, firstName: string, lastName: string) {
+        try {
+            await registrationRequest({email, password, firstName, lastName});
+            setUser({email, password});
+        } catch (error) {
+            console.log(error);
+            throw new Error("Registration failed.");
+        }
+    }
 
     async function logout() {
         try {
@@ -26,16 +67,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
         }
     }
 
-    function setJWT(token: JWT) {
-        setToken(token);
-    }
-
-    function setSessionUser(user: User) {
-        setUser(user);
-    }
-
     return (
-        <UserContext.Provider value={{ user, token, setJWT, setSessionUser, logout }}>
+        <UserContext.Provider value={{ user, token, authenticated, authChecked, login, register, logout }}>
             { children }
         </UserContext.Provider>
     );
