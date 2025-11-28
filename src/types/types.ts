@@ -35,6 +35,11 @@ export type JWT = {
     value: string
 }
 
+export type User = {
+    email: string;
+    password: string;
+}
+
 export type Review = CreateReview & { date: string }
 
 export type CreateReview = {

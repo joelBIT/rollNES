@@ -59,6 +59,10 @@ export async function loginRequest(body: AuthenticationRequest): Promise<Authent
     throw new Error('Login failed');
 }
 
+export async function logoutRequest() {
+    
+}
+
 
 
 
