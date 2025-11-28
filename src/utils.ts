@@ -2,6 +2,7 @@ import type { GameController, Review } from "./types/types";
 
 export const URL_COMPANY_PAGE = "/company";
 export const URL_CONTACT_PAGE = "/contact";
+export const URL_DASHBOARD_PAGE = "/dashboard";
 export const URL_GAME_PAGE = "/game";
 export const URL_GAMES_PAGE = "/games";
 export const URL_HELP_CENTER_PAGE = "/help";

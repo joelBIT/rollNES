@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { URL_COMPANY_PAGE, URL_CONTACT_PAGE, URL_GAME_PAGE, URL_GAMES_PAGE, URL_HELP_CENTER_PAGE, URL_HOME, URL_LOGIN_PAGE, URL_NOT_FOUND_PAGE, URL_PRIVACY_PAGE, URL_REGISTER_PAGE, URL_RIGHTS_PAGE, URL_TEAM_PAGE, URL_TERMS_PAGE, URL_VISION_PAGE } from "./utils";
+import { URL_COMPANY_PAGE, URL_CONTACT_PAGE, URL_DASHBOARD_PAGE, URL_GAME_PAGE, URL_GAMES_PAGE, URL_HELP_CENTER_PAGE, URL_HOME, URL_LOGIN_PAGE, URL_NOT_FOUND_PAGE, URL_PRIVACY_PAGE, URL_REGISTER_PAGE, URL_RIGHTS_PAGE, URL_TEAM_PAGE, URL_TERMS_PAGE, URL_VISION_PAGE } from "./utils";
 import { App } from "./components";
 import LandingPage from "./pages/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -18,6 +18,9 @@ import ManageRightsPage from "./pages/resources/ManageRightsPage";
 import TermsPage from "./pages/resources/TermsPage";
 import PrivacyPage from "./pages/resources/PrivacyPage";
 import { ErrorPage } from "./pages/ErrorPage";
+import { LoginLoader } from "./loaders/LoginLoader";
+import { RegisterLoader } from "./loaders/RegisterLoader";
+import DashboardPage from "./pages/dashboard/DashboardPage";
 
 export const routes = createBrowserRouter([
     {
@@ -39,6 +42,10 @@ export const routes = createBrowserRouter([
                 loader: LandingLoader
             },
             {
+                path: URL_DASHBOARD_PAGE,
+                Component: DashboardPage
+            },
+            {
                 path: URL_GAME_PAGE + "/:id",
                 Component: GamePage,
                 loader: GameLoader,
@@ -54,7 +61,8 @@ export const routes = createBrowserRouter([
             },
             {
                 path: URL_LOGIN_PAGE,
-                Component: LoginPage
+                Component: LoginPage,
+                loader: LoginLoader
             },
             {
                 path: URL_RIGHTS_PAGE,
@@ -70,7 +78,8 @@ export const routes = createBrowserRouter([
             },
             {
                 path: URL_REGISTER_PAGE,
-                Component: RegisterPage
+                Component: RegisterPage,
+                loader: RegisterLoader
             },
             {
                 path: URL_TEAM_PAGE,
