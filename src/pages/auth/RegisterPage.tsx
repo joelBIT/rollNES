@@ -1,6 +1,8 @@
 import { useRef, useState, type ReactElement } from "react";
+import { useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import type { RegisterRequest } from "../../types/types";
+import { URL_DASHBOARD_PAGE } from "../../utils";
 
 import "./RegisterPage.css";
 
@@ -9,7 +11,7 @@ import "./RegisterPage.css";
  */
 export default function RegisterPage(): ReactElement {
     const [message, setMessage] = useState<string>('');
-    const [isError, setIsError] = useState<boolean>(false);
+    const navigate = useNavigate();
     const { register } = useUser();
     const firstNameRef = useRef<HTMLInputElement>(null);
     const lastNameRef = useRef<HTMLInputElement>(null);
@@ -22,7 +24,6 @@ export default function RegisterPage(): ReactElement {
      */
     async function registerUser(): Promise<void> {
         setMessage('');
-        setIsError(false);
         const password = passwordRef.current?.value;
         const confirmPassword = confirmPasswordRef.current?.value;
 
@@ -40,9 +41,8 @@ export default function RegisterPage(): ReactElement {
 
         try {
             await register(request);
-            setMessage(`Registration successful.`);
+            navigate(URL_DASHBOARD_PAGE);
         } catch (error) {
-            setIsError(true);
             if (error instanceof Error) {
                 setMessage(error.message);
             } else {
@@ -135,7 +135,7 @@ export default function RegisterPage(): ReactElement {
             </section>
 
             {
-                message ? <h2 className={isError ? "message-failure" : "message-success"}> { message }</h2> : <></>
+                message ? <h2 className="message-failure"> { message }</h2> : <></>
             }
         </main>
     )

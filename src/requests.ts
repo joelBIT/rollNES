@@ -20,7 +20,13 @@ export async function registrationRequest(body: RegisterRequest): Promise<void> 
     try {
         const { error } = await supabase.auth.signUp({
             email: body.email,
-            password: body.password
+            password: body.password,
+            options: {
+                data: {
+                    first_name: body.firstName,
+                    last_name: body.lastName,
+                },
+            },
         });
 
         if (error) {
