@@ -11,7 +11,7 @@ export default function CompanyPage(): ReactElement {
                     <h1 id="company-history__heading" className="baskervville-sc-regular"> RollNES </h1>
 
                     <p id="company-history__text">
-                        RollNES started its journey in 2025, by retro lovers with complementary backgrounds to the retro and IT markets. 
+                        RollNES started its journey in 2025, by a retro lover with a background in the retro and IT markets. 
                     </p>
                 </section>
 

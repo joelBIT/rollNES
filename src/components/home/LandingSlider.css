@@ -107,6 +107,7 @@
                     align-self: flex-end;
                     color: var(--color-black);
                     background-color: var(--color-almost-white);
+                    margin-right: 5rem;
                 }
             }
         }

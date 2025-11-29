@@ -29,6 +29,7 @@ export default function GamePage(): ReactElement {
      */
     async function updateReviews(updatedReviews: Review[]): Promise<void> {
         setReviews([...updatedReviews]);
+        setActive(tabTitles[0]); 
     }
 
     return (

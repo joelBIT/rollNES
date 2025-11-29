@@ -109,7 +109,7 @@ export async function isAuthenticatedRequest(): Promise<boolean> {
  */
 export async function getAllGamesRequest(): Promise<Game[]> {
     try {
-        const { data } = await supabase.from("games").select(`
+        const { data } = await supabase.from(GAMES_TABLE).select(`
             id,
             title,
             publisher,
@@ -145,7 +145,7 @@ export async function getAllGamesRequest(): Promise<Game[]> {
  */
 export async function getGameByIdRequest(id: number): Promise<Game> {
     try {
-        const { data } = await supabase.from("games").select(`
+        const { data } = await supabase.from(GAMES_TABLE).select(`
             id,
             title,
             publisher,
@@ -181,7 +181,7 @@ export async function getGameByIdRequest(id: number): Promise<Game> {
  */
 export async function getGamesByIdsRequest(ids: number[]): Promise<Game[]> {
     try {
-        const { data } = await supabase.from("games").select().in("id", ids);
+        const { data } = await supabase.from(GAMES_TABLE).select().in("id", ids);
 
         if (data) {
             return data;

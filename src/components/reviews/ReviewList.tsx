@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import type { Game, Review } from "../../types/types";
 import { getAverageRating } from "../../utils";
 import { Rating, ReviewCard, ReviewForm } from "..";
@@ -12,6 +12,13 @@ import "./ReviewList.css";
  */
 export function ReviewList({game, setReviews}: {game: Game, setReviews?: (reviews: Review[]) => void}): ReactElement {
     const [sortedReviews, setSortedReviews] = useState<Review[]>([...game.reviews]);
+
+    useEffect(() => {
+        setSortedReviews([...game.reviews]);
+        if (setReviews) {
+            setReviews([...game.reviews]);
+        }
+    }, [game.reviews])
 
     /**
      * Sort reviews according to selected option.
