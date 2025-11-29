@@ -38,6 +38,7 @@ The RollNES site is a library of games released for the Nintendo Entertainment S
 
     -   The games on the site can be played in a browser.
     -   View details about the selected game.
+    -   Add a review to a game.
  
 -   **Register Page**
 
