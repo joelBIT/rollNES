@@ -37,7 +37,6 @@ export default function DashboardPage(): ReactElement {
             <main id="dashboardPage">
                 <Tabs titles={tabTitles} setActive={setActive} />
                 
-                
                 {
                     reviews.map((review, i) => <ReviewCard key={i} review={review} />)
                 }

@@ -15,6 +15,7 @@ export function ReviewCard({review}: {review: Review}): ReactElement {
             <section className="reviewer">
                 <h2 className="review-name"> {review.reviewer_name} </h2>
                 <h2 className="review-date"> {convertDate(review.date)} </h2>
+                { review.reviewer_id ? <h3 className="review-verified"> Verified user </h3> : <></>}
             </section>
             
             <section className="review-content">
