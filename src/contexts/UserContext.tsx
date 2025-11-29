@@ -3,7 +3,7 @@ import { getSessionUserRequest, isAuthenticatedRequest, loginRequest, logoutRequ
 import type { AuthenticationRequest, RegisterRequest, RetroUser } from "../types/types";
 
 export interface UserContextProvider {
-    user: RetroUser | undefined;
+    user: RetroUser | null;
     isAuthenticated: boolean;
     login: (body: AuthenticationRequest) => void;
     register: (body: RegisterRequest) => void;
@@ -14,7 +14,7 @@ export interface UserContextProvider {
 export const UserContext = createContext<UserContextProvider>({} as UserContextProvider);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<RetroUser>();
+    const [user, setUser] = useState<RetroUser | null>(null);
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
@@ -71,6 +71,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         try {
             await logoutRequest();
             setIsAuthenticated(false);
+            setUser(null);
         } catch (error) {
             throw error;
         }

@@ -15,7 +15,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
     const [message, setMessage] = useState<string>('');
     const [isError, setIsError] = useState<boolean>(false);
     const { user } = useUser();
-    const [name, setName] = useState<string>(user?.first_name + " " + user?.last_name);
+    const [name, setName] = useState<string>((user?.first_name ?? "") + " " + (user?.last_name ?? ""));
     const [title, setTitle] = useState<string>('');
     const [review, setReview] = useState<string>('');
 
@@ -60,7 +60,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
         setRating(0);
         setTitle('');
         setReview('');
-        setName(user?.first_name + " " + user?.last_name);
+        setName((user?.first_name ?? "") + " " + (user?.last_name ?? ""));
         setIsShowing(false);
     }
 
@@ -68,6 +68,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
         if (isShowing) {
             resetForm();
             setMessage('');
+            setName((user?.first_name ?? "") + " " + (user?.last_name ?? ""));
         }
         setIsShowing(!isShowing);
     }
