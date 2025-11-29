@@ -3,7 +3,7 @@
 
 @font-face {
     font-family: "regular-gibson";
-    src: url("./static/fonts/gibson-regular.otf") format("opentype");
+    src: url("../public/fonts/gibson-regular.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: fallback;
@@ -11,7 +11,7 @@
 
 @font-face {
     font-family: "brandon-grotesque";
-    src: url("./static/fonts/brandon-grotesque-regular.otf") format("opentype");
+    src: url("../public/fonts/brandon-grotesque-regular.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: fallback;
@@ -19,7 +19,7 @@
 
 @font-face {
     font-family: "ivy-presto-headline-light";
-    src: url("./static/fonts/ivy-presto-headline-light.otf") format("opentype");
+    src: url("../public/fonts/ivy-presto-headline-light.otf") format("opentype");
     font-weight: 300;
     font-style: normal;
     font-display: fallback;
@@ -27,7 +27,7 @@
 
 @font-face {
     font-family: "cf-gibson";
-    src: url("./static/fonts/gibson-bold.otf") format("opentype");
+    src: url("../public/fonts/gibson-bold.otf") format("opentype");
     font-weight: 900;
     font-style: normal;
     font-display: fallback;
@@ -35,7 +35,7 @@
 
 @font-face {
     font-family: "itc-avant-garde-gothic-bold";
-    src: url("./static/fonts/itc-avant-garde-gothic-bold.otf") format("opentype");
+    src: url("../public/fonts/itc-avant-garde-gothic-bold.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: fallback;
@@ -43,7 +43,7 @@
 
 @font-face {
     font-family: "itc-avant-garde-gothic-medium";
-    src: url("./static/fonts/itc-avant-garde-gothic-medium.otf") format("opentype");
+    src: url("../public/fonts/itc-avant-garde-gothic-medium.otf") format("opentype");
     font-weight: 400;
     font-style: normal;
     font-display: fallback;
