@@ -1,4 +1,5 @@
 import { useActionState, useEffect, useState, type ReactElement } from "react";
+import { useUser } from "../../hooks/useUser";
 import { Rating } from "..";
 import { createReviewRequest } from "../../requests";
 
@@ -13,7 +14,8 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
     const [rating, setRating] = useState<number>(0);
     const [message, setMessage] = useState<string>('');
     const [isError, setIsError] = useState<boolean>(false);
-    const [name, setName] = useState<string>('');
+    const { user } = useUser();
+    const [name, setName] = useState<string>(user?.first_name + " " + user?.last_name);
     const [title, setTitle] = useState<string>('');
     const [review, setReview] = useState<string>('');
 
@@ -58,7 +60,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
         setRating(0);
         setTitle('');
         setReview('');
-        setName('');
+        setName(user?.first_name + " " + user?.last_name);
         setIsShowing(false);
     }
 

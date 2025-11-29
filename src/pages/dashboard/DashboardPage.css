@@ -1,6 +1,7 @@
 #dashboardPage {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
     padding: 2rem;
     background-color: var(--color-games-background);
 
