@@ -18,10 +18,10 @@ export const GameLoader = async ({params}: LoaderFunctionArgs): Promise<Game> =>
 
             return game;
         }
+
+        return game;
     } catch (error) {
         console.log(error);
         throw data(`Error retrieving game with id ${id}`, { status: 500 });
     }
-
-    throw data(`Game with id ${id} not found`, { status: 404 });
 };
