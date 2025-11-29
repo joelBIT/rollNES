@@ -9,8 +9,9 @@ The RollNES site consists of games released for the Nintendo Entertainment Syste
 
 <img width="1832" height="960" alt="rollnes1" src="https://github.com/user-attachments/assets/f397ea76-7538-47d5-8e8d-7996dea0a22f" />
 
-<img width="1832" height="960" alt="rollnes2" src="https://github.com/user-attachments/assets/21855560-f7a8-44eb-b0f0-907ad3e0051f" />
 
+
+<img width="1832" height="960" alt="rollnes2" src="https://github.com/user-attachments/assets/98429a48-8434-468d-b019-ddf06e58de7c" />
 
 
 
