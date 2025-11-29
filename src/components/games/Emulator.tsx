@@ -17,7 +17,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
     useEffect(() => {
         try {
             if (!worker) {
-                worker = new Worker('../../src/emulator.js',{ type: "module" });
+                worker = new Worker('../../public/emulator.js',{ type: "module" });
                 const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
                 worker.postMessage({ canvas: canvas }, [canvas]);
             }
@@ -40,7 +40,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
     }, []);
 
     async function initSound(): Promise<void> {
-        await audioContext.audioWorklet.addModule('../../src/apu-worklet.js', { credentials: "omit" });
+        await audioContext.audioWorklet.addModule('../../public/apu-worklet.js', { credentials: "omit" });
         if (!(nesWorkletNode instanceof AudioWorkletNode)) {
             try {
                 nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
