@@ -19,7 +19,7 @@ const PROFILES_TABLE = "profiles";
  */
 export async function registrationRequest(body: RegisterRequest): Promise<RetroUser> {
     try {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email: body.email,
             password: body.password,
             options: {
@@ -35,7 +35,7 @@ export async function registrationRequest(body: RegisterRequest): Promise<RetroU
             throw new Error('Registration failed');
         }
 
-        return {email: body.email, first_name: body.firstName, last_name: body.lastName};
+        return {id: data.user?.id ?? "", email: body.email, first_name: body.firstName, last_name: body.lastName};
     } catch (error) {
         console.log(error);
         throw error;
@@ -256,6 +256,13 @@ export async function subscribeToNewsletterRequest(email: string): Promise<void>
  * Send a POST request to create a review for the game with the supplied game ID.
  */
 export async function createReviewRequest(review: CreateReview): Promise<void> {
+    if (await isAuthenticatedRequest()) {
+        const { data } = await supabase.auth.getSession();
+        if (data.session?.user.id) {
+            review.reviewer_id = data.session?.user.id;     // Users that are logged in store their ID with the review
+        }
+    }
+
     const { error } = await supabase.from(REVIEW_TABLE).insert(review);
     if (error) {
         console.log(error);
@@ -270,12 +277,24 @@ export async function getReviewsByGameIdRequest(id: number): Promise<Review[]> {
     const { data, error } = await supabase.from(REVIEW_TABLE).select().eq("game_id", id);
     if (error) {
         console.log(error);
-        throw new Error(`Failed to create review`);
+        throw new Error(`Failed to fetch reviews`);
     }
 
     return data;
 }
 
+/**
+ * Send a GET request to retrieve all reviews for the supplied user ID.
+ */
+export async function getReviewsByUserIdRequest(id: string): Promise<Review[]> {
+    const { data, error } = await supabase.from(REVIEW_TABLE).select().eq("reviewer_id", id);
+    if (error) {
+        console.log(error);
+        throw new Error(`Failed to fetch reviews`);
+    }
+
+    return data;
+}
 
 
 
@@ -297,6 +316,7 @@ export async function getSessionUserRequest(): Promise<RetroUser> {
         const metadata = data.session.user?.user_metadata;
 
         const user: RetroUser = {
+            id: data.session.user.id,
             email: data.session?.user.email as string,
             last_name: metadata?.last_name,
             first_name: metadata?.first_name

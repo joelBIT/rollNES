@@ -34,7 +34,7 @@ export type Review = CreateReview & { date: string }
 
 export type CreateReview = {
     reviewer_name: string,
-    reviewer_id?: number,           // Users that are logged in store their ID with the review
+    reviewer_id?: string,           // Users that are logged in store their ID with the review
     game_id: number,
     heading: string,
     rating: number,
@@ -42,6 +42,7 @@ export type CreateReview = {
 }
 
 export type RetroUser = {       // User of this application
+    id: string,
     email: string,
     last_name: string,
     first_name: string

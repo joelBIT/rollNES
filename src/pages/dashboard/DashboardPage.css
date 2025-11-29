@@ -4,6 +4,10 @@
     padding: 2rem;
     background-color: var(--color-games-background);
 
+    & .tabs {
+        margin-bottom: 2rem;
+    }
+
     & .dashboard-title {
         align-self: center;
         font-size: 2rem;

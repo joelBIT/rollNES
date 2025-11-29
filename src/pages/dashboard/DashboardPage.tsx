@@ -2,7 +2,9 @@ import { useState, type ReactElement } from "react";
 import { useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import { URL_LOGIN_PAGE } from "../../utils";
-import { ProfileForm, Tabs } from "../../components";
+import { ProfileForm, ReviewCard, Tabs } from "../../components";
+import type { Review } from "../../types/types";
+import { getReviewsByUserIdRequest } from "../../requests";
 
 import "./DashboardPage.css";
 
@@ -12,8 +14,16 @@ import "./DashboardPage.css";
 export default function DashboardPage(): ReactElement {
     const tabTitles = ["Profile", "Reviews", "Settings", "Wishlist"];
     const [active, setActive] = useState<string>(tabTitles[0]);
+    const [reviews, setReviews] = useState<Review[]>([]);
     const navigate = useNavigate();
-    const { logout } = useUser();
+    const { user, logout } = useUser();
+
+    async function getReviews(): Promise<void> {
+        if (user) {
+            const userReviews = await getReviewsByUserIdRequest(user.id);
+            setReviews(userReviews);
+        }
+    }
 
     function signOut(): void {
         logout();
@@ -21,10 +31,16 @@ export default function DashboardPage(): ReactElement {
     }
 
     if (active === "Reviews") {
+        getReviews();
+
         return (
             <main id="dashboardPage">
                 <Tabs titles={tabTitles} setActive={setActive} />
-                <h2 className="dashboard-title"> Reviews </h2>
+                
+                
+                {
+                    reviews.map((review, i) => <ReviewCard key={i} review={review} />)
+                }
             </main>
         );
     }

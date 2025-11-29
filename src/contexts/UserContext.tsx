@@ -83,6 +83,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         try {
             await updateProfileInformationRequest(first_name, last_name);
             const updatedUser: RetroUser = {
+                id: user?.id ?? "",
                 email: user?.email as string,
                 first_name,
                 last_name
