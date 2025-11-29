@@ -1,17 +1,20 @@
 import { createContext, type ReactNode, useEffect, useState } from "react";
-import { isAuthenticatedRequest, loginRequest, logoutRequest, registrationRequest } from "../requests";
-import type { AuthenticationRequest, RegisterRequest } from "../types/types";
+import { getSessionUserRequest, isAuthenticatedRequest, loginRequest, logoutRequest, registrationRequest, updateProfileInformationRequest } from "../requests";
+import type { AuthenticationRequest, RegisterRequest, RetroUser } from "../types/types";
 
 export interface UserContextProvider {
+    user: RetroUser | undefined;
     isAuthenticated: boolean;
     login: (body: AuthenticationRequest) => void;
     register: (body: RegisterRequest) => void;
     logout: () => void;
+    updateUser: (first_name: string, last_name: string) => void;
 }
 
 export const UserContext = createContext<UserContextProvider>({} as UserContextProvider);
 
 export function UserProvider({ children }: { children: ReactNode }) {
+    const [user, setUser] = useState<RetroUser>();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
     useEffect(() => {
@@ -25,6 +28,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
         try {
             const authenticated = await isAuthenticatedRequest();
             setIsAuthenticated(authenticated);
+            if (authenticated) {
+                const user = await getSessionUserRequest();
+                setUser(user);
+            }
         } catch (error) {
             console.log(error);
         }
@@ -36,7 +43,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
     async function login(body: AuthenticationRequest): Promise<void> {
         try {
             await loginRequest(body);
+            const loggedInUser = await getSessionUserRequest();
             setIsAuthenticated(true);
+            setUser(loggedInUser);
         } catch (error) {
             throw error;
         }
@@ -47,8 +56,9 @@ export function UserProvider({ children }: { children: ReactNode }) {
      */
     async function register(body: RegisterRequest): Promise<void> {
         try {
-            await registrationRequest(body);
+            const createdUser = await registrationRequest(body);
             setIsAuthenticated(true);
+            setUser(createdUser);
         } catch (error) {
             throw error;
         }
@@ -66,8 +76,25 @@ export function UserProvider({ children }: { children: ReactNode }) {
         }
     }
 
+    /**
+     * Store new profile information for logged in user.
+     */
+    async function updateUser(first_name: string, last_name: string): Promise<void> {
+        try {
+            await updateProfileInformationRequest(first_name, last_name);
+            const updatedUser: RetroUser = {
+                email: user?.email as string,
+                first_name,
+                last_name
+            }
+            setUser(updatedUser);
+        } catch (error) {
+            throw error;
+        }
+    }
+
     return (
-        <UserContext.Provider value={{ isAuthenticated, login, register, logout }}>
+        <UserContext.Provider value={{ user, isAuthenticated, login, register, logout, updateUser }}>
             { children }
         </UserContext.Provider>
     );

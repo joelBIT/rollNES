@@ -1,9 +1,8 @@
 import { useState, type ReactElement } from "react";
-import { useLoaderData, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import { URL_LOGIN_PAGE } from "../../utils";
 import { ProfileForm, Tabs } from "../../components";
-import type { RetroUser } from "../../types/types";
 
 import "./DashboardPage.css";
 
@@ -11,7 +10,6 @@ import "./DashboardPage.css";
  * Dashboard for logged in user.
  */
 export default function DashboardPage(): ReactElement {
-    const retroUser = useLoaderData() as RetroUser;
     const tabTitles = ["Profile", "Reviews", "Settings", "Wishlist"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const navigate = useNavigate();
@@ -35,7 +33,7 @@ export default function DashboardPage(): ReactElement {
         return (
             <main id="dashboardPage">
                 <Tabs titles={tabTitles} setActive={setActive} />
-                <h2 className="dashboard-title"> Settings </h2>
+                <h2 className="dashboard-title"> Coming soon </h2>
             </main>
         );
     }
@@ -53,7 +51,7 @@ export default function DashboardPage(): ReactElement {
         <main id="dashboardPage">
             <Tabs titles={tabTitles} setActive={setActive} />
             
-            <ProfileForm user={retroUser} />
+            <ProfileForm />
             <button className="retro-button logout-button" onClick={signOut}> 
                 <span className="material-symbols-outlined">logout</span>
                 <h2 className="logout-button-text"> Logout </h2>

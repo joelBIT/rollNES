@@ -1,9 +1,10 @@
 import { supabase } from "./components";
-import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, Review } from "./types/types";
+import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, RetroUser, Review } from "./types/types";
 
 const GAMES_TABLE = "games";
 const NEWSLETTER_TABLE = "newsletter";
 const REVIEW_TABLE = "reviews";
+const PROFILES_TABLE = "profiles";
 
 
 
@@ -16,7 +17,7 @@ const REVIEW_TABLE = "reviews";
 /**
  * Send a POST request to the registration endpoint.
  */
-export async function registrationRequest(body: RegisterRequest): Promise<void> {
+export async function registrationRequest(body: RegisterRequest): Promise<RetroUser> {
     try {
         const { error } = await supabase.auth.signUp({
             email: body.email,
@@ -33,6 +34,8 @@ export async function registrationRequest(body: RegisterRequest): Promise<void> 
             console.log(error);
             throw new Error('Registration failed');
         }
+
+        return {email: body.email, first_name: body.firstName, last_name: body.lastName};
     } catch (error) {
         console.log(error);
         throw error;
@@ -271,4 +274,57 @@ export async function getReviewsByGameIdRequest(id: number): Promise<Review[]> {
     }
 
     return data;
+}
+
+
+
+
+
+
+
+
+
+/*********
+ * USERS *
+ *********/
+
+/**
+ * Retrieve the session user.
+ */
+export async function getSessionUserRequest(): Promise<RetroUser> {
+    const { data } = await supabase.auth.getSession();
+    if (data && data.session?.user) {
+        const metadata = data.session.user?.user_metadata;
+
+        const user: RetroUser = {
+            email: data.session?.user.email as string,
+            last_name: metadata?.last_name,
+            first_name: metadata?.first_name
+        }
+
+        return user;
+    }
+
+    throw new Error('Could not find user');
+}
+
+/**
+ * Update logged in user's updated profile information. First the profile info is stored in the profiles table in the database. Then the
+ * session user's metadata is updated with the same information.
+ */
+export async function updateProfileInformationRequest(first_name: string, last_name: string): Promise<void> {
+    const { data } = await supabase.auth.getSession();
+    
+    if (data && data.session?.user) {
+        const { error } = await supabase.from(PROFILES_TABLE).update({ last_name, first_name }).eq('id', data.session.user.id);
+
+        if (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    await supabase.auth.updateUser({        // Updates the session user also
+        data: { first_name, last_name }
+    });
 }
