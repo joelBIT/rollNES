@@ -2,11 +2,25 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    width: 40rem;
+    width: 100%;
+    max-width: 40rem;
     padding: 2rem;
-    margin: 10rem 2rem;
+    margin: 2rem;
 
     & .update-button {
         align-self: flex-end;
+    }
+}
+
+@media (max-width: 800px) {
+    #profileForm {
+        align-self: center;
+        gap: 2rem;
+        padding: 1rem;
+        margin: 0;
+
+        & .update-button {
+            align-self: flex-end;
+        }
     }
 }

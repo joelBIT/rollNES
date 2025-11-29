@@ -12,7 +12,7 @@ import "./DashboardPage.css";
  * Dashboard for logged in user.
  */
 export default function DashboardPage(): ReactElement {
-    const tabTitles = ["Profile", "Reviews", "Settings", "Wishlist"];
+    const tabTitles = ["Profile", "Reviews"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const [reviews, setReviews] = useState<Review[]>([]);
     const navigate = useNavigate();
@@ -40,24 +40,6 @@ export default function DashboardPage(): ReactElement {
                 {
                     reviews.map((review, i) => <ReviewCard key={i} review={review} />)
                 }
-            </main>
-        );
-    }
-
-    if (active === "Settings") {
-        return (
-            <main id="dashboardPage">
-                <Tabs titles={tabTitles} setActive={setActive} />
-                <h2 className="dashboard-title"> Coming soon </h2>
-            </main>
-        );
-    }
-
-    if (active === "Wishlist") {
-        return (
-            <main id="dashboardPage">
-                <Tabs titles={tabTitles} setActive={setActive} />
-                <h2 className="dashboard-title"> Nothing yet </h2>
             </main>
         );
     }

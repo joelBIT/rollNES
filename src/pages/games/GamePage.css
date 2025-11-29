@@ -81,6 +81,10 @@
             padding-top: 2rem;
             padding-bottom: 2rem;
         }
+
+        & #game-images {
+            padding-right: 0;
+        }
     }
 }
 
