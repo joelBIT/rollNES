@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
-import { AppliedFilter, FilterAccordion, GameCard, SliderAccordion } from "../../components";
+import { AppliedFilter, FilterAccordion, GameCard, RangeSlider } from "../../components";
 
 import "./GamesPage.css";
 
@@ -25,6 +25,8 @@ export default function GamesPage(): ReactElement {
             </section>
 
             <section className={showFilters ? "game-filters-panel show-filters" : "game-filters-panel hide-filters"}>
+                <RangeSlider min={minRange} max={filteredGames?.length} setSliderValue={setNumberGamesShowing} />
+
                 <FilterAccordion title="Category" values={allFilterValues("category")} filterName="category" />
 
                 <FilterAccordion values={allFilterValues("players")} title="Players" filterName="players" />
@@ -32,8 +34,6 @@ export default function GamesPage(): ReactElement {
                 <FilterAccordion values={allFilterValues("publisher")} title="Publisher" filterName="publisher" />
 
                 <FilterAccordion values={allFilterValues("developer")} title="Developer" filterName="developer" />
-
-                <SliderAccordion title="Result Range" setValue={setNumberGamesShowing} min={minRange} max={filteredGames?.length}/>
             </section>
 
             <section id="games-list">
