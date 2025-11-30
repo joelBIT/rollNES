@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
-import { URL_GAME_PAGE, URL_GAMES_PAGE } from "../../utils";
+import { URL_GAMES_PAGE } from "../../utils";
 
 import "./LandingSlider.css";
 
@@ -38,7 +38,7 @@ export function LandingSlider(): ReactElement {
                             <h2 className="game-battletoads__heading"> Battletoads & Double Dragon </h2>
                             <p className="game-battletoads__text"> Characters from both series join forces in new adventures. </p>
 
-                            <NavLink className="play-button" to={URL_GAME_PAGE + "/113"}>
+                            <NavLink className="play-button" to={URL_GAMES_PAGE + "/113"}>
                                 Play now
                             </NavLink>
                         </section>

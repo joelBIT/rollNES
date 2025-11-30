@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { NavLink } from "react-router";
 import type { Game } from "../../types/types";
-import { COVER_URL, URL_GAME_PAGE } from "../../utils";
+import { COVER_URL, URL_GAMES_PAGE } from "../../utils";
 
 import "./TopGameCard.css";
 
@@ -12,7 +12,7 @@ export function TopGameCard({game, close}: { game: Game, close: () => void}): Re
 
     return (
         <section className="top-game-card">
-            <NavLink to={URL_GAME_PAGE + "/" + game.id} className="game-image" onClick={() => close()}> 
+            <NavLink to={URL_GAMES_PAGE + "/" + game.id} className="game-image" onClick={() => close()}> 
                 <img src={COVER_URL + game.cover} alt="Game cover" />
             </NavLink>
 

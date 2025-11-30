@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-import { URL_COMPANY_PAGE, URL_CONTACT_PAGE, URL_DASHBOARD_PAGE, URL_GAME_PAGE, URL_GAMES_PAGE, URL_HELP_CENTER_PAGE, URL_HOME, URL_LOGIN_PAGE, URL_NOT_FOUND_PAGE, URL_PRIVACY_PAGE, URL_REGISTER_PAGE, URL_RIGHTS_PAGE, URL_TEAM_PAGE, URL_TERMS_PAGE, URL_VISION_PAGE } from "./utils";
+import { URL_COMPANY_PAGE, URL_CONTACT_PAGE, URL_DASHBOARD_PAGE, URL_GAMES_PAGE, URL_HELP_CENTER_PAGE, URL_HOME, URL_LOGIN_PAGE, URL_NOT_FOUND_PAGE, URL_PRIVACY_PAGE, URL_REGISTER_PAGE, URL_RIGHTS_PAGE, URL_TEAM_PAGE, URL_TERMS_PAGE, URL_VISION_PAGE } from "./utils";
 import { App } from "./components";
 import LandingPage from "./pages/LandingPage";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -48,7 +48,7 @@ export const routes = createBrowserRouter([
                 loader: DashboardLoader
             },
             {
-                path: URL_GAME_PAGE + "/:id",
+                path: URL_GAMES_PAGE + "/:id",
                 Component: GamePage,
                 loader: GameLoader,
                 ErrorBoundary: ErrorPage

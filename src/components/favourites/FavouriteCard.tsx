@@ -1,7 +1,7 @@
 import { type ReactElement } from "react";
 import { NavLink } from "react-router";
 import type { Game } from "../../types/types";
-import { COVER_URL, URL_GAME_PAGE } from "../../utils";
+import { COVER_URL, URL_GAMES_PAGE } from "../../utils";
 import { useFavourites } from "../../hooks/useFavourites";
 
 import "./FavouriteCard.css";
@@ -22,7 +22,7 @@ export function FavouriteCard({game, close}: {game: Game, close: () => void}): R
 
             <section className="favourite-card-details">
                 <NavLink 
-                    to={URL_GAME_PAGE + "/" + game.id} 
+                    to={URL_GAMES_PAGE + "/" + game.id} 
                     className="favourite-card__title" 
                     onClick={() => close()}
                 > 

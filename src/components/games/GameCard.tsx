@@ -2,7 +2,7 @@ import { type ReactElement } from "react";
 import { NavLink } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
 import type { Game } from "../../types/types";
-import { COVER_URL, getAverageRating, URL_GAME_PAGE } from "../../utils";
+import { COVER_URL, getAverageRating, URL_GAMES_PAGE } from "../../utils";
 import { Rating } from "..";
 
 import "./GameCard.css";
@@ -21,7 +21,7 @@ export function GameCard({game}: { game: Game}): ReactElement {
             </section>
 
             <section className="game-information">
-                <NavLink to={URL_GAME_PAGE + "/" + game.id} className="game-information__link" title="View game"> 
+                <NavLink to={URL_GAMES_PAGE + "/" + game.id} className="game-information__link" title="View game"> 
                     <h2 className="game-information__heading"> {game.title} </h2> 
                 </NavLink>
                 
