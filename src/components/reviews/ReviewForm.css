@@ -77,6 +77,11 @@
 
     & .rating-input {
         width: fit-content;
+        padding-bottom: 1rem;
+
+        & > .input-label {
+            text-align: center;
+        }
     }
 
     & .message-success, 

@@ -102,7 +102,7 @@
         }
 
         & #contactPage-form__text {
-            color: var(--color-white);
+            color: var(--color-footer-text);
             font-family: "brandon-grotesque";
             width: 100%;
         }

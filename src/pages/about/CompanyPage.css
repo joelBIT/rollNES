@@ -158,6 +158,7 @@
     #companyPage {
         & #company-content {
             padding-top: 4rem;
+            gap: 3rem;
 
             & #company-history {
                 width: 95%;

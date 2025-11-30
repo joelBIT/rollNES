@@ -54,7 +54,14 @@
             }
 
             & .game-reviews-summary {
+                display: flex;
+                flex-direction: column;
+                gap: 0.1rem;
                 text-align: center;
+
+                & > p {
+                    font-family: 'brandon-grotesque';
+                }
             }
         }
 

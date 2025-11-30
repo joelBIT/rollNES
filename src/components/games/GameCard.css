@@ -68,8 +68,13 @@
         width: 20%;
 
         & .game-details__reviews {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+
             & > p {
                 text-align: center;
+                font-family: 'brandon-grotesque';
             }
         }
 
