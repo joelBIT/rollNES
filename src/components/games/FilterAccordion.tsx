@@ -2,6 +2,8 @@ import { useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
 import type { Filter } from "../../types/types";
 
+import "./FilterAccordion.css";
+
 /**
  * Filter used in GamesPage to filter games that are of interest.
  * 
