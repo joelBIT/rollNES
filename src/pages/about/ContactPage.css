@@ -15,7 +15,7 @@
         & #contactPage-heading__heading {
             font-size: 3rem;
             color: var(--color-white);
-            font-family: "brandon-grotesque";
+            font-family: 'ivy-presto-headline-light', sans-serif;
             letter-spacing: .29313rem;
             line-height: 1.5;
             font-weight: 700;
@@ -23,7 +23,7 @@
         }
 
         & #contactPage-heading__text {
-            font-family: "brandon-grotesque";
+            font-family: "brandon-grotesque", sans-serif;
             font-size: 1.5rem;
             text-align: center;
             color: var(--color-footer-text);

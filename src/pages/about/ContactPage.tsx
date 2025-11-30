@@ -8,7 +8,7 @@ export default function ContactPage(): ReactElement {
         <main id="contactPage">
             <section id="contactPage-heading">
                 <h2 id="contactPage-heading__heading"> Contact RollNES </h2>
-                <p id="contactPage-heading__text"> Get in touch! I am here to quickly provide you with the info and services you need and answer any question you may have. </p>
+                <p id="contactPage-heading__text"> Get in touch! RollNES is here to quickly provide you with the info and services you need and answer any question you may have. </p>
             </section>
 
             <section id="contact-information">
@@ -32,8 +32,8 @@ export default function ContactPage(): ReactElement {
             </section>
 
             <section id="contactPage-form">
-                <h2 id="contactPage-form__heading"> Send me an email: </h2>
-                <p id="contactPage-form__text"> Ask me anything! I will get back to you within 24-48 hours. </p>
+                <h2 id="contactPage-form__heading"> Send RollNES an email: </h2>
+                <p id="contactPage-form__text"> Ask anything! RollNES will get back to you within 24-48 hours. </p>
 
                 <ContactForm />
             </section>
