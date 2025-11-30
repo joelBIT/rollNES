@@ -20,7 +20,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
     /**
      * Closes search dropdown (if open) when navigating to Register or Login pages.
      */
-    function closeDropdown() {
+    function closeDropdown(): void {
         setShowAccountMenu(!showAccountMenu);
         if (isDropdownShowing) {
             toggleShowDropdown();
@@ -46,7 +46,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
                             </li>
                             :
                             <li
-                                className="icons-navbar__list-element"
+                                className={`icons-navbar__list-element ${showAccountMenu ? "showing-account" : ""}`}
                                 onClick={() => setShowAccountMenu(!showAccountMenu)}
                                 title="Account"
                             >
