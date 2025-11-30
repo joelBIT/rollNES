@@ -16,7 +16,7 @@
         padding: 8rem;
 
         & #vision__heading {
-            font-family: itc-avant-garde-gothic-bold, sans-serif;
+            font-family: 'ivy-presto-headline-light', sans-serif;
             font-size: 3rem;
             color: var(--color-white);
             max-width: 1440px;
