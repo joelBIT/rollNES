@@ -107,9 +107,9 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
 
                 <article id="rating-title-section">
                     <section className="information-input rating-input">
-                        <label className="input-label" htmlFor="rating">
+                        <span className="input-label">
                             Rating
-                        </label>
+                        </span>
 
                         <Rating rating={rating} setRating={setRating}/>
                     </section>

@@ -5,6 +5,9 @@ import { URL_RIGHTS_PAGE } from "../../utils";
 
 import "./Newsletter.css";
 
+/**
+ * Component enabling users to subscribe for the newsletter.
+ */
 export function Newsletter(): ReactElement {
     const [message, setMessage] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -13,7 +16,7 @@ export function Newsletter(): ReactElement {
     /**
      * Show message to indicate if the subscription succeeded or not.
      */
-    async function subscribe(formData: FormData) {        
+    async function subscribe(formData: FormData): Promise<void> {        
         try {
             await subscribeToNewsletterRequest(formData.get("newsletter-form-email") as string);
         } catch (error: any) {

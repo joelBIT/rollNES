@@ -81,6 +81,7 @@
 
         & > .input-label {
             text-align: center;
+            padding-bottom: 0;
         }
     }
 
