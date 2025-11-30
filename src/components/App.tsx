@@ -2,7 +2,7 @@ import { type ReactElement } from 'react';
 import { Outlet, ScrollRestoration } from 'react-router';
 import { createClient } from "@supabase/supabase-js";
 import { FavouriteGamesProvider } from '../contexts/FavouriteGamesContext';
-import { Footer, Header, HeaderBanner } from '.';
+import { Footer, Header } from '.';
 import { GamesProvider } from '../contexts/GamesContext';
 import { GameControllerProvider } from '../contexts/GameControllerContext';
 import { UserProvider } from '../contexts/UserContext';
@@ -15,7 +15,6 @@ export function App(): ReactElement {
             <GameControllerProvider>
                 <GamesProvider>
                     <FavouriteGamesProvider>
-                        <HeaderBanner />
                         <Header />
                         <Outlet />
                         <ScrollRestoration />

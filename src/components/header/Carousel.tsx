@@ -5,7 +5,7 @@ import { URL_GAMES_PAGE } from "../../utils";
 import "./Carousel.css";
 
 /**
- * Rotates a number of banner slides.
+ * Rotates a number of banner slides. Used on top of page containing information about the site.
  */
 export function Carousel(): ReactElement {
     const [ slide, setSlide ] = useState<number>(0);
@@ -35,9 +35,9 @@ export function Carousel(): ReactElement {
             </button>
 
             <section id="slide-space">
-                <h1 className={slide === 0 ? "active" : "inactive"}> PLAY NES GAMES IN A BROWSER </h1>
-                <h1 className={slide === 1 ? "active" : "inactive"}> NEW: BATTLETOADS VS DOUBLE DRAGON <NavLink to={`${URL_GAMES_PAGE}/113`}> PLAY NOW </NavLink> </h1>
-                <h1 className={slide === 2 ? "active" : "inactive"}> CONTINUOUSLY UPDATED WITH MORE GAMES </h1>
+                <h3 className={slide === 0 ? "active" : "inactive"}> PLAY NES GAMES IN A BROWSER </h3>
+                <h3 className={slide === 1 ? "active" : "inactive"}> NEW: BATTLETOADS VS DOUBLE DRAGON <NavLink to={`${URL_GAMES_PAGE}/113`}> PLAY NOW </NavLink> </h3>
+                <h3 className={slide === 2 ? "active" : "inactive"}> CONTINUOUSLY UPDATED WITH MORE GAMES </h3>
             </section>
 
             <button id="nextButton" onClick={nextSlide}>

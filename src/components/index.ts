@@ -20,7 +20,6 @@ export * from "./games/Tabs";
 export * from "./games/Tag";
 export * from "./header/Carousel";
 export * from "./header/Header";
-export * from "./header/HeaderBanner";
 export * from "./header/Logo";
 export * from "./header/NavBar";
 export * from "./header/NavIcons";

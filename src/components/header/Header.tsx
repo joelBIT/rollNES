@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
-import { Logo, NavBar, NavIcons, SearchDropdown, supabase } from "..";
+import { Carousel, Logo, NavBar, NavIcons, SearchDropdown, supabase } from "..";
 import type { Game } from "../../types/types";
 import { URL_HOME } from "../../utils";
 
@@ -29,6 +29,8 @@ export function Header(): ReactElement {
     
     return (
         <header>
+            <Carousel />
+            
             <section id="header-nav">
                 <NavBar />
 
