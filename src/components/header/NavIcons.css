@@ -31,8 +31,9 @@
                 }
             }
 
-            & .showing-account {
-                border-radius: 100%;
+            & .showing-account,
+            .showing-dropdown {
+                border-radius: 8px;
                 background-color: var(--color-border);
             }
         }

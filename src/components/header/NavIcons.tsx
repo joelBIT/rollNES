@@ -31,7 +31,11 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
         <section id="nav-icons">
             <nav id="icons-navbar">
                 <ul id="icons-navbar__list">
-                    <li className="icons-navbar__list-element" title="Search games" onClick={() => toggleShowDropdown()}>
+                    <li 
+                        className={`icons-navbar__list-element ${isDropdownShowing ? "showing-dropdown" : ""}`} 
+                        title="Search games" 
+                        onClick={() => toggleShowDropdown()}
+                    >
                         <span className="material-symbols-outlined"> search </span>
                     </li>
 
