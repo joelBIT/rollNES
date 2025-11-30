@@ -13,7 +13,7 @@ export function Carousel(): ReactElement {
     useEffect(() => {
         const id = setInterval(() => {
             nextSlide();
-        }, 7000);
+        }, 5000);
 
         return () => {
             clearInterval(id);
