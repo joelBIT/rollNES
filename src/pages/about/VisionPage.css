@@ -24,11 +24,11 @@
 
         & #vision__text {
             font-family: itc-avant-garde-gothic-medium, sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--color-footer-text);
             font-weight: 400;
             line-height: 24px;
-            max-width: 650px;
+            max-width: 750px;
         }
     }
 }
