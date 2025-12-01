@@ -58,8 +58,6 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                             name="simple-search"
                             type="search"
                         />
-                        
-                        <h2 id="close-button" onClick={closeDropdown}> <p>&#x2715;</p> Close </h2>
                     </form>
 
                     {
@@ -69,7 +67,7 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
 
                                 <section id="top-games__cards">
                                     {
-                                        topGames.map(game => <TopGameCard key={game.id} game={game} close={toggleShowDropdown} />)
+                                        topGames.map(game => <TopGameCard key={game.id} game={game} close={closeDropdown} />)
                                     }
                                 </section>
                             </section>
@@ -79,7 +77,7 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
 
                                 <section id="matching-games__cards">
                                     {
-                                        gameMatches.map(game => <TopGameCard key={game.id} game={game} close={toggleShowDropdown} />)
+                                        gameMatches.map(game => <TopGameCard key={game.id} game={game} close={closeDropdown} />)
                                     }
                                 </section>
                             </section>

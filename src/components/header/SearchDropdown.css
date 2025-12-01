@@ -50,27 +50,6 @@
                     color: var(--color-search-text);
                     background-color: var(--color-logo-background);
                 }
-
-                & #close-button {
-                    display: flex;
-                    gap: 0.1rem;
-                    font-size: 1.2rem;
-                    font-weight: 500;
-                    font-family: brandon-grotesque, sans-serif;
-                    align-content: center;
-                    position: absolute;
-                    right: 2%;
-                    top: 50%;
-                    bottom: 50%;
-
-                    & > p {
-                        color: var(--color-text-heading);
-                    }
-
-                    &:hover {
-                        cursor: pointer;
-                    }
-                }
             }
 
             & #top-games,
@@ -133,11 +112,7 @@
                     flex-direction: column;
 
                     & #search-area__input {
-                        width: 80%;
-                        font-size: 1rem;
-                    }
-
-                    & #close-button {
+                        width: 100%;
                         font-size: 1rem;
                     }
                 }
