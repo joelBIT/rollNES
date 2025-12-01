@@ -1,5 +1,6 @@
 import { useActionState, useEffect, useState, type ReactElement } from "react";
 import { useUser } from "../../hooks/useUser";
+import { useGames } from "../../hooks/useGames";
 import { Rating } from "..";
 import { createReviewRequest } from "../../requests";
 
@@ -15,6 +16,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
     const [message, setMessage] = useState<string>('');
     const [isError, setIsError] = useState<boolean>(false);
     const { user } = useUser();
+    const { loadGames } = useGames();
     const [name, setName] = useState<string>((user?.first_name ?? "") + " " + (user?.last_name ?? ""));
     const [title, setTitle] = useState<string>('');
     const [review, setReview] = useState<string>('');
@@ -53,6 +55,8 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
             updateReviews();        // Inform parent to update list of reviews with a new review
             console.log(state);
         }
+
+        loadGames();        // Retrieve games from backend to get the most recent version of the games
     }
 
     function resetForm(): void {

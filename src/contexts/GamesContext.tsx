@@ -9,7 +9,9 @@ export interface GamesContextProvider {
     addFilter: (type: Filter, value: string) => void;
     removeFilter: (type: Filter, value: string) => void;
     matchesFilter: (type: Filter, value: string) => number;
+    applyGameFilters: () => void;
     allFilterValues: (filter: Filter) => string[];
+    loadGames: () => void;
 }
 
 export const GamesContext = createContext<GamesContextProvider>({} as GamesContextProvider);
@@ -34,6 +36,15 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
         const result = await getAllGamesRequest();
         setGames(result);
         setFilteredGames(result);
+    }
+
+    /**
+     * Enables appyling selected filters whenever desired in the application.
+     */
+    function applyGameFilters(): void {
+        if (appliedFilters.length) {
+            applyFilters(appliedFilters);
+        }
     }
 
     /**
@@ -121,7 +132,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
     
     return (
-        <GamesContext.Provider value={{ games, filteredGames, appliedFilters, allFilterValues, addFilter, removeFilter, matchesFilter }}>
+        <GamesContext.Provider value={{ games, filteredGames, appliedFilters, allFilterValues, addFilter, removeFilter, matchesFilter, loadGames, applyGameFilters }}>
             { children }
         </GamesContext.Provider>
     );
