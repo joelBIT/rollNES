@@ -25,6 +25,7 @@
         & #contactPage-heading__text {
             font-family: "brandon-grotesque", sans-serif;
             font-size: 1.5rem;
+            line-height: 1.7rem;
             text-align: center;
             color: var(--color-footer-text);
             max-width: 45rem;
@@ -50,11 +51,13 @@
                 font-size: 1.6rem;
                 color: var(--color-white);
                 padding-top: 0.5rem;
+                text-align: center;
             }
 
             & .contact-item__text {
                 font-family: 'brandon-grotesque';
                 font-size: 1.2rem;
+                line-height: 1.2rem;
                 color: var(--color-footer-text);
                 text-align: center;
             }
