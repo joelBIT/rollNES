@@ -9,8 +9,9 @@ import "./ControllerForm.css";
  * Form used for configuration of player 1 and player 2 controls.
  */
 export function ControllerForm(): ReactElement {
-    const [ showMessage, setShowMessage ] = useState<boolean>(false);
-    const [ message, setMessage ] = useState<string>("Could not save controller settings");
+    const [showMessage, setShowMessage] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>("Could not save controller settings");
     const { player1, player2, saveConfigurations } = useControllers();
     const keys = document.getElementsByClassName('key-controller') as HTMLCollectionOf<HTMLInputElement>;
 
@@ -19,9 +20,11 @@ export function ControllerForm(): ReactElement {
      * Store the controller configuration in local storage if all fields are nonempty and contains unique values.
      */
     function confirmSettings(formData: FormData): void {
+        setShowMessage(true);
+        setIsError(false);
         if (hasEmptyKeys()) {
+            setIsError(true)
             setMessage("Not allowed to set empty controller keys");
-            setShowMessage(true);
             return;
         }
 
@@ -29,7 +32,7 @@ export function ControllerForm(): ReactElement {
         const player2 = extractPlayer2Configuration(formData);
 
         saveConfigurations(player1, player2);
-        setShowMessage(false);
+        setMessage("Configuration saved");
     }
 
     /**
@@ -100,7 +103,7 @@ export function ControllerForm(): ReactElement {
 
             { 
                 showMessage ? 
-                    <h2 className="message-failure">
+                    <h2 className={isError ? "message-failure" : "message-success"}>
                         {message}
                     </h2> : <></> 
             }

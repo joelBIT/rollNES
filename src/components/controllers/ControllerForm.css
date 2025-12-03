@@ -36,9 +36,9 @@
         margin-top: 1rem;
     }
 
-    ~ .message-failure {
+    ~ .message-failure,
+    ~ .message-success {
         font-family: 'Inter';
-        color: var(--color-message-failure);
         width: fit-content;
         align-self: center;
         margin: 0;

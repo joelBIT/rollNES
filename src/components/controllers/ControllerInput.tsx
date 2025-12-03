@@ -13,7 +13,7 @@ export function ControllerInput({defaultButton, label, onKeyDown}: {defaultButto
                 defaultValue={button.value} 
                 className="key-controller form__field" 
                 onKeyDown={e => onKeyDown(e)}
-                form="controller-form"
+                form="controllerForm"
                 name={button.button}
                 autoComplete="off" 
             />
