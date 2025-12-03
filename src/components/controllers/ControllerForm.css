@@ -1,0 +1,49 @@
+#controllerForm {
+    display: flex;
+    flex-direction: column;
+    
+    & .controllers {
+        display: flex;
+        align-self: center;
+        gap: 5rem;
+
+        & .player1-controller {
+            color: var(--color-player-1);
+
+            .form__field-label {
+                color: var(--color-player-1);
+            }
+        }
+
+        & .player2-controller {
+            color: var(--color-player-2);
+
+            .form__field-label {
+                color: var(--color-player-2);
+            }
+        }
+    }
+
+    & .dialog-buttons {
+        display: flex;
+        justify-content: space-between;
+        padding: 2rem;
+    }
+
+    & .message-failure {
+        font-family: 'Inter';
+        color: var(--color-message-failure);
+        width: fit-content;
+        align-self: center;
+        margin: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    #controllerForm {
+        & .controllers {
+            flex-direction: column;
+            gap: 2rem;
+        }
+    }
+}
