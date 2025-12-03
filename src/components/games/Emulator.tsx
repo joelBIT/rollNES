@@ -111,6 +111,11 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
 
     return (
         <section id="emulator">
+            <section id="reload-emulator">
+                <h3 className="reload-emulator__text"> Press reload if the game does not start </h3>
+                <button className="retro-button" onClick={() => getRom()}> Reload </button>
+            </section>
+
             <canvas id="canvas" width="256" height="240"></canvas>
         </section>
     )
