@@ -35,7 +35,7 @@ export default function DashboardPage(): ReactElement {
 
         return (
             <main id="dashboardPage">
-                <Tabs titles={tabTitles} setActive={setActive} />
+                <Tabs titles={tabTitles} active={active} setActive={setActive} />
                 
                 {
                     reviews.map((review, i) => <ReviewCard key={i} review={review} />)
@@ -46,7 +46,7 @@ export default function DashboardPage(): ReactElement {
 
     return (
         <main id="dashboardPage">
-            <Tabs titles={tabTitles} setActive={setActive} />
+            <Tabs titles={tabTitles} active={active} setActive={setActive} />
             
             <ProfileForm />
             <button className="retro-button logout-button" onClick={signOut}> 

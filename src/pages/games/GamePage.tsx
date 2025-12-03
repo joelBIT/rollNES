@@ -34,49 +34,52 @@ export default function GamePage(): ReactElement {
 
     return (
         <main id="gamePage">
-            <Tabs titles={tabTitles} setActive={setActive} />
+            <Tabs titles={tabTitles} active={active} setActive={setActive} />
 
             {
-                active === tabTitles[0] ? 
-                    <>
-                        <section id="game-top">
-                            <section id="game-images">
-                                <img src={COVER_URL + game?.cover} alt="Game cover" />
-                            </section>
-
-                            <section id="game-details">
-                                <h2 id="game-information__heading"> {game.title} </h2> 
-
-                                <section className="reviews-and-favourite-button">
-                                    <article className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
-                                        {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <h2>&#9825;</h2>}
-                                    </article>
-
-                                    <section className="game-reviews-summary">
-                                        <Rating rating={getAverageRating(reviews)} />
-                                        <p> {reviews?.length} review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""} </p>
-                                    </section>
-                                </section>
-
-                                <section id="tags">
-                                    <Tag text={game.category} type="category" />
-                                    <Tag text={game.players.toString()} type="players" />
-                                    <Tag text={game.developer} type="developer" />
-                                    <Tag text={game.publisher} type="publisher" />
-                                </section>
-
-                                <h2 id="game-information__description"> 
-                                    {game.description} 
-                                </h2>
-                            </section>
+                active === tabTitles[1] ? 
+                    <Emulator gameId={game.id} />
+                    :
+                active === tabTitles[2] ? 
+                    <ControllerForm /> 
+                    :
+                <>
+                    <section id="game-top">
+                        <section id="game-images">
+                            <img src={COVER_URL + game?.cover} alt="Game cover" />
                         </section>
 
-                        <section id="game-bottom">
-                            <ReviewList game={game} setReviews={updateReviews} />
+                        <section id="game-details">
+                            <h2 id="game-information__heading"> {game.title} </h2> 
+
+                            <section className="reviews-and-favourite-button">
+                                <article className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
+                                    {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <h2>&#9825;</h2>}
+                                </article>
+
+                                <section className="game-reviews-summary">
+                                    <Rating rating={getAverageRating(reviews)} />
+                                    <p> {reviews?.length} review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""} </p>
+                                </section>
+                            </section>
+
+                            <section id="tags">
+                                <Tag text={game.category} type="category" />
+                                <Tag text={game.players.toString()} type="players" />
+                                <Tag text={game.developer} type="developer" />
+                                <Tag text={game.publisher} type="publisher" />
+                            </section>
+
+                            <h2 id="game-information__description"> 
+                                {game.description} 
+                            </h2>
                         </section>
-                    </>
-                : 
-                    active === tabTitles[1] ? <Emulator gameId={game.id} /> : <ControllerForm />
+                    </section>
+
+                    <section id="game-bottom">
+                        <ReviewList game={game} setReviews={updateReviews} />
+                    </section>
+                </>
             }
         </main>
     );
