@@ -1,0 +1,56 @@
+#controllerForm {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    background-color: var(--color-black-light);
+    max-width: 800px;
+    padding: 2rem;
+    border: 2px solid var(--color-black);
+    border-radius: 4px;
+    margin-top: 2rem;
+    
+    & .controllers {
+        display: flex;
+        align-self: center;
+        gap: 5rem;
+
+        & .player1-controller {
+            color: var(--color-player-1);
+
+            .form__field-label {
+                color: var(--color-player-1);
+            }
+        }
+
+        & .player2-controller {
+            color: var(--color-player-2);
+
+            .form__field-label {
+                color: var(--color-player-2);
+            }
+        }
+    }
+
+    & > button {
+        align-self: flex-end;
+        margin-top: 1rem;
+    }
+
+    ~ .message-failure,
+    ~ .message-success {
+        font-family: 'Inter';
+        width: fit-content;
+        align-self: center;
+        margin: 0;
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #controllerForm {
+        & .controllers {
+            flex-direction: column;
+            gap: 2rem;
+        }
+    }
+}
