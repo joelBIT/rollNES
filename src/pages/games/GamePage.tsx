@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
-import { Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
+import { ControllerForm, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
 import { COVER_URL, getAverageRating } from "../../utils";
 import type { Game, Review } from "../../types/types";
 import { useFavourites } from "../../hooks/useFavourites";
@@ -14,7 +14,7 @@ import "./GamePage.css";
  */
 export default function GamePage(): ReactElement {
     const game = useLoaderData() as Game;
-    const tabTitles = ["Details", "Play"];
+    const tabTitles = ["Details", "Play", "Controller"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const [reviews, setReviews] = useState<Review[]>(game.reviews);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
@@ -76,7 +76,7 @@ export default function GamePage(): ReactElement {
                         </section>
                     </>
                 : 
-                    <Emulator gameId={game.id} />
+                    active === tabTitles[1] ? <Emulator gameId={game.id} /> : <ControllerForm />
             }
         </main>
     );

@@ -65,34 +65,38 @@ export function ControllerForm(): ReactElement {
     }
     
     return (
-        <form id="controllerForm" action={confirmSettings}>
-            <section className="controllers">
-                <section className="player1-controller">
-                    <h2 className="bit-font">Player 1</h2>
+        <>
+            <form id="controllerForm" action={confirmSettings}>
+                <section className="controllers">
+                    <section className="player1-controller">
+                        <h2 className="bit-font">Player 1</h2>
 
-                    <ControllerInput defaultButton={player1.up} label="UP" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player1.down} label="DOWN" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player1.left} label="LEFT" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player1.right} label="RIGHT" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player1.a} label="A" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player1.b} label="B" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player1.start} label="START" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player1.select} label="SELECT" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player1.up} label="UP" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player1.down} label="DOWN" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player1.left} label="LEFT" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player1.right} label="RIGHT" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player1.a} label="A" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player1.b} label="B" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player1.start} label="START" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player1.select} label="SELECT" onKeyDown={setKeyCode} />
+                    </section>
+
+                    <section className="player2-controller">
+                        <h2 className="bit-font">Player 2</h2>
+                        
+                        <ControllerInput defaultButton={player2.up} label="UP" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player2.down} label="DOWN" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player2.left} label="LEFT" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player2.right} label="RIGHT" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player2.a} label="A" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player2.b} label="B" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player2.start} label="START" onKeyDown={setKeyCode} />
+                        <ControllerInput defaultButton={player2.select} label="SELECT" onKeyDown={setKeyCode} />
+                    </section>
                 </section>
 
-                <section className="player2-controller">
-                    <h2 className="bit-font">Player 2</h2>
-                    
-                    <ControllerInput defaultButton={player2.up} label="UP" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player2.down} label="DOWN" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player2.left} label="LEFT" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player2.right} label="RIGHT" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player2.a} label="A" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player2.b} label="B" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player2.start} label="START" onKeyDown={setKeyCode} />
-                    <ControllerInput defaultButton={player2.select} label="SELECT" onKeyDown={setKeyCode} />
-                </section>
-            </section>
+                <button className="retro-button" type="submit"> Save </button>
+            </form>
 
             { 
                 showMessage ? 
@@ -100,11 +104,6 @@ export function ControllerForm(): ReactElement {
                         {message}
                     </h2> : <></> 
             }
-
-            <section className="dialog-buttons">
-                <button className="retro-button" type="reset"> Reset </button>
-                <button className="retro-button" type="submit"> Save </button>
-            </section>
-        </form>
+        </>
     );
 }
