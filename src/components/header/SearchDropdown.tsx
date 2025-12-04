@@ -1,7 +1,10 @@
-import {useEffect, useState, type ReactElement} from "react";
+import {useEffect, useRef, useState, type ReactElement} from "react";
+import { useNavigate } from "react-router";
+import { useGames } from "../../hooks/useGames";
 import type { Game } from "../../types/types";
 import { TopGameCard } from "./TopGameCard";
 import { getThreeMatchingGamesRequest } from "../../requests";
+import { URL_GAMES_PAGE } from "../../utils";
 
 import "./SearchDropdown.css";
 
@@ -12,9 +15,15 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
     const [isShowing, setIsShowing] = useState<boolean>(show);
     const [gameName, setGameName] = useState<string>("");
     const [gameMatches, setGameMatches] = useState<Game[]>([]);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const { addFilter } = useGames();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsShowing(show);
+        if (inputRef && inputRef.current) {
+            inputRef.current.focus();
+        }
     }, [show]);
 
     /**
@@ -43,20 +52,33 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
         toggleShowDropdown();
     }
 
+    /**
+     * Only go to the Games page if there are any matches for the supplied title. Otherwise stay on the dropdown.
+     */
+    function searchGames(): void {
+        if (gameMatches.length && inputRef.current?.value) {
+            addFilter("title", inputRef.current?.value);
+            closeDropdown();
+            navigate(URL_GAMES_PAGE);
+        }
+    }
+
     return (
         <section id="search-dropdown">
             <section id="search-inner-content" className={isShowing ? "dropdown" : "accordion-panel"}>
                 <section id="search-recommendations">
-                    <form id="search-area" role="search" className="search-input__field" method="get" name="simpleSearch" action="/search">
+                    <form id="search-area" role="search" className="search-input__field" name="simpleSearch" action={searchGames}>
                         <input
                             id="search-area__input"
                             title="Enter Search Keyword"
+                            ref={inputRef}
                             placeholder="Enter Search Keyword"
                             onChange={e => matchGames(e.target.value)}
                             value={gameName}
                             autoComplete="off"
                             name="simple-search"
                             type="search"
+                            autoFocus
                         />
                     </form>
 

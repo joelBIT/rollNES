@@ -63,6 +63,12 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
                 result = result.concat(games.filter(game => game[filters[i].type] === parseInt(filters[i].value)));
                 continue;
             }
+
+            if (filters[i].type === "title") {
+                result = result.concat(games.filter(game => game.title.toLowerCase().includes(filters[i].value.toLowerCase())));
+                continue;
+            }
+
             result = result.concat(games.filter(game => game[filters[i].type] === filters[i].value));
         }
 
@@ -71,7 +77,8 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
 
         for (let i = 0; i < result.length; i++) {
             if (included(result[i], filters, "category") && included(result[i], filters, "players")
-                    && included(result[i], filters, "publisher") && included(result[i], filters, "developer")) {
+                    && included(result[i], filters, "publisher") && included(result[i], filters, "developer")
+                        && includesSearchWord(result[i], filters)) {
                 filteredGames.push(result[i]);      // Add game that matches all applied filter types (mutually exclusive between filter types)
             }
         }
@@ -80,7 +87,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
 
     /**
-     * Return true if filter is applied to supplied game. Also return true if length of filters is 0 because all games should be shown in GamesPage
+     * Returns true if filter is applied to supplied game. Also return true if length of filters is 0 because all games should be shown in GamesPage
      * then (due to no filter being applied).
      */
     function included(game: Game, filters: AppliedFilter[], type: Filter): boolean {
@@ -89,6 +96,18 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
             return true;
         }
         return values.includes(game[type].toString());
+    }
+
+    /**
+     * Returns true if filter is not applied or if the filter is applied and the game title contains
+     * the filter value (which in this case is the search word).
+     */
+    function includesSearchWord(game: Game, filters: AppliedFilter[]): boolean {
+        const filter = filters.find(filter => filter.type === "title");
+        if (!filter) {
+            return true;        // Return true if no "title" filter is applied
+        }
+        return game.title.toLowerCase().includes(filter.value.toLowerCase());
     }
 
     /**
@@ -102,10 +121,16 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
 
     /**
      * Add specific filter when a user clicks on corresponding filter option. 
+     * Only one 'title' filter is allowed. If one such filter is already applied, replace it with the new title.
      */
-    function addFilter(type: Filter, value: string): void {        
-        applyFilters([...appliedFilters, {type, value}]);
-        setAppliedFilters((_oldValues) => [..._oldValues, {type, value}]);
+    function addFilter(type: Filter, value: string): void {
+        let filters = appliedFilters;
+        if (type === "title") {
+            filters = filters.filter(filter => filter.type !== "title");        // Remove any existing 'title' filter, should only be one allowed
+        }
+
+        applyFilters([...filters, {type, value}]);
+        setAppliedFilters((_oldValues) => [...filters, {type, value}]);
     }
 
     /**
