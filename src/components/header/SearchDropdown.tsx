@@ -1,4 +1,4 @@
-import {useEffect, useState, type ReactElement} from "react";
+import {useEffect, useRef, useState, type ReactElement} from "react";
 import type { Game } from "../../types/types";
 import { TopGameCard } from "./TopGameCard";
 import { getThreeMatchingGamesRequest } from "../../requests";
@@ -12,9 +12,13 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
     const [isShowing, setIsShowing] = useState<boolean>(show);
     const [gameName, setGameName] = useState<string>("");
     const [gameMatches, setGameMatches] = useState<Game[]>([]);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         setIsShowing(show);
+        if (inputRef && inputRef.current) {
+            inputRef.current.focus();
+        }
     }, [show]);
 
     /**
@@ -51,12 +55,14 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                         <input
                             id="search-area__input"
                             title="Enter Search Keyword"
+                            ref={inputRef}
                             placeholder="Enter Search Keyword"
                             onChange={e => matchGames(e.target.value)}
                             value={gameName}
                             autoComplete="off"
                             name="simple-search"
                             type="search"
+                            autoFocus
                         />
                     </form>
 
