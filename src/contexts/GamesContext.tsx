@@ -65,7 +65,11 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
             }
 
             if (filters[i].type === "title") {
-                result = result.concat(games.filter(game => game.title.toLowerCase().includes(filters[i].value.toLowerCase())));
+                const titleWords = filters[i].value.split(" ");
+                for (let i = 0; i < titleWords.length; i++) {       // If search string consists of several words, title must include all words
+                    const word = titleWords[i].trim();
+                    result = result.concat(games.filter(game => game.title.toLowerCase().includes(word.toLowerCase())));
+                }
                 continue;
             }
 
@@ -107,7 +111,17 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
         if (!filter) {
             return true;        // Return true if no "title" filter is applied
         }
-        return game.title.toLowerCase().includes(filter.value.toLowerCase());
+
+        const titleWords = filter.value.split(" ");
+        for (let i = 0; i < titleWords.length; i++) {       // If search string consists of several words, title must include all words
+            const word = titleWords[i].trim();
+            const included = game.title.toLowerCase().includes(word.toLowerCase());
+            if (!included) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
