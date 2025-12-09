@@ -4,7 +4,7 @@ import { useControllers } from "../../hooks/useControllers";
 import "./Emulator.css";
 
 export function Emulator({gameId}: {gameId: number}): ReactElement {
-    const { getControllersConfiguration } = useControllers();
+    const { getControllersConfiguration, player1 } = useControllers();
     let worker: Worker;
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
@@ -114,6 +114,18 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
             <section id="reload-emulator">
                 <h3 className="reload-emulator__text"> Press reload if the game does not start </h3>
                 <button className="retro-button" onClick={() => getRom()}> Reload </button>
+
+                <section id="player1-controller">
+                    <h3 className="player1-controller__title"> Player 1 </h3>
+                    <h3 className="player1-controller__text"> Up: {player1.up.value} </h3>
+                    <h3 className="player1-controller__text"> Down: {player1.down.value} </h3>
+                    <h3 className="player1-controller__text"> Left: {player1.left.value} </h3>
+                    <h3 className="player1-controller__text"> Right: {player1.right.value} </h3>
+                    <h3 className="player1-controller__text"> Select: {player1.select.value} </h3>
+                    <h3 className="player1-controller__text"> Start: {player1.start.value} </h3>
+                    <h3 className="player1-controller__text"> A: {player1.a.value} </h3>
+                    <h3 className="player1-controller__text"> B: {player1.b.value} </h3>
+                </section>
             </section>
 
             <canvas id="canvas" width="256" height="240"></canvas>

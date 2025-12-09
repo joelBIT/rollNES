@@ -23,6 +23,27 @@
             font-family: 'brandon-grotesque', sans-serif;
             font-size: 1rem;
         }
+
+        & #player1-controller {
+            display: flex;
+            flex-direction: column;
+
+            & .player1-controller__title {
+                font-family: 'brandon-grotesque', sans-serif;
+                font-size: 1.2rem;
+                font-weight: 900;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+                margin-top: 1rem;
+            }
+
+            & .player1-controller__text {
+                font-family: 'brandon-grotesque', sans-serif;
+                font-size: 1.1rem;
+                font-weight: 100;
+                text-align: left;
+            }
+        }
     }
 
     & > canvas {
