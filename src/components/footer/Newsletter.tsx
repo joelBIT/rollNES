@@ -52,7 +52,7 @@ export function Newsletter(): ReactElement {
                         required
                     />
 
-                    <button type="submit"> Subscribe &rarr; </button>
+                    <button type="submit"> Subscribe </button>
                 </form>
 
                 <section id="newsletter-disclaimer">
