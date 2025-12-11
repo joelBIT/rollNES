@@ -54,12 +54,19 @@
                 cursor: pointer;
                 font-size: 1rem;
                 font-weight: 500;
-                line-height: inherit;
+                transition: all 0.3s ease;
 
                 &::placeholder {
                     font-family: Inter, Times New Roman, arial, sans-serif;
                     color: var(--color-white);
                     font-size: 1rem;
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: var(--color-white);
+                    box-shadow: 0 0 3px var(--color-logo-background);
+                    transition: all 0.3s ease;
                 }
             }
             
