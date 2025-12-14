@@ -39,7 +39,7 @@
         & #newsletter-form {
             display: flex;
             align-self: center;
-            gap: 1rem;
+            gap: 2rem;
             margin-top: 1.7rem;
             margin-bottom: 1.7rem;
 
@@ -84,7 +84,6 @@
 
                 &:active {
                     filter: brightness(0.6);
-                    font-size: 15px;
                 }
             }
         }
