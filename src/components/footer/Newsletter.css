@@ -80,13 +80,7 @@
                 border: none;
                 border-radius: 100px;
                 letter-spacing: 0;
-                transition: letter-spacing 0.5s;
-
-                &:hover {
-                    cursor: pointer;
-                    letter-spacing: 1px;
-                    transition: letter-spacing 0.5s;
-                }
+                cursor: pointer;
 
                 &:active {
                     filter: brightness(0.6);
