@@ -42,6 +42,10 @@
                 font-size: 1.1rem;
                 font-weight: 100;
                 text-align: left;
+
+                & > b {
+                    font-weight: 800;
+                }
             }
         }
     }

@@ -117,14 +117,14 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
 
                 <section id="player1-controller">
                     <h3 className="player1-controller__title"> Player 1 </h3>
-                    <h3 className="player1-controller__text"> Up: {player1.up.value} </h3>
-                    <h3 className="player1-controller__text"> Down: {player1.down.value} </h3>
-                    <h3 className="player1-controller__text"> Left: {player1.left.value} </h3>
-                    <h3 className="player1-controller__text"> Right: {player1.right.value} </h3>
-                    <h3 className="player1-controller__text"> Select: {player1.select.value} </h3>
-                    <h3 className="player1-controller__text"> Start: {player1.start.value} </h3>
-                    <h3 className="player1-controller__text"> A: {player1.a.value} </h3>
-                    <h3 className="player1-controller__text"> B: {player1.b.value} </h3>
+                    <h3 className="player1-controller__text"> <b>Up:</b> {player1.up.value} </h3>
+                    <h3 className="player1-controller__text"> <b>Down:</b> {player1.down.value} </h3>
+                    <h3 className="player1-controller__text"> <b>Left:</b> {player1.left.value} </h3>
+                    <h3 className="player1-controller__text"> <b>Right:</b> {player1.right.value} </h3>
+                    <h3 className="player1-controller__text"> <b>Select:</b> {player1.select.value} </h3>
+                    <h3 className="player1-controller__text"> <b>Start:</b> {player1.start.value} </h3>
+                    <h3 className="player1-controller__text"> <b>A:</b> {player1.a.value} </h3>
+                    <h3 className="player1-controller__text"> <b>B:</b> {player1.b.value} </h3>
                 </section>
             </section>
 
