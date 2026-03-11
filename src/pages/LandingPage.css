@@ -2,6 +2,45 @@
     display: flex;
     flex-direction: column;
     gap: 3rem;
+    padding-top: 2rem;
+
+    & #game-battletoads {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        align-items: center;
+        flex: 1;
+
+        & #game-battletoads__image {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+
+            & > img {
+                max-width: 650px;
+            }
+        }
+
+        & .game-battletoads__italic {
+            font-family: "ivy-presto-headline-light";
+            font-style: italic;
+            font-size: 30px;
+        }
+
+        & .game-battletoads__heading {
+            font-family: "ivy-presto-headline-light";
+            font-size: 3rem;
+        }
+
+        & .game-battletoads__text {
+            font-family: "brandon-grotesque";
+            font-size: 18px;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
 
     & #landing-popular {
         display: flex;
@@ -67,5 +106,22 @@
     #landingPage {
         padding-top: 1rem;
         gap: 0;
+
+        & #game-battletoads {
+            & #game-battletoads__image {
+                height: 300px;
+                max-width: 320px;
+            }
+
+            & .game-battletoads__italic {
+                font-size: 22px;
+                padding-top: 1rem;
+            }
+
+            & .game-battletoads__heading {
+                font-size: 2rem;
+                text-align: center;
+            }
+        }
     }
 }

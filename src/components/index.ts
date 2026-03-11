@@ -24,7 +24,6 @@ export * from "./header/NavBar";
 export * from "./header/NavIcons";
 export * from "./header/SearchDropdown";
 export * from "./header/TopGameCard";
-export * from "./home/LandingSlider";
 export * from "./home/PopularGameCard";
 export * from "./resources/FAQ";
 export * from "./reviews/Rating";
