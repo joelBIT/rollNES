@@ -1,7 +1,8 @@
 import { type ReactElement } from "react";
-import { useLoaderData } from "react-router";
-import {LandingSlider, PopularGameCard} from "../components";
+import { useLoaderData, NavLink } from "react-router";
+import { PopularGameCard } from "../components";
 import type { Game } from "../types/types";
+import { URL_GAMES_PAGE } from "../utils";
 
 import "./LandingPage.css";
 
@@ -10,7 +11,19 @@ export default function LandingPage(): ReactElement {
     
     return (
         <main id="landingPage">
-            <LandingSlider />
+            <section id="game-battletoads">
+                <figure id="game-battletoads__image">
+                    <img src="/ddbattletoads.jpeg" alt="Battletoads and Double Dragon" />
+                </figure>
+
+                <h2 className="game-battletoads__italic"> New Improved Formula </h2>
+                <h2 className="game-battletoads__heading"> Battletoads & Double Dragon </h2>
+                <p className="game-battletoads__text"> Characters from both series join forces in new adventures. </p>
+
+                <NavLink className="play-button" to={URL_GAMES_PAGE + "/113"}>
+                    Play now
+                </NavLink>
+            </section>
 
             <section id="landing-popular">
                 <h2 id="landing-popular__heading"> Most Played </h2>

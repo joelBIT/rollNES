@@ -33,19 +33,7 @@ export function LandingSlider(): ReactElement {
 
                 <section id="slides">
                     <section id="slide-battletoads" className={slide === 0 ? isNext ? "active-slide" : "active-slide-reverse" : isNext ? "slide" : "slide-reverse" }>
-                        <section id="game-battletoads">
-                            <h2 className="game-battletoads__italic"> New Improved Formula </h2>
-                            <h2 className="game-battletoads__heading"> Battletoads & Double Dragon </h2>
-                            <p className="game-battletoads__text"> Characters from both series join forces in new adventures. </p>
-
-                            <NavLink className="play-button" to={URL_GAMES_PAGE + "/113"}>
-                                Play now
-                            </NavLink>
-                        </section>
-
-                        <section id="game-battletoads__image">
-                            <img src="/ddbattletoads.jpeg" alt="Battletoads and Double Dragon" />
-                        </section>
+                        
                     </section>
 
                     <section id="slide-cartridges" className={slide === 1 ? isNext ? "active-slide" : "active-slide-reverse" : isNext ? "slide" : "slide-reverse"}>
