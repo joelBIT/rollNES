@@ -87,3 +87,18 @@ export function extractPlayer2Configuration(formData: FormData): GameController 
 
     return player2;
 }
+
+/**
+ * @returns     true if the RollNES site is (probably) accessed on a mobile device. False otherwise.
+ */
+export function isMobileDevice(): boolean {
+    const userAgent = navigator.userAgent;
+
+    if (/Mobi|Android/i.test(userAgent)) {
+        return true;
+    } else if (/Tablet|iPad/i.test(userAgent)) {
+        return true;
+    }
+
+    return false;
+}

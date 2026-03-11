@@ -50,6 +50,12 @@
         }
     }
 
+    & .mobile-app-text {
+        font-family: 'brandon-grotesque', sans-serif;
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+
     & > canvas {
         margin: 2rem 0;
         background: #eee;

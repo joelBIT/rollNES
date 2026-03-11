@@ -1,5 +1,6 @@
 import { useEffect, type ReactElement } from "react";
 import { useControllers } from "../../hooks/useControllers";
+import { isMobileDevice } from "../../utils";
 
 import "./Emulator.css";
 
@@ -128,7 +129,12 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
                 </section>
             </section>
 
-            <canvas id="canvas" width="256" height="240"></canvas>
+            {
+                isMobileDevice() ?  
+                    <h2 className="mobile-app-text"> You should use RollNES on the App if you are using a mobile device </h2> 
+                : 
+                    <canvas id="canvas" width="256" height="240"></canvas>
+            }
         </section>
     )
 }
