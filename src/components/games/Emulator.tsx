@@ -4,11 +4,22 @@ import { isMobileDevice } from "../../utils";
 
 import "./Emulator.css";
 
+/**
+ * The Emulator should be run on the App if using a mobile device.
+ */
 export function Emulator({gameId}: {gameId: number}): ReactElement {
     const { getControllersConfiguration, player1 } = useControllers();
     let worker: Worker;
     let nesWorkletNode: Promise<void> | AudioWorkletNode;
     let audioContext: AudioContext;
+
+    if (isMobileDevice()) {
+        return (
+            <section id="emulator">
+                <h2 className="mobile-app-text"> You should use RollNES on the App if you are using a mobile device </h2> 
+            </section>
+        );
+    }
 
     /**
      * The control of the canvas is transferred to the NES worker thread when the page has been loaded. As a result, the
@@ -129,12 +140,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
                 </section>
             </section>
 
-            {
-                isMobileDevice() ?  
-                    <h2 className="mobile-app-text"> You should use RollNES on the App if you are using a mobile device </h2> 
-                : 
-                    <canvas id="canvas" width="256" height="240"></canvas>
-            }
+            <canvas id="canvas" width="256" height="240"></canvas>
         </section>
     )
 }
