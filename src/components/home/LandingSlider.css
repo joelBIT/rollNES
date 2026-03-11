@@ -214,6 +214,9 @@
                 align-items: center;
 
                 & #game-battletoads__image {
+                    display: flex;
+                    justify-content: center;
+                    width: 650px;
                     height: 400px;
                 }
             }
@@ -242,6 +245,8 @@
             & #slide-battletoads {
                 & #game-battletoads__image {
                     height: 300px;
+                    width: 100%;
+                    max-width: 320px;
                 }
 
                 & #game-battletoads {
