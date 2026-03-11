@@ -10,7 +10,7 @@
         align-self: center;
         align-items: center;
 
-        & #game-battletoads__image {
+        & #game-battletoads__figure {
             display: flex;
             justify-content: center;
 
@@ -106,9 +106,10 @@
         gap: 0;
 
         & #game-battletoads {
-            & #game-battletoads__image {
-                height: 300px;
-                max-width: 320px;
+            & #game-battletoads__figure {
+                & > img {
+                    max-width: 320px;
+                }
             }
 
             & .game-battletoads__italic {
@@ -119,6 +120,12 @@
             & .game-battletoads__heading {
                 font-size: 2rem;
                 text-align: center;
+            }
+        }
+
+        & #landing-popular {
+            & #landing-popular-list {
+                gap: 3rem;
             }
         }
     }
