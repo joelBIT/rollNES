@@ -9,12 +9,10 @@
         flex-direction: column;
         align-self: center;
         align-items: center;
-        flex: 1;
 
         & #game-battletoads__image {
             display: flex;
             justify-content: center;
-            width: 100%;
 
             & > img {
                 max-width: 650px;
