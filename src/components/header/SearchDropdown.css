@@ -11,7 +11,7 @@
         position: absolute;
         top: 0;
         gap: 10rem;
-        background-color: var(--color-logo-background);
+        background-color: var(--color-games-background);
         width: 100%;
         border-bottom: .0625rem solid #f0f0f0;
 
@@ -48,7 +48,7 @@
                     width: 50%;
                     outline: none;
                     color: var(--color-search-text);
-                    background-color: var(--color-logo-background);
+                    background-color: var(--color-games-background);
                 }
             }
 
@@ -76,14 +76,6 @@
                     gap: 4rem;
                 }
             }
-        }
-
-        #shadow {
-            height: 8px;
-            width: 100%;
-            position: absolute;
-            bottom: -8px;
-            box-shadow: 0 0 1.25rem 0 #404040;
         }
     }
 

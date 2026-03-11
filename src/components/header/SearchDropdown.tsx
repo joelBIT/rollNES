@@ -105,8 +105,6 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                             </section>
                     }
                 </section>
-
-                <div id="shadow"></div>
             </section>
         </section>
     )
