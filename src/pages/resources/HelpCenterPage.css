@@ -26,6 +26,7 @@
             font-size: 1.4rem;
             color: var(--color-text-heading);
             text-decoration: none;
+            text-wrap-mode: nowrap;
         }
     }
 
@@ -46,6 +47,7 @@
                 & .answer-section__link {
                     text-decoration: none;
                     color: var(--color-text-heading);
+                    text-wrap-mode: nowrap;
 
                     &:hover {
                         filter: brightness(1.2);
