@@ -1,0 +1,14 @@
+.popular-games {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 12rem;
+    position: relative;
+
+    & > img {
+        height: 250px;
+        object-fit: contain;
+        border-radius: 4px;
+        position: absolute;
+    }
+}
