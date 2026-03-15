@@ -9,7 +9,7 @@ import "./PopularGames.css";
  * One of the most popular games shown in the Landing page.
  */
 export function PopularGames({games}: {games: Game[]}): ReactElement {
-    const [selectedCover, setSelectedCover] = useState<string>(games[0].cover ?? "");
+    const [selectedCover, setSelectedCover] = useState<string>(games[0]?.cover ?? "");
 
     return (
         <section className="popular-games">
