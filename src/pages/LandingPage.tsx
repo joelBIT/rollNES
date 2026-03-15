@@ -1,6 +1,6 @@
 import { type ReactElement } from "react";
 import { useLoaderData, NavLink } from "react-router";
-import { PopularGameCard } from "../components";
+import { PopularGames } from "../components";
 import type { Game } from "../types/types";
 import { URL_GAMES_PAGE } from "../utils";
 
@@ -25,15 +25,9 @@ export default function LandingPage(): ReactElement {
                 </NavLink>
             </section>
 
-            <section id="landing-popular">
-                <h2 id="landing-popular__heading"> Most Played </h2>
-
-                <section id="landing-popular-list">
-                    {
-                        games.map(game => <PopularGameCard key={game.title} game={game} />)
-                    }
-                </section>
-            </section>
+            {
+                <PopularGames games={games} />
+            }
 
             <section id="landing-promises">
                 <h2 id="landing-promises__heading"> RollNES Promises </h2>
