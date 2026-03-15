@@ -1,7 +1,7 @@
 #landingPage {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 5rem;
     padding-top: 2rem;
 
     & #game-battletoads {
@@ -37,31 +37,6 @@
             margin-bottom: 2rem;
             padding-left: 1rem;
             padding-right: 1rem;
-        }
-    }
-
-    & #landing-popular {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-        padding-top: 5rem;
-        padding-bottom: 3rem;
-
-        & #landing-popular__heading {
-            font-family: "brandon-grotesque";
-            font-size: 2.25rem;
-            font-weight: 100;
-            line-height: 2.8125rem;
-            text-transform: uppercase;
-            letter-spacing: .125rem;
-        }
-
-        & #landing-popular-list {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 5rem;
         }
     }
 
@@ -120,12 +95,6 @@
             & .game-battletoads__heading {
                 font-size: 2rem;
                 text-align: center;
-            }
-        }
-
-        & #landing-popular {
-            & #landing-popular-list {
-                gap: 3rem;
             }
         }
     }
