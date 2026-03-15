@@ -1,7 +1,6 @@
 #landingPage {
     display: flex;
     flex-direction: column;
-    gap: 5rem;
     padding-top: 2rem;
 
     & #game-battletoads {
@@ -9,6 +8,7 @@
         flex-direction: column;
         align-self: center;
         align-items: center;
+        margin-bottom: 5rem;
 
         & #game-battletoads__figure {
             display: flex;
