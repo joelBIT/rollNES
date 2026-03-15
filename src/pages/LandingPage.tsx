@@ -12,17 +12,19 @@ export default function LandingPage(): ReactElement {
     return (
         <main id="landingPage">
             <section id="game-battletoads">
+                <section className="game-battletoads__text">
+                    <h2 className="game-battletoads__italic"> New Improved Formula </h2>
+                    <h2 className="game-battletoads__heading"> Battletoads & Double Dragon </h2>
+                    <p className="game-battletoads__text"> Characters from both series join forces in new adventures. </p>
+
+                    <NavLink className="play-button" to={URL_GAMES_PAGE + "/113"}>
+                        Play now
+                    </NavLink>
+                </section>
+
                 <figure id="game-battletoads__figure">
                     <img src="/ddbattletoads.jpeg" alt="Battletoads and Double Dragon" />
                 </figure>
-
-                <h2 className="game-battletoads__italic"> New Improved Formula </h2>
-                <h2 className="game-battletoads__heading"> Battletoads & Double Dragon </h2>
-                <p className="game-battletoads__text"> Characters from both series join forces in new adventures. </p>
-
-                <NavLink className="play-button" to={URL_GAMES_PAGE + "/113"}>
-                    Play now
-                </NavLink>
             </section>
 
             {

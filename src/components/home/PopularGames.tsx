@@ -20,6 +20,7 @@ export function PopularGames({games}: {games: Game[]}): ReactElement {
                     {
                         games.map((game: Game) => 
                             <NavLink 
+                                key={game.id}
                                 to={URL_GAMES_PAGE + "/" + game.id} 
                                 className={game.cover === selectedCover ? "popular-game-link selected-game" : "popular-game-link"} 
                                 onMouseOver={() => setSelectedCover(game.cover)}

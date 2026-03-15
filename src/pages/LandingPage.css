@@ -5,10 +5,36 @@
 
     & #game-battletoads {
         display: flex;
-        flex-direction: column;
         align-self: center;
         align-items: center;
+        gap: 2rem;
         margin-bottom: 5rem;
+
+        & .game-battletoads__text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            & .game-battletoads__italic {
+                font-family: "ivy-presto-headline-light";
+                font-style: italic;
+                font-size: 30px;
+            }
+
+            & .game-battletoads__heading {
+                font-family: "ivy-presto-headline-light";
+                font-size: 3rem;
+            }
+
+            & .game-battletoads__text {
+                font-family: "brandon-grotesque";
+                font-size: 18px;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
 
         & #game-battletoads__figure {
             display: flex;
@@ -17,26 +43,6 @@
             & > img {
                 max-width: 650px;
             }
-        }
-
-        & .game-battletoads__italic {
-            font-family: "ivy-presto-headline-light";
-            font-style: italic;
-            font-size: 30px;
-        }
-
-        & .game-battletoads__heading {
-            font-family: "ivy-presto-headline-light";
-            font-size: 3rem;
-        }
-
-        & .game-battletoads__text {
-            font-family: "brandon-grotesque";
-            font-size: 18px;
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
         }
     }
 
@@ -75,6 +81,14 @@
     }
 }
 
+@media (max-width: 1200px) {
+    #landingPage {
+        & #game-battletoads {
+            flex-direction: column-reverse;
+        }
+    }
+}
+
 @media (max-width: 650px) {
     #landingPage {
         padding-top: 1rem;
@@ -87,14 +101,16 @@
                 }
             }
 
-            & .game-battletoads__italic {
-                font-size: 22px;
-                padding-top: 1rem;
-            }
+            & .game-battletoads__text {
+                & .game-battletoads__italic {
+                    font-size: 22px;
+                    padding-top: 1rem;
+                }
 
-            & .game-battletoads__heading {
-                font-size: 2rem;
-                text-align: center;
+                & .game-battletoads__heading {
+                    font-size: 2rem;
+                    text-align: center;
+                }
             }
         }
     }
