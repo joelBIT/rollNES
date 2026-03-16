@@ -4,16 +4,17 @@ import { Newsletter } from "./Newsletter";
 import { FooterList } from "./FooterList";
 import { Divider } from "./Divider";
 import { URL_COMPANY_PAGE, URL_CONTACT_PAGE, URL_HELP_CENTER_PAGE, URL_PRIVACY_PAGE, URL_TEAM_PAGE, URL_TERMS_PAGE, URL_VISION_PAGE } from "../../utils";
+import type { FooterLink } from "../../types/types";
 
 import "./Footer.css";
 
 export function Footer(): ReactElement {
 
-    const RESOURCE_LINKS = [
+    const RESOURCE_LINKS: FooterLink[] = [
         {title: "Help Center", link: URL_HELP_CENTER_PAGE}
     ]
 
-    const ABOUT_LINKS = [
+    const ABOUT_LINKS: FooterLink[] = [
         {title: "RollNES", link: URL_COMPANY_PAGE},
         {title: "Team", link: URL_TEAM_PAGE},
         {title: "Vision", link: URL_VISION_PAGE},
@@ -37,7 +38,9 @@ export function Footer(): ReactElement {
             </section>
 
             <section id="footer-copyright">
-                <p id="footer-copyright__links"> &#169; 2026 Joel Rollny &#8729; <NavLink to={URL_TERMS_PAGE}>Terms</NavLink> &#8729; <NavLink to={URL_PRIVACY_PAGE}>Privacy</NavLink> </p>
+                <p id="footer-copyright__links"> 
+                    &#169; 2026 Joel Rollny &#8729; <NavLink to={URL_TERMS_PAGE}>Terms</NavLink> &#8729; <NavLink to={URL_PRIVACY_PAGE}>Privacy</NavLink> 
+                </p>
 
                 <section id="footer-social-media">
                     <Link to={"https://www.linkedin.com/in/joel-rollny-1b517330a/"} target="_blank">

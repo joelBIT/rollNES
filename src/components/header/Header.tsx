@@ -18,7 +18,7 @@ export function Header(): ReactElement {
         const { data } = await supabase.from("games").select().in("id", [111, 188, 550]);
         
         if (data) {
-            const games = [];
+            const games: Game[] = [];
             for (let i = 0; i < data?.length; i++) {
                 games.push(data[i]);
             }

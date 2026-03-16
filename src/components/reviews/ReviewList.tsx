@@ -24,16 +24,16 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
      * Sort reviews according to selected option.
      */
     function sortReviews(sort: string): void {
-        const reviewsToSort = [...sortedReviews];
+        const reviewsToSort: Review[] = [...sortedReviews];
 
         if (sort === "name") {
-            const sorted = reviewsToSort.sort((a, b) => a.reviewer_name.localeCompare(b.reviewer_name));
+            const sorted: Review[] = reviewsToSort.sort((a, b) => a.reviewer_name.localeCompare(b.reviewer_name));
             setSortedReviews([...sorted]);
         } else if (sort === "newest") {
-            const sorted = reviewsToSort.sort((a, b) => (Date.parse(a.date) > Date.parse(b.date)) ? -1 : 1);
+            const sorted: Review[] = reviewsToSort.sort((a, b) => (Date.parse(a.date) > Date.parse(b.date)) ? -1 : 1);
             setSortedReviews([...sorted]);
         } else if (sort === "oldest") {
-            const sorted = reviewsToSort.sort((a, b) => (Date.parse(a.date) < Date.parse(b.date)) ? -1 : 1);
+            const sorted: Review[] = reviewsToSort.sort((a, b) => (Date.parse(a.date) < Date.parse(b.date)) ? -1 : 1);
             setSortedReviews([...sorted]);
         }
     }
@@ -43,7 +43,7 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
      * Also send the updated list to the parent.
      */
     async function updateReviews(): Promise<void> {
-        const updatedReviews = await getReviewsByGameIdRequest(game.id);
+        const updatedReviews: Review[] = await getReviewsByGameIdRequest(game.id);
         setSortedReviews([...updatedReviews]);
         if (setReviews) {
             setReviews([...updatedReviews]);
@@ -79,7 +79,7 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
                         
                         <section id="reviews">
                             {
-                                sortedReviews.map((review, i) => <ReviewCard key={i} review={review} />)
+                                sortedReviews.map((review: Review, i: number) => <ReviewCard key={i} review={review} />)
                             }
                         </section>
                     </>

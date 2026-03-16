@@ -25,7 +25,7 @@ export function Tabs({titles, defaultTab, active, setActive}: {titles: string[],
     return (
         <section className="tabs">
             {
-                titles.map((title) => (
+                titles.map((title: string) => (
                     <section
                         key={title}
                         className={activeTab === title ? "tab selected" : "tab"}

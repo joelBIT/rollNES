@@ -2,6 +2,7 @@ import { type ReactElement, useState } from "react";
 import { useControllers } from "../../hooks/useControllers";
 import { ControllerInput } from "..";
 import { extractPlayer1Configuration, extractPlayer2Configuration } from "../../utils";
+import type { GameController } from "../../types/types";
 
 import "./ControllerForm.css";
 
@@ -23,13 +24,13 @@ export function ControllerForm(): ReactElement {
         setShowMessage(true);
         setIsError(false);
         if (hasEmptyKeys()) {
-            setIsError(true)
+            setIsError(true);
             setMessage("Not allowed to set empty controller keys");
             return;
         }
 
-        const player1 = extractPlayer1Configuration(formData);
-        const player2 = extractPlayer2Configuration(formData);
+        const player1: GameController = extractPlayer1Configuration(formData);
+        const player2: GameController = extractPlayer2Configuration(formData);
 
         saveConfigurations(player1, player2);
         setMessage("Configuration saved");
@@ -38,7 +39,7 @@ export function ControllerForm(): ReactElement {
     /**
      *  Show key code in input text field.
      */
-    function setKeyCode(event: React.KeyboardEvent<HTMLInputElement>) {
+    function setKeyCode(event: React.KeyboardEvent<HTMLInputElement>): void {
         removeKeyWhereAlreadyUsed(event.code);
         (event.target as HTMLInputElement).value = event.code;
         event.preventDefault();
@@ -47,7 +48,7 @@ export function ControllerForm(): ReactElement {
     /**
      *  Removes the chosen key from other buttons if already in use.
      */
-    function removeKeyWhereAlreadyUsed(keyCode: string) {
+    function removeKeyWhereAlreadyUsed(keyCode: string): void {
         for (const key of keys) {
             if (Object.is(key.value, keyCode)) {
                 key.value = '';

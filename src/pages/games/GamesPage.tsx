@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
 import { AppliedFilter, FilterAccordion, GameCard, RangeSlider } from "../../components";
+import type { Game } from "../../types/types";
 
 import "./GamesPage.css";
 
@@ -57,7 +58,7 @@ export default function GamesPage(): ReactElement {
                 }
 
                 {
-                    filteredGames?.length > 0 ? filteredGames.slice(0, numberGamesShowing).map(game => <GameCard key={game.id} game={game} />) : ""
+                    filteredGames?.length > 0 ? filteredGames.slice(0, numberGamesShowing).map((game: Game) => <GameCard key={game.id} game={game} />) : ""
                 }
             </section>
         </main>

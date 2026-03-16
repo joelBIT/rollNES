@@ -12,7 +12,7 @@ import "./GameCard.css";
  */
 export function GameCard({game}: { game: Game}): ReactElement {
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
-    const favourite = isFavourite(game.id);
+    const favourite: boolean = isFavourite(game.id);
 
     return (
         <section className="game-card">

@@ -25,7 +25,7 @@ export function getAverageRating(reviews: Review[]): number {
         return 0;
     }
 
-    let rating = 0.0;
+    let rating: number = 0.0;
 
     for (let i = 0; i < reviews?.length; i++) {
         rating += reviews[i]?.rating;

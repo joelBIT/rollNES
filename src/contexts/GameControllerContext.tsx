@@ -49,7 +49,7 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
      * no configuration is found in local storage.
      */
     function getControllersConfiguration(): Button[] {
-        const controllerConfiguration = [] as Button[];
+        const controllerConfiguration: Button[] = [];
         
         controllerConfiguration.push(player1.a);
         controllerConfiguration.push(player1.b);

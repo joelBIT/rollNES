@@ -1,6 +1,7 @@
 import type { ReactElement, ReactNode } from "react";
 import { Link } from "react-router";
 import { FAQ } from "../../components";
+import type { FrequentlyAskedQuestion } from "../../types/types";
 
 import "./HelpCenterPage.css";
 
@@ -9,7 +10,7 @@ import "./HelpCenterPage.css";
  */
 export default function HelpCenterPage(): ReactElement {
 
-    const FAQs = [
+    const FAQs: FrequentlyAskedQuestion[] = [
         {question: "I cannot find a specific game. Why?", answer: <AnswerOne />},
         {question: "Which mappers do you have support for?", answer: <AnswerTwo />},
         {question: "Can I use this site to see all games released for the NES?", answer: <AnswerThree />},
@@ -28,7 +29,7 @@ export default function HelpCenterPage(): ReactElement {
 
             <section id="help-questions">
                 {
-                    FAQs.map(faq => <FAQ faq={faq} key={faq.question} />)
+                    FAQs.map((faq: FrequentlyAskedQuestion) => <FAQ faq={faq} key={faq.question} />)
                 }
             </section>
         </main>

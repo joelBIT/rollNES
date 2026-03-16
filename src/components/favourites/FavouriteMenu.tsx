@@ -1,6 +1,7 @@
 import { type ReactElement } from "react";
 import { useFavourites } from "../../hooks/useFavourites";
 import { FavouriteCard } from "..";
+import type { Game } from "../../types/types";
 
 import "./FavouriteMenu.css";
 
@@ -20,7 +21,7 @@ export function FavouriteMenu({show, close}: {show: boolean, close: () => void})
 
             <section id="favourite-games-list">
                 {
-                    favourites.map(game => <FavouriteCard key={game.title} game={game} close={close} />)
+                    favourites.map((game: Game) => <FavouriteCard key={game.title} game={game} close={close} />)
                 }
             </section>
         </section>

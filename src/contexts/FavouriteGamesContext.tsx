@@ -25,7 +25,7 @@ export function FavouriteGamesProvider({ children }: { children: ReactNode }): R
     async function loadFavouriteGames(): Promise<void> {
         if (isLocalStorageAvailable()) {
             if (localStorage.getItem(STORAGE_KEY)) {
-                const games = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+                const games: Game[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
                 setFavourites(games);
             } else {
                 localStorage.setItem(STORAGE_KEY, '[]');
@@ -34,7 +34,7 @@ export function FavouriteGamesProvider({ children }: { children: ReactNode }): R
     }
 
     async function addFavourite(game: Game): Promise<void> {
-        const games = sortFavourites([...favourites, game]);
+        const games: Game[] = sortFavourites([...favourites, game]);
         setFavourites(games);
 
         if (isLocalStorageAvailable()) {
@@ -47,7 +47,7 @@ export function FavouriteGamesProvider({ children }: { children: ReactNode }): R
     }
 
     async function removeFavouriteById(id: number): Promise<void> {
-        const games = favourites.filter((favourite: { id: number; }) => favourite.id !== id);
+        const games: Game[] = favourites.filter((favourite: { id: number; }) => favourite.id !== id);
         setFavourites(games);
 
         if (isLocalStorageAvailable()) {

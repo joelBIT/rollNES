@@ -20,7 +20,6 @@ export function Newsletter(): ReactElement {
         try {
             await subscribeToNewsletterRequest(formData.get("newsletter-form-email") as string);
         } catch (error: any) {
-            console.log(error);
             setIsError(true);
             setMessage(error.message);
             return;

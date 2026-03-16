@@ -8,7 +8,7 @@ import "./Carousel.css";
  * Rotates a number of banner slides. Used on top of page containing information about the site.
  */
 export function Carousel(): ReactElement {
-    const [ slide, setSlide ] = useState<number>(0);
+    const [slide, setSlide] = useState<number>(0);
 
     useEffect(() => {
         const id = setInterval(() => {

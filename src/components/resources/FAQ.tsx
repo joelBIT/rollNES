@@ -7,7 +7,7 @@ import "./FAQ.css";
  * A frequently asked question.
  */
 export function FAQ({ faq }: { faq: FrequentlyAskedQuestion }): ReactElement {
-    const [isShowing, setIsShowing] = useState(false);
+    const [isShowing, setIsShowing] = useState<boolean>(false);
     
     return (
         <section className="faq">

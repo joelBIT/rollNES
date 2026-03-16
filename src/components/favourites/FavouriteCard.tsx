@@ -30,7 +30,9 @@ export function FavouriteCard({game, close}: {game: Game, close: () => void}): R
                 </NavLink>
 
                 <h3 className="favourite-card__category"> {game.category} </h3>
-                <h3 className="favourite-card__players"> {game.players} player{game.players > 1 ? "s" : ""} </h3>
+                <h3 className="favourite-card__players">
+                    {game.players} player{game.players > 1 ? "s" : ""} 
+                </h3>
                 <h2 className="favourite-card__button" onClick={() => removeFavouriteById(game.id)}> Remove </h2>
             </section>
         </section>

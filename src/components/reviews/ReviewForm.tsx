@@ -3,6 +3,7 @@ import { useUser } from "../../hooks/useUser";
 import { useGames } from "../../hooks/useGames";
 import { Rating } from "..";
 import { createReviewRequest } from "../../requests";
+import type { CreateReview } from "../../types/types";
 
 import "./ReviewForm.css";
 
@@ -32,7 +33,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
             return;
         }
 
-        const newReview = {
+        const newReview: CreateReview = {
             reviewer_name: name,
             heading: title,
             review, 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser.tsx";
 import {URL_DASHBOARD_PAGE, URL_LOGIN_PAGE, URL_REGISTER_PAGE} from "../../utils.ts";
 import { FavouriteMenu } from "../index.ts";
+import type { Game } from "../../types/types.ts";
 
 import "./NavIcons.css";
 
@@ -15,7 +16,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
     const [ showFavourites, setShowFavourites ] = useState<boolean>(false);
     const navigate = useNavigate();
     const { isAuthenticated } = useUser();
-    const favourites = [];
+    const favourites: Game[] = [];
 
     /**
      * Closes search dropdown (if open) when navigating to Register or Login pages.

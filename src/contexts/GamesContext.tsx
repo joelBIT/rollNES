@@ -33,7 +33,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Retrieve all playable games from the backend.
      */
     async function loadGames(): Promise<void> {
-        const result = await getAllGamesRequest();
+        const result: Game[] = await getAllGamesRequest();
         setGames(result);
         setFilteredGames(result);
     }
@@ -57,27 +57,27 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
             return;
         }
 
-        let result = [] as Game[];
+        let result: Game[] = [];
         for (let i = 0; i < filters.length; i++) {          // Add all games that match any filter
             if (filters[i].type === "players") {
-                result = result.concat(games.filter(game => game[filters[i].type] === parseInt(filters[i].value)));
+                result = result.concat(games.filter((game: Game) => game[filters[i].type] === parseInt(filters[i].value)));
                 continue;
             }
 
             if (filters[i].type === "title") {
-                const titleWords = filters[i].value.split(" ");
+                const titleWords: string[] = filters[i].value.split(" ");
                 for (let i = 0; i < titleWords.length; i++) {       // If search string consists of several words, title must include all words
-                    const word = titleWords[i].trim();
-                    result = result.concat(games.filter(game => game.title.toLowerCase().includes(word.toLowerCase())));
+                    const word: string = titleWords[i].trim();
+                    result = result.concat(games.filter((game: Game) => game.title.toLowerCase().includes(word.toLowerCase())));
                 }
                 continue;
             }
 
-            result = result.concat(games.filter(game => game[filters[i].type] === filters[i].value));
+            result = result.concat(games.filter((game: Game) => game[filters[i].type] === filters[i].value));
         }
 
         result = Array.from(new Set(result));       // Remove duplicate games
-        const filteredGames = [] as Game[];
+        const filteredGames: Game[] = [];
 
         for (let i = 0; i < result.length; i++) {
             if (included(result[i], filters, "category") && included(result[i], filters, "players")
@@ -95,7 +95,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * then (due to no filter being applied).
      */
     function included(game: Game, filters: AppliedFilter[], type: Filter): boolean {
-        const values = filters.filter(filter => filter.type === type).map(filter => filter.value);
+        const values: string[] = filters.filter((filter: AppliedFilter) => filter.type === type).map((filter: AppliedFilter) => filter.value);
         if (values.length === 0) {      // No filter of this type is applied
             return true;
         }
@@ -107,15 +107,15 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * the filter value (which in this case is the search word).
      */
     function includesSearchWord(game: Game, filters: AppliedFilter[]): boolean {
-        const filter = filters.find(filter => filter.type === "title");
+        const filter: AppliedFilter | undefined = filters.find((filter: AppliedFilter) => filter.type === "title");
         if (!filter) {
             return true;        // Return true if no "title" filter is applied
         }
 
-        const titleWords = filter.value.split(" ");
+        const titleWords: string[] = filter.value.split(" ");
         for (let i = 0; i < titleWords.length; i++) {       // If search string consists of several words, title must include all words
-            const word = titleWords[i].trim();
-            const included = game.title.toLowerCase().includes(word.toLowerCase());
+            const word: string = titleWords[i].trim();
+            const included: boolean = game.title.toLowerCase().includes(word.toLowerCase());
             if (!included) {
                 return false;
             }
@@ -128,9 +128,9 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Remove specific filter when a user deactivates corresponding filter option. 
      */
     function removeFilter(type: Filter, value: string): void {
-        const updatedFilters = appliedFilters.filter(filter => filter.type !== type || (filter.type === type && filter.value !== value));
+        const updatedFilters: AppliedFilter[] = appliedFilters.filter((filter: AppliedFilter) => filter.type !== type || (filter.type === type && filter.value !== value));
         applyFilters(updatedFilters);
-        setAppliedFilters((_oldValues) => [...updatedFilters]);
+        setAppliedFilters((_oldValues: AppliedFilter[]) => [...updatedFilters]);
     }
 
     /**
@@ -138,13 +138,13 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      * Only one 'title' filter is allowed. If one such filter is already applied, replace it with the new title.
      */
     function addFilter(type: Filter, value: string): void {
-        let filters = appliedFilters;
+        let filters: AppliedFilter[] = appliedFilters;
         if (type === "title") {
-            filters = filters.filter(filter => filter.type !== "title");        // Remove any existing 'title' filter, should only be one allowed
+            filters = filters.filter((filter: AppliedFilter) => filter.type !== "title");        // Remove any existing 'title' filter, should only be one allowed
         }
 
         applyFilters([...filters, {type, value}]);
-        setAppliedFilters((_oldValues) => [...filters, {type, value}]);
+        setAppliedFilters((_oldValues: AppliedFilter[]) => [...filters, {type, value}]);
     }
 
     /**
@@ -153,9 +153,16 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     function allFilterValues(filter: Filter): string[] {
         switch(filter) {
             case "players":
-                return Array.from(new Set(games.filter(game => included(game, appliedFilters, filter)).map(game => game.players))).sort((a, b) => a - b).map(player => player.toString());
+                return Array.from(new Set(games
+                    .filter((game: Game) => included(game, appliedFilters, filter))
+                    .map((game: Game) => game.players)))
+                    .sort((a: number, b: number) => a - b)
+                    .map((player: number) => player.toString());
             default:
-                return Array.from(new Set(games.filter(game => included(game, appliedFilters, filter)).map(game => game[filter]))).sort((a, b) => a.localeCompare(b));
+                return Array.from(new Set(games
+                    .filter((game: Game) => included(game, appliedFilters, filter))
+                    .map((game: Game) => game[filter])))
+                    .sort((a: string, b: string) => a.localeCompare(b));
         }
     }
 
@@ -164,10 +171,10 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
      */
     function matchesFilter(type: Filter, value: string): number {
         if (type === "players") {
-            return filteredGames.filter(game => game[type] === parseInt(value)).length;
+            return filteredGames.filter((game: Game) => game[type] === parseInt(value)).length;
         }
 
-        return filteredGames.filter(game => game[type] === value).length;
+        return filteredGames.filter((game: Game) => game[type] === value).length;
     }
     
     return (

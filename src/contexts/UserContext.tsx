@@ -26,10 +26,10 @@ export function UserProvider({ children }: { children: ReactNode }) {
      */
     async function checkActiveSession(): Promise<void> {
         try {
-            const authenticated = await isAuthenticatedRequest();
+            const authenticated: boolean = await isAuthenticatedRequest();
             setIsAuthenticated(authenticated);
             if (authenticated) {
-                const user = await getSessionUserRequest();
+                const user: RetroUser = await getSessionUserRequest();
                 setUser(user);
             }
         } catch (error) {
@@ -43,7 +43,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     async function login(body: AuthenticationRequest): Promise<void> {
         try {
             await loginRequest(body);
-            const loggedInUser = await getSessionUserRequest();
+            const loggedInUser: RetroUser = await getSessionUserRequest();
             setIsAuthenticated(true);
             setUser(loggedInUser);
         } catch (error) {
@@ -56,7 +56,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
      */
     async function register(body: RegisterRequest): Promise<void> {
         try {
-            const createdUser = await registrationRequest(body);
+            const createdUser: RetroUser = await registrationRequest(body);
             setIsAuthenticated(true);
             setUser(createdUser);
         } catch (error) {

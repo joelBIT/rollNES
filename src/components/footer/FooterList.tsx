@@ -10,7 +10,7 @@ export function FooterList({heading, links}: {heading: string, links: FooterLink
             <h1 className="footer-list__heading"> {heading} </h1>
 
             {
-                links.map(link => <NavLink key={link.title} to={link.link} className="footer-list__element"> {link.title} </NavLink>)
+                links.map((link: FooterLink) => <NavLink key={link.title} to={link.link} className="footer-list__element"> {link.title} </NavLink>)
             }
         </section>
     );
