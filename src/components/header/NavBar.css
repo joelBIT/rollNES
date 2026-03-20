@@ -17,11 +17,16 @@
             & a {
                 text-decoration: none;
                 color: var(--color-black);
-            }
 
-            .navbar__list-title {
-                font-family: 'brandon-grotesque';
-                letter-spacing: 1px;
+                & .gameList-image {
+                    width: 50px;
+                }
+
+                & .navbar__list-title {
+                    font-family: 'brandon-grotesque';
+                    letter-spacing: 1px;
+                    margin-top: -13px;
+                }
             }
         }
     }
@@ -44,8 +49,12 @@
 @media (max-width: 700px) {
     #navbar {
         & .navbar__list {
-            & .navbar__list-title {
-                display: none;
+            & .navbar__list-element {
+                & a {
+                    & .navbar__list-title {
+                        display: none;
+                    }
+                }
             }
         }
     }

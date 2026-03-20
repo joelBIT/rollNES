@@ -11,7 +11,7 @@ export function NavBar(): ReactElement {
             <ul className="navbar__list">
                 <li className="navbar__list-element">
                     <NavLink to={URL_GAMES_PAGE} title="List games">
-                        <span className="material-symbols-outlined" title="Game list"> list_alt </span>
+                        <img src="/games.svg" alt="Game list icon" className="gameList-image" title="Game List" />
                         <h3 className="navbar__list-title">Games</h3>
                     </NavLink>
                 </li>

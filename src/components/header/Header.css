@@ -18,6 +18,16 @@ header {
         & #header-nav {
             flex-wrap: wrap;
             padding: 0.1rem 1rem;
+            position: relative;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    header {
+        & #rollnes-logo {
+            position: absolute;
+            left: 43%;
         }
     }
 }
