@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
-import { ControllerForm, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
+import { Cartridge, ControllerForm, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
 import { COVER_URL, getAverageRating } from "../../utils";
 import type { Game, Review } from "../../types/types";
 import { useFavourites } from "../../hooks/useFavourites";
@@ -45,9 +45,7 @@ export default function GamePage(): ReactElement {
                     :
                 <>
                     <section id="game-top">
-                        <section id="game-images">
-                            <img src={COVER_URL + game?.cover} alt="Game cover" />
-                        </section>
+                        <Cartridge coverUrl={COVER_URL + game?.cover} />
 
                         <section id="game-details">
                             <h2 id="game-information__heading"> {game.title} </h2> 

@@ -11,6 +11,7 @@ export * from "./footer/Footer";
 export * from "./footer/FooterList";
 export * from "./footer/Newsletter";
 export * from "./games/AppliedFilter";
+export * from "./games/Cartridge";
 export * from "./games/Emulator";
 export * from "./games/FilterAccordion";
 export * from "./games/GameCard";
