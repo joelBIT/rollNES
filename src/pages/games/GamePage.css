@@ -7,22 +7,9 @@
     & #game-top {
         display: flex;
         flex-direction: row;
+        gap: 5rem;
         padding-top: 5rem;
         padding-bottom: 5rem;
-    }
-    
-    & #game-images {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex: 15;
-        padding-right: 2rem;
-
-        & > img {
-            width: 100%;
-            object-fit: contain;
-            aspect-ratio: 10 / 10;
-        }
     }
 
     & #game-details {
@@ -84,13 +71,10 @@
     #gamePage {
         & #game-top {
             flex-direction: column;
-            gap: 2rem;
+            align-items: center;
+            gap: 4rem;
             padding-top: 2rem;
             padding-bottom: 2rem;
-        }
-
-        & #game-images {
-            padding-right: 0;
         }
     }
 }
