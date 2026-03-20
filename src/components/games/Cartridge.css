@@ -7,7 +7,7 @@
         height: 35.7em;
         border-bottom-right-radius: 6px;
         border-bottom-left-radius: 6px;
-        border: solid 1px var(--color-black);
+        border: solid 1px var(--color-footer-text);
 
         & .cartridge {
             & .front {
