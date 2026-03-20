@@ -32,11 +32,6 @@ export function Footer(): ReactElement {
                 <FooterList heading="about" links={ABOUT_LINKS} />
             </section>
 
-            <section id="footer-contact">
-                    <span className="material-symbols-outlined"> stacked_email </span>
-                    <Link to="mailto:contact@joel-rollny.eu" className="contact__email"> contact@joel-rollny.eu </Link>
-            </section>
-
             <section id="footer-copyright">
                 <p id="footer-copyright__links"> 
                     &#169; 2026 Joel Rollny &#8729; <NavLink to={URL_TERMS_PAGE}>Terms</NavLink> &#8729; <NavLink to={URL_PRIVACY_PAGE}>Privacy</NavLink> 

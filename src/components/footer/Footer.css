@@ -19,32 +19,6 @@ footer {
         margin-bottom: 2rem;
     }
 
-    #footer-contact {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 0.4rem;
-        width: 100%;
-        color: var(--color-footer-text);
-        margin-bottom: 2rem;
-
-        & #contact__heading {
-            display: flex;
-            align-items: center;
-            gap: 0.7rem;
-
-            & > h1 {
-                font-size: 1.3rem;
-            }
-        }
-
-        & .contact__email {
-            color: var(--color-footer-text);
-            text-decoration: none;
-            font-size: 1.1rem;
-        }
-    }
-
     & #footer-copyright {
         display: flex;
         justify-content: space-between;
@@ -79,11 +53,6 @@ footer {
             flex-direction: column-reverse;
             align-items: center;
             gap: 0.7rem;
-        }
-
-        & #footer-contact {
-            align-items: center;
-            width: auto;
         }
     }
 }
