@@ -12,6 +12,9 @@ export function ContactForm(): ReactElement {
     
     return (
         <form id="contactForm" action={formAction}>
+            <h2 id="contactForm__heading"> Send RollNES an email </h2>
+            <p id="contactForm__text"> RollNES will get back to you within 24-48 hours. </p>
+
             <section className="information-input">
                 <label className="input-label" htmlFor="name">
                     Name

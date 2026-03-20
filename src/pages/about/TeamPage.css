@@ -14,10 +14,11 @@
     }
 
     & #team__text {
-        font-family: 'regular-gibson';
+        font-family: 'Baskervville SC', sans-serif;
         letter-spacing: 1px;
-        color: var(--color-white);
+        color: var(--color-contact-icon);
         font-size: 2rem;
+        font-weight: 600;
     }
 
     & #team-members {

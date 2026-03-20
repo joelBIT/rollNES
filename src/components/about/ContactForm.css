@@ -12,6 +12,21 @@
     background: rgba(100, 100, 100, .15);
     backdrop-filter: blur(10px);
 
+    & #contactForm__heading {
+        color: var(--color-white);
+        font-family: "ivy-presto-headline-light";
+        width: 100%;
+        text-align: center;
+    }
+
+    & #contactForm__text {
+        color: var(--color-footer-text);
+        font-family: "brandon-grotesque";
+        width: 100%;
+        text-align: center;
+        padding-bottom: 0.3rem;
+    }
+
     .input:first-of-type {
         border-radius: 6px 6px 0 0;
         border-bottom: 0.5px solid var(--color-form-border-bottom);

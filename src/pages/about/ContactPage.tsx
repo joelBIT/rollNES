@@ -32,9 +32,6 @@ export default function ContactPage(): ReactElement {
             </section>
 
             <section id="contactPage-form">
-                <h2 id="contactPage-form__heading"> Send RollNES an email: </h2>
-                <p id="contactPage-form__text"> RollNES will get back to you within 24-48 hours. </p>
-
                 <ContactForm />
             </section>
         </main>
