@@ -23,9 +23,9 @@
                 }
 
                 & .navbar__list-title {
-                    font-family: 'brandon-grotesque';
+                    font-size: 0.9rem;
+                    padding-top: 0.2rem;
                     letter-spacing: 1px;
-                    margin-top: -13px;
                 }
             }
         }

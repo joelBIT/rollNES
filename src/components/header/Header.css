@@ -10,6 +10,7 @@ header {
         background-color: var(--color-logo-background);
         padding: 0 2rem;
         height: 100%;
+        min-height: 60px;
     }
 }
 
