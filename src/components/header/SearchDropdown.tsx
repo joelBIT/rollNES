@@ -104,6 +104,8 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                                 </section>
                             </section>
                     }
+
+                    <div className="darken-image-bottom" />
                 </section>
             </section>
         </section>
