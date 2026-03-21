@@ -33,9 +33,11 @@
 
             & .showing-account,
             .showing-dropdown {
-                border-radius: 8px;
-                background-color: var(--color-active-navicon);
-                box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 15px;
+                & .material-symbols-outlined {
+                    color: var(--color-active-navicon);
+                    font-weight: 700;
+                    filter: blur(1px);
+                }
             }
         }
     }
