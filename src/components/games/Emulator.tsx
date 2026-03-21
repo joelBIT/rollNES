@@ -16,7 +16,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
     if (isMobileDevice()) {
         return (
             <section id="emulator">
-                <h2 className="mobile-app-text"> You should use RollNES on the App if you are using a mobile device </h2> 
+                <h2 className="mobile-app-text"> You should use RollNES on the App if you are using a mobile device. </h2> 
             </section>
         );
     }
