@@ -49,6 +49,10 @@
         }
     }
 
+    &:nth-child(5) > article.filter-card-header:has(.filter-closed) {
+        border-bottom: none;
+    }
+
     & .filter-card-collapsible {
         display: flex;
         padding-left: 0.5rem;
