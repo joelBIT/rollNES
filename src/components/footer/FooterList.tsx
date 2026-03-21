@@ -4,7 +4,7 @@ import type { FooterLink } from "../../types/types";
 
 import "./FooterList.css";
 
-export function FooterList({heading, links}: {heading: string, links: FooterLink[]}): ReactElement {
+export function FooterList({heading, links}: {heading: string, links: FooterLink[]}): ReactElement {    
     return (
         <section id="footer-list">
             <h1 className="footer-list__heading"> {heading} </h1>

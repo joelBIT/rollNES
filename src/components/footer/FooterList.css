@@ -20,8 +20,15 @@
         font-family: brandon-grotesque, sans-serif;
 
         &:hover {
-            color: var(--color-white);
+            color: var(--color-active-link);
         }
+    }
+
+    & .active {
+        color: var(--color-active-link);
+        font-weight: 600;
+        cursor: default;
+        pointer-events: none;
     }
 }
 

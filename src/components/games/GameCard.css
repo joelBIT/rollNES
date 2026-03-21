@@ -13,6 +13,7 @@
     & .game-image {
         display: flex;
         align-items: center;
+        justify-content: center;
         width: 25%;
         transform: scale(0.2);
     }
