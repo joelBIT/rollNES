@@ -49,8 +49,7 @@
 
 @media (max-width: 500px) {
     #termsPage {
-        padding: 1rem;
-        padding-bottom: 3rem;
+        padding: 3rem 1rem;
 
         & #termsPage__heading {
             font-size: 2rem;

@@ -48,8 +48,7 @@
 
 @media (max-width: 500px) {
     #privacyPage {
-        padding: 1rem;
-        padding-bottom: 3rem;
+        padding: 3rem 1rem;
 
         & #privacyPage__heading {
             font-size: 2rem;
