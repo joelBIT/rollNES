@@ -105,6 +105,7 @@
         & .game-details {
             flex-direction: row;
             align-self: flex-start;
+            align-items: center;
             justify-content: flex-end;
             width: 100%;
         }

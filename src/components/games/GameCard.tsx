@@ -37,7 +37,7 @@ export function GameCard({game}: { game: Game}): ReactElement {
                 </section>
 
                 <section className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
-                    {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <h2>&#9825;</h2>}
+                    {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <span className="material-symbols-outlined"> favorite </span>}
                 </section>
             </section>
         </section>
