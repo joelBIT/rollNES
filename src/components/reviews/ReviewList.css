@@ -29,9 +29,11 @@
         }
 
         & #reviews-sort {
-            align-self: flex-end;
+            align-self: center;
+            text-align: right;
             font-family: "brandon-grotesque", sans-serif;
-            padding-right: 4rem;
+            width: 100%;
+            max-width: 1200px;
 
             & #reviews-sort-select,
             ::picker(select) {

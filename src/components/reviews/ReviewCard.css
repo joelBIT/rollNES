@@ -3,6 +3,7 @@
     flex-direction: row;
     font-family: "brandon-grotesque", sans-serif;
     width: 100%;
+    max-width: 1200px;
     padding: 2rem;
     background-color: var(--color-almost-white);
     padding: 1rem;
