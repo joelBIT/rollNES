@@ -34,6 +34,7 @@
         & .reviews-and-favourite-button {
             display: flex;
             justify-content: space-between;
+            align-items: center;
 
             & .game-favourite-icon {
                 cursor: pointer;
