@@ -79,13 +79,9 @@
         & #game-top {
             flex-direction: column-reverse;
             align-items: center;
-            gap: 0;
+            gap: 2rem;
             padding-top: 2rem;
             padding-bottom: 2rem;
-
-            & .cartridge {
-                margin-top: 0;
-            }
         }
     }
 }
@@ -96,9 +92,13 @@
 
         & #game-details {
             gap: 1rem;
+        }
 
+        & #game-top {
+            gap: 0;
+            
             & .cartridge {
-                display: none;
+                transform: scale(0.5);
             }
         }
     }
