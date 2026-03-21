@@ -101,6 +101,8 @@
             gap: 1rem;
 
             & #search-recommendations {
+                padding-bottom: 2rem;
+                
                 & #search-area {
                     flex-direction: column;
 
@@ -124,7 +126,6 @@
 
         & .dropdown {
             height: fit-content;
-            padding-bottom: 2rem;
         }
     }
 }
