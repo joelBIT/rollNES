@@ -19,10 +19,11 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
     const favourites: Game[] = [];
 
     /**
-     * Closes search dropdown (if open) when navigating to Register or Login pages.
+     * Closes all overlays when clicking on a link and being redirected to a new page.
      */
-    function closeDropdown(): void {
-        setShowAccountMenu(!showAccountMenu);
+    function closeAllOverlays(): void {
+        setShowFavourites(false);
+        setShowAccountMenu(false);
         if (isDropdownShowing) {
             toggleShowDropdown();
         }
@@ -76,11 +77,11 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
 
             <section id="my-account-menu" className={showAccountMenu ? "show-my-account-menu" : "hide-my-account-menu"}>
                 <section id="account-actions">
-                    <NavLink id="loginLink" className="retro-button" to={URL_LOGIN_PAGE} onClick={closeDropdown}>
+                    <NavLink id="loginLink" className="retro-button" to={URL_LOGIN_PAGE} onClick={closeAllOverlays}>
                         Sign In
                     </NavLink>
 
-                    <NavLink id="registerLink" className="retro-button" to={URL_REGISTER_PAGE} onClick={closeDropdown}>
+                    <NavLink id="registerLink" className="retro-button" to={URL_REGISTER_PAGE} onClick={closeAllOverlays}>
                         Register
                     </NavLink>
                 </section>
@@ -95,7 +96,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
                 </ul>
             </section>
 
-            <FavouriteMenu show={showFavourites} close={() => setShowFavourites(false)} />
+            <FavouriteMenu show={showFavourites} close={() => setShowFavourites(false)} closeOverlays={closeAllOverlays} />
         </section>
     )
 }

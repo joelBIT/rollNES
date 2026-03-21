@@ -6,9 +6,9 @@ import type { Game } from "../../types/types";
 import "./FavouriteMenu.css";
 
 /**
- * The favourite menu and its content.
+ * The favourite menu and its content. When clicking on a FavouriteCard a user is redirected to that game page so all overlays are closed.
  */
-export function FavouriteMenu({show, close}: {show: boolean, close: () => void}): ReactElement {
+export function FavouriteMenu({show, closeOverlays, close}: {show: boolean, closeOverlays: () => void, close: () => void}): ReactElement {
     const { favourites } = useFavourites();
 
     return (
@@ -21,7 +21,7 @@ export function FavouriteMenu({show, close}: {show: boolean, close: () => void})
 
             <section id="favourite-games-list">
                 {
-                    favourites.map((game: Game) => <FavouriteCard key={game.title} game={game} close={close} />)
+                    favourites.map((game: Game) => <FavouriteCard key={game.title} game={game} close={closeOverlays} />)
                 }
             </section>
         </section>
