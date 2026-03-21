@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
 import type { Game } from "../../types/types";
 import { COVER_URL, getAverageRating, URL_GAMES_PAGE } from "../../utils";
-import { Rating } from "..";
+import { Cartridge, Rating } from "..";
 
 import "./GameCard.css";
 
@@ -17,7 +17,7 @@ export function GameCard({game}: { game: Game}): ReactElement {
     return (
         <section className="game-card">
             <section className="game-image">
-                <img src={COVER_URL + game.cover} alt="Game cover" />
+                <Cartridge coverUrl={COVER_URL + game.cover} />
             </section>
 
             <section className="game-information">
