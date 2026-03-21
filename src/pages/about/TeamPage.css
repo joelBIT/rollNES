@@ -31,7 +31,7 @@
 
 @media (max-width: 600px) {
     #teamPage {
-        padding: 1rem;
+        padding: 3rem 1rem;
 
         & #team-members {
             justify-content: center;

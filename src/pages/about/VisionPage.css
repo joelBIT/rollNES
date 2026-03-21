@@ -53,7 +53,7 @@
 @media (max-width: 500px) {
     #visionPage {
         & .vision-content {
-            padding: 2rem;
+            padding: 3rem 1rem;
         }
     }
 }
