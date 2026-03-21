@@ -1,4 +1,4 @@
-#cartridge {
+.cartridge {
     margin-bottom: 3rem;
 
     & #wrapper {
@@ -10,7 +10,7 @@
         border: solid 1px var(--color-footer-text);
         box-shadow: 7px 10px 5px -2px #888;
 
-        & .cartridge {
+        & .cartridge-inner {
             & .front {
                 background: rgb(156, 156, 156);
                 height: 40em;
@@ -88,11 +88,5 @@
                 margin: 0 -0.6em;
             }
         }
-    }
-}
-
-@media (max-width: 600px) {
-    #cartridge {
-        display: none;
     }
 }

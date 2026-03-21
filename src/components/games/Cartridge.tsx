@@ -7,9 +7,9 @@ import "./Cartridge.css";
  */
 export function Cartridge({coverUrl}: {coverUrl: string}): ReactElement {
     return (
-        <section id="cartridge">
+        <section className="cartridge">
             <div id="wrapper">
-                <div className="cartridge">
+                <div className="cartridge-inner">
                     <div>
                         <section className="front">
                             <img src={coverUrl} id="cover-pic" alt="nes cover" />

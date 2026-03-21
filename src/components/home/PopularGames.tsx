@@ -4,6 +4,7 @@ import type { Game } from "../../types/types";
 import { COVER_URL, URL_GAMES_PAGE } from "../../utils";
 
 import "./PopularGames.css";
+import { Cartridge } from "../games/Cartridge";
 
 /**
  * One of the most popular games shown in the Landing page.
@@ -32,7 +33,7 @@ export function PopularGames({games}: {games: Game[]}): ReactElement {
                 </section>
 
                 <figure className="popular-games__figure">
-                    <img src={COVER_URL + selectedCover} alt="Game cover" />
+                    <Cartridge coverUrl={COVER_URL + selectedCover} />
                 </figure>
             </section>
         </section>

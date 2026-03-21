@@ -11,7 +11,7 @@
         padding-top: 5rem;
         padding-bottom: 5rem;
 
-        & #cartridge {
+        & .cartridge {
             transform: scale(0.8);
             margin-top: -50px;
         }
@@ -83,7 +83,7 @@
             padding-top: 2rem;
             padding-bottom: 2rem;
 
-            & #cartridge {
+            & .cartridge {
                 margin-top: 0;
             }
         }
@@ -96,6 +96,10 @@
 
         & #game-details {
             gap: 1rem;
+
+            & .cartridge {
+                display: none;
+            }
         }
     }
 }
