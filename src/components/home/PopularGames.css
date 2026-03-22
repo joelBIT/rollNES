@@ -54,6 +54,7 @@
 
             & .cartridge {
                 transform: scale(0.4);
+                margin-bottom: 0;
             }
 
             @-moz-document url-prefix() {
