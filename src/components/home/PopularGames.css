@@ -55,6 +55,12 @@
             & .cartridge {
                 transform: scale(0.4);
             }
+
+            @-moz-document url-prefix() {
+                & .cartridge-cover {
+                    right: -192px;
+                }
+            }
         }
     }
 }
