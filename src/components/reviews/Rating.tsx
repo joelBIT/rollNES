@@ -9,6 +9,9 @@ import "./Rating.css";
  */
 export function Rating({rating, setRating}: {rating: number, setRating?: (rating: number) => void}): ReactElement {
     
+    /**
+     * @returns     the width of the rating, i.e., how much of a star is filled with yellow color.
+     */
     function getWidth(index: number): number {
         return index >= rating ? 0 : Math.min(1, rating - index);
     };
