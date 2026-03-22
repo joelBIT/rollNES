@@ -54,6 +54,19 @@
                 }
             }
 
+            @-moz-document url-prefix() {
+                & #reviews-sort-select {
+                    -moz-appearance: none;
+                    background-color: var(--color-games-background);
+                    border: none;
+                    outline: none;
+                    width: fit-content;
+                    font-family: "brandon-grotesque", sans-serif;
+                    padding: 0.1rem;
+                    cursor: pointer;
+                }
+            }
+
             option {
                 display: flex;
                 flex-direction: row-reverse;
