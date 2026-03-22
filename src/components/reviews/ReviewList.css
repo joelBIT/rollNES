@@ -57,12 +57,14 @@
             @-moz-document url-prefix() {
                 & #reviews-sort-select {
                     -moz-appearance: none;
-                    background-color: var(--color-games-background);
+                    background-color: #79735f;
+                    border-radius: 4px;
+                    color: var(--color-white);
+                    padding: 0.1rem 0.5rem;
                     border: none;
                     outline: none;
                     width: fit-content;
                     font-family: "brandon-grotesque", sans-serif;
-                    padding: 0.1rem;
                     cursor: pointer;
                 }
             }
