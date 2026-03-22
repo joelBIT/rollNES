@@ -8,44 +8,8 @@ import "./Cartridge.css";
 export function Cartridge({coverUrl}: {coverUrl: string}): ReactElement {
     return (
         <section className="cartridge">
-            <div id="wrapper">
-                <div className="cartridge-inner">
-                    <div>
-                        <section className="front">
-                            <img src={coverUrl} id="cover-pic" alt="nes cover" />
-                            <span className="triangle-down" />
-                            <ul>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li id="lastLine"></li>
-                            </ul>
-                        </section>
-                    </div>
-
-                    <div className="top"></div>
-                    <div className="bottom"></div>
-                </div>
-            </div>
+            <img src="nes-cartridge.png" alt="Nes cartridge image" className="cartridge-image" />
+            <img src={coverUrl} className="cartridge-cover" alt="nes cover" />
         </section>
     );
 }
