@@ -67,9 +67,9 @@ export default function GamePage(): ReactElement {
                                 <Tag text={game.publisher} type="publisher" />
                             </section>
 
-                            <h2 id="game-information__description"> 
-                                {game.description} 
-                            </h2>
+                            <p id="game-information__description">
+                                {game.description}
+                            </p>
                         </section>
 
                         <Cartridge coverUrl={COVER_URL + game?.cover} />

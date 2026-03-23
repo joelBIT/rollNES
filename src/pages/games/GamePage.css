@@ -14,6 +14,7 @@
         & .cartridge {
             transform: scale(0.8);
             margin-top: -50px;
+            height: fit-content;
         }
     }
 
@@ -25,7 +26,7 @@
         text-align: left;
         padding: 1rem;
         height: fit-content;
-        max-width: 1200px;
+        max-width: 1100px;
 
         & .game-details-heading {
             display: flex;
@@ -88,7 +89,21 @@
         padding: 1rem;
 
         & #game-details {
+            align-items: center;
             gap: 1rem;
+
+            & .game-details-heading {
+                flex-direction: row-reverse;
+                text-align: center;
+
+                & #game-information__heading {
+                    font-size: 1.5rem;
+                }
+            }
+
+            & .game-reviews-summary {
+                align-self: center;
+            }
         }
 
         & #game-top {
