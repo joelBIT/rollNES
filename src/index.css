@@ -351,3 +351,18 @@ body {
     border: 2px solid var(--color-warning);
     background-color: hsl(from var(--color-warning) h s l / 0.2);
 }
+
+
+
+
+
+
+
+/********
+* Misc. *
+********/
+
+.required:after {
+    content:" *";
+    color: red;
+}

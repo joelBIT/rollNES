@@ -30,7 +30,7 @@ export function ContactForm(): ReactElement {
             </section>
 
             <section className="information-input">
-                <label className="input-label" htmlFor="email">
+                <label className="input-label required" htmlFor="email">
                     Email
                 </label>
 
@@ -59,11 +59,11 @@ export function ContactForm(): ReactElement {
             </section>
 
             <section className="information-input">
-                <label className="input-label" htmlFor="message">
+                <label className="input-label required" htmlFor="message">
                     Message
                 </label>
 
-                    <textarea id="message" name="message" className={`input-field`} required />
+                <textarea id="message" name="message" className={`input-field`} required />
             </section>
 
             <button id="sendButton" className="sendButton" type="submit">
