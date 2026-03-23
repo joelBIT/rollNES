@@ -26,11 +26,19 @@
             color: var(--color-black);
         }
 
-        & .favourite-card__players,
-        .favourite-card__category {
-            font-family: brandon-grotesque, sans-serif;
-            font-size: 12px;
-            letter-spacing: .09375rem;
+        & .favourite-card-tags {
+            display: flex;
+            gap: 1rem;
+
+            & .favourite-card-tag {
+                font-family: brandon-grotesque, sans-serif;
+                font-size: 12px;
+                padding: 1px 5px;
+                border: 1px solid lightgray;
+                color: #61666b;
+                border-radius: 3px;
+                letter-spacing: 1px;
+            }
         }
 
         & .favourite-card__button {
