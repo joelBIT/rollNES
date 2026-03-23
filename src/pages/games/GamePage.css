@@ -7,13 +7,14 @@
     & #game-top {
         display: flex;
         flex-direction: row;
-        gap: 3rem;
+        gap: 2rem;
         padding-top: 5rem;
         padding-bottom: 5rem;
 
         & .cartridge {
             transform: scale(0.8);
             margin-top: -50px;
+            height: fit-content;
         }
     }
 
@@ -21,47 +22,44 @@
         display: flex;
         flex-direction: column;
         flex: 10;
-        gap: 3rem;
+        gap: 1.5rem;
         text-align: left;
-        background-color: var(--color-almost-white);
         padding: 1rem;
-        border-radius: 9px;
-        border: 1px solid lightgray;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         height: fit-content;
-        max-width: 1200px;
+        max-width: 1100px;
 
-        & #game-information__heading {
-            font-family: 'ivy-presto-headline-light';
-            letter-spacing: 1px;
-            font-size: 2rem;
-        }
-
-        & .reviews-and-favourite-button {
+        & .game-details-heading {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            align-items: baseline;
+            gap: 1rem;
+
+            & #game-information__heading {
+                font-family: 'ivy-presto-headline-light', sans-serif;
+                letter-spacing: 1px;
+                font-size: 2rem;
+            }
 
             & .game-favourite-icon {
                 cursor: pointer;
                 font-size: 1.5rem;
             }
+        }
 
-            & .game-reviews-summary {
-                display: flex;
-                flex-direction: column;
-                gap: 0.1rem;
-                text-align: center;
+        & .game-reviews-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            text-align: center;
+            width: fit-content;
 
-                & > p {
-                    font-family: 'brandon-grotesque';
-                }
+            & > p {
+                font-family: 'brandon-grotesque', sans-serif;
             }
         }
 
         & #game-information__description {
             font-size: 1.2rem;
-            font-family: 'brandon-grotesque';
+            font-family: 'brandon-grotesque', sans-serif;
             white-space: break-spaces;
             font-weight: 500;
         }
@@ -77,7 +75,7 @@
 @media (max-width: 1100px) {
     #gamePage {
         & #game-top {
-            flex-direction: column-reverse;
+            flex-direction: column;
             align-items: center;
             gap: 2rem;
             padding-top: 3rem;
@@ -91,7 +89,21 @@
         padding: 1rem;
 
         & #game-details {
+            align-items: center;
             gap: 1rem;
+
+            & .game-details-heading {
+                flex-direction: row-reverse;
+                text-align: center;
+
+                & #game-information__heading {
+                    font-size: 1.5rem;
+                }
+            }
+
+            & .game-reviews-summary {
+                align-self: center;
+            }
         }
 
         & #game-top {
