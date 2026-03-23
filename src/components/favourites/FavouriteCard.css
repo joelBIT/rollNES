@@ -1,15 +1,20 @@
 .favourite-card {
     display: flex;
     gap: 1rem;
-    padding-right: 0.5rem;
+    margin-right: 0.5rem;
+    background-color: var(--color-promises-background);
+    border-radius: 4px;
 
     & .favourite-card__image {
         width: 5rem;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
     }
 
     & .favourite-card-details {
         display: flex;
         flex-direction: column;
+        justify-content: space-evenly;
         gap: 0.3rem;
         width: 100%;
         text-align: left;
@@ -28,6 +33,7 @@
 
         & .favourite-card-tags {
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
 
             & .favourite-card-tag {
@@ -36,6 +42,7 @@
                 padding: 1px 5px;
                 border: 1px solid lightgray;
                 color: #61666b;
+                background-color: var(--color-logo-background);
                 border-radius: 3px;
                 letter-spacing: 1px;
             }
