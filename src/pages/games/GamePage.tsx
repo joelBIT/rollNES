@@ -45,8 +45,6 @@ export default function GamePage(): ReactElement {
                     :
                 <>
                     <section id="game-top">
-                        <Cartridge coverUrl={COVER_URL + game?.cover} />
-
                         <section id="game-details">
                             <h2 id="game-information__heading"> {game.title} </h2> 
 
@@ -72,6 +70,8 @@ export default function GamePage(): ReactElement {
                                 {game.description} 
                             </h2>
                         </section>
+
+                        <Cartridge coverUrl={COVER_URL + game?.cover} />
                     </section>
 
                     <section id="game-bottom">
