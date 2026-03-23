@@ -46,17 +46,18 @@ export default function GamePage(): ReactElement {
                 <>
                     <section id="game-top">
                         <section id="game-details">
-                            <h2 id="game-information__heading"> {game.title} </h2> 
-
-                            <section className="reviews-and-favourite-button">
+             
+                            <section className="game-details-heading">
                                 <article className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
                                     {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <span className="material-symbols-outlined"> favorite </span>}
                                 </article>
 
-                                <section className="game-reviews-summary">
-                                    <Rating rating={getAverageRating(reviews)} />
-                                    <p> {reviews?.length} review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""} </p>
-                                </section>
+                                <h2 id="game-information__heading"> {game.title} </h2> 
+                            </section>
+
+                            <section className="game-reviews-summary">
+                                <Rating rating={getAverageRating(reviews)} />
+                                <p> {reviews?.length} review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""} </p>
                             </section>
 
                             <section id="tags">
