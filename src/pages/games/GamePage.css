@@ -42,6 +42,10 @@
             & .game-favourite-icon {
                 cursor: pointer;
                 font-size: 1.5rem;
+                
+                & > span  {
+                    vertical-align: text-top;
+                }
             }
         }
 

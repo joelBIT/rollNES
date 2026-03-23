@@ -30,3 +30,9 @@
     background-color: #C1E8E0;
     color: #2A7D6E;
 }
+
+@media (max-width: 500px) {
+    .tag {
+        padding: 5px 10px;
+    }
+}
