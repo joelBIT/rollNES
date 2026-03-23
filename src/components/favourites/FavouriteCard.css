@@ -23,7 +23,7 @@
         text-align: left;
 
         & .favourite-card__title {
-            font-family: "brandon-grotesque";
+            font-family: "brandon-grotesque", sans-serif;
             font-size: 0.9rem;
             font-weight: 900;
             text-transform: uppercase;
@@ -33,6 +33,7 @@
             text-decoration: none;
             color: var(--color-black);
             padding-right: 0.1rem;
+            width: fit-content;
 
             &:hover {
                 opacity: 0.8;
@@ -57,11 +58,12 @@
         }
 
         & .favourite-card__button {
-            font-family: "brandon-grotesque";
+            font-family: "brandon-grotesque", sans-serif;
             text-transform: uppercase;
             color: var(--color-text-heading);
             font-size: 9px;
             margin-top: 0.4rem;
+            width: fit-content;
 
             &:hover {
                 cursor: pointer;
