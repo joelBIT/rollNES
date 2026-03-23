@@ -15,7 +15,7 @@
         max-width: 12rem;
         text-align: center;
         padding: 1rem;
-        background-color: var(--color-active-navicon);
+        background-color: var(--color-promises-background);
         border: 1px solid var(--color-black);
         border-radius: 4px;
 
