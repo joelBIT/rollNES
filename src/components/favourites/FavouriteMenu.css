@@ -37,7 +37,7 @@
         }
 
         & #favourites__heading {
-            font-family: "brandon-grotesque";
+            font-family: "brandon-grotesque", sans-serif;
             font-size: 1rem;
             text-transform: uppercase;
             text-align: center;
@@ -71,5 +71,12 @@
         scrollbar-width: thin;
         outline: none;
         background-color: #eaeaea;
+
+        & .no-favourites-text {
+            font-family: "brandon-grotesque", sans-serif;
+            font-size: 1rem;
+            color: var(--color-black);
+            text-align: center;
+        }
     }
 }
