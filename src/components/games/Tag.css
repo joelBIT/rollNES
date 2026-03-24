@@ -1,34 +1,16 @@
 .tag {
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 10px 18px;
-    border-radius: 30px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-    background-color: #FEE7AE;
-    color: #B67F1A;
-    width: fit-content;
+    padding: 1px 5px;
+    border: 1px solid lightgray;
+    background-color: var(--color-logo-background);
+    border-radius: 3px;
 
-    & .tag-type {
-        font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        font-weight: 500;
+    & .tag-text {
+        font-family: brandon-grotesque, sans-serif;
+        font-size: 12px;
+        color: #61666b;
+        letter-spacing: 1px;
     }
-}
-
-.tag-category {
-    background-color: #FFD4B8;
-    color: #BA5730;
-}
-
-.tag-players {
-    background-color: #C9F2C7;
-    color: #358241;
-}
-
-.tag-developer {
-    background-color: #C1E8E0;
-    color: #2A7D6E;
 }
 
 @media (max-width: 500px) {

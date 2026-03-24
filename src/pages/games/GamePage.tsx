@@ -1,9 +1,9 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
+import { useFavourites } from "../../hooks/useFavourites";
 import { Cartridge, ControllerForm, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
 import { COVER_URL, getAverageRating } from "../../utils";
 import type { Game, Review } from "../../types/types";
-import { useFavourites } from "../../hooks/useFavourites";
 
 import "./GamePage.css";
 
@@ -46,7 +46,6 @@ export default function GamePage(): ReactElement {
                 <>
                     <section id="game-top">
                         <section id="game-details">
-             
                             <section className="game-details-heading">
                                 <article className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
                                     {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <span className="material-symbols-outlined"> favorite </span>}
@@ -61,11 +60,13 @@ export default function GamePage(): ReactElement {
                             </section>
 
                             <section id="tags">
-                                <Tag text={game.category} type="category" />
-                                <Tag text={game.players.toString()} type="players" />
-                                <Tag text={game.developer} type="developer" />
-                                <Tag text={game.publisher} type="publisher" />
+                                <Tag text={game.category} />
+                                <Tag text={`${game.players} player${game.players > 1 ? "s" : ""}`} />
                             </section>
+
+                            <p className="game-information__creators">
+                                Published by {game.publisher}, developed by {game.developer}.
+                            </p>
 
                             <p id="game-information__description">
                                 {game.description}

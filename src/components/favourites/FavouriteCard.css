@@ -40,21 +40,10 @@
             }
         }
 
-        & .favourite-card-tags {
+        & #tags {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
-
-            & .favourite-card-tag {
-                font-family: brandon-grotesque, sans-serif;
-                font-size: 12px;
-                padding: 1px 5px;
-                border: 1px solid lightgray;
-                color: #61666b;
-                background-color: var(--color-logo-background);
-                border-radius: 3px;
-                letter-spacing: 1px;
-            }
         }
 
         & .favourite-card__button {
