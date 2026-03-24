@@ -51,7 +51,14 @@ export default function GamePage(): ReactElement {
                                     {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <span className="material-symbols-outlined"> favorite </span>}
                                 </article>
 
-                                <h2 id="game-information__heading"> {game.title} </h2> 
+                                <section id="game-information__heading"> 
+                                    {game.title} 
+
+                                    <section id="tags">
+                                        <Tag text={game.category} />
+                                        <Tag text={`${game.players} player${game.players > 1 ? "s" : ""}`} />
+                                    </section>
+                                </section> 
                             </section>
 
                             <section className="game-reviews-summary">
@@ -59,10 +66,7 @@ export default function GamePage(): ReactElement {
                                 <p> {reviews?.length} review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""} </p>
                             </section>
 
-                            <section id="tags">
-                                <Tag text={game.category} />
-                                <Tag text={`${game.players} player${game.players > 1 ? "s" : ""}`} />
-                            </section>
+                            
 
                             <p className="game-information__creators">
                                 Published by {game.publisher}, developed by {game.developer}.

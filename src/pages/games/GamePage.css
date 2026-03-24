@@ -34,9 +34,20 @@
             gap: 1rem;
 
             & #game-information__heading {
+                display: flex;
+                gap: 1rem;
+                flex-wrap: wrap;
                 font-family: 'ivy-presto-headline-light', sans-serif;
                 letter-spacing: 1px;
                 font-size: 2rem;
+
+                & #tags {
+                    display: flex;
+                    align-self: center;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    margin-left: 2rem;
+                }
             }
 
             & .game-favourite-icon {
@@ -65,6 +76,7 @@
             font-family: 'brandon-grotesque', sans-serif;
             font-weight: 600;
             font-size: 1.3rem;
+            margin-bottom: -10px;
         }
 
         & #game-information__description {
@@ -72,12 +84,6 @@
             font-family: 'brandon-grotesque', sans-serif;
             white-space: break-spaces;
             font-weight: 500;
-        }
-
-        & #tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
         }
     }
 }
