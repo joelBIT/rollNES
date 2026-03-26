@@ -1,40 +1,32 @@
-import { useState, type ReactElement } from "react";
+import { type ReactElement } from "react";
 import { NavLink } from "react-router";
 import type { Game } from "../../types/types";
-import { COVER_URL, URL_GAMES_PAGE } from "../../utils";
+import { URL_GAMES_PAGE } from "../../utils";
 
 import "./PopularGames.css";
-import { Cartridge } from "../games/Cartridge";
 
 /**
- * One of the most popular games shown in the Landing page.
+ * Some of the most popular games shown in the Landing page.
  */
 export function PopularGames({games}: {games: Game[]}): ReactElement {
-    const [selectedCover, setSelectedCover] = useState<string>(games[0]?.cover ?? "");
 
     return (
         <section className="popular-games">
-            <section className="popular-games__content">
-                <section className="popular-games__links">
-                    <h2 className="popular-games__heading"> Most Played </h2>
+            <h2 className="popular-games__heading"> Most Played </h2>
 
-                    {
-                        games.map((game: Game) => 
-                            <NavLink 
-                                key={game.id}
-                                to={URL_GAMES_PAGE + "/" + game.id} 
-                                className={game.cover === selectedCover ? "popular-game-link selected-game" : "popular-game-link"} 
-                                onMouseOver={() => setSelectedCover(game.cover)}
-                            > 
-                                {game.title} 
-                            </NavLink>
-                        )
-                    }
-                </section>
-
-                <figure className="popular-games__figure">
-                    <Cartridge coverUrl={COVER_URL + selectedCover} />
-                </figure>
+            <section className="popular-games__grid">
+                {
+                    games.map((game: Game, index: number) => 
+                        <NavLink 
+                            key={game.id}
+                            to={URL_GAMES_PAGE + "/" + game.id} 
+                            className={`popular-game game-${index}`}
+                            title={game.title}
+                        > 
+                            <h3 className="popular-game__title">{game.title}</h3>
+                        </NavLink>
+                    )
+                }
             </section>
         </section>
     );
