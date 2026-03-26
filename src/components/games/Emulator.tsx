@@ -90,7 +90,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
      * Retrieves and loads a ROM based on the 'id' query parameter, if such exists.
      */
     async function getRom(): Promise<void> {
-        const url = `https://tnkcekyijuynctkddkwy.supabase.co/storage/v1/object/public/roms//${gameId}.nes?download`;
+        const url = `https://tnkcekyijuynctkddkwy.supabase.co/storage/v1/object/public/roms/${gameId}.nes?download`;
         try {
             const response = await fetch(url);
             if (response.body) {
