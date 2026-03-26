@@ -24,6 +24,10 @@
         justify-content: center;
         gap: 0.3rem;
         max-width: 1200px;
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
 
         & .popular-game {
             min-height: 200px;
@@ -93,6 +97,23 @@
             & .popular-game__title {
                 border-bottom-right-radius: 4px;
                 padding-bottom: 1rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .popular-games {
+        max-height: fit-content;
+
+        & .popular-games__grid {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            & .popular-game {
+                margin-left: 0;
+                margin-right: 0;
             }
         }
     }
