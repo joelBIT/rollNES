@@ -75,9 +75,9 @@
         }
 
         & .game-2 {
-            grid-column: 1 / 5;
+            grid-column: 1 / 6;
             background-image: url("/shadowgate.png");
-            background-position: top;
+            background-position: center;
             margin-right: 0.3rem;
 
             & .popular-game__title {
@@ -88,7 +88,7 @@
         }
 
         & .game-3 {
-            grid-column: 5 / 8;
+            grid-column: 6 / 8;
             background-image: url("/mariobros.webp");
             background-position: top;
             align-content: flex-end;
@@ -114,6 +114,10 @@
             & .popular-game {
                 margin-left: 0;
                 margin-right: 0;
+            }
+
+            & .game-2 {
+                background-position: top;
             }
         }
     }
