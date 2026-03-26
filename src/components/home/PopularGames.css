@@ -1,97 +1,98 @@
 .popular-games {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    min-height: 300px;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
     padding-bottom: 4rem;
     padding-top: 4rem;
     background-color: var(--color-almost-white);
+    width: 100%;
+    max-height: 800px;
 
-    & .popular-games__content {
-        display: flex;
-        justify-content: space-between;
+    & .popular-games__heading {
+        font-family: "ivy-presto-headline-light";
+        font-size: 40px;
+        letter-spacing: 3px;
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+
+    & .popular-games__grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
         align-self: center;
-        width: 40rem;
+        justify-content: center;
+        gap: 0.3rem;
+        max-width: 1200px;
 
-        & .popular-games__links {
-            display: flex;
-            flex-direction: column;
-            align-self: center;
-            gap: 1rem;
+        & .popular-game {
+            min-height: 200px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 4px;
+            text-decoration: none;
 
-            & .popular-games__heading {
-                font-family: "ivy-presto-headline-light";
-                font-size: 40px;
-                letter-spacing: 3px;
-                font-weight: 400;
-                text-transform: uppercase;
-            }
-
-            & .popular-game-link {
+            & .popular-game__title {
                 font-family: "ivy-presto-headline-light";
                 letter-spacing: 3px;
                 font-weight: 400;
                 font-size: 1.2rem;
                 text-decoration: none;
                 width: fit-content;
-                color: var(--color-black-light);
-                
-            }
-
-            & .selected-game {
-                color: #2c2c2cb3;
-                text-decoration: underline;
-                text-underline-position: from-font;
+                color: var(--color-almost-white);
+                backdrop-filter: blur(2px);
+                padding: 0.3rem;
             }
         }
 
-        & .popular-games__figure {
+        & .game-0 {
+            grid-column: 1 / 4;
+            background-image: url("castlevania2.jpg");
             justify-items: center;
-            width: 300px;
-            height: 100%;
-            border-radius: 4px;
-            text-align: right;
 
-            & .cartridge {
-                transform: scale(0.4);
-                margin-bottom: 0;
-            }
-
-            @-moz-document url-prefix() {
-                & .cartridge-cover {
-                    right: -192px;
-                }
+            & .popular-game__title {
+                font-size: 1rem;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
             }
         }
-    }
-}
 
-@media (max-width: 700px) {
-    .popular-games {
-        & .popular-games__content {
-            width: 97%;
-        }
-    }
-}
+        & .game-1 {
+            grid-column: 4 / 8;
+            background-image: url("ducktales.webp");
+            background-position: center;
+            align-content: center;
+            justify-items: flex-end;
+            margin-left: 0.6rem;
 
-@media (max-width: 500px) {
-    .popular-games {
-        & .popular-games__content {
-            flex-direction: column;
-            align-items: center;
-
-            & .popular-games__links {
-                padding-left: 0.6rem;
+            & .popular-game__title {
+                border-bottom-right-radius: 4px;
             }
+        }
 
-            & .popular-games__figure {
-                width: 100%;
-                max-width: 320px;
-                height: 400px;
+        & .game-2 {
+            grid-column: 1 / 5;
+            background-image: url("shadowgate.png");
+            background-position: top;
+            margin-right: 0.3rem;
 
-                & .cartridge {
-                    margin-top: -85px;
-                }
+            & .popular-game__title {
+                padding: 0;
+                padding-left: 0.2rem;
+                border-top-left-radius: 4px;
+            }
+        }
+
+        & .game-3 {
+            grid-column: 5 / 8;
+            background-image: url("mariobros.webp");
+            background-position: top;
+            align-content: flex-end;
+            justify-items: flex-end;
+
+            & .popular-game__title {
+                border-bottom-right-radius: 4px;
+                padding-bottom: 1rem;
             }
         }
     }
