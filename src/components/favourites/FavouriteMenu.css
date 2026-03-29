@@ -21,6 +21,9 @@
     z-index: 99999;
     height: 100vh;
     min-height: 100%;
+    overscroll-behavior: contain;
+    overflow-y: scroll;
+    scrollbar-width: none;
     transition: max-width 1.6s ease-in-out;
 
     & #favourite-menu-header {
