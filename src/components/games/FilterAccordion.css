@@ -49,7 +49,7 @@
         }
     }
 
-    &:nth-child(5) > article.filter-card-header:has(.filter-closed) {
+    &:last-child > article.filter-card-header:has(.filter-closed) {
         border-bottom: none;
     }
 
