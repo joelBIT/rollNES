@@ -21,6 +21,7 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
 
     useEffect(() => {
         setIsShowing(show);
+        setGameName("");
         if (inputRef && inputRef.current) {
             inputRef.current.focus();
         }
@@ -56,8 +57,8 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
      * Only go to the Games page if there are any matches for the supplied title. Otherwise stay on the dropdown.
      */
     function searchGames(): void {
-        if (gameMatches.length && inputRef.current?.value) {
-            addFilter("title", inputRef.current?.value);
+        if (gameMatches.length && gameName.length > 0) {
+            addFilter("title", gameName);
             closeDropdown();
             navigate(URL_GAMES_PAGE);
         }
