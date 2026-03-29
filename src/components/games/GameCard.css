@@ -55,16 +55,17 @@
                     color: var(--color-black);
                 }
 
-                &:hover {
-                    color: var(--color-search-text);
-                    transition: color 0.5s;
-                }
-
                 & .game-information__heading {
                     font-size: 2rem;
                     font-family: 'ivy-presto-headline-light';
                     text-align: left;
                     color: var(--color-black);
+                    transition: color 0.2s;
+
+                    &:hover {
+                        color: var(--color-search-text);
+                        transition: color 0.2s;
+                    }
                 }
             }
 
