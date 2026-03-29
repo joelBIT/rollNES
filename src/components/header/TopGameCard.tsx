@@ -1,6 +1,5 @@
 import type { ReactElement } from "react";
 import { useNavigate } from "react-router";
-import { Cartridge } from "../games/Cartridge";
 import type { Game } from "../../types/types";
 import { COVER_URL, URL_GAMES_PAGE } from "../../utils";
 
@@ -19,7 +18,7 @@ export function TopGameCard({game, close}: { game: Game, close: () => void}): Re
 
     return (
         <section className="top-game-card">
-            <Cartridge coverUrl={COVER_URL + game.cover} />
+            <img src={COVER_URL + game.cover} className="cartridge-cover" alt="nes cover" />
 
             <h3 className="top-game__title" onClick={goToGamePage}> {game.title} </h3>
         </section>

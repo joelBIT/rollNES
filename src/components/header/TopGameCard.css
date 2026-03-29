@@ -2,11 +2,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
     max-width: 160px;
 
-    & .cartridge {
-        transform: scale(0.2);
-        height: 110px;
+    & .cartridge-cover {
+        height: 140px;
+        width: 110px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
     }
 
     & .top-game__title {
