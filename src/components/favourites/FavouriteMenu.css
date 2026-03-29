@@ -83,3 +83,11 @@
         }
     }
 }
+
+@media (max-width: 500px) {
+    .show-menu {
+        & #favourite-games-list {
+            padding-bottom: 5rem;
+        }
+    }
+}
