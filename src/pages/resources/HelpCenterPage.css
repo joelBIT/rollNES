@@ -24,7 +24,7 @@
             font-family: "brandon-grotesque", sans-serif;
             font-weight: 900;
             font-size: 1.4rem;
-            color: var(--color-text-heading);
+            color: var(--color-border);
             text-decoration: none;
             text-wrap-mode: nowrap;
         }
@@ -46,7 +46,7 @@
 
                 & .answer-section__link {
                     text-decoration: none;
-                    color: var(--color-text-heading);
+                    color: var(--color-border);
                     text-wrap-mode: nowrap;
 
                     &:hover {
