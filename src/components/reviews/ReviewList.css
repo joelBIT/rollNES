@@ -22,6 +22,12 @@
             font-family: "brandon-grotesque", sans-serif;
             font-size: 14px;
 
+            & .rating {
+                & .star-rating {
+                    font-size: 24px;
+                }
+            }
+
             & .reviews-border {
                 border-left: 1px solid;
                 height: 19px;
