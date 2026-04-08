@@ -68,6 +68,7 @@
             align-content: center;
             justify-items: flex-end;
             margin-left: 0.6rem;
+            margin-bottom: 0.1rem;
 
             & .popular-game__title {
                 border-bottom-right-radius: 4px;
@@ -93,6 +94,7 @@
             background-position: top;
             align-content: flex-end;
             justify-items: flex-end;
+            margin-top: -0.2rem;
 
             & .popular-game__title {
                 border-bottom-right-radius: 4px;
@@ -117,8 +119,16 @@
                 margin-right: 0;
             }
 
+            & .game-1 {
+                margin-bottom: 0;
+            }
+
             & .game-2 {
                 background-position: top;
+            }
+
+            & .game-3 {
+                margin-top: 0;
             }
         }
     }
