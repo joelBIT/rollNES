@@ -35,6 +35,8 @@
             background-size: cover;
             border-radius: 4px;
             text-decoration: none;
+            border: 2px solid var(--color-modal-background);
+            border-radius: 18px;
 
             & .popular-game__title {
                 font-family: "ivy-presto-headline-light";
@@ -56,8 +58,8 @@
 
             & .popular-game__title {
                 font-size: 1rem;
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
+                border-top-left-radius: 18px;
+                border-top-right-radius: 18px;
             }
         }
 
@@ -71,7 +73,7 @@
             margin-bottom: 0.1rem;
 
             & .popular-game__title {
-                border-bottom-right-radius: 4px;
+                border-bottom-right-radius: 18px;
             }
         }
 
@@ -84,7 +86,7 @@
             & .popular-game__title {
                 padding: 0;
                 padding-left: 0.2rem;
-                border-top-left-radius: 4px;
+                border-top-left-radius: 18px;
             }
         }
 
@@ -97,8 +99,8 @@
             margin-top: -0.2rem;
 
             & .popular-game__title {
-                border-bottom-right-radius: 4px;
-                border-bottom-left-radius: 4px;
+                border-bottom-right-radius: 18px;
+                border-bottom-left-radius: 18px;
                 padding-bottom: 1rem;
             }
         }
