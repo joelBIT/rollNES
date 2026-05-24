@@ -18,7 +18,6 @@ export default function TeamPage(): ReactElement {
            <section id="team-members">
                 <TeamMemberCard imageSource={"/ceo.png"} name="Gretchen Sturm" title="CEO" />
                 <TeamMemberCard imageSource={"/cto.png"} name="Joel Rollny" title="CTO" />
-                <TeamMemberCard imageSource={"/cio.png"} name="Lo Wang" title="CIO" />
                 <TeamMemberCard imageSource={"support.png"} name="Mållgan Karlsson" title="Support" />
            </section>
         </main>
