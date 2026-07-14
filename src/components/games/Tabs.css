@@ -13,6 +13,12 @@
         font-weight: 300;
         cursor: pointer;
         color: #aaa;
+        transition: 0.2s color ease-in-out;
+
+        &:hover {
+            color: black;
+            transition: 0.2s color ease-in-out;
+        }
     }
 
     & .selected {

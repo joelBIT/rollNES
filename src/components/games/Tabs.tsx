@@ -11,7 +11,7 @@ import "./Tabs.css";
  * @param setActive     Function that informs the parent component when a tab has been activated.
  */
 export function Tabs({titles, defaultTab, active, setActive}: {titles: string[], defaultTab?: string, active: string, setActive: (tab: string) => void}): ReactElement {
-    const [activeTab, setActiveTab] = useState<string>(defaultTab ? defaultTab : titles[0]);
+    const [activeTab, setActiveTab] = useState<string>(defaultTab ?? titles[0]);
 
     useEffect( () => {
         setActiveTab(active);
