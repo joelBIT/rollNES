@@ -6,6 +6,8 @@ import "./ContactPage.css";
 export default function ContactPage(): ReactElement {
     return (
         <main id="contactPage">
+            <h1 id="contact__heading"> Contact RollNES </h1>
+
             <section id="contact-information">
                 <section className="contact-item">
                     <img src="/mobile-phone.svg" className="phone" alt="phone icon" title="Phone number" />

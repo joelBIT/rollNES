@@ -6,6 +6,18 @@
     background-color: var(--color-black);
     padding-bottom: 2rem;
 
+    & #contact__heading {
+        font-family: 'ivy-presto-headline-light', sans-serif;
+        font-size: 3rem;
+        color: var(--color-white);
+        max-width: 1440px;
+        letter-spacing: .29313rem;
+        line-height: 1.5;
+        font-weight: 700;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
     & #contact-information {
         display: flex;
         justify-content: space-evenly;
