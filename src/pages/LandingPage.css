@@ -46,6 +46,34 @@
         }
     }
 
+    & .available-games {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+        background-color: var(--color-promises-background);
+        width: 100%;
+        padding: 1rem;
+
+        & .available-games__heading,
+        & .available-games__text {
+            font-family: "ivy-presto-headline-light";
+            letter-spacing: 3px;
+            font-weight: 400;
+            font-size: 2.5rem;
+            text-decoration: none;
+            width: fit-content;
+            color: var(--color-real-black);
+            padding: 0.3rem;
+            text-align: center;
+        }
+
+        & .available-games__text {
+            font-size: 1.3rem;
+            max-width: 800px;
+        }
+    }
+
     & #landing-promises {
         display: flex;
         flex-direction: column;
@@ -111,6 +139,14 @@
                     font-size: 2rem;
                     text-align: center;
                 }
+            }
+        }
+
+        & .available-games {
+            padding: 0.5rem;
+
+            & .available-games__heading{
+                font-size: 2rem;
             }
         }
     }
