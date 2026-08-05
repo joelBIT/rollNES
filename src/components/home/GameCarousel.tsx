@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, type ReactElement } from "react";
 import { ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 
 import "./GameCarousel.css";
@@ -14,19 +14,19 @@ const PHOTOS = [
     { id: 8, src: "/castlevania2.jpg", caption: "Castlevania 2: Simon's Quest", meta: "Berkeley Mansion · 7:58 PM" }
 ];
 
-export function GameCarousel() {
+export function GameCarousel(): ReactElement {
     const [index, setIndex] = useState<number>(0);
     const [marker, setMarker] = useState<{transform: string, width: number}>({ transform: "translateX(0px)", width: 0 });
-    const thumbRefs: any = useRef([]);
-    const railRef = useRef(null);
+    const thumbRefs = useRef<HTMLButtonElement[]>([]);
+    const railRef = useRef<HTMLDivElement>(null);
 
     const go = useCallback((i: number) => {
         setIndex(((i % PHOTOS.length) + PHOTOS.length) % PHOTOS.length);
     }, []);
 
     useEffect(() => {
-        const el: any = thumbRefs.current[index];
-        const rail: any = railRef.current;
+        const el = thumbRefs.current[index];
+        const rail = railRef.current;
         if (el && rail) {
             const railRect = rail.getBoundingClientRect();
             const elRect = el.getBoundingClientRect();
@@ -34,19 +34,8 @@ export function GameCarousel() {
                 transform: `translateX(${elRect.left - railRect.left + rail.scrollLeft}px)`,
                 width: elRect.width
             });
-            el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
         }
     }, [index]);
-
-    useEffect(() => {
-        const handler = (e: any) => {
-            if (e.key === "ArrowRight") go(index + 1);
-            if (e.key === "ArrowLeft") go(index - 1);
-        };
-        window.addEventListener("keydown", handler);
-
-        return () => window.removeEventListener("keydown", handler);
-    }, [index, go]);
 
     const photo = PHOTOS[index];
 
@@ -57,14 +46,14 @@ export function GameCarousel() {
                     key={photo.id}
                     src={photo.src}
                     alt={photo.caption}
-                    className="main-image mainImage"
+                    className="main-image"
                 />
                 <div className="gradientBottom" />
 
                 <button
                     aria-label="Previous photo"
                     onClick={() => go(index - 1)}
-                    className="nav-btn navBtn"
+                    className="nav-button"
                     style={{ left: 16 }}
                 >
                     <ChevronLeft size={20} color="#EFE8D8" />
@@ -73,7 +62,7 @@ export function GameCarousel() {
                 <button
                     aria-label="Next photo"
                     onClick={() => go(index + 1)}
-                    className="nav-btn navBtn"
+                    className="nav-button"
                     style={{ right: 16 }}
                 >
                     <ChevronRight size={20} color="#EFE8D8" />
