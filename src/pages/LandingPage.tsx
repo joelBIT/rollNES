@@ -3,6 +3,7 @@ import { useLoaderData, NavLink } from "react-router";
 import { PopularGames } from "../components";
 import type { Game } from "../types/types";
 import { URL_GAMES_PAGE } from "../utils";
+import { GameCarousel } from "../components/home/GameCarousel";
 
 import "./LandingPage.css";
 
@@ -27,9 +28,17 @@ export default function LandingPage(): ReactElement {
                 </figure>
             </section>
 
-            {
-                <PopularGames games={games} />
-            }
+            <section className="available-games">
+                <h2 className="available-games__heading"> Play NES games </h2>
+                <p className="available-games__text">
+                    RollNES supports most games released for the NES. Below is a selection of the 
+                    fun games playable on the RollNES emulator.
+                </p>
+            </section>
+            
+            <GameCarousel />
+
+            <PopularGames games={games} />
 
             <section id="landing-promises">
                 <h2 id="landing-promises__heading"> RollNES Promises </h2>
