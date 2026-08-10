@@ -1,6 +1,6 @@
 import { type ReactElement, useState } from "react";
 import { useControllers } from "../../hooks/useControllers";
-import { ControllerInput } from "..";
+import { GamePad } from "./GamePad";
 import { extractPlayer1Configuration, extractPlayer2Configuration } from "../../utils";
 import type { GameController } from "../../types/types";
 
@@ -13,8 +13,7 @@ export function ControllerForm(): ReactElement {
     const [showMessage, setShowMessage] = useState<boolean>(false);
     const [isError, setIsError] = useState<boolean>(false);
     const [message, setMessage] = useState<string>("Could not save controller settings");
-    const { player1, player2, saveConfigurations } = useControllers();
-    const keys = document.getElementsByClassName('key-controller') as HTMLCollectionOf<HTMLInputElement>;
+    const { saveConfigurations, getControllersConfiguration } = useControllers();
 
     /**
      * Do not store configuration if player has left empty input fields when trying to save the controller configuration.
@@ -37,73 +36,33 @@ export function ControllerForm(): ReactElement {
     }
 
     /**
-     *  Show key code in input text field.
-     */
-    function setKeyCode(event: React.KeyboardEvent<HTMLInputElement>): void {
-        removeKeyWhereAlreadyUsed(event.code);
-        (event.target as HTMLInputElement).value = event.code;
-        event.preventDefault();
-    }
-
-    /**
-     *  Removes the chosen key from other buttons if already in use.
-     */
-    function removeKeyWhereAlreadyUsed(keyCode: string): void {
-        for (const key of keys) {
-            if (Object.is(key.value, keyCode)) {
-                key.value = '';
-            }
-        }
-    }
-
-    /**
      * Tests if all keys have values. It should not be possible to store controller configuration is keys have not been set.
      */
     function hasEmptyKeys(): boolean {
-        for (const key of keys) {
+        for (const key of getControllersConfiguration()) {
             if (!key.value) {
                 return true;
             }
         }
         return false;
     }
-    
+
     return (
         <>
             <form id="controllerForm" action={confirmSettings}>
-                <section className="controllers">
-                    <section className="player1-controller">
-                        <h2 className="bit-font">Player 1</h2>
+                <section className="gamepad-config">
+                    <h2 className="gamepad-heading bit-font">Player 1</h2>
 
-                        <section className="inputs">
-                            <ControllerInput button={player1.up} label="UP" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player1.down} label="DOWN" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player1.left} label="LEFT" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player1.right} label="RIGHT" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player1.a} label="A" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player1.b} label="B" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player1.start} label="START" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player1.select} label="SELECT" onKeyDown={setKeyCode} />
-                        </section>
-                    </section>
-
-                    <section className="player2-controller">
-                        <h2 className="bit-font">Player 2</h2>
-                        
-                        <section className="inputs">
-                            <ControllerInput button={player2.up} label="UP" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player2.down} label="DOWN" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player2.left} label="LEFT" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player2.right} label="RIGHT" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player2.a} label="A" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player2.b} label="B" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player2.start} label="START" onKeyDown={setKeyCode} />
-                            <ControllerInput button={player2.select} label="SELECT" onKeyDown={setKeyCode} />
-                        </section>
-                    </section>
+                    <GamePad player={1} />
                 </section>
 
-                <button className="retro-button" type="submit"> Save </button>
+                <section className="gamepad-config">
+                    <h2 className="gamepad-heading bit-font">Player 2</h2>
+
+                    <GamePad player={2} />
+                </section>
+
+                <button className="retro-button" type="submit"> Save settings </button>
             </form>
 
             { 

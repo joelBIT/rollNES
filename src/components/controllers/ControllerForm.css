@@ -2,51 +2,23 @@
     display: flex;
     flex-direction: column;
     align-self: center;
-    background-color: var(--color-black-light);
-    max-width: fit-content;
+    align-items: center;
+    gap: 5rem;
+    background: radial-gradient(circle at 50% 20%, #3a3f4b, #14161c 70%);
+    width: 100%;
     padding: 2rem;
     border: 2px solid var(--color-black);
     border-radius: 4px;
     margin-top: 2rem;
     
-    & .controllers {
+    & .gamepad-config {
         display: flex;
         flex-direction: column;
-        align-self: center;
-        gap: 5rem;
 
-        & .player2-controller,
-        & .player1-controller {
-            display: flex;
-            flex-direction: column;
-
-            & .inputs {
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-            }
+        & .gamepad-heading {
+            color: var(--color-almost-white);
+            padding: 1rem;
         }
-
-        & .player1-controller {
-            color: var(--color-player-1);
-
-            .form__field-label {
-                color: var(--color-player-1);
-            }
-        }
-
-        & .player2-controller {
-            color: var(--color-player-2);
-
-            .form__field-label {
-                color: var(--color-player-2);
-            }
-        }
-    }
-
-    & > button {
-        align-self: flex-end;
-        margin-top: 1rem;
     }
 
     ~ .message-failure,
@@ -56,24 +28,5 @@
         align-self: center;
         margin: 0;
         margin-top: 1rem;
-    }
-}
-
-@media (max-width: 450px) {
-    #controllerForm {
-        & .controllers {
-            gap: 2rem;
-
-            & .player2-controller,
-            & .player1-controller {
-                & .bit-font {
-                    align-self: center;
-                }
-                
-                & .inputs {
-                    justify-content: center;
-                }
-            }
-        }
     }
 }
