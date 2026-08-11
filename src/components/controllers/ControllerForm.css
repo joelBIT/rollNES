@@ -19,6 +19,27 @@
             color: var(--color-almost-white);
             padding: 1rem;
         }
+
+        & .button-bindings {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+            padding-left: 0.3rem;
+            padding-right: 0.3rem;
+
+            & p {
+                font-family: 'regular-gibson';
+                font-weight: 100;
+                color: #b7b7b7;
+
+                & div {
+                    font-family: 'regular-gibson';
+                    font-weight: 800;
+                    color: var(--color-white);
+                }
+            }
+        }
     }
 
     ~ .message-failure,

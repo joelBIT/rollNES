@@ -6,7 +6,6 @@ import { gamepad1, gamepad2 } from "../config/config";
 export interface GameControllerContextProvider {
     player1: GameController;
     player2: GameController;
-    getControllerForPlayer: (player: number) => GameController;
     getControllersConfiguration: () => Button[];
     saveConfigurations: (player1: GameController, player2: GameController) => void;
 }
@@ -45,10 +44,6 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
         }
     }
 
-    function getControllerForPlayer(player: number): GameController {
-        return player === 1 ? gamepad1 : gamepad2;
-    }
-
     /**
      * Creates an array containing the controller configuration for player 1 and player 2. The default configuration is used if
      * no configuration is found in local storage.
@@ -77,7 +72,7 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
     }
 
     return (
-        <GameControllerContext.Provider value={{ player1, player2, getControllerForPlayer, getControllersConfiguration, saveConfigurations }}>
+        <GameControllerContext.Provider value={{ player1, player2, getControllersConfiguration, saveConfigurations }}>
             { children }
         </GameControllerContext.Provider>
     );

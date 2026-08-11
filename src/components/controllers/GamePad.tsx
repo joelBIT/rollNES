@@ -10,9 +10,9 @@ import "./GamePad.css";
  */
 export function GamePad({player}: {player: number}): ReactElement {
     const [activePopup, setActivePopup] = useState<string>("");
-    const { getControllerForPlayer, getControllersConfiguration } = useControllers();
-    const [controller] = useState(getControllerForPlayer(player));
-    const [buttons, setButtons] = useState<Button[]>(getControllersConfiguration());
+    const { player1, player2, getControllersConfiguration } = useControllers();
+    const [controller] = useState(player === 1 ? player1 : player2);
+    const [buttons] = useState<Button[]>(getControllersConfiguration());
     const [button, setButton] = useState<Button>(controller.a);
 
     function openPopup(button: Button, event: any) {
@@ -21,7 +21,7 @@ export function GamePad({player}: {player: number}): ReactElement {
         if (player === 1) {
             setActivePopup(button.name);
         } else {
-            setActivePopup(button.name.slice(0, button.name.length - 1));   // Remove the 2 in the end of the button name
+            setActivePopup(button.name.slice(0, button.name.length - 1));   // Remove the number in the end of the button name
         }
     };
 
@@ -95,7 +95,7 @@ export function GamePad({player}: {player: number}): ReactElement {
             {activePopup && (
                 <div className="popup-backdrop" onClick={closePopup}>
                     <div className="popup-card" onClick={(e) => e.stopPropagation()}>
-                        <p className="popup-title">Bind {activePopup} button (Player {player})</p>
+                        <p className="popup-title">Bind {activePopup} (Player {player})</p>
                         <input
                             type="text"
                             defaultValue={button.value}
