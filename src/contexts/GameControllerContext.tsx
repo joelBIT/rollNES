@@ -7,6 +7,7 @@ export interface GameControllerContextProvider {
     player1: GameController;
     player2: GameController;
     getControllersConfiguration: () => Button[];
+    resetConfiguration: () => void;
     saveConfigurations: (player1: GameController, player2: GameController) => void;
 }
 
@@ -45,6 +46,17 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
     }
 
     /**
+     * Restore gamepad configuration to default.
+     */
+    function resetConfiguration(): void {
+        if (isLocalStorageAvailable() && localStorage.getItem(STORAGE_KEY)) {
+            localStorage.removeItem(STORAGE_KEY);
+            setPlayer1(gamepad1);
+            setPlayer2(gamepad2);
+        }
+    }
+
+    /**
      * Creates an array containing the controller configuration for player 1 and player 2. The default configuration is used if
      * no configuration is found in local storage.
      */
@@ -72,7 +84,7 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
     }
 
     return (
-        <GameControllerContext.Provider value={{ player1, player2, getControllersConfiguration, saveConfigurations }}>
+        <GameControllerContext.Provider value={{ player1, player2, getControllersConfiguration, saveConfigurations, resetConfiguration }}>
             { children }
         </GameControllerContext.Provider>
     );

@@ -1,4 +1,4 @@
-#controllerForm {
+#controllerTab {
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -53,7 +53,7 @@
 }
 
 @media (max-width: 750px) {
-    #controllerForm {
+    #controllerTab {
         gap: 3rem;
         padding: 0.5rem;
     }

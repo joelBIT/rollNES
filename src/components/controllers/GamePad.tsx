@@ -12,10 +12,10 @@ export function GamePad({player}: {player: number}): ReactElement {
     const [activePopup, setActivePopup] = useState<string>("");
     const { player1, player2, getControllersConfiguration } = useControllers();
     const [controller] = useState(player === 1 ? player1 : player2);
-    const [buttons] = useState<Button[]>(getControllersConfiguration());
     const [button, setButton] = useState<Button>(controller.a);
+    const [selectedValue, setSelectedValue] = useState<string>('');
 
-    function openPopup(button: Button, event: any) {
+    function openPopup(button: Button, event: any): void {
         event.preventDefault();
         setButton(button);
         if (player === 1) {
@@ -25,16 +25,20 @@ export function GamePad({player}: {player: number}): ReactElement {
         }
     };
 
-    function closePopup() {
+    function closePopup(): void {
         setActivePopup("");
+    }
+
+    function saveBinding(): void {
+        removeKeyWhereAlreadyUsed(selectedValue);
     }
 
     /**
      *  Show key code in input text field.
      */
     function setKeyCode(event: React.KeyboardEvent<HTMLInputElement>): void {
-        removeKeyWhereAlreadyUsed(event.code);
-        (event.target as HTMLInputElement).value = event.code;
+        setSelectedValue(event.code);
+        (event.target as HTMLInputElement).value = event.code;      // Update the value in the input field to the pressed key
         event.preventDefault();
     }
 
@@ -42,7 +46,7 @@ export function GamePad({player}: {player: number}): ReactElement {
      *  Removes the chosen key from other buttons if already in use.
      */
     function removeKeyWhereAlreadyUsed(keyCode: string): void {
-        for (const key of buttons) {
+        for (const key of getControllersConfiguration()) {
             if (Object.is(key.value, keyCode)) {
                 key.value = '';
             }
@@ -106,7 +110,8 @@ export function GamePad({player}: {player: number}): ReactElement {
                         />
 
                         <div className="popup-actions">
-                            <button className="popup-close" onClick={closePopup}>Close</button>
+                            <button className="popup-button" onClick={closePopup}>Close</button>
+                            <button className="popup-button" onClick={saveBinding}>Save</button>
                         </div>
                     </div>
                 </div>
