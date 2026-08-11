@@ -54,14 +54,16 @@ export default function RegisterPage(): ReactElement {
     return (
         <main id="registerPage">
             <section id="register-section">
-                <h1 className="register-section__heading"> New to RollNES? </h1>
+                <div className="stripe"></div>
+
+                <h1 className="register-section__heading"> NEW TO ROLLNES? </h1>
                 <p className="register-section__text"> Create an account to get personalized settings and services. </p>
 
                 <form id="register-form" autoComplete="off" action={registerUser}>
                     <input autoComplete="false" name="hidden" type="text" style={{"display": "none"}} />
 
                     <section className="form-group">
-                        <label className="form-control__label" htmlFor="register-form-email"> Email </label>
+                        <label className="form-control__label" htmlFor="register-form-email"> EMAIL </label>
                         <input 
                             id="register-form-email" 
                             name="register-form-email" 
@@ -75,7 +77,7 @@ export default function RegisterPage(): ReactElement {
                     </section>
 
                     <section className="form-group">
-                        <label className="form-control__label" htmlFor="register-form-firstName"> First name </label>
+                        <label className="form-control__label" htmlFor="register-form-firstName"> FIRST NAME </label>
                         <input 
                             id="register-form-firstName" 
                             name="register-form-firstName" 
@@ -89,7 +91,7 @@ export default function RegisterPage(): ReactElement {
                     </section>
 
                     <section className="form-group">
-                        <label className="form-control__label" htmlFor="register-form-lastName"> Last name </label>
+                        <label className="form-control__label" htmlFor="register-form-lastName"> LAST NAME </label>
                         <input 
                             id="register-form-lastName" 
                             name="register-form-lastName" 
@@ -103,7 +105,7 @@ export default function RegisterPage(): ReactElement {
                     </section>
 
                     <section className="form-group">
-                        <label className="form-control__label" htmlFor="register-form-password"> Password </label>
+                        <label className="form-control__label" htmlFor="register-form-password"> PASSWORD </label>
                         <input 
                             id="register-form-password" 
                             name="register-form-password" 
@@ -117,7 +119,7 @@ export default function RegisterPage(): ReactElement {
                     </section>
 
                     <section className="form-group">
-                        <label className="form-control__label" htmlFor="register-form-password-repeat"> Confirm Password </label>
+                        <label className="form-control__label" htmlFor="register-form-password-repeat"> CONFIRM PASSWORD </label>
                         <input 
                             id="register-form-password-repeat" 
                             name="register-form-password-repeat" 
@@ -130,7 +132,7 @@ export default function RegisterPage(): ReactElement {
                         />
                     </section>
 
-                    <button type="submit" className="retro-button"> Create Account </button>
+                    <button type="submit" className="nes-button"> Create Account </button>
                 </form>
             </section>
 

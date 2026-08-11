@@ -41,14 +41,16 @@ export default function LoginPage(): ReactElement {
     return (
         <main id="loginPage">
             <section id="login-section">
-                <h1 className="login-section__heading"> Welcome Back </h1>
+                <div className="stripe"></div>
+
+                <h1 className="login-section__heading"> WELCOME BACK </h1>
                 <p className="login-section__text"> Sign in to your existing account for personalized services. </p>
 
                 <form id="login-form" autoComplete="off" action={signIn}>
                     <input autoComplete="false" name="hidden" type="text" style={{"display": "none"}} />
 
                     <section className="form-group">
-                        <label className="form-control__label" htmlFor="login-form-email"> Email </label>
+                        <label className="form-control__label" htmlFor="login-form-email"> EMAIL </label>
                         <input 
                             id="login-form-email" 
                             name="login-form-email" 
@@ -62,7 +64,7 @@ export default function LoginPage(): ReactElement {
                     </section>
 
                     <section className="form-group">
-                        <label className="form-control__label" htmlFor="login-form-password"> Password </label>
+                        <label className="form-control__label" htmlFor="login-form-password"> PASSWORD </label>
                         <input 
                             id="login-form-password" 
                             name="login-form-password" 
@@ -75,7 +77,7 @@ export default function LoginPage(): ReactElement {
                         />
                     </section>
 
-                    <button type="submit" className="retro-button"> Sign in </button>
+                    <button type="submit" className="nes-button"> Sign in </button>
                 </form>
             </section>
 

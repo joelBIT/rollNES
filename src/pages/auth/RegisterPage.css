@@ -3,34 +3,47 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4rem;
+    padding: 8rem 4rem;
+    background: radial-gradient(circle at 50% 20%, #3a3f4b, #14161c 70%);
 
     & #register-section {
         display: flex;
         flex-direction: column;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        width: 40rem;
+        max-width: 30rem;
+        width: 100%;
         padding: 2rem;
+        background: linear-gradient(180deg, var(--shell-grey), var(--shell-dark));
+        border-radius: clamp(16px, 3vw, 26px);
+        border: 1px solid var(--shell-edge);
+        position: relative;
+
+        & .stripe {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: clamp(10px, 2vw, 14px);
+            background: linear-gradient(180deg, #4a4f58, #24272d);
+            border-radius: clamp(16px, 3vw, 26px) clamp(16px, 3vw, 26px) 0 0;
+        }
 
         & .register-section__heading {
-            letter-spacing: .21125rem;
-            font-family: "Zen Old Mincho", serif;
-            font-size: 2.25rem;
-            font-weight: 500;
-            line-height: 1.2;
-            text-transform: uppercase;
             align-self: center;
             text-align: center;
+            margin: 0;
+            font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--charcoal-dark);
         }
 
         & .register-section__text {
-            font-family: brandon-grotesque, sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-            line-height: 1.4375rem;
-            color: #5c5c5c;
-            letter-spacing: .03125rem;
             align-self: center;
+            font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 4px 0 0;
+            font-size: 1.2rem;
+            color: #6b6d71;
+            letter-spacing: 0.5px;
             text-align: center;
         }
 
@@ -57,24 +70,16 @@
 
 @media (max-width: 700px) {
     #registerPage {
-        padding: 2rem;
-
-        & #register-section {
-            width: 95%;
-        }
+        padding: 4rem 2rem;
     }
 }
 
 @media (max-width: 500px) {
     #registerPage {
-        padding: 0.5rem;
+        padding: 2rem 0.5rem;
 
         & #register-section {
-            padding: 1rem;
-
-            & .register-section__heading {
-                font-size: 1.8rem;
-            }
+            padding: 2rem 1rem;
         }
     }
 }
