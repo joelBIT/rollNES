@@ -1,7 +1,7 @@
 #gamePage {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 2rem 0;
     background-color: var(--color-games-background);
 
     & #game-top {
@@ -103,7 +103,7 @@
 
 @media (max-width: 500px) {
     #gamePage {
-        padding: 1rem;
+        padding: 1rem 0;
 
         & #game-details {
             align-items: center;
@@ -137,6 +137,6 @@
 
 @media (max-width: 400px) {
     #gamePage {
-        padding: 0.5rem;
+        padding: 0.5rem 0;
     }
 }

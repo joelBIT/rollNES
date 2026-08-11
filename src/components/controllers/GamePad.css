@@ -1,21 +1,29 @@
-  :root {
-        --shell-grey: #d6d6d6;
-        --shell-dark: #b7b7b7;
-        --shell-edge: #8f8f8f;
-        --charcoal: #2b2b2b;
-        --charcoal-dark: #161616;
-        --red: #c9272f;
-        --red-dark: #8f1a20;
-        --cream: #efe9df;
-  }
+:root {
+    --shell-grey: #d6d6d6;
+    --shell-dark: #b7b7b7;
+    --shell-edge: #8f8f8f;
+    --charcoal: #2b2b2b;
+    --charcoal-dark: #161616;
+    --red: #c9272f;
+    --red-dark: #8f1a20;
+    --cream: #efe9df;
+
+    --cell: clamp(30px, 7vw, 50px);      /* one D-pad grid cell */
+    --round: clamp(40px, 9vw, 56px);     /* A/B button diameter */
+    --meta-w: clamp(34px, 8vw, 46px);    /* Select/Start button width */
+    --meta-h: clamp(10px, 2.4vw, 14px);  /* Select/Start button height */
+    --pad-pad-x: clamp(16px, 4vw, 30px); /* pad horizontal padding */
+    --pad-pad-top: clamp(20px, 5vw, 34px);
+    --gap: clamp(10px, 3vw, 20px);
+}
 
 .gamePad {
     position: relative;
-    width: 640px;
-    max-width: 92vw;
-    padding: 34px 30px 28px;
+    width: min(640px, 94vw);
+    margin: clamp(16px, 5vw, 40px) auto;
+    padding: var(--pad-pad-top) var(--pad-pad-x) clamp(16px, 4vw, 28px);
     background: linear-gradient(180deg, var(--shell-grey), var(--shell-dark));
-    border-radius: 26px;
+    border-radius: clamp(14px, 3vw, 26px);
     box-shadow:
       0 20px 40px rgba(0,0,0,0.55),
       inset 0 2px 0 rgba(255,255,255,0.6),
@@ -27,18 +35,18 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 14px;
+        height: clamp(10px, 2vw, 14px);
         background: linear-gradient(180deg, #4a4f58, #24272d);
-        border-radius: 26px 26px 0 0;
+        border-radius: clamp(14px, 3vw, 26px) clamp(14px, 3vw, 26px) 0 0;
     }
 
     & .brand {
         text-align: center;
-        margin-top: 22px;
+        margin-top: clamp(14px, 4vw, 22px);
         color: #555;
         font-weight: 700;
         letter-spacing: 3px;
-        font-size: 13px;
+        font-size: clamp(10px, 2.5vw, 13px);
         font-style: italic;
     }
 
@@ -46,13 +54,13 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 20px;
+        gap: var(--gap);
         margin-top: 10px;
 
         & .dpad {
             position: relative;
-            width: 150px;
-            height: 150px;
+            width: calc(var(--cell) * 3);
+            height: calc(var(--cell) * 3);
             flex-shrink: 0;
 
             & .dpad-bg {
@@ -68,23 +76,25 @@
             }
 
             & .dpad-h { 
-                top: 50px; 
+                top: var(--cell);
                 left: 0; 
-                width: 150px; 
-                height: 50px; 
+                width: calc(var(--cell) * 3);
+                height: var(--cell);
             }
 
             & .dpad-v { 
                 top: 0; 
-                left: 50px; 
-                width: 50px; 
-                height: 150px; 
+                left: var(--cell);
+                width: var(--cell);
+                height: calc(var(--cell) * 3);
             }
 
             & .dpad-center {
                 position: absolute;
-                top: 50px; left: 50px;
-                width: 50px; height: 50px;
+                top: var(--cell); 
+                left: var(--cell);
+                width: var(--cell); 
+                height: var(--cell);
                 background: radial-gradient(circle, #3a3a3a, #1a1a1a);
                 border-radius: 4px;
                 z-index: 2;
@@ -118,30 +128,30 @@
 
             & .dpad-up { 
                 top: 0;
-                left: 50px; 
-                width: 50px; 
-                height: 50px; 
+                left: var(--cell);
+                width: var(--cell);
+                height: var(--cell);
             }
 
             & .dpad-down { 
-                top: 100px; 
-                left: 50px; 
-                width: 50px; 
-                height: 50px; 
+                top: calc(var(--cell) * 2);
+                left: var(--cell);
+                width: var(--cell);
+                height: var(--cell);
             }
 
             & .dpad-left { 
-                top: 50px; 
+                top: var(--cell);
                 left: 0;
-                width: 50px; 
-                height: 50px; 
+                width: var(--cell);
+                height: var(--cell);
             }
 
             & .dpad-right { 
-                top: 50px; 
-                left: 100px; 
-                width: 50px; 
-                height: 50px; 
+                top: var(--cell);
+                left: calc(var(--cell) * 2);
+                width: var(--cell);
+                height: var(--cell);
             }
 
             & button:active {
@@ -155,11 +165,11 @@
             align-items: center;
             gap: 8px;
             transform: rotate(-20deg);
-            margin-top: 40px;
+            margin-top: clamp(16px, 4vw, 40px);
 
             & .meta-btn-group {
                 display: flex;
-                gap: 26px;
+                gap: clamp(14px, 4vw, 26px);
 
                 & .meta-wrap {
                     display: flex;
@@ -168,8 +178,8 @@
                     gap: 6px;
 
                     & .meta-btn {
-                        width: 46px;
-                        height: 14px;
+                        width: var(--meta-w);
+                        height: var(--meta-h);
                         border-radius: 8px;
                         border: none;
                         background: linear-gradient(180deg, #4a4f58, #24272d);
@@ -190,7 +200,7 @@
                     }
 
                     & .meta-label {
-                        font-size: 10px;
+                        font-size: clamp(8px, 2vw, 10px);
                         letter-spacing: 1px;
                         color: #444;
                         font-weight: 600;
@@ -202,7 +212,7 @@
         & .ab-controls {
             display: flex;
             align-items: flex-end;
-            gap: 22px;
+            gap: clamp(14px, 4vw, 22px);
             transform: rotate(-20deg);
 
             & .ab-wrap {
@@ -212,8 +222,8 @@
                 gap: 8px;
 
                 & .round-btn {
-                    width: 56px;
-                    height: 56px;
+                    width: var(--round);
+                    height: var(--round);
                     border-radius: 50%;
                     border: none;
                     background: radial-gradient(circle at 35% 30%, #e5555c, var(--red) 55%, var(--red-dark) 100%);
@@ -236,7 +246,7 @@
                 }
 
                 & .ab-label {
-                    font-size: 15px;
+                    font-size: clamp(12px, 3vw, 15px);
                     font-weight: 700;
                     color: #444;
                     font-style: italic;
@@ -329,6 +339,26 @@
 
         & .popup-close:active {
             background: var(--charcoal-dark);
+        }
+    }
+}
+
+@media (max-width: 460px) {
+    .gamePad {
+        & .layout {
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+
+            & .dpad { 
+                margin-bottom: 4px; 
+            }
+
+            & .center-controls,
+            & .ab-controls {
+                transform: none;
+                margin-top: 0;
+            }
         }
     }
 }

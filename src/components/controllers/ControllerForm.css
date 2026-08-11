@@ -30,3 +30,10 @@
         margin-top: 1rem;
     }
 }
+
+@media (max-width: 750px) {
+    #controllerForm {
+        gap: 3rem;
+        padding: 0.5rem;
+    }
+}
