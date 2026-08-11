@@ -140,7 +140,11 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
                 </section>
             </section>
 
-            <canvas id="canvas" width="256" height="240"></canvas>
+            <div className="nes-screen-frame">
+                <div className="screen">
+                    <canvas id="canvas" width="256" height="240"></canvas>
+                </div>
+            </div>
         </section>
     )
 }
