@@ -15,7 +15,7 @@ export function Tabs({titles, defaultTab, active, setActive}: {titles: string[],
 
     useEffect( () => {
         setActiveTab(active);
-    }, [active])
+    }, [active]);
 
     function changeActiveTab(tab: string) {
         setActive(tab);         // Inform parent which tab has been clicked
@@ -31,7 +31,7 @@ export function Tabs({titles, defaultTab, active, setActive}: {titles: string[],
                         className={activeTab === title ? "tab selected" : "tab"}
                         onClick={() => changeActiveTab(title)}
                     >
-                        {title}
+                        <h2 className="tab-label">{title}</h2>
                     </section>
                 ))
             }

@@ -1,15 +1,15 @@
 .tabs {
     display: flex;
-    gap: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    width: 100%;
+    background: linear-gradient(180deg, #d6d6d6, #b7b7b7);
+    border: 1px solid #8f8f8f;
+    overflow: hidden;
 
     & .tab {
+        display: flex;
+        gap: 6px;
+        padding: clamp(10px, 3vw, 14px) clamp(10px, 3vw, 14px) 0;
         width: fit-content;
-        padding-right: 10px;
-        padding-left: 10px;
-        padding-bottom: 7px;
-        border-bottom: 2px solid #eee;
         font-family: Lato, sans-serif;
         letter-spacing: 1px;
         font-weight: 300;
@@ -21,10 +21,32 @@
             color: black;
             transition: 0.2s color ease-in-out;
         }
+
+        & .tab-label {
+            flex: 1;
+            text-align: center;
+            padding: 10px 8px;
+            font-size: clamp(11px, 2.6vw, 13px);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(180deg, #4a4f58, #24272d);
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            user-select: none;
+            color: #cfcfcf;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+            transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
+        }
     }
 
     & .selected {
-        border-bottom: 2px solid #337ab7;
-        color: #444;
+        pointer-events: none;
+        transform: translateY(1px);
+
+        & .tab-label {
+            background: linear-gradient(180deg, #e5555c, #c9272f 60%, #8f1a20 100%);
+            color: #fff;
+            box-shadow: inset 0 2px 3px rgba(255,255,255,0.35), 0 -2px 6px rgba(0,0,0,0.25);
+        }
     }
 }

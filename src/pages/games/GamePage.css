@@ -1,7 +1,6 @@
 #gamePage {
     display: flex;
     flex-direction: column;
-    padding-top: 2rem;
     background-color: var(--color-games-background);
 
     & #game-top {
