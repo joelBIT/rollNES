@@ -1,8 +1,8 @@
 import { useRef, useState, type ReactElement } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import type { RegisterRequest } from "../../types/types";
-import { URL_DASHBOARD_PAGE } from "../../utils";
+import { URL_DASHBOARD_PAGE, URL_LOGIN_PAGE } from "../../utils";
 
 import "./RegisterPage.css";
 
@@ -134,6 +134,9 @@ export default function RegisterPage(): ReactElement {
 
                     <button type="submit" className="nes-button"> Create Account </button>
                 </form>
+
+                <div className="divider">OR</div>
+                <p className="signin">Already have an account? <Link to={URL_LOGIN_PAGE}> Sign in</Link></p>
             </section>
 
             {

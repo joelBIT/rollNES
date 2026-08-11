@@ -60,6 +60,44 @@
                 font-weight: 700;
             }
         }
+
+        & .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 2rem;
+            margin-bottom: 0;
+            color: #7a7d82;
+            font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+
+            &::before,
+            &::after {
+                content: '';
+                flex: 1;
+                height: 1px;
+                background: var(--shell-edge);
+            }
+        }
+
+        & .signup {
+            font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+            text-align: center;
+            margin-top: 14px;
+            font-size: 14px;
+            color: #555;
+
+            & a {
+                color: var(--red-dark);
+                font-weight: 700;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
     }
 
     & .message-failure {
