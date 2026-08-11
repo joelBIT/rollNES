@@ -1,7 +1,7 @@
 import { type ReactElement, useState } from "react";
 import { useControllers } from "../../hooks/useControllers";
-import { GamePad } from "./GamePad";
 import { extractPlayer1Configuration, extractPlayer2Configuration } from "../../utils";
+import { GamePad } from "..";
 import type { GameController } from "../../types/types";
 
 import "./ControllerForm.css";
