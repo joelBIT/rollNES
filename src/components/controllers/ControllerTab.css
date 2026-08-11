@@ -42,6 +42,10 @@
         }
     }
 
+    & .retro-button {
+        margin-bottom: 1rem;
+    }
+
     ~ .message-failure,
     ~ .message-success {
         font-family: 'Inter';

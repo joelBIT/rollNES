@@ -48,7 +48,7 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
             setPlayer2(player);
         } else {
             for (const [key, value] of Object.entries(player1)) {
-                if (button.name === value.name) {
+                if (button.name === value.name && button.value !== value.value) {
                     value.value = button.value;
                 }
                 player = Object.assign(player, { [key]: value });
