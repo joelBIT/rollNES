@@ -1,9 +1,8 @@
 import { type ReactElement } from "react";
 import { useLoaderData, NavLink } from "react-router";
-import { PopularGames } from "../components";
+import { GameCarousel, PopularGames } from "../components";
 import type { Game } from "../types/types";
 import { URL_GAMES_PAGE } from "../utils";
-import { GameCarousel } from "../components/home/GameCarousel";
 
 import "./LandingPage.css";
 

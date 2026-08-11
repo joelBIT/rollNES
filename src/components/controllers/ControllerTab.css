@@ -1,0 +1,64 @@
+#controllerTab {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+    gap: 5rem;
+    background: radial-gradient(circle at 50% 20%, #3a3f4b, #14161c 70%);
+    width: 100%;
+    padding: 2rem;
+    border: 2px solid var(--color-black);
+    border-radius: 4px;
+    margin-top: 2rem;
+    
+    & .gamepad-config {
+        display: flex;
+        flex-direction: column;
+
+        & .gamepad-heading {
+            color: var(--color-almost-white);
+            padding: 1rem;
+        }
+
+        & .button-bindings {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+            padding-left: 0.3rem;
+            padding-right: 0.3rem;
+
+            & div {
+                font-family: 'regular-gibson', sans-serif;
+                font-weight: 100;
+                color: #b7b7b7;
+
+                & p {
+                    font-family: 'regular-gibson', sans-serif;
+                    font-weight: 800;
+                    color: var(--color-white);
+                }
+            }
+        }
+    }
+
+    & .retro-button {
+        margin-bottom: 1rem;
+    }
+
+    ~ .message-failure,
+    ~ .message-success {
+        font-family: 'Inter';
+        width: fit-content;
+        align-self: center;
+        margin: 0;
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 750px) {
+    #controllerTab {
+        gap: 3rem;
+        padding: 0.5rem;
+    }
+}

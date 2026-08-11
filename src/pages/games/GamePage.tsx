@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
-import { Cartridge, ControllerForm, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
+import { Cartridge, ControllerTab, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
 import { COVER_URL, getAverageRating } from "../../utils";
 import type { Game, Review } from "../../types/types";
 
@@ -41,7 +41,7 @@ export default function GamePage(): ReactElement {
                     <Emulator gameId={game.id} />
                     :
                 active === tabTitles[2] ? 
-                    <ControllerForm /> 
+                    <ControllerTab /> 
                     :
                 <>
                     <section id="game-top">

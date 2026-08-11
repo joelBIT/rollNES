@@ -76,7 +76,7 @@ function setControllerButtons() {
 }
 
 function setButton(button) {
-  switch (button.button) {
+  switch (button.name) {
     case 'A':
       controller1.setA(button.value);
       break;
