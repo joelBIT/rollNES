@@ -6,9 +6,9 @@ import { gamepad1, gamepad2 } from "../config/config";
 export interface GameControllerContextProvider {
     player1: GameController;
     player2: GameController;
+    updateBinding: (button: Button) => void;
     getControllersConfiguration: () => Button[];
     resetConfiguration: () => void;
-    saveConfigurations: (player1: GameController, player2: GameController) => void;
 }
 
 export const GameControllerContext = createContext<GameControllerContextProvider>({} as GameControllerContextProvider);
@@ -36,9 +36,25 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
     /**
      * Store controller configurations in localstorage, if available.
      */
-    function saveConfigurations(player1: GameController, player2: GameController): void {
-        setPlayer1(player1);
-        setPlayer2(player2);
+    function updateBinding(button: Button): void {
+        let player = {} as GameController;
+        if (button.name.endsWith("2")) {    // player 2
+            for (const [key, value] of Object.entries(player2)) {
+                if (button.name === value.name) {
+                    value.value = button.value;
+                }
+                player = Object.assign(player, { [key]: value });
+            }
+            setPlayer2(player);
+        } else {
+            for (const [key, value] of Object.entries(player1)) {
+                if (button.name === value.name) {
+                    value.value = button.value;
+                }
+                player = Object.assign(player, { [key]: value });
+            }
+            setPlayer1(player);
+        }
 
         if (isLocalStorageAvailable()) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify({player1, player2}));
@@ -84,7 +100,7 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
     }
 
     return (
-        <GameControllerContext.Provider value={{ player1, player2, getControllersConfiguration, saveConfigurations, resetConfiguration }}>
+        <GameControllerContext.Provider value={{ player1, player2, updateBinding, getControllersConfiguration, resetConfiguration }}>
             { children }
         </GameControllerContext.Provider>
     );

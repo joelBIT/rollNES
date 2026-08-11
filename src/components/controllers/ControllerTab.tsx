@@ -35,14 +35,14 @@ export function ControllerTab(): ReactElement {
 function ButtonBindings({player}: {player: GameController}): ReactElement {
     return (
         <section className="button-bindings">
-            <p>Up: <div>{player.up.value}</div></p>
-            <p>Down: <div>{player.down.value}</div></p>
-            <p>Left: <div>{player.left.value}</div></p>
-            <p>Right: <div>{player.right.value}</div></p>
-            <p>Select: <div>{player.select.value}</div></p>
-            <p>Start: <div>{player.start.value}</div></p>
-            <p>A: <div>{player.a.value}</div></p>
-            <p>B: <div>{player.b.value}</div></p>
+            <div>Left: <p>{player.left.value}</p></div>
+            <div>Up: <p>{player.up.value}</p></div>
+            <div>Right: <p>{player.right.value}</p></div>
+            <div>Down: <p>{player.down.value}</p></div>
+            <div>Select: <p>{player.select.value}</p></div>
+            <div>Start: <p>{player.start.value}</p></div>
+            <div>B: <p>{player.b.value}</p></div>
+            <div>A: <p>{player.a.value}</p></div>
         </section>
     );
 }

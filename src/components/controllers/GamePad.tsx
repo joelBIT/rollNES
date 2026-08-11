@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { useControllers } from "../../hooks/useControllers";
-import type { Button } from "../../types/types";
+import type { Button, GameController } from "../../types/types";
 
 import "./GamePad.css";
 
@@ -10,8 +10,8 @@ import "./GamePad.css";
  */
 export function GamePad({player}: {player: number}): ReactElement {
     const [activePopup, setActivePopup] = useState<string>("");
-    const { player1, player2, getControllersConfiguration } = useControllers();
-    const [controller] = useState(player === 1 ? player1 : player2);
+    const { player1, player2, updateBinding } = useControllers();
+    const [controller] = useState<GameController>(player === 1 ? player1 : player2);
     const [button, setButton] = useState<Button>(controller.a);
     const [selectedValue, setSelectedValue] = useState<string>('');
 
@@ -30,7 +30,8 @@ export function GamePad({player}: {player: number}): ReactElement {
     }
 
     function saveBinding(): void {
-        removeKeyWhereAlreadyUsed(selectedValue);
+        updateBinding({name: button.name, value: selectedValue});
+        setActivePopup("");
     }
 
     /**
@@ -40,17 +41,6 @@ export function GamePad({player}: {player: number}): ReactElement {
         setSelectedValue(event.code);
         (event.target as HTMLInputElement).value = event.code;      // Update the value in the input field to the pressed key
         event.preventDefault();
-    }
-
-    /**
-     *  Removes the chosen key from other buttons if already in use.
-     */
-    function removeKeyWhereAlreadyUsed(keyCode: string): void {
-        for (const key of getControllersConfiguration()) {
-            if (Object.is(key.value, keyCode)) {
-                key.value = '';
-            }
-        }
     }
 
     return (

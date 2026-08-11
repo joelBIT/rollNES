@@ -28,13 +28,13 @@
             padding-left: 0.3rem;
             padding-right: 0.3rem;
 
-            & p {
-                font-family: 'regular-gibson';
+            & div {
+                font-family: 'regular-gibson', sans-serif;
                 font-weight: 100;
                 color: #b7b7b7;
 
-                & div {
-                    font-family: 'regular-gibson';
+                & p {
+                    font-family: 'regular-gibson', sans-serif;
                     font-weight: 800;
                     color: var(--color-white);
                 }
