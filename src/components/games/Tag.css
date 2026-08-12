@@ -1,15 +1,17 @@
 .tag {
     display: flex;
-    padding: 1px 5px;
-    border: 1px solid lightgray;
-    background-color: var(--color-logo-background);
-    border-radius: 3px;
+    flex-wrap: wrap;
+    margin-top: 14px;
 
     & .tag-text {
-        font-family: brandon-grotesque, sans-serif;
-        font-size: 12px;
-        color: #61666b;
-        letter-spacing: 1px;
+        font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        padding: 5px 10px;
+        border-radius: 20px;
+        background: linear-gradient(180deg, var(--charcoal), var(--charcoal-dark));
+        color: #ddd;
     }
 }
 
