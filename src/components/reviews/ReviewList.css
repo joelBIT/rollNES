@@ -13,6 +13,8 @@
     & #reviews-content {
         display: flex;
         flex-direction: column;
+        padding-left: 1rem;
+        padding-right: 1rem;
 
         & #reviews-rating {
             display: flex;
@@ -61,17 +63,21 @@
                 appearance: base-select;
                 align-items: center;
                 width: fit-content;
+                min-width: 70px;
                 font-family: "brandon-grotesque", sans-serif;
                 padding: 0.1rem;
                 cursor: pointer;
                 border: none;
                 outline: none;
-                background-color: var(--color-games-background);
+                background-color: transparent;
+                color: var(--color-active-link);
 
                 & .reviews-sort-select__options {
                     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
                     border: 1px solid var(--color-border);
                     border-radius: 3px;
+                    color: black;
+                    background-color: var(--cream);
                 }
             }
 
@@ -123,6 +129,9 @@
 @media (max-width: 500px) {
     #reviews-list {
         & #reviews-content {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+
             & #reviews-rating {
                 font-size: 13px;
             }

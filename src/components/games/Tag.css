@@ -12,6 +12,7 @@
         border-radius: 20px;
         background: linear-gradient(180deg, var(--charcoal), var(--charcoal-dark));
         color: #ddd;
+        text-align: center;
     }
 }
 
