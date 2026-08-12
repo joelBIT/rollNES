@@ -51,7 +51,7 @@ export default function GamePage(): ReactElement {
 
                             <section className="game-details-content">
                                 <div>
-                                    <p className="kicker">NES · ACTION-ADVENTURE</p>
+                                    <p className="kicker">NES · {game.category}</p>
                                     <h1 className="game-title">{game.title} </h1>
                                     <p className="game-information__creators">
                                         Published by {game.publisher}, developed by {game.developer}.
@@ -59,16 +59,21 @@ export default function GamePage(): ReactElement {
                                 </div>
 
                                 <section className="score-row">
-                                    <section className="review-section">
-                                        <div className="score-badge">
-                                            <span className="num">{getAverageRating(reviews)}</span>
-                                            <span className="denom">/ 5</span>
-                                        </div>
+                                    <div className="score-badge">
+                                        <span className="num">{getAverageRating(reviews)}</span>
+                                        <span className="denom">/ 5</span>
+                                    </div>
 
-                                        <div>
-                                            <Rating rating={getAverageRating(reviews)} />
-                                            <p className="review-count">Based on {reviews?.length} player review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""}</p>
-                                        </div>
+                                    <div>
+                                        <Rating rating={getAverageRating(reviews)} />
+                                        <p className="review-count">Based on {reviews?.length} player review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""}</p>
+                                    </div>
+                                </section>
+
+                                <section className="bottom-section">
+                                    <section className="tags">
+                                        <Tag text={game.players > 1 ? `${game.players} players` : game.players + " player"} />
+                                        <Tag text={convertDateToString(new Date(game.release_date))} />
                                     </section>
 
                                     <article 
@@ -77,19 +82,17 @@ export default function GamePage(): ReactElement {
                                         onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}
                                     >
                                         {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <span className="material-symbols-outlined"> favorite </span>}
-                                    </article>  
-                                </section>
-
-                                <section className="tags">
-                                    <Tag text={game.players > 1 ? `${game.players} players` : game.players + " player"} />
-                                    <Tag text={convertDateToString(new Date(game.release_date))} />
+                                    </article> 
                                 </section>
                             </section>
                         </section>
 
-                        <p id="game-information__description">
-                            {game.description}
-                        </p>
+                        <section className="game-description">
+                            <h2 className="description-heading">DESCRIPTION</h2>
+                            <p className="description-text">
+                                {game.description}
+                            </p>
+                        </section>
                         
                     </section>
 
