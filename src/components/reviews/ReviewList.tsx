@@ -58,7 +58,7 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
                 <section id="reviews-rating"> 
                     <Rating rating={getAverageRating(sortedReviews)} />
                     <p className="reviews-border"></p>
-                    <p>Based on {sortedReviews.length} reviews</p> 
+                    <p className="rating-text">Based on {sortedReviews.length} reviews</p> 
                 </section>
 
                 <ReviewForm gameId={game.id} updateReviews={updateReviews} />
@@ -67,7 +67,7 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
                     sortedReviews.length > 0 ? 
                     <>
                         <section id="reviews-sort">
-                            <label id="reviews-sort-label" htmlFor="reviews-sort-select"> Sort by: </label> 
+                            <label id="reviews-sort-label" htmlFor="reviews-sort-select"> Sort by </label> 
                             <select id="reviews-sort-select" name="reviews-sort-select" onChange={e => sortReviews(e.target.value)}>
                                 <optgroup className="reviews-sort-select__options">
                                     <option value="oldest" defaultChecked> Oldest </option>

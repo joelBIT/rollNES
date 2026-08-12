@@ -119,3 +119,9 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    #emulator {
+        padding-top: 2rem;
+    }
+}

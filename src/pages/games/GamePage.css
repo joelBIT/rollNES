@@ -1,60 +1,168 @@
 #gamePage {
     display: flex;
     flex-direction: column;
-    background-color: var(--color-games-background);
+    background: radial-gradient(circle at 50% 20%, #3a3f4b, #14161c 70%);
 
     & #game-top {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        align-items: center;
         gap: 2rem;
         padding-top: 5rem;
-        padding-bottom: 5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        color: #ccc;
+        font-family: "Segoe UI", Helvetica, Arial, sans-serif;
 
-        & .cartridge {
-            transform: scale(0.8);
-            margin-top: -50px;
-            height: fit-content;
+        & .game-description {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1100px;
+
+            & .description-heading {
+                margin: 30px 0 12px;
+                font-size: 13px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                color: #cfd2d6;
+                padding-left: 4px;
+            }
+
+            & .description-text {
+                background: linear-gradient(180deg, var(--shell-grey), var(--shell-dark));
+                border: 1px solid var(--shell-edge);
+                border-radius: clamp(14px, 3vw, 20px);
+                padding: clamp(18px, 4vw, 26px);
+                box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+                margin: 0;
+                font-size: 1.1rem;
+                line-height: 1.7;
+                color: #3f4247;
+                white-space: break-spaces;
+            }
         }
     }
 
     & #game-details {
         display: flex;
-        flex-direction: column;
-        flex: 10;
+        flex-direction: row;
+        align-items: center;
         gap: 0.5rem;
         text-align: left;
-        padding: 1rem;
-        height: fit-content;
+        padding-right: 5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        max-height: 400px;
+        height: 100%;
         max-width: 1100px;
+        width: 100%;
+        background: linear-gradient(180deg, var(--shell-grey), var(--shell-dark));
+        position: relative;
+        border-radius: clamp(16px, 3vw, 24px);
+        border: 1px solid var(--shell-edge);
+        box-shadow:
+            0 20px 40px rgba(0,0,0,0.55),
+            inset 0 2px 0 rgba(255,255,255,0.6),
+            inset 0 -6px 10px rgba(0,0,0,0.15);
 
-        & .game-details-heading {
+        & .header-stripe {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: clamp(10px, 2vw, 14px);
+            background: linear-gradient(180deg, #4a4f58, #24272d);
+            border-radius: clamp(16px, 3vw, 24px) clamp(16px, 3vw, 24px) 0 0;
+        }
+
+        & .cartridge {
+            transform: scale(0.5);
+            margin-left: -50px;
+            margin-bottom: 0;
+        }
+
+        & .game-details-content {
             display: flex;
-            align-items: baseline;
-            gap: 1rem;
+            flex-direction: column;
+            align-self: flex-start;
+            gap: 2.5rem;
+            padding-top: 4rem;
+            margin-left: -75px;
+            width: 100%;
 
-            & #game-information__heading {
+            & .kicker {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 2px;
+                color: var(--red-dark);
+                margin: 0 0 6px;
+                text-transform: uppercase;
+            }
+
+            & .game-title {
+                margin: 0 0 6px;
+                font-size: clamp(22px, 5vw, 30px);
+                font-weight: 800;
+                color: var(--charcoal-dark);
+                letter-spacing: 0.5px;
+            }
+
+            & .score-row {
                 display: flex;
-                gap: 1rem;
+                align-items: center;
                 flex-wrap: wrap;
-                font-family: 'ivy-presto-headline-light', sans-serif;
-                letter-spacing: 1px;
-                font-size: 2rem;
+                gap: 14px;
 
-                & #tags {
+                & .score-badge {
                     display: flex;
-                    align-self: center;
-                    flex-wrap: wrap;
-                    gap: 1rem;
-                    margin-left: 2rem;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+                    width: 62px;
+                    height: 62px;
+                    border-radius: 50%;
+                    background: radial-gradient(circle at 35% 30%, #e5555c, var(--red) 55%, var(--red-dark) 100%);
+                    color: #fff;
+
+                    & .num { 
+                        font-size: 20px; 
+                        font-weight: 800; 
+                        line-height: 1; 
+                    }
+                    
+                    & .denom { 
+                        font-size: 0.9rem; 
+                        opacity: 0.85; 
+                    }
+                }
+
+                & .review-count {
+                    font-size: 1rem;
+                    color: #6b6d71;
+                    margin-top: 2px;
                 }
             }
 
-            & .game-favourite-icon {
-                cursor: pointer;
-                font-size: 1.5rem;
-                
-                & > span  {
-                    vertical-align: text-top;
+            & .bottom-section {
+                display: flex;
+                justify-content: space-between;
+                gap: 1rem;
+                min-height: 3.5rem;
+
+                & .tags {
+                    display: flex;
+                    align-items: center;
+                    gap: 2rem;
+                }
+
+                & .game-favourite-icon {
+                    align-self: flex-end;
+                    cursor: pointer;
+                    font-size: 1.5rem;
+                    color: var(--color-form-border-bottom);
+                    
+                    & > span  {
+                        font-size: 3rem;
+                    }
                 }
             }
         }
@@ -72,62 +180,66 @@
         }
 
         & .game-information__creators {
-            font-family: 'brandon-grotesque', sans-serif;
-            font-weight: 600;
-            font-size: 1.3rem;
-            margin-bottom: -10px;
-            padding-top: 2rem;
+            margin: 0 0 16px;
+            font-size: 1rem;
+            color: #5c5f66;
+            font-style: italic;
         }
+    }
 
-        & #game-information__description {
-            font-size: 1.2rem;
-            font-family: 'brandon-grotesque', sans-serif;
-            white-space: break-spaces;
-            font-weight: 500;
-        }
+    & #game-bottom {
+        padding-top: 5rem;
     }
 }
 
 @media (max-width: 1100px) {
     #gamePage {
-        & #game-top {
+        & #game-details {
             flex-direction: column;
-            align-items: center;
-            gap: 2rem;
-            padding-top: 3rem;
-            padding-bottom: 2rem;
+            max-height: fit-content;
+            width: fit-content;
+            padding: 1rem;
+
+            & .cartridge {
+                margin-left: 0;
+                transform: scale(0.8);
+            }
+
+            & .game-details-content {
+                padding-top: 0;
+                margin-left: 0;
+
+                & .score-row {
+                    align-self: center;
+                }
+            }
         }
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     #gamePage {
         & #game-details {
-            align-items: center;
-            gap: 1rem;
+            max-height: 100%;
+            width: 100%;
 
-            & .game-details-heading {
-                flex-direction: row-reverse;
-                text-align: center;
-
-                & #game-information__heading {
-                    font-size: 1.5rem;
-                }
+            & .cartridge {
+                transform: scale(0.6);
+                margin-top: -90px;
+                margin-bottom: -90px;
             }
 
-            & .game-reviews-summary {
-                align-self: center;
+            & .game-details-content {
+                gap: 1rem;
             }
         }
 
         & #game-top {
             gap: 0;
             padding-bottom: 0;
-
-            & .cartridge {
-                transform: scale(0.5);
-                margin-bottom: 0;
-            }
+            padding-top: 2rem;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
         }
     }
 }

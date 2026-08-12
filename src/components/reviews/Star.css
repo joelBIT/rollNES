@@ -12,6 +12,6 @@
     & .filled {
         overflow: hidden;
         position: absolute;
-        color: var(--color-star-orange);
+        color: var(--gold);
     }
 }

@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
 import { Cartridge, ControllerTab, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
-import { COVER_URL, getAverageRating } from "../../utils";
+import { convertDateToString, COVER_URL, getAverageRating } from "../../utils";
 import type { Game, Review } from "../../types/types";
 
 import "./GamePage.css";
@@ -46,38 +46,54 @@ export default function GamePage(): ReactElement {
                 <>
                     <section id="game-top">
                         <section id="game-details">
-                            <section className="game-details-heading">
-                                <article className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
-                                    {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <span className="material-symbols-outlined"> favorite </span>}
-                                </article>
+                            <div className="header-stripe"></div>
+                            <Cartridge coverUrl={COVER_URL + game?.cover} />
 
-                                <section id="game-information__heading"> 
-                                    {game.title} 
+                            <section className="game-details-content">
+                                <div>
+                                    <p className="kicker">NES · {game.category}</p>
+                                    <h1 className="game-title">{game.title} </h1>
+                                    <p className="game-information__creators">
+                                        Published by {game.publisher}, developed by {game.developer}.
+                                    </p>
+                                </div>
 
-                                    <section id="tags">
-                                        <Tag text={game.category} />
-                                        <Tag text={`${game.players} player${game.players > 1 ? "s" : ""}`} />
+                                <section className="score-row">
+                                    <div className="score-badge">
+                                        <span className="num">{getAverageRating(reviews)}</span>
+                                        <span className="denom">/ 5</span>
+                                    </div>
+
+                                    <div>
+                                        <Rating rating={getAverageRating(reviews)} />
+                                        <p className="review-count">Based on {reviews?.length} player review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""}</p>
+                                    </div>
+                                </section>
+
+                                <section className="bottom-section">
+                                    <section className="tags">
+                                        <Tag text={game.players > 1 ? `${game.players} players` : game.players + " player"} />
+                                        <Tag text={convertDateToString(new Date(game.release_date))} />
                                     </section>
-                                </section> 
+
+                                    <article 
+                                        className="game-favourite-icon" 
+                                        title="Add as favourite"
+                                        onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}
+                                    >
+                                        {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <span className="material-symbols-outlined"> favorite </span>}
+                                    </article> 
+                                </section>
                             </section>
+                        </section>
 
-                            <section className="game-reviews-summary">
-                                <Rating rating={getAverageRating(reviews)} />
-                                <p> {reviews?.length} review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""} </p>
-                            </section>
-
-                            
-
-                            <p className="game-information__creators">
-                                Published by {game.publisher}, developed by {game.developer}.
-                            </p>
-
-                            <p id="game-information__description">
+                        <section className="game-description">
+                            <h2 className="description-heading">DESCRIPTION</h2>
+                            <p className="description-text">
                                 {game.description}
                             </p>
                         </section>
-
-                        <Cartridge coverUrl={COVER_URL + game?.cover} />
+                        
                     </section>
 
                     <section id="game-bottom">
