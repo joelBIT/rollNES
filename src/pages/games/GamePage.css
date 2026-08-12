@@ -131,12 +131,6 @@
                     }
                 }
 
-                & .star-rating {
-                    & .filled {
-                        color: #e0a83e;
-                    }
-                }
-
                 & .review-count {
                     font-size: 1rem;
                     color: #6b6d71;
