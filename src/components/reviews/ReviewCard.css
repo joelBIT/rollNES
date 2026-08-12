@@ -1,7 +1,7 @@
 .review-card {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     width: 100%;
     max-width: 1100px;
@@ -15,6 +15,14 @@
     & .review-top {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        
+        & .profile-image {
+            width: 50px;
+            height: 50px;
+        }
     }
 
     & .reviewer {
@@ -30,6 +38,7 @@
             font-weight: 700;
             color: var(--charcoal-dark);
             font-size: 1rem;
+            white-space: nowrap;
         }
 
         & .review-date {
@@ -37,6 +46,7 @@
             font-weight: 100;
             letter-spacing: 1px;
             color: #8a8578;
+            white-space: nowrap;
         }
 
         & .review-verified {
@@ -61,6 +71,7 @@
         
         & .review-heading {
             font-size: 1.5rem;
+            padding-bottom: 0.3rem;
         }
 
         & .review-text {
@@ -69,18 +80,6 @@
             line-height: 1.6;
             color: #4f4a3d;
             white-space: break-spaces;
-        }
-    }
-}
-
-@media (max-width: 500px) {
-    .review-card {
-        flex-direction: column;
-
-        & .reviewer {
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
         }
     }
 }

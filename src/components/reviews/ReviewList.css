@@ -7,6 +7,7 @@
         font-size: 40px;
         line-height: 1.2;
         align-self: center;
+        color: var(--cream);
     }
 
     & #reviews-content {
@@ -15,7 +16,7 @@
 
         & #reviews-rating {
             display: flex;
-            align-items: flex-end;
+            align-items: center;
             justify-content: center;
             gap: 1rem;
             padding: 1rem;
@@ -23,6 +24,8 @@
             font-size: 14px;
 
             & .rating {
+                margin-top: -10px;
+
                 & .star-rating {
                     font-size: 24px;
                 }
@@ -31,6 +34,12 @@
             & .reviews-border {
                 border-left: 1px solid;
                 height: 19px;
+                color: white;
+            }
+
+            & .rating-text {
+                font-size: 1.2rem;
+                color: white;
             }
         }
 
@@ -40,6 +49,12 @@
             font-family: "brandon-grotesque", sans-serif;
             width: 100%;
             max-width: 1100px;
+            
+            & #reviews-sort-label {
+                color: white;
+                font-size: 1.2rem;
+                padding-right: 0.3rem;
+            }
 
             & #reviews-sort-select,
             ::picker(select) {
