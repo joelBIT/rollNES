@@ -112,6 +112,12 @@
                 flex-wrap: wrap;
                 gap: 14px;
 
+                & .rating-content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                }
+
                 & .score-badge {
                     display: flex;
                     align-items: center;
@@ -231,6 +237,12 @@
 
             & .game-details-content {
                 gap: 1rem;
+
+                & .bottom-section {
+                    & .tags {
+                        gap: 1rem;
+                    }
+                }
             }
         }
 

@@ -64,7 +64,7 @@ export default function GamePage(): ReactElement {
                                         <span className="denom">/ 5</span>
                                     </div>
 
-                                    <div>
+                                    <div className="rating-content">
                                         <Rating rating={getAverageRating(reviews)} />
                                         <p className="review-count">Based on {reviews?.length} player review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""}</p>
                                     </div>
