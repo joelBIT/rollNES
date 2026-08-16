@@ -11,7 +11,7 @@ export default function ContactPage(): ReactElement {
             <section id="contact-information">
                 <section className="contact-item">
                     <img src="/mobile-phone.svg" className="phone" alt="phone icon" title="Phone number" />
-                    <h2 className="contact-item__heading"> +555 45 45 33 </h2>
+                    <h2 className="contact-item__heading"> Coming Soon </h2>
                     <p className="contact-item__text"> Call me and expect a response as soon as I am available. </p>
                 </section>
                 
