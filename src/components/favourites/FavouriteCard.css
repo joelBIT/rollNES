@@ -21,6 +21,7 @@
         gap: 0.3rem;
         width: 100%;
         text-align: left;
+        padding: 0.2rem;
 
         & .favourite-card__title {
             font-family: "brandon-grotesque", sans-serif;
