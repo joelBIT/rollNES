@@ -54,8 +54,6 @@ export default function RegisterPage(): ReactElement {
     return (
         <main id="registerPage">
             <section id="register-section">
-                <div className="stripe"></div>
-
                 <h1 className="register-section__heading"> NEW TO ROLLNES? </h1>
                 <p className="register-section__text"> Create an account to get personalized settings and services. </p>
 

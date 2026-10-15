@@ -41,8 +41,6 @@ export default function LoginPage(): ReactElement {
     return (
         <main id="loginPage">
             <section id="login-section">
-                <div className="stripe"></div>
-
                 <h1 className="login-section__heading"> WELCOME BACK </h1>
                 <p className="login-section__text"> Sign in to your existing account for personalized services. </p>
 
