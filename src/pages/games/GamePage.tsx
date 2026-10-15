@@ -46,7 +46,6 @@ export default function GamePage(): ReactElement {
                 <>
                     <section id="game-top">
                         <section id="game-details">
-                            <div className="header-stripe"></div>
                             <Cartridge coverUrl={COVER_URL + game?.cover} />
 
                             <section className="game-details-content">
