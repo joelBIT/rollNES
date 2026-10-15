@@ -4,20 +4,14 @@
     margin-top: 14px;
 
     & .tag-text {
-        font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+        font-family: 'brandon-grotesque', sans-serif;
         font-size: 0.8rem;
         font-weight: 700;
         letter-spacing: 0.5px;
-        padding: 5px 10px;
-        border-radius: 20px;
-        background: linear-gradient(180deg, var(--charcoal), var(--charcoal-dark));
-        color: #ddd;
+        padding: 1px 8px;
+        border-radius: 6px;
+        background: #000000a0;
+        color: var(--color-logo-background);
         text-align: center;
-    }
-}
-
-@media (max-width: 500px) {
-    .tag {
-        padding: 5px 10px;
     }
 }
