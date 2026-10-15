@@ -23,7 +23,7 @@ export default function LandingPage(): ReactElement {
                 </section>
 
                 <figure id="game-battletoads__figure">
-                    <img src="/ddbattletoads.jpeg" alt="Battletoads and Double Dragon" />
+                    <img src="/battletoads-dd.jpg" alt="Battletoads and Double Dragon" />
                 </figure>
             </section>
 

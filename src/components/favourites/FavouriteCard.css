@@ -4,7 +4,7 @@
     margin-right: 0.5rem;
     background-color: var(--color-promises-background);
     border-radius: 4px;
-    min-height: 6.4rem;
+    min-height: 7.4rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
     & .favourite-card__image {
