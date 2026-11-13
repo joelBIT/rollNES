@@ -1,6 +1,5 @@
 .favourite-card {
     display: flex;
-    gap: 1rem;
     margin-right: 0.5rem;
     background-color: var(--color-promises-background);
     border-radius: 4px;
@@ -17,11 +16,11 @@
     & .favourite-card-details {
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: space-between;
         gap: 0.3rem;
         width: 100%;
         text-align: left;
-        padding: 0.2rem;
+        padding: 0.8rem;
 
         & .favourite-card__title {
             font-family: "brandon-grotesque", sans-serif;
