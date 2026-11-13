@@ -1,7 +1,6 @@
 import { type ReactElement } from "react";
 import { NavLink } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
-import { Tag } from "../../components";
 import type { Game } from "../../types/types";
 import { COVER_URL, URL_GAMES_PAGE } from "../../utils";
 
@@ -29,11 +28,6 @@ export function FavouriteCard({game, close}: {game: Game, close: () => void}): R
                 > 
                     {game.title} 
                 </NavLink>
-
-                <section id="tags">
-                    <Tag text={game.category} />
-                    <Tag text={`${game.players} player${game.players > 1 ? "s" : ""}`} />
-                </section>
 
                 <h2 className="favourite-card__button" onClick={() => removeFavouriteById(game.id)}> Remove </h2>
             </section>
