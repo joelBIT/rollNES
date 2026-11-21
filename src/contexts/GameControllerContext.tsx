@@ -6,7 +6,7 @@ import { gamepad1, gamepad2 } from "../config/config";
 export interface GameControllerContextProvider {
     player1: GameController;
     player2: GameController;
-    updateBinding: (button: Button) => void;
+    updateBinding: (player: 1 | 2, key: keyof GameController, code: string) => void;
     getControllersConfiguration: () => Button[];
     resetConfiguration: () => void;
 }
@@ -24,7 +24,6 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
 
     /**
      * Load stored controller settings from localstorage if localstorage is available.
-     * State is replaced, never mutated, so the default configurations in config.ts stay untouched.
      */
     function loadSavedControllers(): void {
         if (isLocalStorageAvailable() && localStorage.getItem(STORAGE_KEY)) {
@@ -36,27 +35,21 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
 
     /**
      * Store controller configurations in localstorage, if available.
+     * State is replaced, never mutated, and the result is stored in localstorage if available.
      */
-    function updateBinding(button: Button): void {
-        const isPlayer2 = button.name.endsWith("2");
-        const current: GameController = isPlayer2 ? player2 : player1;
+    function updateBinding(player: 1 | 2, key: keyof GameController, code: string): void {
+    const current: GameController = player === 1 ? player1 : player2;
+    const updated: GameController = { ...current, [key]: { ...current[key], value: code } };
 
-        const updated = Object.fromEntries(
-            Object.entries(current).map(([key, value]) => [
-                key,
-                value.name === button.name ? { ...value, value: button.value } : value
-            ])
-        ) as GameController;
+    const newPlayer1 = player === 1 ? updated : player1;
+    const newPlayer2 = player === 2 ? updated : player2;
 
-        const newPlayer1 = isPlayer2 ? player1 : updated;
-        const newPlayer2 = isPlayer2 ? updated : player2;
+    setPlayer1(newPlayer1);
+    setPlayer2(newPlayer2);
 
-        setPlayer1(newPlayer1);
-        setPlayer2(newPlayer2);
-
-        if (isLocalStorageAvailable()) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({ player1: newPlayer1, player2: newPlayer2 }));
-        }
+    if (isLocalStorageAvailable()) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ player1: newPlayer1, player2: newPlayer2 }));
+    }
     }
 
     /**

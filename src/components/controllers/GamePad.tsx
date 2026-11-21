@@ -1,6 +1,6 @@
 import { useState, type ReactElement } from "react";
 import { useControllers } from "../../hooks/useControllers";
-import type { Button, GameController } from "../../types/types";
+import type { GameController } from "../../types/types";
 
 import "./GamePad.css";
 
@@ -8,7 +8,7 @@ import "./GamePad.css";
  * A NES gamepad used for setting controller inputs for players when using the RollNES emulator.
  * The parameter 'player' represents if the gamepad is used by player 1, 2, etc.
  */
-export function GamePad({player}: {player: number}): ReactElement {
+export function GamePad({player}: {player: 1 | 2}): ReactElement {
     const { player1, player2, updateBinding } = useControllers();
     const controller: GameController = player === 1 ? player1 : player2;        // Always the current configuration, never a stale copy
 
@@ -28,8 +28,8 @@ export function GamePad({player}: {player: number}): ReactElement {
     }
 
     function saveBinding(): void {
-        if (button && selectedValue) {
-            updateBinding({ name: button.name, value: selectedValue });
+        if (activeKey && selectedValue) {
+            updateBinding(player, activeKey, selectedValue);
         }
         setActiveKey(null);
     }
@@ -85,14 +85,16 @@ export function GamePad({player}: {player: number}): ReactElement {
 
             <div className="brand">NINTENDO</div>
 
-            {button && (
+            {activeKey && button && (
                 <div className="popup-backdrop" onClick={closePopup}>
                     <div className="popup-card" onClick={(e) => e.stopPropagation()}>
-                        <p className="popup-title">Bind {button.name.replace(/2$/, "")} (Player {player})</p>
+                        <p className="popup-title">
+                            Bind {activeKey.charAt(0).toUpperCase() + activeKey.slice(1)} (Player {player})
+                        </p>
                         <input
                             type="text"
                             value={selectedValue}
-                            name={button.name}
+                            name={activeKey}
                             onKeyDown={setKeyCode}
                             readOnly
                             autoComplete="off" 
