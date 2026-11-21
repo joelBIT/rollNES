@@ -2,12 +2,12 @@ import type { ReactElement } from "react";
 import type { AppliedFilter } from "../../types/types";
 import { useGames } from "../../hooks/useGames";
 
-import "./AppliedFilter.css";
+import "./AppliedGameFilter.css";
 
 /**
  * Is shown in GamesPage for each selected filter.
  */
-export function AppliedFilter({filter}: {filter: AppliedFilter}): ReactElement {
+export function AppliedGameFilter({filter}: {filter: AppliedFilter}): ReactElement {
     const { removeFilter } = useGames();
 
     return (

@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
-import { AppliedFilter, FilterAccordion, GameCard, RangeSlider } from "../../components";
+import { AppliedGameFilter, FilterAccordion, GameCard, RangeSlider } from "../../components";
 import type { Game } from "../../types/types";
 
 import "./GamesPage.css";
@@ -51,7 +51,7 @@ export default function GamesPage(): ReactElement {
 
                             <section className="applied-filters__list">
                                 {
-                                    appliedFilters.map(filter => <AppliedFilter filter={filter} key={filter.type + filter.value} />)
+                                    appliedFilters.map(filter => <AppliedGameFilter filter={filter} key={filter.type + filter.value} />)
                                 }
                             </section>
                         </section>
