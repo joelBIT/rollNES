@@ -19,7 +19,7 @@
                 & .material-symbols-outlined {
                     position: relative;
 
-                    & #favourite-games {
+                    & .favourites-indicator {
                         position: absolute;
                         width: 0.8rem;
                         height: 0.8rem;

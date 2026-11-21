@@ -1,10 +1,9 @@
-import {useState, type ReactElement} from "react";
-import {NavLink} from "react-router";
-import { useNavigate } from "react-router";
+import { useState, type ReactElement } from "react";
+import { NavLink, useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser.tsx";
-import {URL_DASHBOARD_PAGE, URL_LOGIN_PAGE, URL_REGISTER_PAGE} from "../../utils.ts";
+import { useFavourites } from "../../hooks/useFavourites.tsx";
+import { URL_DASHBOARD_PAGE, URL_LOGIN_PAGE, URL_REGISTER_PAGE } from "../../utils.ts";
 import { FavouriteMenu } from "../index.ts";
-import type { Game } from "../../types/types.ts";
 
 import "./NavIcons.css";
 
@@ -16,7 +15,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
     const [ showFavourites, setShowFavourites ] = useState<boolean>(false);
     const navigate = useNavigate();
     const { isAuthenticated } = useUser();
-    const favourites: Game[] = [];
+    const { favourites } = useFavourites();
 
     /**
      * Closes all overlays when clicking on a link and being redirected to a new page.
@@ -68,7 +67,7 @@ export function NavIcons({toggleShowDropdown, isDropdownShowing}: {toggleShowDro
                         <span className="material-symbols-outlined"> 
                             favorite
                             { 
-                                favourites?.length > 0 ? <p id="favourite-games"> </p> : <></> 
+                                favourites.length > 0 ? <span className="favourites-indicator" aria-label={`${favourites.length} favourite games`}></span> : <></> 
                             }
                         </span>
                     </li>
