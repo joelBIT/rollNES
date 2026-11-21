@@ -1,4 +1,4 @@
-import { useEffect, type ReactElement } from "react";
+import { useCallback, useEffect, useRef, type ReactElement } from "react";
 import { useControllers } from "../../hooks/useControllers";
 import { isMobileDevice } from "../../utils";
 
@@ -9,11 +9,119 @@ import "./Emulator.css";
  */
 export function Emulator({gameId}: {gameId: number}): ReactElement {
     const { getControllersConfiguration, player1 } = useControllers();
-    let worker: Worker;
-    let nesWorkletNode: Promise<void> | AudioWorkletNode;
-    let audioContext: AudioContext;
+    const isMobile = isMobileDevice();
+    const screenRef = useRef<HTMLDivElement>(null);
+    const workerRef = useRef<Worker | null>(null);
 
-    if (isMobileDevice()) {
+    /**
+     * Downloads the ROM and sends it to the worker. Used on load and by the "Reload" button.
+     */
+    const loadRom = useCallback(async (signal?: AbortSignal): Promise<void> => {
+        const url = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/roms/${gameId}.nes?download`;
+        try {
+            const response = await fetch(url, { signal });
+            if (!response.ok) {
+                throw new Error(`Could not load ROM (HTTP ${response.status})`);
+            }
+
+            const rom = new Uint8Array(await response.arrayBuffer());       // Reads the whole body, however large the ROM is
+            workerRef.current?.postMessage({ event: 'readFile', data: rom }, [rom.buffer]);
+        } catch (error) {
+            if ((error as Error).name !== "AbortError") {
+                console.log(error);
+            }
+        }
+    }, [gameId]);
+
+    /**
+     * Sets up the worker, canvas, audio and key listeners, and tears everything down again on cleanup. The canvas is created here
+     * (and not in JSX) because transferControlToOffscreen() can only be called once per canvas element. A fresh canvas is needed
+     * every time the effect runs, for example with React StrictMode in development or when the game changes.
+     */
+    useEffect(() => {
+        const screen = screenRef.current;
+        if (isMobile || !screen) {
+            return;
+        }
+
+        let cancelled = false;
+        const abortController = new AbortController();
+        let audioNode: AudioWorkletNode | null = null;
+
+        const canvas = document.createElement("canvas");
+        canvas.id = "canvas";
+        canvas.width = 256;
+        canvas.height = 240;
+        screen.appendChild(canvas);
+
+        const audioContext = new AudioContext();
+        let worker: Worker | null = null;
+
+        try {
+            worker = new Worker('/emulator.js', { type: "module" });
+            workerRef.current = worker;
+
+            const offscreen = canvas.transferControlToOffscreen();
+            worker.postMessage({ canvas: offscreen }, [offscreen]);
+        } catch (error) {
+            console.log(error);
+        }
+
+        async function initSound(): Promise<void> {
+            try {
+                await audioContext.audioWorklet.addModule('/apu-worklet.js', { credentials: "omit" });
+                if (cancelled || !worker) {
+                    return;
+                }
+
+                audioNode = new AudioWorkletNode(audioContext, "apu-worklet");
+                audioNode.connect(audioContext.destination);
+                worker.onmessage = (message) => audioNode?.port.postMessage(message.data);   // Send address and data to APU
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        function onKeyUp(event: KeyboardEvent): void {
+            worker?.postMessage({ event: 'keyup', value: event.code });
+        }
+
+        function onKeyDown(event: KeyboardEvent): void {
+            worker?.postMessage({ event: 'keydown', value: event.code });
+
+            if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
+                event.preventDefault();
+            }
+        }
+
+        initSound();
+        document.addEventListener("keyup", onKeyUp, true);
+        document.addEventListener("keydown", onKeyDown, true);
+
+        worker?.postMessage({ event: 'configuration', data: getControllersConfiguration() });
+        loadRom(abortController.signal);
+
+        return () => {
+            cancelled = true;
+            abortController.abort();
+            document.removeEventListener("keyup", onKeyUp, true);        // Same capture flag as in addEventListener, otherwise nothing is removed
+            document.removeEventListener("keydown", onKeyDown, true);
+
+            if (worker) {
+                worker.onmessage = null;
+                worker.terminate();
+            }
+            workerRef.current = null;
+
+            audioNode?.disconnect();
+            audioContext.close().catch(() => {});
+            canvas.remove();
+        };
+        // getControllersConfiguration is deliberately left out: it changes identity on every render, and the configuration is only sent when a game starts.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [gameId, isMobile, loadRom]);
+
+    if (isMobile) {         // Early return is safe here because all hooks have already been called
         return (
             <section id="emulator">
                 <h2 className="mobile-app-text"> You should use RollNES on the App if you are using a mobile device. </h2> 
@@ -21,111 +129,11 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
         );
     }
 
-    /**
-     * The control of the canvas is transferred to the NES worker thread when the page has been loaded. As a result, the
-     * worker thread takes care of the graphical processing and the player can interact with the interface without noticing
-     * too much lag. The Audio Context and Audio Source are also initialized when the page has loaded.
-     */
-    useEffect(() => {
-        try {
-            if (!worker) {
-                worker = new Worker('/emulator.js',{ type: "module" });
-                const canvas = (document.getElementById("canvas") as HTMLCanvasElement)?.transferControlToOffscreen();
-                worker.postMessage({ canvas: canvas }, [canvas]);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-
-        audioContext = new AudioContext();
-        initSound();
-
-        document.addEventListener("keyup", keyUpEventLogger, true);
-        document.addEventListener("keydown", keyDownEventLogger, true);
-        loadGame();
-
-        return () => {
-            document.removeEventListener("keyup", keyUpEventLogger);
-            document.removeEventListener("keydown", keyDownEventLogger);
-            audioContext.close();
-        };
-    }, []);
-
-    async function initSound(): Promise<void> {
-        await audioContext.audioWorklet.addModule('/apu-worklet.js', { credentials: "omit" });
-        if (!(nesWorkletNode instanceof AudioWorkletNode)) {
-            try {
-                nesWorkletNode = new AudioWorkletNode(audioContext, "apu-worklet");
-            } catch (error) {
-                console.log(error);
-            }
-        }
-
-        if (nesWorkletNode && nesWorkletNode instanceof AudioWorkletNode) {
-            nesWorkletNode.connect(audioContext.destination);
-        }
-        
-        const source = audioContext.createBufferSource();
-        source.buffer = audioContext.createBuffer(2, audioContext.sampleRate, audioContext.sampleRate);
-        worker.onmessage = function(message) {
-            if (nesWorkletNode instanceof AudioWorkletNode) {
-                nesWorkletNode.port.postMessage(message.data);   // Send address and data to APU
-            } else {
-                console.log('Failed to post message on AudioWorkletNode');
-            }
-        };
-    }
-
-    /**
-     * Loads a game from query parameter 'id' if available.
-     */
-    async function loadGame(): Promise<void> {
-        if (gameId) {
-            worker.postMessage({ event: 'configuration', data: getControllersConfiguration() });
-            await getRom();
-        }
-    };
-
-    /**
-     * Retrieves and loads a ROM based on the 'id' query parameter, if such exists.
-     */
-    async function getRom(): Promise<void> {
-        const url = `https://tnkcekyijuynctkddkwy.supabase.co/storage/v1/object/public/roms/${gameId}.nes?download`;
-        try {
-            const response = await fetch(url);
-            if (response.body) {
-                const buffer = new Uint8Array(60000000);
-                const reader = response.body.getReader({ mode: "byob" });
-                const finished = await reader.read(buffer);
-                worker.postMessage({event: 'readFile', data: finished.value});
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    /**
-     * |*************************|
-     * | Handle controller input |
-     * |*************************|
-     */
-    function keyUpEventLogger(event: any): void {
-        worker.postMessage({event: 'keyup', value: event.code});
-    };
-
-    function keyDownEventLogger(event: any): void {
-        worker.postMessage({event: 'keydown', value: event.code});
-
-        if (event.code === 'ArrowDown' || event.code === 'ArrowUp') {
-            event.preventDefault();
-        }
-    };
-
     return (
         <section id="emulator">
             <section id="reload-emulator">
                 <h3 className="reload-emulator__text"> Press reload if the game does not start </h3>
-                <button className="retro-button" onClick={() => getRom()}> Reload </button>
+                <button className="retro-button" onClick={() => loadRom()}> Reload </button>
 
                 <section id="player1-controller">
                     <h3 className="player1-controller__title"> Player 1 </h3>
@@ -141,9 +149,7 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
             </section>
 
             <div className="nes-screen-frame">
-                <div className="screen">
-                    <canvas id="canvas" width="256" height="240"></canvas>
-                </div>
+                <div className="screen" ref={screenRef}></div>
             </div>
         </section>
     )
