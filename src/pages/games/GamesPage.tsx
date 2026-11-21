@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
 import { AppliedGameFilter, FilterAccordion, GameCard, RangeSlider } from "../../components";
 import type { Game } from "../../types/types";
+import { DEFAULT_GAMES_SHOWING } from "../../utils";
 
 import "./GamesPage.css";
 
@@ -10,9 +11,12 @@ import "./GamesPage.css";
  */
 export default function GamesPage(): ReactElement {
     const { filteredGames, allFilterValues, appliedFilters, applyGameFilters } = useGames();
-    const [minRange] = useState<number>(filteredGames?.length > 10 ? 10 : filteredGames?.length);     // Minimum 10 games are rendered on the page (or fewer due to chosen filters)
-    const [numberGamesShowing, setNumberGamesShowing] = useState<number>(minRange);
+    const [chosenCount, setChosenCount] = useState<number | null>(null);    // null means the user has not used the slider yet
     const [showFilters, setShowFilters] = useState<boolean>(false);
+
+    const total = filteredGames.length;
+    const minRange = Math.min(DEFAULT_GAMES_SHOWING, total);                // Minimum 10 games are rendered (or fewer due to chosen filters)
+    const numberGamesShowing = Math.max(minRange, Math.min(chosenCount ?? minRange, total));
 
     useEffect(() => {
         applyGameFilters();
@@ -30,7 +34,7 @@ export default function GamesPage(): ReactElement {
             </section>
 
             <section className={showFilters ? "game-filters-panel show-filters" : "game-filters-panel hide-filters"}>
-                <RangeSlider min={minRange} max={filteredGames?.length} setSliderValue={setNumberGamesShowing} />
+                <RangeSlider min={minRange} max={total} value={numberGamesShowing} setSliderValue={setChosenCount} />
 
                 <FilterAccordion title="Category" values={allFilterValues("category")} filterName="category" />
 
@@ -58,7 +62,7 @@ export default function GamesPage(): ReactElement {
                 }
 
                 {
-                    filteredGames?.length > 0 ? filteredGames.slice(0, numberGamesShowing).map((game: Game) => <GameCard key={game.id} game={game} />) : ""
+                    filteredGames.slice(0, numberGamesShowing).map((game: Game) => <GameCard key={game.id} game={game} />)
                 }
             </section>
         </main>
