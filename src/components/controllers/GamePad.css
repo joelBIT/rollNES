@@ -256,6 +256,21 @@
     background: rgba(0,0,0,0.55);
     z-index: 1000;
     animation: backdrop-fade-in 0.12s ease-out;
+
+    .popup-warning {
+        color: #ff6b6b;
+        font-size: 0.8rem;
+        margin: 0.5rem 0 0;
+    }
+
+    .popup-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+
+        &:hover {
+            cursor: default;
+        }
+    }
 }
 
 @keyframes backdrop-fade-in {

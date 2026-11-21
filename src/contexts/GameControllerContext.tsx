@@ -1,12 +1,13 @@
 import { createContext, type ReactElement, type ReactNode, useEffect, useState } from "react";
 import { isLocalStorageAvailable } from "../utils";
-import type { Button, GameController } from "../types/types";
+import type { BindingOwner, Button, GameController } from "../types/types";
 import { gamepad1, gamepad2 } from "../config/config";
 
 export interface GameControllerContextProvider {
     player1: GameController;
     player2: GameController;
     updateBinding: (player: 1 | 2, key: keyof GameController, code: string) => void;
+    findBindingConflict: (player: 1 | 2, key: keyof GameController, code: string) => BindingOwner | null;
     getControllersConfiguration: () => Button[];
     resetConfiguration: () => void;
 }
@@ -38,18 +39,21 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
      * State is replaced, never mutated, and the result is stored in localstorage if available.
      */
     function updateBinding(player: 1 | 2, key: keyof GameController, code: string): void {
-    const current: GameController = player === 1 ? player1 : player2;
-    const updated: GameController = { ...current, [key]: { ...current[key], value: code } };
+        if (findBindingConflict(player, key, code)) {
+            return;
+        }
+        const current: GameController = player === 1 ? player1 : player2;
+        const updated: GameController = { ...current, [key]: { ...current[key], value: code } };
 
-    const newPlayer1 = player === 1 ? updated : player1;
-    const newPlayer2 = player === 2 ? updated : player2;
+        const newPlayer1 = player === 1 ? updated : player1;
+        const newPlayer2 = player === 2 ? updated : player2;
 
-    setPlayer1(newPlayer1);
-    setPlayer2(newPlayer2);
+        setPlayer1(newPlayer1);
+        setPlayer2(newPlayer2);
 
-    if (isLocalStorageAvailable()) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({ player1: newPlayer1, player2: newPlayer2 }));
-    }
+        if (isLocalStorageAvailable()) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ player1: newPlayer1, player2: newPlayer2 }));
+        }
     }
 
     /**
@@ -91,8 +95,26 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
         return controllerConfiguration;
     }
 
+    /**
+     * Returns the button (of either player) that already uses the supplied key code, or null if the key is free.
+     * The button being edited is ignored, so rebinding a button to the key it already has is not a conflict.
+     */
+    function findBindingConflict(player: 1 | 2, key: keyof GameController, code: string): BindingOwner | null {
+        for (const owner of [1, 2] as const) {
+            const controller: GameController = owner === 1 ? player1 : player2;
+
+            for (const buttonKey of Object.keys(controller) as (keyof GameController)[]) {
+                if (controller[buttonKey].value === code && !(owner === player && buttonKey === key)) {
+                    return { player: owner, key: buttonKey };
+                }
+            }
+        }
+
+        return null;
+    }
+
     return (
-        <GameControllerContext.Provider value={{ player1, player2, updateBinding, getControllersConfiguration, resetConfiguration }}>
+        <GameControllerContext.Provider value={{ player1, player2, updateBinding, findBindingConflict, getControllersConfiguration, resetConfiguration }}>
             { children }
         </GameControllerContext.Provider>
     );

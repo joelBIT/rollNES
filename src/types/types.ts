@@ -80,3 +80,5 @@ export type GameController = {
     left: Button;
     right: Button;
 }
+
+export type BindingOwner = { player: 1 | 2, key: keyof GameController };

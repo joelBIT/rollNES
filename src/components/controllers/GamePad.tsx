@@ -9,12 +9,11 @@ import "./GamePad.css";
  * The parameter 'player' represents if the gamepad is used by player 1, 2, etc.
  */
 export function GamePad({player}: {player: 1 | 2}): ReactElement {
-    const { player1, player2, updateBinding } = useControllers();
+    const { player1, player2, updateBinding, findBindingConflict } = useControllers();
     const controller: GameController = player === 1 ? player1 : player2;        // Always the current configuration, never a stale copy
-
     const [activeKey, setActiveKey] = useState<keyof GameController | null>(null);     // Which button is being edited
     const [selectedValue, setSelectedValue] = useState<string>('');
-
+    const conflict = activeKey && selectedValue ? findBindingConflict(player, activeKey, selectedValue) : null;
     const button = activeKey ? controller[activeKey] : null;
 
     function openPopup(key: keyof GameController, event: React.MouseEvent): void {
@@ -28,7 +27,7 @@ export function GamePad({player}: {player: 1 | 2}): ReactElement {
     }
 
     function saveBinding(): void {
-        if (activeKey && selectedValue) {
+        if (activeKey && selectedValue && !conflict) {
             updateBinding(player, activeKey, selectedValue);
         }
         setActiveKey(null);
@@ -40,6 +39,10 @@ export function GamePad({player}: {player: 1 | 2}): ReactElement {
     function setKeyCode(event: React.KeyboardEvent<HTMLInputElement>): void {
         setSelectedValue(event.code);
         event.preventDefault();
+    }
+
+    function labelOf(key: keyof GameController): string {
+        return key.charAt(0).toUpperCase() + key.slice(1);
     }
 
     return (
@@ -101,9 +104,16 @@ export function GamePad({player}: {player: 1 | 2}): ReactElement {
                             autoFocus
                         />
 
+                        {conflict && (
+                            <p className="popup-warning" role="alert">
+                                {selectedValue} is already used by Player {conflict.player} {labelOf(conflict.key)}.
+                                Choose another key.
+                            </p>
+                        )}
+
                         <div className="popup-actions">
                             <button className="popup-button" onClick={closePopup}>Close</button>
-                            <button className="popup-button" onClick={saveBinding}>Save</button>
+                            <button className="popup-button" onClick={saveBinding} disabled={!selectedValue || conflict !== null}>Save</button>
                         </div>
                     </div>
                 </div>
