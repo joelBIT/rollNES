@@ -24,6 +24,7 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
 
     /**
      * Load stored controller settings from localstorage if localstorage is available.
+     * State is replaced, never mutated, so the default configurations in config.ts stay untouched.
      */
     function loadSavedControllers(): void {
         if (isLocalStorageAvailable() && localStorage.getItem(STORAGE_KEY)) {
@@ -37,27 +38,24 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
      * Store controller configurations in localstorage, if available.
      */
     function updateBinding(button: Button): void {
-        let player = {} as GameController;
-        if (button.name.endsWith("2")) {    // player 2
-            for (const [key, value] of Object.entries(player2)) {
-                if (button.name === value.name) {
-                    value.value = button.value;
-                }
-                player = Object.assign(player, { [key]: value });
-            }
-            setPlayer2(player);
-        } else {
-            for (const [key, value] of Object.entries(player1)) {
-                if (button.name === value.name && button.value !== value.value) {
-                    value.value = button.value;
-                }
-                player = Object.assign(player, { [key]: value });
-            }
-            setPlayer1(player);
-        }
+        const isPlayer2 = button.name.endsWith("2");
+        const current: GameController = isPlayer2 ? player2 : player1;
+
+        const updated = Object.fromEntries(
+            Object.entries(current).map(([key, value]) => [
+                key,
+                value.name === button.name ? { ...value, value: button.value } : value
+            ])
+        ) as GameController;
+
+        const newPlayer1 = isPlayer2 ? player1 : updated;
+        const newPlayer2 = isPlayer2 ? updated : player2;
+
+        setPlayer1(newPlayer1);
+        setPlayer2(newPlayer2);
 
         if (isLocalStorageAvailable()) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({player1, player2}));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ player1: newPlayer1, player2: newPlayer2 }));
         }
     }
 
@@ -65,10 +63,11 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
      * Restore gamepad configuration to default.
      */
     function resetConfiguration(): void {
-        if (isLocalStorageAvailable() && localStorage.getItem(STORAGE_KEY)) {
+        setPlayer1(gamepad1);
+        setPlayer2(gamepad2);
+
+        if (isLocalStorageAvailable()) {
             localStorage.removeItem(STORAGE_KEY);
-            setPlayer1(gamepad1);
-            setPlayer2(gamepad2);
         }
     }
 
