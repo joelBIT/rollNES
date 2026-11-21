@@ -18,7 +18,10 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
     const [isError, setIsError] = useState<boolean>(false);
     const { user } = useUser();
     const { loadGames } = useGames();
-    const [name, setName] = useState<string>((user?.first_name ?? "") + " " + (user?.last_name ?? ""));
+    // Falls back to the profile name, which may arrive after the first render because the user is loaded asynchronously
+    const defaultName = [user?.first_name, user?.last_name].filter(Boolean).join(" ");
+    const [typedName, setTypedName] = useState<string | null>(null);   // null means the user has not edited the name
+    const name = typedName ?? defaultName;
     const [title, setTitle] = useState<string>('');
     const [review, setReview] = useState<string>('');
 
@@ -65,7 +68,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
         setRating(0);
         setTitle('');
         setReview('');
-        setName((user?.first_name ?? "") + " " + (user?.last_name ?? ""));
+        setTypedName(null);         // Go back to showing the profile name
         setIsShowing(false);
     }
 
@@ -73,7 +76,6 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
         if (isShowing) {
             resetForm();
             setMessage('');
-            setName((user?.first_name ?? "") + " " + (user?.last_name ?? ""));
         }
         setIsShowing(!isShowing);
     }
@@ -102,7 +104,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
                         id="name"
                         name="name"
                         type="text"
-                        onChange={e => setName(e.target.value)}
+                        onChange={e => setTypedName(e.target.value)}
                         value={name}
                         className="input-field"
                         autoComplete="off" 
