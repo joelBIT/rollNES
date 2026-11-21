@@ -5,10 +5,10 @@ import type { AuthenticationRequest, RegisterRequest, RetroUser } from "../types
 export interface UserContextProvider {
     user: RetroUser | null;
     isAuthenticated: boolean;
-    login: (body: AuthenticationRequest) => void;
-    register: (body: RegisterRequest) => void;
-    logout: () => void;
-    updateUser: (first_name: string, last_name: string) => void;
+    login: (body: AuthenticationRequest) => Promise<void>;
+    register: (body: RegisterRequest) => Promise<void>;
+    logout: () => Promise<void>;
+    updateUser: (first_name: string, last_name: string) => Promise<void>;
 }
 
 export const UserContext = createContext<UserContextProvider>({} as UserContextProvider);

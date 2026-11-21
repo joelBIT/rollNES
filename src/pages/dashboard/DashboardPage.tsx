@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import { URL_LOGIN_PAGE } from "../../utils";
@@ -15,44 +15,59 @@ export default function DashboardPage(): ReactElement {
     const tabTitles = ["Profile", "Reviews"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const [reviews, setReviews] = useState<Review[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>("");
     const navigate = useNavigate();
     const { user, logout } = useUser();
 
-    async function getReviews(): Promise<void> {
-        if (user) {
-            const userReviews = await getReviewsByUserIdRequest(user.id);
-            setReviews(userReviews);
+    useEffect(() => {
+        if (active !== "Reviews" || !user) {
+            return;
         }
-    }
 
-    function signOut(): void {
-        logout();
-        navigate(URL_LOGIN_PAGE);
-    }
+        let cancelled = false;      // Ignore the result if the user switches tab or unmounts before the request finishes
+        setLoading(true);
+        setError("");
 
-    if (active === "Reviews") {
-        getReviews();
+        getReviewsByUserIdRequest(user.id)
+            .then(result => { if (!cancelled) setReviews(result); })
+            .catch(() => { if (!cancelled) setError("Could not load reviews"); })
+            .finally(() => { if (!cancelled) setLoading(false); });
 
-        return (
-            <main id="dashboardPage">
-                <Tabs titles={tabTitles} active={active} setActive={setActive} />
-                
-                {
-                    reviews.map((review, i) => <ReviewCard key={i} review={review} />)
-                }
-            </main>
-        );
+        return () => { cancelled = true; };
+    }, [active, user?.id]);
+
+    async function signOut(): Promise<void> {
+        try {
+            await logout();
+            navigate(URL_LOGIN_PAGE);
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
         <main id="dashboardPage">
             <Tabs titles={tabTitles} active={active} setActive={setActive} />
-            
-            <ProfileForm />
-            <button className="retro-button logout-button" onClick={signOut}> 
-                <span className="material-symbols-outlined">logout</span>
-                <h2 className="logout-button-text"> Logout </h2>
-            </button>
+
+            {
+                active === "Reviews" ? (
+                    <>
+                        {loading && <p> Loading reviews... </p>}
+                        {error && <h2 className="message-failure"> {error} </h2>}
+                        {!loading && !error && reviews.length === 0 && <p> You haven't written any reviews yet. </p>}
+                        {reviews.map(review => <ReviewCard key={`${review.game_id}-${review.date}`} review={review} />)}
+                    </>
+                ) : (
+                    <>
+                        <ProfileForm />
+                        <button className="retro-button logout-button" onClick={signOut}>
+                            <span className="material-symbols-outlined">logout</span>
+                            <h2 className="logout-button-text"> Logout </h2>
+                        </button>
+                    </>
+                )
+            }
         </main>
     )
 }

@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { useUser } from "../../hooks/useUser";
 
 import "./ProfileForm.css";
@@ -13,17 +13,23 @@ export function ProfileForm(): ReactElement {
     const [firstName, setFirstName] = useState<string>(user?.first_name ?? "");
     const [lastName, setLastName] = useState<string>(user?.last_name ?? "");
 
+    useEffect(() => {
+        setFirstName(user?.first_name ?? "");
+        setLastName(user?.last_name ?? "");
+    }, [user?.first_name, user?.last_name]);
+
     /**
      * Store profile information.
      */
-    function updateProfile(): void {
+    async function updateProfile(): Promise<void> {
         setMessage('');
         setIsError(false);
 
         try {
-            updateUser(firstName, lastName);
+            await updateUser(firstName.trim(), lastName.trim());
             setMessage('Profile updated');
         } catch (error) {
+            console.log(error);
             setIsError(true);
             setMessage('Update failed');
         }
@@ -36,7 +42,7 @@ export function ProfileForm(): ReactElement {
                 <input 
                     id="profile-form-email"
                     name="profile-form-email"
-                    value={user?.email}
+                    value={user?.email ?? ""}
                     readOnly
                     disabled
                     className="form-control" 
@@ -77,7 +83,7 @@ export function ProfileForm(): ReactElement {
                 message ? <h2 className={isError ? "message-failure" : "message-success"}> {message} </h2> : <></>
             }
 
-            <button type="submit" className="retro-button update-button"> Update </button>
+            <button type="submit" className="retro-button update-button" disabled={!user}> Update </button>
         </form>
     )
 }
