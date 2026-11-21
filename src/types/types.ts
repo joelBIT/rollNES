@@ -30,6 +30,11 @@ export type AuthenticationResponse = {
 
 export type RegisterRequest = AuthenticationRequest &  { firstName: string, lastName: string }
 
+export type RegistrationResult = {
+    user: RetroUser,
+    hasSession: boolean        // false when email confirmation is required before the user can sign in
+}
+
 export type Review = CreateReview & { date: string }
 
 export type CreateReview = {

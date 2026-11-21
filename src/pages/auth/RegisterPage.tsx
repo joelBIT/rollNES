@@ -11,6 +11,7 @@ import "./RegisterPage.css";
  */
 export default function RegisterPage(): ReactElement {
     const [message, setMessage] = useState<string>('');
+    const [isError, setIsError] = useState<boolean>(true);
     const navigate = useNavigate();
     const { register } = useUser();
     const firstNameRef = useRef<HTMLInputElement>(null);
@@ -24,11 +25,13 @@ export default function RegisterPage(): ReactElement {
      */
     async function registerUser(): Promise<void> {
         setMessage('');
+        setIsError(true);
+
         const password = passwordRef.current?.value;
         const confirmPassword = confirmPasswordRef.current?.value;
 
         if (password !== confirmPassword) {
-            console.log("Passwords must be equal");
+            setMessage('Passwords must be equal');          // Previously only logged to the console
             return;
         }
 
@@ -40,8 +43,14 @@ export default function RegisterPage(): ReactElement {
         }
 
         try {
-            await register(request);
-            navigate(URL_DASHBOARD_PAGE);
+            const signedIn = await register(request);
+
+            if (signedIn) {
+                navigate(URL_DASHBOARD_PAGE);
+            } else {
+                setIsError(false);
+                setMessage(`We have sent a confirmation link to ${request.email}. Confirm your email address, then sign in.`);
+            }
         } catch (error) {
             if (error instanceof Error) {
                 setMessage(error.message);
@@ -138,7 +147,7 @@ export default function RegisterPage(): ReactElement {
             </section>
 
             {
-                message ? <h2 className="message-failure"> { message }</h2> : <></>
+                message ? <h2 className={isError ? "message-failure" : "message-success"}> { message }</h2> : <></>
             }
         </main>
     )

@@ -6,7 +6,7 @@ export interface UserContextProvider {
     user: RetroUser | null;
     isAuthenticated: boolean;
     login: (body: AuthenticationRequest) => Promise<void>;
-    register: (body: RegisterRequest) => Promise<void>;
+    register: (body: RegisterRequest) => Promise<boolean>;      // true if the user is signed in, false if email confirmation is needed first
     logout: () => Promise<void>;
     updateUser: (first_name: string, last_name: string) => Promise<void>;
 }
@@ -52,16 +52,18 @@ export function UserProvider({ children }: { children: ReactNode }) {
     }
 
     /**
-     * Perform registration and authenticate user.
+     * Perform registration of a new user.
+     * @returns true if the user is signed in, false if email confirmation is needed first.
      */
-    async function register(body: RegisterRequest): Promise<void> {
-        try {
-            const createdUser: RetroUser = await registrationRequest(body);
+    async function register(body: RegisterRequest): Promise<boolean> {
+        const { user: createdUser, hasSession } = await registrationRequest(body);
+
+        if (hasSession) {
             setIsAuthenticated(true);
             setUser(createdUser);
-        } catch (error) {
-            throw error;
         }
+
+        return hasSession;
     }
 
     /**

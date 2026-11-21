@@ -1,5 +1,5 @@
 import { supabase } from "./components";
-import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, RetroUser, Review } from "./types/types";
+import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, RegistrationResult, RetroUser, Review } from "./types/types";
 
 const GAMES_TABLE = "games";
 const NEWSLETTER_TABLE = "newsletter";
@@ -17,7 +17,7 @@ const PROFILES_TABLE = "profiles";
 /**
  * Send a POST request to the registration endpoint.
  */
-export async function registrationRequest(body: RegisterRequest): Promise<RetroUser> {
+export async function registrationRequest(body: RegisterRequest): Promise<RegistrationResult> {
     try {
         const { data, error } = await supabase.auth.signUp({
             email: body.email,
@@ -35,7 +35,10 @@ export async function registrationRequest(body: RegisterRequest): Promise<RetroU
             throw new Error('Registration failed');
         }
 
-        return {id: data.user?.id ?? "", email: body.email, first_name: body.firstName, last_name: body.lastName};
+        return {
+            user: { id: data.user?.id ?? "", email: body.email, first_name: body.firstName, last_name: body.lastName },
+            hasSession: data.session !== null
+        };
     } catch (error) {
         console.log(error);
         throw error;
