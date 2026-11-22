@@ -1,4 +1,4 @@
-import type { Game, Review } from "./types/types";
+import type { Game, RetroUser, Review } from "./types/types";
 
 export const URL_COMPANY_PAGE = "/company";
 export const URL_CONTACT_PAGE = "/contact";
@@ -134,4 +134,8 @@ export function readStoredIds(): number[] {
     }
 
     return [];
+}
+
+export function isSameUser(a: RetroUser | null, b: RetroUser | null): boolean {
+    return a?.id === b?.id && a?.email === b?.email && a?.first_name === b?.first_name && a?.last_name === b?.last_name;
 }

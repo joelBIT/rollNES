@@ -18,7 +18,7 @@ export default function DashboardPage(): ReactElement {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const navigate = useNavigate();
-    const { user, logout } = useUser();
+    const { user, isAuthenticated, isLoading, logout } = useUser();
 
     useEffect(() => {
         if (active !== "Reviews" || !user) {
@@ -37,10 +37,15 @@ export default function DashboardPage(): ReactElement {
         return () => { cancelled = true; };
     }, [active, user?.id]);
 
+    useEffect(() => {
+        if (!isLoading && !isAuthenticated) {
+            navigate(URL_LOGIN_PAGE, { replace: true });        // Signed out here, in another tab, or the session expired
+        }
+    }, [isLoading, isAuthenticated, navigate]);
+
     async function signOut(): Promise<void> {
         try {
-            await logout();
-            navigate(URL_LOGIN_PAGE);
+            await logout();         // The effect above redirects to the login page once the user is signed out
         } catch (error) {
             console.log(error);
         }

@@ -1,10 +1,12 @@
 import { createContext, type ReactNode, useEffect, useState } from "react";
-import { getSessionUserRequest, isAuthenticatedRequest, loginRequest, logoutRequest, registrationRequest, updateProfileInformationRequest } from "../requests";
+import { getSessionUserRequest, loginRequest, logoutRequest, registrationRequest, subscribeToAuthChanges, updateProfileInformationRequest } from "../requests";
 import type { AuthenticationRequest, RegisterRequest, RetroUser } from "../types/types";
+import { isSameUser } from "../utils";
 
 export interface UserContextProvider {
     user: RetroUser | null;
     isAuthenticated: boolean;
+    isLoading: boolean;         // True until the initial session has been checked
     login: (body: AuthenticationRequest) => Promise<void>;
     register: (body: RegisterRequest) => Promise<boolean>;      // true if the user is signed in, false if email confirmation is needed first
     logout: () => Promise<void>;
@@ -15,51 +17,32 @@ export const UserContext = createContext<UserContextProvider>({} as UserContextP
 
 export function UserProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<RetroUser | null>(null);
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const isAuthenticated: boolean = user !== null;
 
     useEffect(() => {
-        checkActiveSession();
-    }, [])
-
-    /**
-     * Check if user has an active session already (i.e., is authenticated).
-     */
-    async function checkActiveSession(): Promise<void> {
-        try {
-            const authenticated: boolean = await isAuthenticatedRequest();
-            setIsAuthenticated(authenticated);
-            if (authenticated) {
-                const user: RetroUser = await getSessionUserRequest();
-                setUser(user);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    }
+        return subscribeToAuthChanges(nextUser => {
+            setUser(previous => isSameUser(previous, nextUser) ? previous : nextUser);      // Token refreshes don't cause needless re-renders
+            setIsLoading(false);
+        });
+    }, []);
 
     /**
      * Perform login and authenticate user.
      */
     async function login(body: AuthenticationRequest): Promise<void> {
-        try {
-            await loginRequest(body);
-            const loggedInUser: RetroUser = await getSessionUserRequest();
-            setIsAuthenticated(true);
-            setUser(loggedInUser);
-        } catch (error) {
-            throw error;
-        }
+        await loginRequest(body);
+        setUser(await getSessionUserRequest());
     }
 
     /**
-     * Perform registration of a new user.
-     * @returns true if the user is signed in, false if email confirmation is needed first.
+     * Perform registration. The user is only authenticated if Supabase returned a session, i.e., when email confirmation is not required.
+     * @returns     true if the user is signed in, false if the user must confirm the email address first.
      */
     async function register(body: RegisterRequest): Promise<boolean> {
         const { user: createdUser, hasSession } = await registrationRequest(body);
 
         if (hasSession) {
-            setIsAuthenticated(true);
             setUser(createdUser);
         }
 
@@ -70,35 +53,20 @@ export function UserProvider({ children }: { children: ReactNode }) {
      * Perform logout and delete session.
      */
     async function logout(): Promise<void> {
-        try {
-            await logoutRequest();
-            setIsAuthenticated(false);
-            setUser(null);
-        } catch (error) {
-            throw error;
-        }
+        await logoutRequest();
+        setUser(null);
     }
 
     /**
      * Store new profile information for logged in user.
      */
     async function updateUser(first_name: string, last_name: string): Promise<void> {
-        try {
-            await updateProfileInformationRequest(first_name, last_name);
-            const updatedUser: RetroUser = {
-                id: user?.id ?? "",
-                email: user?.email as string,
-                first_name,
-                last_name
-            }
-            setUser(updatedUser);
-        } catch (error) {
-            throw error;
-        }
+        await updateProfileInformationRequest(first_name, last_name);
+        setUser(previous => previous ? { ...previous, first_name, last_name } : previous);
     }
 
     return (
-        <UserContext.Provider value={{ user, isAuthenticated, login, register, logout, updateUser }}>
+        <UserContext.Provider value={{ user, isAuthenticated, isLoading, login, register, logout, updateUser }}>
             { children }
         </UserContext.Provider>
     );
