@@ -305,7 +305,7 @@ export async function updateProfileInformationRequest(first_name: string, last_n
     const { data } = await supabase.auth.getSession();
 
     if (data.session?.user) {
-        const { error } = await supabase.from(PROFILES_TABLE).update({ last_name, first_name }).eq('id', data.session.user.id);
+        const { error } = await supabase.from(PROFILES_TABLE).update({ last_name, first_name }).eq('user_id', data.session.user.id);
         throwIfError(error, "Failed to update profile");
     }
 
