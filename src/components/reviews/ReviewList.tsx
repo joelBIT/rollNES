@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState, type ReactElement } from "react";
-import type { Game, Review, SortOrder } from "../../types/types";
+import { useMemo, useState, type ReactElement } from "react";
+import type { Review, SortOrder } from "../../types/types";
 import { getAverageRating } from "../../utils";
 import { Rating, ReviewCard, ReviewForm } from "..";
 import { getReviewsByGameIdRequest } from "../../requests";
@@ -10,17 +10,9 @@ import "./ReviewList.css";
  * Creates a list of reviews for the supplied game, where it is possible to sort the list by 'name' or date.
  * The optional setReviews function is used to send the updated list of reviews to the parent.
  */
-export function ReviewList({game, setReviews}: {game: Game, setReviews?: (reviews: Review[]) => void}): ReactElement {
-    const [reviewList, setReviewList] = useState<Review[]>(game.reviews);
+export function ReviewList({gameId, reviews, setReviews}: {gameId: number, reviews: Review[], setReviews: (reviews: Review[]) => void}): ReactElement {
     const [sortOrder, setSortOrder] = useState<SortOrder>("oldest");
-    const sortedReviews = useMemo(() => sortReviews(reviewList, sortOrder), [reviewList, sortOrder]);
-
-    useEffect(() => {
-        setReviewList([...game.reviews]);
-        if (setReviews) {
-            setReviews([...game.reviews]);
-        }
-    }, [game.reviews])
+    const sortedReviews = useMemo(() => sortReviews(reviews, sortOrder), [reviews, sortOrder]);
 
     /**
      * Sort reviews according to selected option.
@@ -39,14 +31,13 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
     }
 
     /**
-     * Update current list of reviews when a new review has been created. 
-     * Also send the updated list to the parent. The selected sort order is applied automatically.
+     * Retrieve the current reviews after a new review has been created.
      */
-    async function updateReviews(): Promise<void> {
-        const updatedReviews: Review[] = await getReviewsByGameIdRequest(game.id);
-        setReviewList([...updatedReviews]);
-        if (setReviews) {
-            setReviews([...updatedReviews]);
+    async function refreshReviews(): Promise<void> {
+        try {
+            setReviews(await getReviewsByGameIdRequest(gameId));
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -61,10 +52,10 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
                     <p className="rating-text">Based on {sortedReviews.length} reviews</p> 
                 </section>
 
-                <ReviewForm gameId={game.id} updateReviews={updateReviews} />
+                <ReviewForm gameId={gameId} updateReviews={refreshReviews} />
 
                 {
-                    reviewList.length > 0 ? 
+                    reviews.length > 0 ? 
                     <>
                         <section id="reviews-sort">
                             <label id="reviews-sort-label" htmlFor="reviews-sort-select"> Sort by </label> 
@@ -88,7 +79,6 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
                             }
                         </section>
                     </>
-                        
                     : <></>
                 }
                 

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
 import { Cartridge, ControllerTab, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
@@ -8,30 +8,25 @@ import type { Game, Review } from "../../types/types";
 import "./GamePage.css";
 
 /**
- * Page for a game. Shows information about the game as well as reviews. There are two tabs ("Details", "Play") a user can click on.
- * The "Details" tab shows information about the game. The "Play" tab starts the game in the ROllNES emulator. Reviews are only
- * shown in the "Details" tab.
+ * Page for a game. The key makes React create a fresh GameView for every game, so the active tab and the reviews
+ * always start from the loaded game, with no effects needed to reset them.
  */
 export default function GamePage(): ReactElement {
     const game = useLoaderData() as Game;
+    return <GameView key={game.id} game={game} />;
+}
+
+/**
+ * Shows information about the game as well as reviews. There are three tabs ("Details", "Play", "Controller") a user can click on.
+ * Reviews are only shown in the "Details" tab.
+ */
+export function GameView({game}: {game: Game}): ReactElement {
     const tabTitles = ["Details", "Play", "Controller"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const [reviews, setReviews] = useState<Review[]>(game.reviews);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
     const favourite = isFavourite(game.id);
     const average = getAverageRating(reviews);
-
-    useEffect(() => {
-        setActive(tabTitles[0]);                    // Always show "Details" tab as default when viewing a new game
-    }, [game.id])
-
-    /**
-     * Update current list of reviews when a new review has been created.
-     */
-    async function updateReviews(updatedReviews: Review[]): Promise<void> {
-        setReviews([...updatedReviews]);
-        setActive(tabTitles[0]); 
-    }
 
     return (
         <main id="gamePage">
@@ -97,7 +92,7 @@ export default function GamePage(): ReactElement {
                     </section>
 
                     <section id="game-bottom">
-                        <ReviewList game={game} setReviews={updateReviews} />
+                        <ReviewList gameId={game.id} reviews={reviews} setReviews={setReviews} />
                     </section>
                 </>
             }
