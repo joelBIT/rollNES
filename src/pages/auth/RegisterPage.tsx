@@ -12,6 +12,7 @@ import "./RegisterPage.css";
 export default function RegisterPage(): ReactElement {
     const [message, setMessage] = useState<string>('');
     const [isError, setIsError] = useState<boolean>(true);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const navigate = useNavigate();
     const { register } = useUser();
     const firstNameRef = useRef<HTMLInputElement>(null);
@@ -23,7 +24,13 @@ export default function RegisterPage(): ReactElement {
     /**
      * Send a request to the registration endpoint if passwords match.
      */
-    async function registerUser(): Promise<void> {
+    async function registerUser(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
+        if (isSubmitting) {
+            return;
+        }
+
+        const form = event.currentTarget;       // currentTarget is no longer available after the first await
         setMessage('');
         setIsError(true);
 
@@ -32,6 +39,7 @@ export default function RegisterPage(): ReactElement {
 
         if (password !== confirmPassword) {
             setMessage('Passwords must be equal');          // Previously only logged to the console
+            confirmPasswordRef.current?.focus();            // Put the cursor where the fix is needed
             return;
         }
 
@@ -42,12 +50,14 @@ export default function RegisterPage(): ReactElement {
             password: password ?? ""
         }
 
+        setIsSubmitting(true);
         try {
             const signedIn = await register(request);
 
             if (signedIn) {
                 navigate(URL_DASHBOARD_PAGE);
             } else {
+                form.reset();       // Registration worked, so clear the form (the password in particular)
                 setIsError(false);
                 setMessage(`We have sent a confirmation link to ${request.email}. Confirm your email address, then sign in.`);
             }
@@ -57,6 +67,8 @@ export default function RegisterPage(): ReactElement {
             } else {
                 setMessage(`Could not register with email ${request.email}`);
             }
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
@@ -66,7 +78,7 @@ export default function RegisterPage(): ReactElement {
                 <h1 className="register-section__heading"> NEW TO ROLLNES? </h1>
                 <p className="register-section__text"> Create an account to get personalized settings and services. </p>
 
-                <form id="register-form" autoComplete="off" action={registerUser}>
+                <form id="register-form" autoComplete="off" onSubmit={registerUser}>
                     <input autoComplete="false" name="hidden" type="text" style={{"display": "none"}} />
 
                     <section className="form-group">
@@ -139,7 +151,7 @@ export default function RegisterPage(): ReactElement {
                         />
                     </section>
 
-                    <button type="submit" className="nes-button"> Create Account </button>
+                    <button type="submit" className="nes-button" disabled={isSubmitting}> Create Account </button>
                 </form>
 
                 <div className="divider">OR</div>

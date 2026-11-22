@@ -19,7 +19,8 @@ export default function LoginPage(): ReactElement {
     /**
      * Send a request to the authentication endpoint to perform a login.
      */
-    async function signIn(): Promise<void> {
+    async function signIn(event: React.FormEvent<HTMLFormElement>): Promise<void> {
+        event.preventDefault();
         setMessage('');
         const request: AuthenticationRequest = {
             email: emailRef.current?.value ?? "",
@@ -30,11 +31,9 @@ export default function LoginPage(): ReactElement {
             await login(request);
             navigate(URL_DASHBOARD_PAGE);
         } catch (error) {
-            if (error instanceof Error) {
-                setMessage(error.message);
-            } else {
-                setMessage('Login failed');
-            }
+            setMessage(error instanceof Error ? error.message : 'Login failed');
+            passwordRef.current?.select();      // Keep the email, highlight the password so it can be retyped
+            passwordRef.current?.focus();
         }
     }
 
@@ -44,7 +43,7 @@ export default function LoginPage(): ReactElement {
                 <h1 className="login-section__heading"> WELCOME BACK </h1>
                 <p className="login-section__text"> Sign in to your existing account for personalized services. </p>
 
-                <form id="login-form" autoComplete="off" action={signIn}>
+                <form id="login-form" autoComplete="off" onSubmit={signIn}>
                     <input autoComplete="false" name="hidden" type="text" style={{"display": "none"}} />
 
                     <section className="form-group">
