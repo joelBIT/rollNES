@@ -1,4 +1,4 @@
-import type { Review } from "./types/types";
+import type { Game, Review } from "./types/types";
 
 export const URL_COMPANY_PAGE = "/company";
 export const URL_CONTACT_PAGE = "/contact";
@@ -16,6 +16,7 @@ export const URL_TERMS_PAGE = "/terms";
 export const URL_VISION_PAGE = "/vision";
 
 export const COVER_URL = import.meta.env.VITE_COVER_URL;
+export const STORAGE_KEY = 'favouriteGames';
 
 export const DEFAULT_GAMES_SHOWING = 10;
 export const MIN_SEARCH_LENGTH = 3;
@@ -107,4 +108,38 @@ export function getMonthText(month: number): string {
         default:
             return "";
     }
+}
+
+/**
+ * Read favourite games from localstorage. Corrupted or unexpected data is ignored (and gets overwritten on the next save)
+ * instead of crashing the provider. Invalid entries and duplicates are dropped.
+ */
+export function readStoredFavourites(): Game[] {
+    if (!isLocalStorageAvailable()) {
+        return [];
+    }
+
+    try {
+        const stored: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+
+        if (Array.isArray(stored)) {
+            const unique = new Map<number, Game>();
+            stored.filter(isStoredGame).forEach(game => unique.set(game.id, game));
+            return sortGamesByTitle(Array.from(unique.values()));
+        }
+    } catch (error) {
+        console.log(error);
+    }
+
+    return [];
+}
+
+function isStoredGame(value: unknown): value is Game {
+    const game = value as Game | null;
+    return typeof game?.id === "number" && typeof game?.title === "string" && typeof game?.cover === "string";
+}
+
+
+export function sortGamesByTitle(games: Game[]): Game[] {
+    return [...games].sort((a, b) => a.title.localeCompare(b.title));      // Copy first, sort() mutates
 }

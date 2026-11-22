@@ -1,6 +1,6 @@
 import { createContext, type ReactElement, type ReactNode, useEffect, useState } from "react";
 import { type Game } from "../types/types";
-import { isLocalStorageAvailable } from "../utils";
+import { isLocalStorageAvailable, sortGamesByTitle, STORAGE_KEY } from "../utils";
 
 export interface FavouriteGamesContextProvider {
     favourites: Game[];
@@ -13,50 +13,23 @@ export const FavouriteGamesContext = createContext<FavouriteGamesContextProvider
 
 export function FavouriteGamesProvider({ children }: { children: ReactNode }): ReactElement {
     const [favourites, setFavourites] = useState<Game[]>([]);
-    const STORAGE_KEY = 'favouriteGames';
 
-    useEffect(() => {
-        loadFavouriteGames();     
-    }, []);
-
-    /**
-     * Load favourite games from localstorage if localstorage is available.
-     */
-    async function loadFavouriteGames(): Promise<void> {
+    useEffect(() => {       // Persist whenever the favourites change
         if (isLocalStorageAvailable()) {
-            if (localStorage.getItem(STORAGE_KEY)) {
-                const games: Game[] = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-                setFavourites(games);
-            } else {
-                localStorage.setItem(STORAGE_KEY, '[]');
-            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(favourites));
         }
+    }, [favourites]);
+
+    function addFavourite(game: Game): void {
+        setFavourites(current => current.some(favourite => favourite.id === game.id) ? current : sortGamesByTitle([...current, game]));
     }
 
-    async function addFavourite(game: Game): Promise<void> {
-        const games: Game[] = sortFavourites([...favourites, game]);
-        setFavourites(games);
-
-        if (isLocalStorageAvailable()) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(games));
-        }
-    }
-
-    function sortFavourites(favourites: Game[]): Game[] {
-        return favourites.sort((a, b) => a.title.localeCompare(b.title));
-    }
-
-    async function removeFavouriteById(id: number): Promise<void> {
-        const games: Game[] = favourites.filter((favourite: { id: number; }) => favourite.id !== id);
-        setFavourites(games);
-
-        if (isLocalStorageAvailable()) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(games));
-        }
+    function removeFavouriteById(id: number): void {
+        setFavourites(current => current.filter(favourite => favourite.id !== id));
     }
 
     function isFavourite(game_id: number): boolean {
-        return favourites.filter(game => game.id === game_id).length > 0;
+        return favourites.some(game => game.id === game_id);
     }
 
     return (
