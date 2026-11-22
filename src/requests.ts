@@ -121,23 +121,6 @@ export async function logoutRequest(): Promise<void> {
     }
 }
 
-/**
- * Check if a user has an active session.
- */
-export async function isAuthenticatedRequest(): Promise<boolean> {
-    try {
-        const { data } = await supabase.auth.getSession();
-        if (data && data.session?.user && data.session?.user.aud === "authenticated") {
-            return true;
-        }
-    } catch (error) {
-        console.log(error);
-    }
-
-    return false;
-}
-
-
 
 
 
@@ -238,18 +221,13 @@ export async function subscribeToNewsletterRequest(email: string): Promise<void>
  * Send a POST request to create a review for the game with the supplied game ID.
  */
 export async function createReviewRequest(review: CreateReview): Promise<void> {
-    if (await isAuthenticatedRequest()) {
-        const { data } = await supabase.auth.getSession();
-        if (data.session?.user.id) {
-            review.reviewer_id = data.session?.user.id;     // Users that are logged in store their ID with the review
-        }
-    }
+    const { data } = await supabase.auth.getSession();
 
-    const { error } = await supabase.from(REVIEW_TABLE).insert(review);
-    if (error) {
-        console.log(error);
-        throw new Error(`Failed to create review`);
-    }
+    const { error } = await supabase.from(REVIEW_TABLE).insert({
+        ...review,
+        reviewer_id: data.session?.user.id ?? null      // Always the real session user, or null when signed out
+    });
+    throwIfError(error, "Failed to create review");
 }
 
 /**
