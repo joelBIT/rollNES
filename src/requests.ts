@@ -1,5 +1,5 @@
 import type { User } from "@supabase/supabase-js";
-import { supabase } from "./components";
+import { supabase } from "./lib/supabase";
 import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, RegistrationResult, RetroUser, Review } from "./types/types";
 
 const GAMES_TABLE = "games";

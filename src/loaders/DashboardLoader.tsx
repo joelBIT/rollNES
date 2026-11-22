@@ -1,5 +1,5 @@
 import { redirect } from "react-router";
-import { supabase } from "../components";
+import { supabase } from "../lib/supabase";
 import { URL_LOGIN_PAGE } from "../utils";
 
 /**

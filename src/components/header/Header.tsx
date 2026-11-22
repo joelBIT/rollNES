@@ -1,6 +1,11 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
-import { Carousel, Logo, NavBar, NavIcons, SearchDropdown, supabase } from "..";
+import { Carousel } from "./Carousel";
+import { Logo } from "./Logo";
+import { NavBar } from "./NavBar";
+import { NavIcons } from "./NavIcons";
+import { SearchDropdown } from "./SearchDropdown";
+import { getGamesByIdsRequest } from "../../requests";
 import type { Game } from "../../types/types";
 import { URL_HOME } from "../../utils";
 
@@ -11,21 +16,14 @@ export function Header(): ReactElement {
     const [ topGames, setTopGames] = useState<Game[]>([]);
 
     useEffect(() => {
-        getGames();
-    }, [])
+        let cancelled = false;
 
-    async function getGames(): Promise<void> {
-        const { data } = await supabase.from("games").select().in("id", [111, 188, 550]);
-        
-        if (data) {
-            const games: Game[] = [];
-            for (let i = 0; i < data?.length; i++) {
-                games.push(data[i]);
-            }
+        getGamesByIdsRequest([111, 188, 550])
+            .then(games => { if (!cancelled) setTopGames(games); })
+            .catch(error => console.log(error));
 
-            setTopGames(games);
-        }
-    }
+        return () => { cancelled = true; };
+    }, []);
     
     return (
         <header>

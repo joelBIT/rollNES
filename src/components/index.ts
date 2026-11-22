@@ -1,6 +1,5 @@
 export * from "./about/ContactForm";
 export * from "./about/TeamMemberCard";
-export * from "./App";
 export * from "./controllers/ControllerTab";
 export * from "./controllers/GamePad";
 export * from "./dashboard/ProfileForm";
