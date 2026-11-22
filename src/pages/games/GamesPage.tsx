@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { useGames } from "../../hooks/useGames";
 import { AppliedGameFilter, FilterAccordion, GameCard, RangeSlider } from "../../components";
 import type { Game } from "../../types/types";
@@ -10,17 +10,13 @@ import "./GamesPage.css";
  * Page for filtering playable games. A user can choose how many of the filtered games to show on the page.
  */
 export default function GamesPage(): ReactElement {
-    const { games, filteredGames, allFilterValues, appliedFilters, applyGameFilters } = useGames();
+    const { games, filteredGames, allFilterValues, appliedFilters } = useGames();
     const [chosenCount, setChosenCount] = useState<number | null>(null);    // null means the user has not used the slider yet
     const [showFilters, setShowFilters] = useState<boolean>(false);
 
     const total = filteredGames.length;
     const minRange = Math.min(DEFAULT_GAMES_SHOWING, total);                // Minimum 10 games are rendered (or fewer due to chosen filters)
     const numberGamesShowing = Math.max(minRange, Math.min(chosenCount ?? minRange, total));
-
-    useEffect(() => {
-        applyGameFilters();
-    }, [])
 
     return (
         <main id="gamesPage">

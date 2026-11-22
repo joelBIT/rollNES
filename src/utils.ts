@@ -1,4 +1,4 @@
-import type { Game, RetroUser, Review } from "./types/types";
+import type { AppliedFilter, Filter, Game, RetroUser, Review } from "./types/types";
 
 export const URL_COMPANY_PAGE = "/company";
 export const URL_CONTACT_PAGE = "/contact";
@@ -138,4 +138,28 @@ export function readStoredIds(): number[] {
 
 export function isSameUser(a: RetroUser | null, b: RetroUser | null): boolean {
     return a?.id === b?.id && a?.email === b?.email && a?.first_name === b?.first_name && a?.last_name === b?.last_name;
+}
+
+const PROPERTY_FILTERS: Exclude<Filter, "title">[] = ["category", "players", "publisher", "developer"];
+
+/**
+ * Applies the filters to the games. Filters within the same type are mutually inclusive (any value matches). Filters are mutually
+ * exclusive between types (a game must match every type that has a filter). A 'title' filter with several words requires the title
+ * to include all words. With no filters, all games are returned.
+ */
+export function filterGames(games: Game[], filters: AppliedFilter[]): Game[] {
+    if (filters.length === 0) {
+        return games;
+    }
+
+    const titleFilter: AppliedFilter | undefined = filters.find((filter: AppliedFilter) => filter.type === "title");
+    const titleWords: string[] = titleFilter ? titleFilter.value.split(" ").map((word: string) => word.trim().toLowerCase()).filter(Boolean) : [];
+
+    return games.filter((game: Game) =>
+        PROPERTY_FILTERS.every((type: Exclude<Filter, "title">) => {
+            const values: string[] = filters.filter((filter: AppliedFilter) => filter.type === type).map((filter: AppliedFilter) => filter.value);
+            return values.length === 0 || values.includes(String(game[type]));      // No filter of this type applied, or the game matches one of them
+        })
+        && titleWords.every((word: string) => game.title.toLowerCase().includes(word))
+    );
 }
