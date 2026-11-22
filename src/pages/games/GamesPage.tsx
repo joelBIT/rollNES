@@ -10,7 +10,7 @@ import "./GamesPage.css";
  * Page for filtering playable games. A user can choose how many of the filtered games to show on the page.
  */
 export default function GamesPage(): ReactElement {
-    const { filteredGames, allFilterValues, appliedFilters, applyGameFilters } = useGames();
+    const { games, filteredGames, allFilterValues, appliedFilters, applyGameFilters } = useGames();
     const [chosenCount, setChosenCount] = useState<number | null>(null);    // null means the user has not used the slider yet
     const [showFilters, setShowFilters] = useState<boolean>(false);
 
@@ -62,7 +62,10 @@ export default function GamesPage(): ReactElement {
                 }
 
                 {
-                    filteredGames.slice(0, numberGamesShowing).map((game: Game) => <GameCard key={game.id} game={game} />)
+                    games.length > 0 && filteredGames.length === 0 ?
+                        <p className="no-games-text"> No games match the selected filters. </p>
+                    :
+                        filteredGames.slice(0, numberGamesShowing).map((game: Game) => <GameCard key={game.id} game={game} />)
                 }
             </section>
         </main>

@@ -52,6 +52,11 @@
                 padding: 1rem;
             }
         }
+
+        .no-games-text {
+            font-family: brandon-grotesque, sans-serif;
+            font-size: 2rem;
+        }
     }
 }
 

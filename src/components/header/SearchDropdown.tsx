@@ -4,7 +4,7 @@ import { useGames } from "../../hooks/useGames";
 import type { Game } from "../../types/types";
 import { TopGameCard } from "./TopGameCard";
 import { getThreeMatchingGamesRequest } from "../../requests";
-import { URL_GAMES_PAGE } from "../../utils";
+import { DEBOUNCE_MS, MIN_SEARCH_LENGTH, URL_GAMES_PAGE } from "../../utils";
 
 import "./SearchDropdown.css";
 
@@ -15,9 +15,11 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
     const [isShowing, setIsShowing] = useState<boolean>(show);
     const [gameName, setGameName] = useState<string>("");
     const [gameMatches, setGameMatches] = useState<Game[]>([]);
+    const [isSearching, setIsSearching] = useState<boolean>(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const { addFilter } = useGames();
     const navigate = useNavigate();
+    const term = gameName.trim();
 
     useEffect(() => {
         setIsShowing(show);
@@ -28,21 +30,32 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
     }, [show]);
 
     /**
-     * Retrieve at most 3 games that matches the 'name' parameter. Only search when 'name' consists of 3 or more letters.
+     * Retrieve at most 3 games that match the search term. The request is debounced, and the cleanup marks it as cancelled so a slow
+     * response for an old term can never overwrite the result for the current one.
      */
-    async function matchGames(name: string): Promise<void> {
-        setGameName(name);
-        
-        if (name.length > 2) {
-            const matches = await getThreeMatchingGamesRequest(name);
-
-            if (matches && matches?.length > 0) {
-                setGameMatches(matches);
-            }
-        } else {
+    useEffect(() => {
+        if (term.length < MIN_SEARCH_LENGTH) {
             setGameMatches([]);
+            setIsSearching(false);
+            return;
         }
-    }
+
+        let cancelled = false;
+        setIsSearching(true);
+
+        const timer = setTimeout(async () => {
+            const matches = await getThreeMatchingGamesRequest(term);
+            if (!cancelled) {
+                setGameMatches(matches);        // Also applied when empty, so old matches never stay on screen
+                setIsSearching(false);
+            }
+        }, DEBOUNCE_MS);
+
+        return () => {
+            cancelled = true;
+            clearTimeout(timer);
+        };
+    }, [term]);
 
     /**
      * Clear the input field when closing the dropdown.
@@ -54,11 +67,12 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
     }
 
     /**
-     * Only go to the Games page if there are any matches for the supplied title. Otherwise stay on the dropdown.
+     * Show all games matching the search term on the Games page. Does not depend on the dropdown's preview matches, so
+     * pressing Enter works even before the preview has loaded (or when it has fewer than 3 letters).
      */
     function searchGames(): void {
-        if (gameMatches.length && gameName.length > 0) {
-            addFilter("title", gameName);
+        if (term.length > 0) {
+            addFilter("title", term);
             closeDropdown();
             navigate(URL_GAMES_PAGE);
         }
@@ -74,7 +88,7 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                             title="Enter Search Keyword"
                             ref={inputRef}
                             placeholder="Enter Search Keyword"
-                            onChange={e => matchGames(e.target.value)}
+                            onChange={e => setGameName(e.target.value)}
                             value={gameName}
                             autoComplete="off"
                             name="simple-search"
@@ -84,7 +98,7 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                     </form>
 
                     {
-                        gameName.length < 1 ?
+                        term.length === 0 ?
                             <section id="top-games">
                                 <h3 id="top-games__heading"> TOP GAMES </h3>
 
@@ -98,11 +112,20 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                             <section id="matching-games">
                                 <h3 id="matching-games__heading"> BEST GAME MATCHES </h3>
 
-                                <section id="matching-games__cards">
-                                    {
-                                        gameMatches.map(game => <TopGameCard key={game.id} game={game} close={closeDropdown} />)
-                                    }
-                                </section>
+                                {
+                                    gameMatches.length > 0 ?
+                                        <section id="matching-games__cards">
+                                            {
+                                                gameMatches.map(game => <TopGameCard key={game.id} game={game} close={closeDropdown} />)
+                                            }
+                                        </section>
+                                    : term.length < MIN_SEARCH_LENGTH ?
+                                        <p className="search-status"> Type at least {MIN_SEARCH_LENGTH} letters to see matches, or press Enter to search. </p>
+                                    : isSearching ?
+                                        <p className="search-status"> Searching... </p>
+                                    :
+                                        <p className="search-status"> No games match "{term}". </p>
+                                }
                             </section>
                     }
 

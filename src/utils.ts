@@ -18,6 +18,8 @@ export const URL_VISION_PAGE = "/vision";
 export const COVER_URL = import.meta.env.VITE_COVER_URL;
 
 export const DEFAULT_GAMES_SHOWING = 10;
+export const MIN_SEARCH_LENGTH = 3;
+export const DEBOUNCE_MS = 250;
 
 /**
  * Calculates the average rating of the supplied reviews.

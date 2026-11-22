@@ -75,6 +75,11 @@
                     display: flex;
                     gap: 4rem;
                 }
+
+                .search-status {
+                    font-family: brandon-grotesque, sans-serif;
+                    font-size: 1rem;
+                }
             }
 
             & .darken-image-bottom {
