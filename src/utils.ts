@@ -163,3 +163,19 @@ export function filterGames(games: Game[], filters: AppliedFilter[]): Game[] {
         && titleWords.every((word: string) => game.title.toLowerCase().includes(word))
     );
 }
+
+/**
+ * Shortens the text to at most maxLength characters (before the ellipsis), cutting at a word boundary when there is a
+ * reasonable one. Text that already fits is returned unchanged, without an ellipsis.
+ */
+export function truncateText(text: string, maxLength: number): string {
+    if (text.length <= maxLength) {
+        return text;
+    }
+
+    const cut = text.slice(0, maxLength);
+    const lastSpace = cut.lastIndexOf(" ");
+    const shortened = lastSpace > maxLength * 0.6 ? cut.slice(0, lastSpace) : cut;      // Avoid cutting a word in half
+
+    return shortened.trimEnd() + "...";
+}

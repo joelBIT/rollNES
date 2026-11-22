@@ -2,10 +2,12 @@ import { type ReactElement } from "react";
 import { NavLink } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
 import type { Game } from "../../types/types";
-import { COVER_URL, getAverageRating, URL_GAMES_PAGE } from "../../utils";
+import { COVER_URL, getAverageRating, truncateText, URL_GAMES_PAGE } from "../../utils";
 import { Cartridge, Rating } from "..";
 
 import "./GameCard.css";
+
+const DESCRIPTION_MAX_LENGTH = 300;
 
 /**
  * Card used in list of games in /games page. Each game that meets the filter criteria is represented by a GameCard.
@@ -29,7 +31,7 @@ export function GameCard({game}: { game: Game}): ReactElement {
                     </NavLink>
                     
                     <h2 className="game-information__description"> 
-                        {game.description.substring(0, 300)}{game.description.length > 250 ? "..." : ""} 
+                        {truncateText(game.description ?? "", DESCRIPTION_MAX_LENGTH)}
                     </h2>
                 </section>
                 
