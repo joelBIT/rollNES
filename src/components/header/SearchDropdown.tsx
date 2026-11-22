@@ -44,10 +44,21 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
         setIsSearching(true);
 
         const timer = setTimeout(async () => {
-            const matches = await getThreeMatchingGamesRequest(term);
-            if (!cancelled) {
-                setGameMatches(matches);        // Also applied when empty, so old matches never stay on screen
-                setIsSearching(false);
+            try {
+                const matches = await getThreeMatchingGamesRequest(term);
+                if (!cancelled) {
+                    setGameMatches(matches);        // Also applied when empty, so old matches never stay on screen
+                    setIsSearching(false);
+                }
+            } catch (error) {
+                console.log(error);
+                if (!cancelled) {
+                    setGameMatches([]);
+                }
+            } finally {
+                if (!cancelled) {
+                    setIsSearching(false);
+                }
             }
         }, DEBOUNCE_MS);
 

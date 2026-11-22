@@ -1,3 +1,4 @@
+import type { User } from "@supabase/supabase-js";
 import { supabase } from "./components";
 import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, RegistrationResult, RetroUser, Review } from "./types/types";
 
@@ -6,6 +7,45 @@ const NEWSLETTER_TABLE = "newsletter";
 const REVIEW_TABLE = "reviews";
 const PROFILES_TABLE = "profiles";
 
+const GAME_WITH_REVIEWS = `
+    id,
+    title,
+    publisher,
+    developer,
+    category,
+    players,
+    cover,
+    release_date,
+    description,
+    reviews (
+        game_id,
+        reviewer_name,
+        date,
+        heading,
+        rating,
+        review,
+        reviewer_id
+    )
+`;
+
+/**
+ * Log the error and throw a new one with a message that is safe to show to the user.
+ */
+function throwIfError(error: unknown, message: string): void {
+    if (error) {
+        console.log(error);
+        throw new Error(message);
+    }
+}
+
+function toRetroUser(user: User): RetroUser {
+    return {
+        id: user.id,
+        email: user.email ?? "",
+        first_name: user.user_metadata?.first_name ?? "",
+        last_name: user.user_metadata?.last_name ?? ""
+    };
+}
 
 
 
@@ -108,89 +148,37 @@ export async function isAuthenticatedRequest(): Promise<boolean> {
  *********/
 
 /**
- * Send a GET request and retrieve all playable games.
+ * Send a GET request and retrieve all playable games. Throws if the request fails.
  */
 export async function getAllGamesRequest(): Promise<Game[]> {
-    try {
-        const { data } = await supabase.from(GAMES_TABLE).select(`
-            id,
-            title,
-            publisher,
-            developer,
-            category,
-            players,
-            cover,
-            release_date,
-            description,
-            reviews (
-                game_id,
-                reviewer_name,
-                date,
-                heading,
-                rating,
-                review,
-                reviewer_id
-            )
-        `).eq("rom", true).order("title");    // Only retrieve games that are playable
+    const { data, error } = await supabase.from(GAMES_TABLE).select(GAME_WITH_REVIEWS).eq("rom", true).order("title");
+    throwIfError(error, "Failed to fetch games");
 
-        if (data) {
-            return data;
-        }
-    } catch (error) {
-        console.log(error);
-    }
-
-    return [];
+    return data ?? [];
 }
 
 /**
- * Send a GET request and retrieve a specific game by ID. Returns null if there is no playable game with that ID.
+ * Send a GET request and retrieve a specific playable game by ID. Returns null if there is no such game, and throws if the request fails.
  */
 export async function getGameByIdRequest(id: number): Promise<Game | null> {
-    const { data, error } = await supabase.from(GAMES_TABLE).select(`
-        id,
-        title,
-        publisher,
-        developer,
-        category,
-        players,
-        cover,
-        release_date,
-        description,
-        reviews (
-            game_id,
-            reviewer_name,
-            date,
-            heading,
-            rating,
-            review,
-            reviewer_id
-        )
-    `).eq("rom", true).eq("id", id).maybeSingle();      // maybeSingle: no row gives null instead of an error
-
-    if (error) {
-        console.log(error);
-        throw new Error(`Failed to fetch game with id ${id}`);
-    }
+    const { data, error } = await supabase.from(GAMES_TABLE).select(GAME_WITH_REVIEWS).eq("rom", true).eq("id", id).maybeSingle();
+    throwIfError(error, `Failed to fetch game with id ${id}`);
 
     return data;
 }
 
 /**
- * Send a GET request and retrieve games with supplied IDs.
+ * Send a GET request and retrieve the playable games with the supplied IDs. Throws if the request fails.
  */
 export async function getGamesByIdsRequest(ids: number[]): Promise<Game[]> {
-    try {
-        const { data } = await supabase.from(GAMES_TABLE).select().in("id", ids);
-
-        if (data) {
-            return data;
-        }
-    } catch (error) {
-        console.log(error);
+    if (ids.length === 0) {
+        return [];
     }
 
-    return [];
+    const { data, error } = await supabase.from(GAMES_TABLE).select().eq("rom", true).in("id", ids);
+    throwIfError(error, "Failed to fetch games");
+
+    return data ?? [];
 }
 
 
@@ -203,19 +191,13 @@ export async function getGamesByIdsRequest(ids: number[]): Promise<Game[]> {
  **********/
 
 /**
- * Retrieve at most three games that have the supplied word in its title.
+ * Retrieve at most three playable games that have the supplied word in its title. Throws if the request fails.
  */
 export async function getThreeMatchingGamesRequest(word: string): Promise<Game[]> {
-    try {
-        const { data } = await supabase.from(GAMES_TABLE).select().eq("rom", true).ilike("title", `%${word}%`).limit(3);
-        if (data && data?.length > 0) {
-            return data;
-        }
-    } catch (error) {
-        console.log(error);
-    }
+    const { data, error } = await supabase.from(GAMES_TABLE).select().eq("rom", true).ilike("title", `%${word}%`).limit(3);
+    throwIfError(error, "Failed to search games");
 
-    return [];
+    return data ?? [];
 }
 
 
@@ -312,39 +294,34 @@ export async function getReviewsByUserIdRequest(id: string): Promise<Review[]> {
  */
 export async function getSessionUserRequest(): Promise<RetroUser> {
     const { data } = await supabase.auth.getSession();
-    if (data && data.session?.user) {
-        const metadata = data.session.user?.user_metadata;
-
-        const user: RetroUser = {
-            id: data.session.user.id,
-            email: data.session?.user.email as string,
-            last_name: metadata?.last_name,
-            first_name: metadata?.first_name
-        }
-
-        return user;
+    if (data.session?.user) {
+        return toRetroUser(data.session.user);
     }
 
     throw new Error('Could not find user');
 }
 
-/**
- * Update logged in user's updated profile information. First the profile info is stored in the profiles table in the database. Then the
- * session user's metadata is updated with the same information.
- */
 export async function updateProfileInformationRequest(first_name: string, last_name: string): Promise<void> {
     const { data } = await supabase.auth.getSession();
-    
-    if (data && data.session?.user) {
-        const { error } = await supabase.from(PROFILES_TABLE).update({ last_name, first_name }).eq('id', data.session.user.id);
 
-        if (error) {
-            console.log(error);
-            throw error;
-        }
+    if (data.session?.user) {
+        const { error } = await supabase.from(PROFILES_TABLE).update({ last_name, first_name }).eq('id', data.session.user.id);
+        throwIfError(error, "Failed to update profile");
     }
 
-    await supabase.auth.updateUser({        // Updates the session user also
-        data: { first_name, last_name }
+    const { error } = await supabase.auth.updateUser({ data: { first_name, last_name } });     // Updates the session user also
+    throwIfError(error, "Failed to update profile");
+}
+
+/**
+ * Get notified whenever the authentication state changes: at startup, login, logout (also in another tab),
+ * token refresh and profile updates. The callback gets the signed in user, or null if there is none.
+ * @returns     a function that stops the subscription
+ */
+export function subscribeToAuthChanges(callback: (user: RetroUser | null) => void): () => void {
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+        callback(session?.user && session.user.aud === "authenticated" ? toRetroUser(session.user) : null);
     });
+
+    return () => data.subscription.unsubscribe();
 }

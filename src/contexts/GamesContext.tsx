@@ -32,11 +32,15 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     /**
      * Retrieve all playable games from the backend.
      */
-    async function loadGames(): Promise<void> {
+  async function loadGames(): Promise<void> {
+    try {
         const result: Game[] = await getAllGamesRequest();
         setGames(result);
         setFilteredGames(result);
+    } catch (error) {
+        console.log(error);         // Keep whatever games are already loaded
     }
+}
 
     /**
      * Enables appyling selected filters whenever desired in the application.

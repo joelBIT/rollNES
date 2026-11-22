@@ -33,7 +33,7 @@ export function FavouriteGamesProvider({ children }: { children: ReactNode }): R
 
             const found = new Set(games.map(game => game.id));
             setIds(current => current.filter(id => found.has(id) || !initialIds.includes(id)));     // Forget stored games that no longer exist
-        });
+        }).catch(error => console.log(error));;
 
         return () => {
             cancelled = true;
