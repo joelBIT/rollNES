@@ -1,4 +1,4 @@
-import { useActionState, useEffect, useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { useUser } from "../../hooks/useUser";
 import { useGames } from "../../hooks/useGames";
 import { Rating } from "..";
@@ -11,7 +11,6 @@ import "./ReviewForm.css";
  * Form used to create reviews for a game with the supplied gameId.
  */
 export function ReviewForm({gameId, updateReviews}: {gameId: number, updateReviews?: () => void}): ReactElement {
-    const [ state, formAction ] = useActionState(createReview, null);
     const [isShowing, setIsShowing] = useState<boolean>(false);
     const [rating, setRating] = useState<number>(0);
     const [message, setMessage] = useState<string>('');
@@ -27,7 +26,16 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
 
     useEffect(() => {
         resetForm();
-    }, [gameId])
+    }, [gameId]);
+
+    useEffect(() => {       // Hide the success message after a while. The cleanup cancels the timer on unmount or when the message changes.
+        if (!message || isError) {
+            return;
+        }
+
+        const timer = setTimeout(() => setMessage(''), 5000);
+        return () => clearTimeout(timer);
+    }, [message, isError]);
 
     async function createReview(): Promise<void> {
         if (rating === 0) {
@@ -46,21 +54,17 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
         
         try {
             await createReviewRequest(newReview);
-            resetForm();
-            setMessage('Review added');
-            setTimeout(() => setMessage(''), 5000);
         } catch (error) {
+            console.log(error);
             setIsError(true);
             setMessage('Could not create review');
             return;
         }
-        
-        if (updateReviews) {
-            updateReviews();        // Inform parent to update list of reviews with a new review
-            console.log(state);
-        }
 
-        loadGames();        // Retrieve games from backend to get the most recent version of the games
+        resetForm();
+        setMessage('Review added');
+        updateReviews?.();      // Inform parent to update list of reviews with a new review
+        loadGames();            // Retrieve games from backend to get the most recent version of the games
     }
 
     function resetForm(): void {
@@ -94,7 +98,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
                 }
             </button>
         
-            <form action={formAction} className={isShowing ? "reviewForm review-dropdown" : "reviewForm"}>
+            <form action={createReview} className={isShowing ? "reviewForm review-dropdown" : "reviewForm"}>
                 <section className="information-input">
                     <label className="input-label" htmlFor="name">
                         Name
