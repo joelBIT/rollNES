@@ -1,5 +1,5 @@
-import { useEffect, useState, type ReactElement } from "react";
-import type { Game, Review } from "../../types/types";
+import { useEffect, useMemo, useState, type ReactElement } from "react";
+import type { Game, Review, SortOrder } from "../../types/types";
 import { getAverageRating } from "../../utils";
 import { Rating, ReviewCard, ReviewForm } from "..";
 import { getReviewsByGameIdRequest } from "../../requests";
@@ -11,10 +11,12 @@ import "./ReviewList.css";
  * The optional setReviews function is used to send the updated list of reviews to the parent.
  */
 export function ReviewList({game, setReviews}: {game: Game, setReviews?: (reviews: Review[]) => void}): ReactElement {
-    const [sortedReviews, setSortedReviews] = useState<Review[]>([...game.reviews]);
+    const [reviewList, setReviewList] = useState<Review[]>(game.reviews);
+    const [sortOrder, setSortOrder] = useState<SortOrder>("oldest");
+    const sortedReviews = useMemo(() => sortReviews(reviewList, sortOrder), [reviewList, sortOrder]);
 
     useEffect(() => {
-        setSortedReviews([...game.reviews]);
+        setReviewList([...game.reviews]);
         if (setReviews) {
             setReviews([...game.reviews]);
         }
@@ -23,28 +25,26 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
     /**
      * Sort reviews according to selected option.
      */
-    function sortReviews(sort: string): void {
-        const reviewsToSort: Review[] = [...sortedReviews];
+    function sortReviews(reviews: Review[], order: SortOrder): Review[] {
+        const sorted = [...reviews];
 
-        if (sort === "name") {
-            const sorted: Review[] = reviewsToSort.sort((a, b) => a.reviewer_name.localeCompare(b.reviewer_name));
-            setSortedReviews([...sorted]);
-        } else if (sort === "newest") {
-            const sorted: Review[] = reviewsToSort.sort((a, b) => (Date.parse(a.date) > Date.parse(b.date)) ? -1 : 1);
-            setSortedReviews([...sorted]);
-        } else if (sort === "oldest") {
-            const sorted: Review[] = reviewsToSort.sort((a, b) => (Date.parse(a.date) < Date.parse(b.date)) ? -1 : 1);
-            setSortedReviews([...sorted]);
+        switch (order) {
+            case "name":
+                return sorted.sort((a, b) => a.reviewer_name.localeCompare(b.reviewer_name));
+            case "newest":
+                return sorted.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+            default:
+                return sorted.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
         }
     }
 
     /**
      * Update current list of reviews when a new review has been created. 
-     * Also send the updated list to the parent.
+     * Also send the updated list to the parent. The selected sort order is applied automatically.
      */
     async function updateReviews(): Promise<void> {
         const updatedReviews: Review[] = await getReviewsByGameIdRequest(game.id);
-        setSortedReviews([...updatedReviews]);
+        setReviewList([...updatedReviews]);
         if (setReviews) {
             setReviews([...updatedReviews]);
         }
@@ -64,13 +64,18 @@ export function ReviewList({game, setReviews}: {game: Game, setReviews?: (review
                 <ReviewForm gameId={game.id} updateReviews={updateReviews} />
 
                 {
-                    sortedReviews.length > 0 ? 
+                    reviewList.length > 0 ? 
                     <>
                         <section id="reviews-sort">
                             <label id="reviews-sort-label" htmlFor="reviews-sort-select"> Sort by </label> 
-                            <select id="reviews-sort-select" name="reviews-sort-select" onChange={e => sortReviews(e.target.value)}>
+                            <select 
+                                id="reviews-sort-select" 
+                                name="reviews-sort-select" 
+                                value={sortOrder} 
+                                onChange={e => setSortOrder(e.target.value as SortOrder)}
+                            >
                                 <optgroup className="reviews-sort-select__options">
-                                    <option value="oldest" defaultChecked> Oldest </option>
+                                    <option value="oldest"> Oldest </option>
                                     <option value="name"> Name </option>
                                     <option value="newest"> Newest </option>
                                 </optgroup>

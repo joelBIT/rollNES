@@ -144,39 +144,36 @@ export async function getAllGamesRequest(): Promise<Game[]> {
 }
 
 /**
- * Send a GET request and retrieve a specific game by ID.
+ * Send a GET request and retrieve a specific game by ID. Returns null if there is no playable game with that ID.
  */
-export async function getGameByIdRequest(id: number): Promise<Game> {
-    try {
-        const { data } = await supabase.from(GAMES_TABLE).select(`
-            id,
-            title,
-            publisher,
-            developer,
-            category,
-            players,
-            cover,
-            release_date,
-            description,
-            reviews (
-                game_id,
-                reviewer_name,
-                date,
-                heading,
-                rating,
-                review,
-                reviewer_id
-            )
-        `).eq("rom", true).eq("id", id).single();
+export async function getGameByIdRequest(id: number): Promise<Game | null> {
+    const { data, error } = await supabase.from(GAMES_TABLE).select(`
+        id,
+        title,
+        publisher,
+        developer,
+        category,
+        players,
+        cover,
+        release_date,
+        description,
+        reviews (
+            game_id,
+            reviewer_name,
+            date,
+            heading,
+            rating,
+            review,
+            reviewer_id
+        )
+    `).eq("rom", true).eq("id", id).maybeSingle();      // maybeSingle: no row gives null instead of an error
 
-        if (data) {
-            return data;
-        }
-    } catch (error) {
+    if (error) {
         console.log(error);
+        throw new Error(`Failed to fetch game with id ${id}`);
     }
 
-    throw new Error(`Could not find game with id ${id}`);
+    return data;
 }
 
 /**

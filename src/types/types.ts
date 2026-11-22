@@ -82,3 +82,5 @@ export type GameController = {
 }
 
 export type BindingOwner = { player: 1 | 2, key: keyof GameController };
+
+export type SortOrder = "oldest" | "newest" | "name";

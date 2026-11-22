@@ -3,25 +3,27 @@ import type { Game } from "../types/types";
 import { getGameByIdRequest } from "../requests";
 
 /**
- * Retrieve game from backend.
+ * Retrieve game from backend. Responds with 404 if the id is invalid or no playable game 
+ * has that id, and 500 if the request fails.
  */
 export const GameLoader = async ({params}: LoaderFunctionArgs): Promise<Game> => {
-    const id = params.id as string;
+    const id = Number(params.id);
 
+    if (!Number.isInteger(id) || id <= 0) {
+        throw data(`Game "${params.id}" was not found`, { status: 404 });
+    }
+
+    let game: Game | null;
     try {
-        const game = await getGameByIdRequest(parseInt(id));
-        if (game) {
-            for (let i = 0; i < game.reviews?.length; i++) {
-                const date = new Date(game.reviews[i].date);
-                game.reviews[i].date = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getUTCFullYear();
-            }
-
-            return game;
-        }
-
-        return game;
+        game = await getGameByIdRequest(id);
     } catch (error) {
         console.log(error);
         throw data(`Error retrieving game with id ${id}`, { status: 500 });
     }
+
+    if (!game) {
+        throw data(`Game ${id} was not found`, { status: 404 });
+    }
+
+    return game;
 };
