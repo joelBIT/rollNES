@@ -111,10 +111,10 @@ export function getMonthText(month: number): string {
 }
 
 /**
- * Read favourite games from localstorage. Corrupted or unexpected data is ignored (and gets overwritten on the next save)
- * instead of crashing the provider. Invalid entries and duplicates are dropped.
+ * Read the ids of the favourite games from localstorage. Corrupted data gives an empty list (and is overwritten on the next
+ * save). Entries from the old format, where whole games were stored, are converted to ids.
  */
-export function readStoredFavourites(): Game[] {
+export function readStoredIds(): number[] {
     if (!isLocalStorageAvailable()) {
         return [];
     }
@@ -123,23 +123,15 @@ export function readStoredFavourites(): Game[] {
         const stored: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
 
         if (Array.isArray(stored)) {
-            const unique = new Map<number, Game>();
-            stored.filter(isStoredGame).forEach(game => unique.set(game.id, game));
-            return sortGamesByTitle(Array.from(unique.values()));
+            const ids = stored
+                .map(item => typeof item === "number" ? item : (item as Game | null)?.id)
+                .filter((id): id is number => Number.isInteger(id));
+
+            return Array.from(new Set(ids));        // No duplicates
         }
     } catch (error) {
         console.log(error);
     }
 
     return [];
-}
-
-function isStoredGame(value: unknown): value is Game {
-    const game = value as Game | null;
-    return typeof game?.id === "number" && typeof game?.title === "string" && typeof game?.cover === "string";
-}
-
-
-export function sortGamesByTitle(games: Game[]): Game[] {
-    return [...games].sort((a, b) => a.title.localeCompare(b.title));      // Copy first, sort() mutates
 }
