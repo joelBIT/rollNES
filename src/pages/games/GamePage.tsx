@@ -19,6 +19,7 @@ export default function GamePage(): ReactElement {
     const [reviews, setReviews] = useState<Review[]>(game.reviews);
     const { addFavourite, isFavourite, removeFavouriteById } = useFavourites();
     const favourite = isFavourite(game.id);
+    const average = getAverageRating(reviews);
 
     useEffect(() => {
         setActive(tabTitles[0]);                    // Always show "Details" tab as default when viewing a new game
@@ -59,12 +60,12 @@ export default function GamePage(): ReactElement {
 
                                 <section className="score-row">
                                     <div className="score-badge">
-                                        <span className="num">{getAverageRating(reviews)}</span>
+                                        <span className="num">{reviews.length > 0 ? average.toFixed(1) : "–"}</span>
                                         <span className="denom">/ 5</span>
                                     </div>
 
                                     <div className="rating-content">
-                                        <Rating rating={getAverageRating(reviews)} />
+                                        <Rating rating={average} />
                                         <p className="review-count">Based on {reviews?.length} player review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""}</p>
                                     </div>
                                 </section>

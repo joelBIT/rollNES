@@ -25,17 +25,17 @@ export const DEBOUNCE_MS = 250;
  * Calculates the average rating of the supplied reviews.
  */
 export function getAverageRating(reviews: Review[]): number {
-    if (reviews?.length === 0) {
+    if (!reviews?.length) {
         return 0;
     }
 
     let rating: number = 0.0;
 
-    for (let i = 0; i < reviews?.length; i++) {
-        rating += reviews[i]?.rating;
+    for (let i = 0; i < reviews.length; i++) {
+        rating += reviews[i].rating;
     }
 
-    return rating / reviews?.length;
+    return rating / reviews.length;
 }
 
 /**
