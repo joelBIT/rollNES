@@ -1,9 +1,12 @@
 import { type ReactElement } from "react";
 import { useControllers } from "../../hooks/useControllers";
 import { GamePad } from "..";
-import type { GameController } from "../../types/types";
+import type { ButtonId, GameController } from "../../types/types";
+import { BUTTON_LABELS } from "../../config/gamepads";
 
 import "./ControllerTab.css";
+
+const BINDING_ORDER: ButtonId[] = ["left", "up", "right", "down", "select", "start", "b", "a"];
 
 /**
  * Form used for configuration of player 1 and player 2 controls.
@@ -35,14 +38,7 @@ export function ControllerTab(): ReactElement {
 function ButtonBindings({player}: {player: GameController}): ReactElement {
     return (
         <section className="button-bindings">
-            <div>Left: <p>{player.left.value}</p></div>
-            <div>Up: <p>{player.up.value}</p></div>
-            <div>Right: <p>{player.right.value}</p></div>
-            <div>Down: <p>{player.down.value}</p></div>
-            <div>Select: <p>{player.select.value}</p></div>
-            <div>Start: <p>{player.start.value}</p></div>
-            <div>B: <p>{player.b.value}</p></div>
-            <div>A: <p>{player.a.value}</p></div>
+            {BINDING_ORDER.map((id: ButtonId) => <div key={id}>{BUTTON_LABELS[id]}: <p>{player[id]}</p></div>)}
         </section>
     );
 }

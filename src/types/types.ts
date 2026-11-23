@@ -1,11 +1,6 @@
 import type { ReactNode } from "react";
 import type { Tables, TablesInsert } from "./database.types";
 
-export type Button = {
-    name: "A" | "B" | "Start" | "Select" | "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight" | "A2" | "B2" | "Start2" | "Select2" | "ArrowUp2" | "ArrowDown2" | "ArrowLeft2" | "ArrowRight2",
-    value: string
-}
-
 export type AuthenticationRequest = {
     email: string,
     password: string
@@ -54,17 +49,20 @@ export type AppliedFilter = {
     value: string
 }
 
-export type GameController = {
-    a: Button;
-    b: Button;
-    select: Button;
-    start: Button;
-    up: Button;
-    down: Button;
-    left: Button;
-    right: Button;
+export type ButtonId = "a" | "b" | "select" | "start" | "up" | "down" | "left" | "right";
+export type PlayerNumber = 1 | 2;
+
+// The key code bound to each button of one player, e.g. { a: "KeyZ", up: "ArrowUp", ... }
+export type GameController = Record<ButtonId, string>;
+
+// The format the emulator worker expects for its configuration.
+export type Button = {
+    name: string,
+    value: string
 }
 
-export type BindingOwner = { player: 1 | 2, key: keyof GameController };
+export type BindingOwner = { player: 1 | 2, button: keyof GameController };
+
+export type Controllers = Record<PlayerNumber, GameController>;
 
 export type SortOrder = "oldest" | "newest" | "name";

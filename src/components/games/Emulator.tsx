@@ -2,14 +2,12 @@ import type { ReactElement } from "react";
 import { useControllers } from "../../hooks/useControllers";
 import { useEmulator } from "../../hooks/useEmulator";
 import { isMobileDevice } from "../../utils";
-import type { GameController } from "../../types/types";
+import type { ButtonId } from "../../types/types";
+import { BUTTON_LABELS } from "../../config/gamepads";
 
 import "./Emulator.css";
 
-const BUTTON_LABELS: [string, keyof GameController][] = [
-    ["Up", "up"], ["Down", "down"], ["Left", "left"], ["Right", "right"],
-    ["Select", "select"], ["Start", "start"], ["A", "a"], ["B", "b"]
-];
+const PANEL_ORDER: ButtonId[] = ["up", "down", "left", "right", "select", "start", "a", "b"];
 
 /**
  * The Emulator should be run on the App if using a mobile device.
@@ -38,8 +36,8 @@ export function Emulator({gameId}: {gameId: number}): ReactElement {
                 <section id="player1-controller">
                     <h3 className="player1-controller__title"> Player 1 </h3>
                     {
-                        BUTTON_LABELS.map(([label, key]) => (
-                            <h3 key={key} className="player1-controller__text"> <b>{label}:</b> {player1[key].value} </h3>
+                        PANEL_ORDER.map((id: ButtonId) => (
+                            <h3 key={id} className="player1-controller__text"> <b>{BUTTON_LABELS[id]}:</b> {player1[id]} </h3>
                         ))
                     }
                 </section>

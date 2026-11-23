@@ -1,6 +1,7 @@
 import { useState, type ReactElement } from "react";
 import { useControllers } from "../../hooks/useControllers";
-import type { GameController } from "../../types/types";
+import type { ButtonId, GameController, PlayerNumber } from "../../types/types";
+import { BUTTON_LABELS } from "../../config/gamepads";
 
 import "./GamePad.css";
 
@@ -8,29 +9,28 @@ import "./GamePad.css";
  * A NES gamepad used for setting controller inputs for players when using the RollNES emulator.
  * The parameter 'player' represents if the gamepad is used by player 1, 2, etc.
  */
-export function GamePad({player}: {player: 1 | 2}): ReactElement {
+export function GamePad({player}: {player: PlayerNumber}): ReactElement {
     const { player1, player2, updateBinding, findBindingConflict } = useControllers();
-    const controller: GameController = player === 1 ? player1 : player2;        // Always the current configuration, never a stale copy
-    const [activeKey, setActiveKey] = useState<keyof GameController | null>(null);     // Which button is being edited
+    const controller: GameController = player === 1 ? player1 : player2;            // Always the current configuration, never a stale copy
+    const [activeButton, setActiveButton] = useState<ButtonId | null>(null);        // Which button is being edited
     const [selectedValue, setSelectedValue] = useState<string>('');
-    const conflict = activeKey && selectedValue ? findBindingConflict(player, activeKey, selectedValue) : null;
-    const button = activeKey ? controller[activeKey] : null;
+    const conflict = activeButton && selectedValue ? findBindingConflict(player, activeButton, selectedValue) : null;
 
-    function openPopup(key: keyof GameController, event: React.MouseEvent): void {
+    function openPopup(button: ButtonId, event: React.MouseEvent): void {
         event.preventDefault();
-        setSelectedValue(controller[key].value);        // Start from the current binding so Save without a key press changes nothing
-        setActiveKey(key);
+        setSelectedValue(controller[button]);
+        setActiveButton(button);
     }
 
     function closePopup(): void {
-        setActiveKey(null);
+        setActiveButton(null);
     }
 
     function saveBinding(): void {
-        if (activeKey && selectedValue && !conflict) {
-            updateBinding(player, activeKey, selectedValue);
+        if (activeButton && selectedValue && !conflict) {
+            updateBinding(player, activeButton, selectedValue);
+            setActiveButton(null);
         }
-        setActiveKey(null);
     }
 
     /**
@@ -39,10 +39,6 @@ export function GamePad({player}: {player: 1 | 2}): ReactElement {
     function setKeyCode(event: React.KeyboardEvent<HTMLInputElement>): void {
         setSelectedValue(event.code);
         event.preventDefault();
-    }
-
-    function labelOf(key: keyof GameController): string {
-        return key.charAt(0).toUpperCase() + key.slice(1);
     }
 
     return (
@@ -88,26 +84,15 @@ export function GamePad({player}: {player: 1 | 2}): ReactElement {
 
             <div className="brand">NINTENDO</div>
 
-            {activeKey && button && (
+            {activeButton && (
                 <div className="popup-backdrop" onClick={closePopup}>
                     <div className="popup-card" onClick={(e) => e.stopPropagation()}>
-                        <p className="popup-title">
-                            Bind {activeKey.charAt(0).toUpperCase() + activeKey.slice(1)} (Player {player})
-                        </p>
-                        <input
-                            type="text"
-                            value={selectedValue}
-                            name={activeKey}
-                            onKeyDown={setKeyCode}
-                            readOnly
-                            autoComplete="off" 
-                            autoFocus
-                        />
+                        <p className="popup-title">Bind {BUTTON_LABELS[activeButton]} (Player {player})</p>
+                        <input type="text" value={selectedValue} name={activeButton} onKeyDown={setKeyCode} readOnly autoComplete="off" autoFocus />
 
                         {conflict && (
                             <p className="popup-warning" role="alert">
-                                {selectedValue} is already used by Player {conflict.player} {labelOf(conflict.key)}.
-                                Choose another key.
+                                {selectedValue} is already used by Player {conflict.player} {BUTTON_LABELS[conflict.button]}. Choose another key.
                             </p>
                         )}
 
