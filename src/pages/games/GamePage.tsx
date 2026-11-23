@@ -22,7 +22,7 @@ export default function GamePage(): ReactElement {
  * Shows information about the game as well as reviews. There are three tabs ("Details", "Play", "Controller") a user can click on.
  * Reviews are only shown in the "Details" tab.
  */
-export function GameView({game}: {game: Game}): ReactElement {
+function GameView({game}: {game: Game}): ReactElement {
     const tabTitles = ["Details", "Play", "Controller"];
     const [active, setActive] = useState<string>(tabTitles[0]);
     const [reviews, setReviews] = useState<Review[]>(game.reviews);

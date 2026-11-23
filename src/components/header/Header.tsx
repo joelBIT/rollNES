@@ -8,6 +8,7 @@ import { SearchDropdown } from "./SearchDropdown";
 import { getGamesByIdsRequest } from "../../requests";
 import type { Game } from "../../types/types";
 import { URL_HOME } from "../../utils";
+import { TOP_GAME_IDS } from "../../config/games";
 
 import "./Header.css";
 
@@ -18,7 +19,7 @@ export function Header(): ReactElement {
     useEffect(() => {
         let cancelled = false;
 
-        getGamesByIdsRequest([111, 188, 550])
+        getGamesByIdsRequest(TOP_GAME_IDS)
             .then(games => { if (!cancelled) setTopGames(games); })
             .catch(error => console.log(error));
 

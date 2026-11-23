@@ -1,6 +1,7 @@
 import {useEffect, useState, type ReactElement} from "react";
 import { NavLink } from "react-router";
 import { URL_GAMES_PAGE } from "../../utils";
+import { FEATURED_GAME_ID } from "../../config/games";
 
 import "./Carousel.css";
 
@@ -36,7 +37,7 @@ export function Carousel(): ReactElement {
 
             <section id="slide-space">
                 <h3 className={slide === 0 ? "active" : "inactive"}> PLAY NES GAMES IN A BROWSER </h3>
-                <h3 className={slide === 1 ? "active" : "inactive"}> NEW: BATTLETOADS VS DOUBLE DRAGON <NavLink to={`${URL_GAMES_PAGE}/113`}> PLAY NOW </NavLink> </h3>
+                <h3 className={slide === 1 ? "active" : "inactive"}> NEW: BATTLETOADS VS DOUBLE DRAGON <NavLink to={`${URL_GAMES_PAGE}/${FEATURED_GAME_ID}`}> PLAY NOW </NavLink> </h3>
                 <h3 className={slide === 2 ? "active" : "inactive"}> CONTINUOUSLY UPDATED WITH MORE GAMES </h3>
             </section>
 

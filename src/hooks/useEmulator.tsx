@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { useControllers } from "./useControllers";
-
-const ROM_BASE_URL = `${import.meta.env.VITE_SUPABASE_URL}/storage/v1/object/public/roms`;
+import { ROMS_URL } from "../config/env";
 
 /**
  * Runs the RollNES emulator for the supplied game. Creates the canvas, worker, audio and key listeners, and tears everything
@@ -35,7 +34,7 @@ export function useEmulator(gameId: number, enabled: boolean = true): {
         setError(null);
 
         try {
-            const response = await fetch(`${ROM_BASE_URL}/${gameId}.nes?download`, { signal });
+            const response = await fetch(`${ROMS_URL}/${gameId}.nes?download`, { signal });
             if (!response.ok) {
                 throw new Error(`Could not load ROM (HTTP ${response.status})`);
             }

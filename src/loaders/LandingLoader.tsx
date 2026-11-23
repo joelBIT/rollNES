@@ -1,3 +1,4 @@
+import { MOST_PLAYED_GAME_IDS } from "../config/games";
 import { getGamesByIdsRequest } from "../requests";
 import type { Game } from "../types/types";
 
@@ -6,7 +7,7 @@ import type { Game } from "../types/types";
  */
 export const LandingLoader = async (): Promise<Game[]> => {
     try {
-        return await getGamesByIdsRequest([172, 816, 739, 289]);
+        return await getGamesByIdsRequest(MOST_PLAYED_GAME_IDS);
     } catch (error) {
         console.log(error);
     }

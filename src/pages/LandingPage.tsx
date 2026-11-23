@@ -3,6 +3,7 @@ import { useLoaderData, NavLink } from "react-router";
 import { GameCarousel, PopularGames } from "../components";
 import type { Game } from "../types/types";
 import { URL_GAMES_PAGE } from "../utils";
+import { FEATURED_GAME_ID } from "../config/games";
 
 import "./LandingPage.css";
 
@@ -17,7 +18,7 @@ export default function LandingPage(): ReactElement {
                     <h2 className="game-battletoads__heading"> Battletoads & Double Dragon </h2>
                     <p className="game-battletoads__text"> Characters from both series join forces in new adventures. </p>
 
-                    <NavLink className="play-button" to={URL_GAMES_PAGE + "/113"}>
+                    <NavLink className="play-button" to={URL_GAMES_PAGE + "/" + FEATURED_GAME_ID}>
                         Play now
                     </NavLink>
                 </section>

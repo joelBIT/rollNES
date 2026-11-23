@@ -1,5 +1,7 @@
 import type { AppliedFilter, Filter, Game, RetroUser, Review } from "./types/types";
 
+export { COVER_URL } from "./config/env";
+
 export const URL_COMPANY_PAGE = "/company";
 export const URL_CONTACT_PAGE = "/contact";
 export const URL_DASHBOARD_PAGE = "/dashboard";
@@ -15,7 +17,6 @@ export const URL_TEAM_PAGE = "/team";
 export const URL_TERMS_PAGE = "/terms";
 export const URL_VISION_PAGE = "/vision";
 
-export const COVER_URL = import.meta.env.VITE_COVER_URL;
 export const STORAGE_KEY = 'favouriteGames';
 
 export const DEFAULT_GAMES_SHOWING = 10;
