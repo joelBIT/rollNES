@@ -2,7 +2,7 @@ import { useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
 import { Cartridge, ControllerTab, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
-import { convertDateToString, COVER_URL, getAverageRating } from "../../utils";
+import { convertDateToString, COVER_URL, getAverageRating, pluralize } from "../../utils";
 import type { Game, Review } from "../../types/types";
 
 import "./GamePage.css";
@@ -61,7 +61,7 @@ export function GameView({game}: {game: Game}): ReactElement {
 
                                     <div className="rating-content">
                                         <Rating rating={average} />
-                                        <p className="review-count">Based on {reviews?.length} player review{reviews?.length > 1 || reviews?.length === 0 ? "s" : ""}</p>
+                                        <p className="review-count">Based on {pluralize(reviews.length, "player review")}</p>
                                     </div>
                                 </section>
 

@@ -61,7 +61,7 @@ export default function DashboardPage(): ReactElement {
                         {loading && <p> Loading reviews... </p>}
                         {error && <h2 className="message-failure"> {error} </h2>}
                         {!loading && !error && reviews.length === 0 && <p> You haven't written any reviews yet. </p>}
-                        {reviews.map(review => <ReviewCard key={`${review.game_id}-${review.date}`} review={review} />)}
+                        {reviews.map(review => <ReviewCard key={review.id} review={review} />)}
                     </>
                 ) : (
                     <>

@@ -1,6 +1,6 @@
 import { useMemo, useState, type ReactElement } from "react";
 import type { Review, SortOrder } from "../../types/types";
-import { getAverageRating } from "../../utils";
+import { getAverageRating, pluralize } from "../../utils";
 import { Rating, ReviewCard, ReviewForm } from "..";
 import { getReviewsByGameIdRequest } from "../../requests";
 
@@ -49,7 +49,7 @@ export function ReviewList({gameId, reviews, setReviews}: {gameId: number, revie
                 <section id="reviews-rating"> 
                     <Rating rating={getAverageRating(sortedReviews)} />
                     <p className="reviews-border"></p>
-                    <p className="rating-text">Based on {sortedReviews.length} reviews</p> 
+                    <p className="rating-text">Based on {pluralize(reviews.length, "review")}</p>
                 </section>
 
                 <ReviewForm gameId={gameId} updateReviews={refreshReviews} />
@@ -75,7 +75,7 @@ export function ReviewList({gameId, reviews, setReviews}: {gameId: number, revie
                         
                         <section id="reviews">
                             {
-                                sortedReviews.map((review: Review, i: number) => <ReviewCard key={i} review={review} />)
+                                sortedReviews.map((review: Review) => <ReviewCard key={review.id} review={review} />)
                             }
                         </section>
                     </>

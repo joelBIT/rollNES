@@ -179,3 +179,10 @@ export function truncateText(text: string, maxLength: number): string {
 
     return shortened.trimEnd() + "...";
 }
+
+/**
+ * Returns the count followed by the word, in plural unless the count is exactly 1. Example: "1 review", "0 reviews", "5 reviews".
+ */
+export function pluralize(count: number, word: string): string {
+    return `${count} ${word}${count === 1 ? "" : "s"}`;
+}

@@ -24,7 +24,7 @@ export function FavouriteMenu({show, closeOverlays, close}: {show: boolean, clos
                     favourites.length === 0 ?
                         <h2 className="no-favourites-text"> No favourites selected </h2>
                     :
-                        favourites.map((game: Game) => <FavouriteCard key={game.title} game={game} close={closeOverlays} />)
+                        favourites.map((game: Game) => <FavouriteCard key={game.id} game={game} close={closeOverlays} />)
                 }
             </section>
         </section>

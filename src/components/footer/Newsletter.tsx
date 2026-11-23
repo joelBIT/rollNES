@@ -16,17 +16,20 @@ export function Newsletter(): ReactElement {
     /**
      * Show message to indicate if the subscription succeeded or not.
      */
-    async function subscribe(formData: FormData): Promise<void> {        
+    async function subscribe(formData: FormData): Promise<void> {
+        const address = String(formData.get("newsletter-form-email") ?? "").trim();
+
         try {
-            await subscribeToNewsletterRequest(formData.get("newsletter-form-email") as string);
+            await subscribeToNewsletterRequest(address);
         } catch (error: any) {
             setIsError(true);
-            setMessage(error.message);
+            setMessage(error instanceof Error ? error.message : "Failed to subscribe");
             return;
         }
         
         setIsError(false);
         setMessage("Subscription successful");
+        setEmail('');
     }
     
     return (

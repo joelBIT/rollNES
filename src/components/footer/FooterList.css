@@ -1,4 +1,4 @@
-#footer-list {
+.footer-list {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
@@ -33,7 +33,7 @@
 }
 
 @media (max-width: 400px) {
-    #footer-list {
+    .footer-list {
         text-align: center;
     }
 }

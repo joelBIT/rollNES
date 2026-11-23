@@ -6,7 +6,7 @@ import "./FooterList.css";
 
 export function FooterList({heading, links}: {heading: string, links: FooterLink[]}): ReactElement {    
     return (
-        <section id="footer-list">
+        <section className="footer-list">
             <h1 className="footer-list__heading"> {heading} </h1>
 
             {

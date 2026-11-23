@@ -35,7 +35,7 @@ export type RegistrationResult = {
     hasSession: boolean        // false when email confirmation is required before the user can sign in
 }
 
-export type Review = CreateReview & { date: string }
+export type Review = CreateReview & { id: number, date: string }
 
 export type CreateReview = {
     reviewer_name: string,

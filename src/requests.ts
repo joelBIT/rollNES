@@ -18,6 +18,7 @@ const GAME_WITH_REVIEWS = `
     release_date,
     description,
     reviews (
+        id,
         game_id,
         reviewer_name,
         date,

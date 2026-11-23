@@ -2,7 +2,7 @@ import { type ReactElement } from "react";
 import { NavLink } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
 import type { Game } from "../../types/types";
-import { COVER_URL, getAverageRating, truncateText, URL_GAMES_PAGE } from "../../utils";
+import { COVER_URL, getAverageRating, pluralize, truncateText, URL_GAMES_PAGE } from "../../utils";
 import { Cartridge, Rating } from "..";
 
 import "./GameCard.css";
@@ -38,7 +38,7 @@ export function GameCard({game}: { game: Game}): ReactElement {
                 <section className="game-details">
                     <section className="game-details__reviews">
                         <Rating rating={getAverageRating(game.reviews)} />
-                        <p> {game.reviews?.length} review{game.reviews?.length > 1 || game.reviews?.length === 0 ? "s" : ""} </p>
+                        <p> {pluralize(game.reviews?.length ?? 0, "review")} </p>
                     </section>
 
                     <section className="game-favourite-icon" onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}>
