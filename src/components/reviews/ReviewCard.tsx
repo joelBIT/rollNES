@@ -14,7 +14,13 @@ export function ReviewCard({review}: {review: Review}): ReactElement {
     return (
         <section className="review-card">
             <section className="review-top">
-                <img src="/github.svg" alt="Profile image" className="profile-image" />
+                <div 
+                    className="profile-image profile-initials" 
+                    style={{ backgroundColor: `hsl(${getHue(review.reviewer_name)} 45% 35%)` }}
+                    aria-hidden="true"
+                >
+                    {getInitials(review.reviewer_name)}
+                </div>
 
                 <section className="reviewer">
                     <h2 className="review-name"> {review.reviewer_name} </h2>
@@ -31,4 +37,29 @@ export function ReviewCard({review}: {review: Review}): ReactElement {
             </section>
         </section>
     );
+}
+
+/**
+ * The avatar for the moment. TODO: Add avatar possibility in account and show it here if an avatar is uploaded.
+ */
+function getInitials(name: string): string {
+    const words = name.trim().split(/\s+/).filter(Boolean);
+    if (words.length === 0) {
+        return "?";
+    }
+
+    const first = Array.from(words[0])[0];
+    const last = words.length > 1 ? Array.from(words[words.length - 1])[0] : "";
+    return (first + last).toUpperCase();
+}
+
+/**
+ * Generate different background colors for different user initials.
+ */
+function getHue(name: string): number {
+    let hash = 0;
+    for (const character of name) {
+        hash = (hash * 31 + character.charCodeAt(0)) % 360;
+    }
+    return hash;
 }

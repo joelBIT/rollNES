@@ -19,9 +19,16 @@
         gap: 1rem;
         flex-wrap: wrap;
         
-        & .profile-image {
-            width: 50px;
-            height: 50px;
+        & .profile-initials {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            user-select: none;
+            padding: 1rem;
+            border-radius: 3px;
         }
     }
 
