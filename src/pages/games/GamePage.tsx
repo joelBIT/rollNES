@@ -1,11 +1,13 @@
-import { useState, type ReactElement } from "react";
+import { lazy, Suspense, useState, type ReactElement } from "react";
 import { useLoaderData } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
-import { Cartridge, ControllerTab, Emulator, Rating, ReviewList, Tabs, Tag } from "../../components";
+import { Cartridge, ControllerTab, Rating, ReviewList, Tabs, Tag } from "../../components";
 import { convertDateToString, COVER_URL, getAverageRating, pluralize } from "../../utils";
 import type { Game, Review } from "../../types/types";
 
 import "./GamePage.css";
+
+const Emulator = lazy(() => import("../../components/games/Emulator").then(module => ({ default: module.Emulator })));
 
 /**
  * Page for a game. The key makes React create a fresh GameView for every game, so the active tab and the reviews
@@ -34,7 +36,9 @@ export function GameView({game}: {game: Game}): ReactElement {
 
             {
                 active === tabTitles[1] ? 
-                    <Emulator gameId={game.id} />
+                    <Suspense fallback={<p className="loading-text"> Loading emulator... </p>}>
+                        <Emulator gameId={game.id} />
+                    </Suspense>
                     :
                 active === tabTitles[2] ? 
                     <ControllerTab /> 

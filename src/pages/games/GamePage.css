@@ -3,6 +3,11 @@
     flex-direction: column;
     background: radial-gradient(circle at 50% 20%, #3a3f4b, #14161c 70%);
 
+    & .loading-text {
+        font-family: brandon-grotesque, sans-serif;
+        font-size: 1rem;
+    }
+
     & #game-top {
         display: flex;
         flex-direction: column;
