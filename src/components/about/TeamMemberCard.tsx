@@ -8,7 +8,7 @@ import "./TeamMemberCard.css";
 export function TeamMemberCard({imageSource, name, title}: {imageSource: string, name: string, title: string}): ReactElement {
     return (
         <section className="team-member-card">
-            <img src={imageSource} className="team-member-photo" />
+            <img src={imageSource} className="team-member-photo" alt={`${name}, ${title}`} />
 
             <h2 className="team-member-name"> {name} </h2>
             <h3 className="team-member-title"> {title} </h3>

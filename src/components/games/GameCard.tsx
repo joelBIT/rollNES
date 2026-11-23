@@ -18,7 +18,7 @@ export function GameCard({game}: { game: Game}): ReactElement {
 
     return (
         <section className="game-card">
-            <img src={COVER_URL + game.cover} className="game-card__background" />
+            <img src={COVER_URL + game.cover} className="game-card__background" alt="" aria-hidden="true" />
 
             <section className="game-card__content">
                 <section className="game-image">

@@ -1,35 +1,25 @@
-import { useEffect, useState, type ReactElement } from "react";
+import { type ReactElement } from "react";
 
 import "./Tabs.css";
 
 /**
- * 
  * Takes a number of tab titles and creates corresponding tabs.
- * 
+ *
  * @param titles        List of titles where each title is shown on a tab.
- * @param defaultTab    The tab (title) set as active when the component is rendered.
- * @param setActive     Function that informs the parent component when a tab has been activated.
+ * @param active        The currently active tab (title). The parent owns this state.
+ * @param setActive     Called with the title of the tab that was clicked.
  */
-export function Tabs({titles, defaultTab, active, setActive}: {titles: string[], defaultTab?: string, active: string, setActive: (tab: string) => void}): ReactElement {
-    const [activeTab, setActiveTab] = useState<string>(defaultTab ?? titles[0]);
-
-    useEffect( () => {
-        setActiveTab(active);
-    }, [active]);
-
-    function changeActiveTab(tab: string) {
-        setActive(tab);         // Inform parent which tab has been clicked
-        setActiveTab(tab);      // Switch tab
-    }
-    
+export function Tabs({titles, active, setActive}: {titles: string[], active: string, setActive: (tab: string) => void}): ReactElement {
     return (
-        <section className="tabs">
+        <section className="tabs" role="tablist">
             {
                 titles.map((title: string) => (
                     <section
                         key={title}
-                        className={activeTab === title ? "tab selected" : "tab"}
-                        onClick={() => changeActiveTab(title)}
+                        role="tab"
+                        aria-selected={active === title}
+                        className={active === title ? "tab selected" : "tab"}
+                        onClick={() => setActive(title)}
                     >
                         <h2 className="tab-label">{title}</h2>
                     </section>

@@ -27,7 +27,7 @@ export function ControllerTab(): ReactElement {
                 <GamePad player={2} />
             </section>
 
-            <button className="retro-button" onClick={resetConfiguration}> Reset settings </button>
+            <button type="button" className="retro-button" onClick={() => resetConfiguration()}> Reset settings </button>
         </section>
     );
 }
