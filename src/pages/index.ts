@@ -4,7 +4,6 @@ export * from "./about/TeamPage";
 export * from "./about/VisionPage";
 export * from "./auth/LoginPage";
 export * from "./auth/RegisterPage";
-export * from "./dashboard/DashboardPage";
 export * from "./games/GamePage";
 export * from "./games/GamesPage";
 export * from "./LandingPage";

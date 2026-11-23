@@ -20,7 +20,6 @@ import PrivacyPage from "./pages/resources/PrivacyPage";
 import { ErrorPage } from "./pages/ErrorPage";
 import { LoginLoader } from "./loaders/LoginLoader";
 import { RegisterLoader } from "./loaders/RegisterLoader";
-import DashboardPage from "./pages/dashboard/DashboardPage";
 import { DashboardLoader } from "./loaders/DashboardLoader";
 
 export const routes = createBrowserRouter([
@@ -44,7 +43,10 @@ export const routes = createBrowserRouter([
             },
             {
                 path: URL_DASHBOARD_PAGE,
-                Component: DashboardPage,
+                lazy: async () => {             // loads during navigation, before the new page renders: the old page stays on screen until the chunk arrives.
+                    const { default: Component } = await import("./pages/dashboard/DashboardPage");
+                    return { Component };
+                },
                 loader: DashboardLoader
             },
             {
