@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { Link, NavLink } from "react-router";
+import { NavLink } from "react-router";
 import { Newsletter } from "./Newsletter";
 import { FooterList } from "./FooterList";
 import { Divider } from "./Divider";
@@ -38,17 +38,17 @@ export function Footer(): ReactElement {
                 </p>
 
                 <section id="footer-social-media">
-                    <Link to={"https://www.linkedin.com/in/joel-rollny-1b517330a/"} target="_blank">
-                        <img src="/linkedin.svg" className="linkedin" alt="linkedin icon" title="https://www.linkedin.com/in/joel-rollny-1b517330a/" />
-                    </Link>
+                    <a href={"https://www.linkedin.com/in/joel-rollny-1b517330a/"} target="_blank" rel="noopener noreferrer">
+                        <img src="/linkedin.svg" className="linkedin" alt="LinkedIn" title="https://www.linkedin.com/in/joel-rollny-1b517330a/" />
+                    </a>
 
-                    <Link to={"https://github.com/joelbit"} target="_blank">
-                        <img src="/github.svg" className="github" alt="github icon" title="https://github.com/joelbit" />
-                    </Link>
+                    <a href={"https://github.com/joelbit"} target="_blank" rel="noopener noreferrer">
+                        <img src="/github.svg" className="github" alt="GitHub" title="https://github.com/joelbit" />
+                    </a>
 
-                    <Link to="mailto:contact@joel-rollny.eu" target="_blank">
-                        <img src="/mail.svg" className="email" alt="email icon" title="mailto:contact@joel-rollny.eu" />
-                    </Link>
+                    <a href="mailto:contact@joel-rollny.eu">
+                        <img src="/mail.svg" className="email" alt="Email" title="mailto:contact@joel-rollny.eu" />
+                    </a>
                 </section>
             </section>
         </footer>
