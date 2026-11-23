@@ -51,9 +51,9 @@ export function SearchDropdown({show, toggleShowDropdown, topGames}: {show: bool
                     setIsSearching(false);
                 }
             } catch (error) {
-                console.log(error);
                 if (!cancelled) {
-                    setGameMatches([]);
+                    reportError(error);
+                    setGameMatches([]);             // A failed search shows "No games match" instead of stale results
                 }
             } finally {
                 if (!cancelled) {

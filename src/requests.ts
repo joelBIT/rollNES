@@ -1,5 +1,6 @@
 import type { User } from "@supabase/supabase-js";
 import { supabase } from "./lib/supabase";
+import { RequestError } from "./errors";
 import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, RegistrationResult, RetroUser, Review } from "./types/types";
 
 const GAMES_TABLE = "games";
@@ -19,8 +20,7 @@ const GAME_WITH_REVIEWS = `
  */
 function throwIfError(error: unknown, message: string): void {
     if (error) {
-        console.log(error);
-        throw new Error(message);
+        throw new RequestError(message, error);
     }
 }
 
@@ -44,67 +44,33 @@ function toRetroUser(user: User): RetroUser {
  * Send a POST request to the registration endpoint.
  */
 export async function registrationRequest(body: RegisterRequest): Promise<RegistrationResult> {
-    try {
-        const { data, error } = await supabase.auth.signUp({
-            email: body.email,
-            password: body.password,
-            options: {
-                data: {
-                    first_name: body.firstName,
-                    last_name: body.lastName,
-                },
-            },
-        });
+    const { data, error } = await supabase.auth.signUp({
+        email: body.email,
+        password: body.password,
+        options: { data: { first_name: body.firstName, last_name: body.lastName } },
+    });
+    throwIfError(error, "Registration failed");
 
-        if (error) {
-            console.log(error);
-            throw new Error('Registration failed');
-        }
-
-        return {
-            user: { id: data.user?.id ?? "", email: body.email, first_name: body.firstName, last_name: body.lastName },
-            hasSession: data.session !== null
-        };
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
+    return {
+        user: { id: data.user?.id ?? "", email: body.email, first_name: body.firstName, last_name: body.lastName },
+        hasSession: data.session !== null
+    };
 }
 
 /**
  * Send a POST request to the login endpoint.
  */
 export async function loginRequest(body: AuthenticationRequest): Promise<void> {
-    try {
-        const { error } = await supabase.auth.signInWithPassword({
-            email: body.email,
-            password: body.password
-        });
-
-        if (error) {
-            console.log(error);
-            throw new Error('Login failed');
-        }
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
+    const { error } = await supabase.auth.signInWithPassword({ email: body.email, password: body.password });
+    throwIfError(error, "Login failed");
 }
 
 /**
  * Send a request to delete the user session.
  */
 export async function logoutRequest(): Promise<void> {
-    try {
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-            console.log(error);
-            throw new Error('Logout failed');
-        }
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
+    const { error } = await supabase.auth.signOut();
+    throwIfError(error, "Logout failed");
 }
 
 
@@ -183,14 +149,13 @@ export async function getThreeMatchingGamesRequest(word: string): Promise<Game[]
  */
 export async function subscribeToNewsletterRequest(email: string): Promise<void> {
     const { error } = await supabase.from(NEWSLETTER_TABLE).insert({ email });
-    if (error) {
-        console.log(error);
 
-        if (error.code == '23505' && error.details.includes("email")) {
-            throw new Error(`The email ${email} has already subscribed`);
+    if (error) {
+        if (error.code === "23505" && error.details?.includes("email")) {
+            throw new RequestError(`The email ${email} has already subscribed`, error);
         }
 
-        throw new Error(`Failed to subscribe`);
+        throw new RequestError("Failed to subscribe", error);
     }
 }
 
@@ -254,7 +219,7 @@ export async function getSessionUserRequest(): Promise<RetroUser> {
         return toRetroUser(data.session.user);
     }
 
-    throw new Error('Could not find user');
+    throw new RequestError("Could not find user");
 }
 
 export async function updateProfileInformationRequest(first_name: string, last_name: string): Promise<void> {
@@ -270,13 +235,12 @@ export async function updateProfileInformationRequest(first_name: string, last_n
 }
 
 /**
- * Get notified whenever the authentication state changes: at startup, login, logout (also in another tab),
- * token refresh and profile updates. The callback gets the signed in user, or null if there is none.
+ * Get notified whenever the authentication state changes. The callback gets the signed in user, or null.
  * @returns     a function that stops the subscription
  */
 export function subscribeToAuthChanges(callback: (user: RetroUser | null) => void): () => void {
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-        callback(session?.user && session.user.aud === "authenticated" ? toRetroUser(session.user) : null);
+        callback(session?.user?.aud === "authenticated" ? toRetroUser(session.user) : null);
     });
 
     return () => data.subscription.unsubscribe();

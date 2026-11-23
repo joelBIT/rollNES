@@ -49,7 +49,7 @@ export function isLocalStorageAvailable() {
         localStorage.removeItem(key);
         return true;
     } catch (error) {
-        console.log(error);
+        reportError(error);
         return false;
     }
 }
@@ -127,7 +127,7 @@ export function readStoredIds(): number[] {
             return Array.from(new Set(ids));        // No duplicates
         }
     } catch (error) {
-        console.log(error);
+        reportError(error);
     }
 
     return [];

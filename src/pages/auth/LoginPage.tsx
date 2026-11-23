@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import type { AuthenticationRequest } from "../../types/types";
 import { URL_DASHBOARD_PAGE, URL_REGISTER_PAGE } from "../../utils";
+import { getErrorMessage } from "../../errors";
 
 import "./LoginPage.css";
 
@@ -31,7 +32,8 @@ export default function LoginPage(): ReactElement {
             await login(request);
             navigate(URL_DASHBOARD_PAGE);
         } catch (error) {
-            setMessage(error instanceof Error ? error.message : 'Login failed');
+            reportError(error);
+            setMessage(getErrorMessage(error, "Login failed"));
             passwordRef.current?.select();      // Keep the email, highlight the password so it can be retyped
             passwordRef.current?.focus();
         }

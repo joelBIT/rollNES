@@ -17,7 +17,7 @@ export const GameLoader = async ({params}: LoaderFunctionArgs): Promise<Game> =>
     try {
         game = await getGameByIdRequest(id);
     } catch (error) {
-        console.log(error);
+        reportError(error);
         throw data(`Error retrieving game with id ${id}`, { status: 500 });
     }
 

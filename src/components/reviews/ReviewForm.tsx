@@ -4,6 +4,7 @@ import { useGames } from "../../hooks/useGames";
 import { Rating } from "..";
 import { createReviewRequest } from "../../requests";
 import type { CreateReview } from "../../types/types";
+import { getErrorMessage } from "../../errors";
 
 import "./ReviewForm.css";
 
@@ -55,9 +56,9 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
         try {
             await createReviewRequest(newReview);
         } catch (error) {
-            console.log(error);
+            reportError(error);
             setIsError(true);
-            setMessage('Could not create review');
+            setMessage(getErrorMessage(error, "Could not create review"));
             return;
         }
 

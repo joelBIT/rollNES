@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import { isRouteErrorResponse, NavLink, useRouteError } from "react-router";
 import { URL_HOME } from "../utils";
 
@@ -6,7 +6,10 @@ import "./ErrorPage.css";
 
 export function ErrorPage(): ReactNode {
     const error = useRouteError();
-    console.log(error);
+    
+    useEffect(() => {
+        reportError(error);
+    }, [error]);
 
     let message = "Something went wrong";
 

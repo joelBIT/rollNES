@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useUser } from "../../hooks/useUser";
+import { getErrorMessage } from "../../errors";
 
 import "./ProfileForm.css";
 
@@ -29,9 +30,9 @@ export function ProfileForm(): ReactElement {
             await updateUser(firstName.trim(), lastName.trim());
             setMessage('Profile updated');
         } catch (error) {
-            console.log(error);
+            reportError(error);
             setIsError(true);
-            setMessage('Update failed');
+            setMessage(getErrorMessage(error, "Update failed"));
         }
     }
 

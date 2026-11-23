@@ -36,7 +36,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
         try {
             setGames(await getAllGamesRequest());
         } catch (error) {
-            console.log(error);         // Keep whatever games are already loaded
+            reportError(error);         // Keep whatever games are already loaded
         }
     }
 

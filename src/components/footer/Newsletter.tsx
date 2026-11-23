@@ -2,6 +2,7 @@ import { useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
 import { subscribeToNewsletterRequest } from "../../requests";
 import { URL_RIGHTS_PAGE } from "../../utils";
+import { getErrorMessage } from "../../errors";
 
 import "./Newsletter.css";
 
@@ -22,8 +23,9 @@ export function Newsletter(): ReactElement {
         try {
             await subscribeToNewsletterRequest(address);
         } catch (error: any) {
+            reportError(error);
             setIsError(true);
-            setMessage(error instanceof Error ? error.message : "Failed to subscribe");
+            setMessage(getErrorMessage(error, "Failed to subscribe"));
             return;
         }
         

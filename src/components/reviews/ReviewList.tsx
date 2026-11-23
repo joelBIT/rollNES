@@ -37,7 +37,7 @@ export function ReviewList({gameId, reviews, setReviews}: {gameId: number, revie
         try {
             setReviews(await getReviewsByGameIdRequest(gameId));
         } catch (error) {
-            console.log(error);
+            reportError(error);
         }
     }
 

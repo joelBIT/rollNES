@@ -47,7 +47,7 @@ export default function DashboardPage(): ReactElement {
         try {
             await logout();         // The effect above redirects to the login page once the user is signed out
         } catch (error) {
-            console.log(error);
+            reportError(error);
         }
     }
 

@@ -46,7 +46,7 @@ export function useEmulator(gameId: number, enabled: boolean = true): {
                 return;
             }
 
-            console.log(loadError);
+            reportError(loadError);
             setError("Could not load the game. Press reload to try again.");
         }
     }, [gameId]);
@@ -74,7 +74,7 @@ export function useEmulator(gameId: number, enabled: boolean = true): {
             const offscreen = canvas.transferControlToOffscreen();
             worker.postMessage({ canvas: offscreen }, [offscreen]);
         } catch (setupError) {
-            console.log(setupError);
+            reportError(setupError);
             worker?.terminate();
             canvas.remove();
             setError("Your browser cannot run the emulator.");
@@ -96,7 +96,7 @@ export function useEmulator(gameId: number, enabled: boolean = true): {
                 audioNode.connect(audioContext.destination);
                 worker!.onmessage = (message) => audioNode?.port.postMessage(message.data);     // Send address and data to the APU
             } catch (audioError) {
-                console.log(audioError);
+                reportError(audioError);
             }
         }
 

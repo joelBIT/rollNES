@@ -9,7 +9,7 @@ export const LandingLoader = async (): Promise<Game[]> => {
     try {
         return await getGamesByIdsRequest(MOST_PLAYED_GAME_IDS);
     } catch (error) {
-        console.log(error);
+        reportError(error);
     }
     
     return [];

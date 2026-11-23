@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import type { RegisterRequest } from "../../types/types";
 import { URL_DASHBOARD_PAGE, URL_LOGIN_PAGE } from "../../utils";
+import { getErrorMessage } from "../../errors";
 
 import "./RegisterPage.css";
 
@@ -62,11 +63,8 @@ export default function RegisterPage(): ReactElement {
                 setMessage(`We have sent a confirmation link to ${request.email}. Confirm your email address, then sign in.`);
             }
         } catch (error) {
-            if (error instanceof Error) {
-                setMessage(error.message);
-            } else {
-                setMessage(`Could not register with email ${request.email}`);
-            }
+            reportError(error);
+            setMessage(getErrorMessage(error, `Could not register with email ${request.email}`));
         } finally {
             setIsSubmitting(false);
         }

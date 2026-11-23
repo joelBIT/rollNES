@@ -21,7 +21,7 @@ export function Header(): ReactElement {
 
         getGamesByIdsRequest(TOP_GAME_IDS)
             .then(games => { if (!cancelled) setTopGames(games); })
-            .catch(error => console.log(error));
+            .catch(reportError);
 
         return () => { cancelled = true; };
     }, []);
