@@ -1,21 +1,9 @@
 import type { ReactNode } from "react";
+import type { Tables, TablesInsert } from "./database.types";
 
 export type Button = {
     name: "A" | "B" | "Start" | "Select" | "ArrowUp" | "ArrowDown" | "ArrowLeft" | "ArrowRight" | "A2" | "B2" | "Start2" | "Select2" | "ArrowUp2" | "ArrowDown2" | "ArrowLeft2" | "ArrowRight2",
     value: string
-}
-
-export type Game = {
-    id: number,
-    title: string,
-    publisher: string,
-    developer: string,
-    category: string,
-    release_date: string,
-    reviews: Review[],
-    cover: string,
-    players: number,
-    description: string
 }
 
 export type AuthenticationRequest = {
@@ -35,16 +23,12 @@ export type RegistrationResult = {
     hasSession: boolean        // false when email confirmation is required before the user can sign in
 }
 
-export type Review = CreateReview & { id: number, date: string }
-
-export type CreateReview = {
-    reviewer_name: string,
-    reviewer_id?: string,           // Users that are logged in store their ID with the review
-    game_id: number,
-    heading: string,
-    rating: number,
-    review: string
-}
+// Only the columns the app selects, kept in sync with the select strings in requests.ts
+export type Review = Pick<Tables<"reviews">, "id" | "game_id" | "reviewer_name" | "date" | "heading" | "rating" | "review" | "reviewer_id">;
+export type CreateReview = TablesInsert<"reviews">;
+export type Game = Pick<Tables<"games">, "id" | "title" | "publisher" | "developer" | "category" | "players" | "cover" | "release_date" | "description"> & {
+    reviews: Review[]
+};
 
 export type RetroUser = {       // User of this application
     id: string,

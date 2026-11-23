@@ -10,7 +10,7 @@ export interface FavouriteGamesContextProvider {
     removeFavouriteById: (id: number) => void;
 }
 
-export const FavouriteGamesContext = createContext<FavouriteGamesContextProvider>({} as FavouriteGamesContextProvider);
+export const FavouriteGamesContext = createContext<FavouriteGamesContextProvider | undefined>(undefined);
 
 export function FavouriteGamesProvider({ children }: { children: ReactNode }): ReactElement {
     const [initialIds] = useState<number[]>(readStoredIds);

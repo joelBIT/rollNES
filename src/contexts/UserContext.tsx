@@ -13,7 +13,7 @@ export interface UserContextProvider {
     updateUser: (first_name: string, last_name: string) => Promise<void>;
 }
 
-export const UserContext = createContext<UserContextProvider>({} as UserContextProvider);
+export const UserContext = createContext<UserContextProvider | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<RetroUser | null>(null);

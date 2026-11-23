@@ -7,26 +7,11 @@ const NEWSLETTER_TABLE = "newsletter";
 const REVIEW_TABLE = "reviews";
 const PROFILES_TABLE = "profiles";
 
+const REVIEW_COLUMNS = "id, game_id, reviewer_name, date, heading, rating, review, reviewer_id";
+
 const GAME_WITH_REVIEWS = `
-    id,
-    title,
-    publisher,
-    developer,
-    category,
-    players,
-    cover,
-    release_date,
-    description,
-    reviews (
-        id,
-        game_id,
-        reviewer_name,
-        date,
-        heading,
-        rating,
-        review,
-        reviewer_id
-    )
+    id, title, publisher, developer, category, players, cover, release_date, description,
+    reviews ( ${REVIEW_COLUMNS} )
 `;
 
 /**
@@ -159,7 +144,7 @@ export async function getGamesByIdsRequest(ids: number[]): Promise<Game[]> {
         return [];
     }
 
-    const { data, error } = await supabase.from(GAMES_TABLE).select().eq("rom", true).in("id", ids);
+    const { data, error } = await supabase.from(GAMES_TABLE).select(GAME_WITH_REVIEWS).eq("rom", true).in("id", ids);
     throwIfError(error, "Failed to fetch games");
 
     return data ?? [];
@@ -178,7 +163,7 @@ export async function getGamesByIdsRequest(ids: number[]): Promise<Game[]> {
  * Retrieve at most three playable games that have the supplied word in its title. Throws if the request fails.
  */
 export async function getThreeMatchingGamesRequest(word: string): Promise<Game[]> {
-    const { data, error } = await supabase.from(GAMES_TABLE).select().eq("rom", true).ilike("title", `%${word}%`).limit(3);
+    const { data, error } = await supabase.from(GAMES_TABLE).select(GAME_WITH_REVIEWS).eq("rom", true).ilike("title", `%${word}%`).limit(3);
     throwIfError(error, "Failed to search games");
 
     return data ?? [];
@@ -235,26 +220,18 @@ export async function createReviewRequest(review: CreateReview): Promise<void> {
  * Send a GET request to retrieve all reviews for the game with the supplied game ID.
  */
 export async function getReviewsByGameIdRequest(id: number): Promise<Review[]> {
-    const { data, error } = await supabase.from(REVIEW_TABLE).select().eq("game_id", id);
-    if (error) {
-        console.log(error);
-        throw new Error(`Failed to fetch reviews`);
-    }
-
-    return data;
+    const { data, error } = await supabase.from(REVIEW_TABLE).select(REVIEW_COLUMNS).eq("game_id", id);
+    throwIfError(error, "Failed to fetch reviews");
+    return data ?? [];
 }
 
 /**
  * Send a GET request to retrieve all reviews for the supplied user ID.
  */
 export async function getReviewsByUserIdRequest(id: string): Promise<Review[]> {
-    const { data, error } = await supabase.from(REVIEW_TABLE).select().eq("reviewer_id", id);
-    if (error) {
-        console.log(error);
-        throw new Error(`Failed to fetch reviews`);
-    }
-
-    return data;
+    const { data, error } = await supabase.from(REVIEW_TABLE).select(REVIEW_COLUMNS).eq("reviewer_id", id);
+    throwIfError(error, "Failed to fetch reviews");
+    return data ?? [];
 }
 
 

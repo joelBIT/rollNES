@@ -12,7 +12,7 @@ export interface GameControllerContextProvider {
     resetConfiguration: () => void;
 }
 
-export const GameControllerContext = createContext<GameControllerContextProvider>({} as GameControllerContextProvider);
+export const GameControllerContext = createContext<GameControllerContextProvider | undefined>(undefined);
 
 export function GameControllerProvider({ children }: { children: ReactNode }): ReactElement {
     const [player1, setPlayer1] = useState<GameController>(gamepad1);

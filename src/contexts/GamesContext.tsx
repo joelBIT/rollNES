@@ -14,7 +14,7 @@ export interface GamesContextProvider {
     loadGames: () => void;
 }
 
-export const GamesContext = createContext<GamesContextProvider>({} as GamesContextProvider);
+export const GamesContext = createContext<GamesContextProvider | undefined>(undefined);
 
 /**
  * Applies chosen filters to the list of all playable games. The first selected filter type is marked because all other filter values should

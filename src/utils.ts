@@ -1,4 +1,4 @@
-import type { AppliedFilter, Filter, Game, RetroUser, Review } from "./types/types";
+import type { AppliedFilter, Filter, Game, RetroUser } from "./types/types";
 
 export { COVER_URL } from "./config/env";
 
@@ -26,18 +26,14 @@ export const DEBOUNCE_MS = 250;
 /**
  * Calculates the average rating of the supplied reviews.
  */
-export function getAverageRating(reviews: Review[]): number {
-    if (!reviews?.length) {
+export function getAverageRating(reviews: { rating: number | null }[] | undefined): number {
+    const ratings = (reviews ?? []).map(review => review.rating).filter((rating): rating is number => rating !== null);
+
+    if (ratings.length === 0) {
         return 0;
     }
 
-    let rating: number = 0.0;
-
-    for (let i = 0; i < reviews.length; i++) {
-        rating += reviews[i].rating;
-    }
-
-    return rating / reviews.length;
+    return ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
 }
 
 /**
@@ -161,7 +157,7 @@ export function filterGames(games: Game[], filters: AppliedFilter[]): Game[] {
             const values: string[] = filters.filter((filter: AppliedFilter) => filter.type === type).map((filter: AppliedFilter) => filter.value);
             return values.length === 0 || values.includes(String(game[type]));      // No filter of this type applied, or the game matches one of them
         })
-        && titleWords.every((word: string) => game.title.toLowerCase().includes(word))
+        && titleWords.every((word: string) => (game.title).toLowerCase().includes(word))
     );
 }
 
