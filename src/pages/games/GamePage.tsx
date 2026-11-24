@@ -75,13 +75,16 @@ function GameView({game}: {game: Game}): ReactElement {
                                         <Tag text={convertDateToString(game.release_date)} />
                                     </section>
 
-                                    <article 
+                                    <button 
+                                        type="button"
                                         className="game-favourite-icon" 
-                                        title="Add as favourite"
+                                        title={favourite ? "Remove from favourites" : "Add as favourite"}
+                                        aria-label={favourite ? "Remove from favourites" : "Add as favourite"}
+                                        aria-pressed={favourite}
                                         onClick={favourite ? () => removeFavouriteById(game.id) : () => addFavourite(game)}
                                     >
-                                        {favourite ? <h2>&#x2764;&#xfe0f;</h2> : <span className="material-symbols-outlined"> favorite </span>}
-                                    </article> 
+                                        {favourite ? <span aria-hidden="true">&#x2764;&#xfe0f;</span> : <span className="material-symbols-outlined" aria-hidden="true"> favorite </span>}
+                                    </button> 
                                 </section>
                             </section>
                         </section>

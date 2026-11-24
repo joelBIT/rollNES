@@ -158,13 +158,20 @@
                 }
 
                 & .game-favourite-icon {
-                    align-self: flex-end;
-                    cursor: pointer;
-                    font-size: 1.5rem;
+                    background: none;
+                    border: none;
+                    padding: 0;
                     color: var(--color-form-border-bottom);
-                    
-                    & > span  {
-                        font-size: 3rem;
+                    cursor: pointer;
+                    line-height: 1;
+
+                    &:focus-visible {
+                        outline: 3px solid var(--color-active-link);
+                        outline-offset: 4px;
+                    }
+
+                    & span {
+                        font-size: 2rem;
                     }
                 }
             }
