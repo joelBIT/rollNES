@@ -117,7 +117,7 @@
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 800px) {
     #landingPage {
         padding-top: 3rem;
         gap: 0;

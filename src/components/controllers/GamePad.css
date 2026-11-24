@@ -299,6 +299,12 @@
         letter-spacing: 0.5px;
     }
 
+    & .popup-hint {
+        font-family: 'brandon-grotesque';
+        font-weight: 300;
+        font-size: 13px;
+    }
+
     & .popup-sub {
         margin: 0 0 14px;
         font-size: 12px;
