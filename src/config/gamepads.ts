@@ -1,5 +1,5 @@
 import type { ButtonId, Controllers, GameController, PlayerNumber } from "../types/types";
-import { isLocalStorageAvailable, STORAGE_KEY } from "../utils";
+import { CONTROLLERS_KEY, isLocalStorageAvailable } from "../utils";
 
 export const PLAYERS: PlayerNumber[] = [1, 2];
 export const BUTTON_IDS: ButtonId[] = ["a", "b", "select", "start", "up", "down", "left", "right"];
@@ -33,7 +33,7 @@ export function loadControllers(): Controllers {
 
     if (isLocalStorageAvailable()) {
         try {
-            stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null");
+            stored = JSON.parse(localStorage.getItem(CONTROLLERS_KEY) ?? "null");
         } catch {
             stored = null;      // Corrupted data: use the defaults
         }

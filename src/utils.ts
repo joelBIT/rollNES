@@ -18,6 +18,7 @@ export const URL_TERMS_PAGE = "/terms";
 export const URL_VISION_PAGE = "/vision";
 
 export const STORAGE_KEY = 'favouriteGames';
+export const CONTROLLERS_KEY = "controllers";
 
 export const DEFAULT_GAMES_SHOWING = 10;
 export const MIN_SEARCH_LENGTH = 3;
