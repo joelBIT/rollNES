@@ -9,6 +9,7 @@ export default tseslint.config(
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],
+    ignores: ['src/config/storage.ts'],
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -25,6 +26,7 @@ export default tseslint.config(
       ],
     'no-restricted-globals': [
         'error',
+        { name: 'localStorage', message: 'Use the helpers in src/config/storage.ts.' },
         { name: 'reportError', message: "Import reportError from 'errors.ts' instead of using the browser's global." },
     ]
     },

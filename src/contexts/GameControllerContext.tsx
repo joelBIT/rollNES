@@ -1,7 +1,7 @@
 import { createContext, type ReactElement, type ReactNode, useState } from "react";
-import { CONTROLLERS_KEY, isLocalStorageAvailable } from "../utils";
 import type { BindingOwner, Button, ButtonId, Controllers, GameController, PlayerNumber } from "../types/types";
 import { BUTTON_IDS, EMULATOR_BUTTON_NAMES, EMULATOR_BUTTON_ORDER, gamepad1, gamepad2, loadControllers, PLAYERS } from "../config/gamepads";
+import { removeItem, writeItem } from "../config/storage";
 
 export interface GameControllerContextProvider {
     player1: GameController;
@@ -47,18 +47,12 @@ export function GameControllerProvider({ children }: { children: ReactNode }): R
 
         const next: Controllers = { ...controllers, [player]: { ...controllers[player], [button]: code } };
         setControllers(next);
-
-        if (isLocalStorageAvailable()) {
-            localStorage.setItem(CONTROLLERS_KEY, JSON.stringify({ player1: next[1], player2: next[2] }));
-        }
+        writeItem("controllers", { player1: next[1], player2: next[2] });
     }
 
     function resetConfiguration(): void {
         setControllers({ 1: gamepad1, 2: gamepad2 });
-
-        if (isLocalStorageAvailable()) {
-            localStorage.removeItem(CONTROLLERS_KEY);
-        }
+        removeItem("controllers");
     }
 
     /**

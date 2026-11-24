@@ -1,8 +1,8 @@
 import { createContext, type ReactElement, type ReactNode, useEffect, useMemo, useState } from "react";
 import { type Game } from "../types/types";
-import { isLocalStorageAvailable, readStoredIds, STORAGE_KEY } from "../utils";
 import { getGamesByIdsRequest } from "../requests";
 import { reportError } from "../errors";
+import { readStoredIds, writeItem } from "../config/storage";
 
 export interface FavouriteGamesContextProvider {
     favourites: Game[];
@@ -42,9 +42,7 @@ export function FavouriteGamesProvider({ children }: { children: ReactNode }): R
     }, [initialIds]);
 
     useEffect(() => {       // Persist whenever the favourites change
-        if (isLocalStorageAvailable()) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
-        }
+        writeItem("favourites", ids);       // Does nothing when storage is unavailable; the favourites then live in memory only
     }, [ids]);
 
     const favourites: Game[] = useMemo(

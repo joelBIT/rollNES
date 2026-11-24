@@ -1,5 +1,5 @@
 import type { ButtonId, Controllers, GameController, PlayerNumber } from "../types/types";
-import { CONTROLLERS_KEY, isLocalStorageAvailable } from "../utils";
+import { readItem } from "./storage";
 
 export const PLAYERS: PlayerNumber[] = [1, 2];
 export const BUTTON_IDS: ButtonId[] = ["a", "b", "select", "start", "up", "down", "left", "right"];
@@ -25,19 +25,8 @@ export const EMULATOR_BUTTON_NAMES: Record<ButtonId, string> = {
 };
 export const EMULATOR_BUTTON_ORDER: ButtonId[] = ["a", "b", "down", "left", "right", "select", "start", "up"];
 
-
-
-
 export function loadControllers(): Controllers {
-    let stored: { player1?: unknown, player2?: unknown } | null = null;
-
-    if (isLocalStorageAvailable()) {
-        try {
-            stored = JSON.parse(localStorage.getItem(CONTROLLERS_KEY) ?? "null");
-        } catch {
-            stored = null;      // Corrupted data: use the defaults
-        }
-    }
+    const stored = readItem("controllers");         // null when storage is unavailable, nothing is saved, or the data is corrupted
 
     return { 1: normalize(stored?.player1, gamepad1), 2: normalize(stored?.player2, gamepad2) };
 }

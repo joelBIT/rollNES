@@ -1,5 +1,4 @@
 import type { AppliedFilter, FacetFilter, Filter, Game, RetroUser } from "./types/types";
-import { reportError } from "./errors";
 
 export { COVER_URL } from "./config/env";
 
@@ -18,14 +17,9 @@ export const URL_TEAM_PAGE = "/team";
 export const URL_TERMS_PAGE = "/terms";
 export const URL_VISION_PAGE = "/vision";
 
-export const STORAGE_KEY = 'favouriteGames';
-export const CONTROLLERS_KEY = "controllers";
-
 export const DEFAULT_GAMES_SHOWING = 10;
 export const MIN_SEARCH_LENGTH = 3;
 export const DEBOUNCE_MS = 250;
-
-let localStorageAvailable: boolean | undefined;     // Result of the probe. Availability doesn't change during a session.
 
 /**
  * Calculates the average rating of the supplied reviews.
@@ -38,32 +32,6 @@ export function getAverageRating(reviews: { rating: number | null }[] | undefine
     }
 
     return ratings.reduce((sum, rating) => sum + rating, 0) / ratings.length;
-}
-
-/**
- * Test if localstorage is available. Favourite games are added to localstorage if true. If false,
- * the FavouriteGamesContext stores favourite games temporarily.
- *
- * The probe (a test write) runs only on the first call; later calls return the remembered result. Blocked storage is an
- * expected situation (private mode, cookies disabled), not an error, so nothing is logged.
- *
- * @returns true if localstorage is available, false otherwise
- */
-export function isLocalStorageAvailable(): boolean {
-    if (localStorageAvailable !== undefined) {
-        return localStorageAvailable;
-    }
-
-    try {
-        const key = 'testingLocalStorage';
-        localStorage.setItem(key, 'add');
-        localStorage.removeItem(key);
-        localStorageAvailable = true;
-    } catch {
-        localStorageAvailable = false;
-    }
-
-    return localStorageAvailable;
 }
 
 /**
@@ -141,32 +109,6 @@ export function getMonthText(month: number): string {
         default:
             return "";
     }
-}
-
-/**
- * Read the ids of the favourite games from localstorage. Corrupted data gives an empty list (and is overwritten on the next
- * save). Entries from the old format, where whole games were stored, are converted to ids.
- */
-export function readStoredIds(): number[] {
-    if (!isLocalStorageAvailable()) {
-        return [];
-    }
-
-    try {
-        const stored: unknown = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
-
-        if (Array.isArray(stored)) {
-            const ids = stored
-                .map(item => typeof item === "number" ? item : (item as Game | null)?.id)
-                .filter((id): id is number => Number.isInteger(id));
-
-            return Array.from(new Set(ids));        // No duplicates
-        }
-    } catch (error) {
-        reportError(error);
-    }
-
-    return [];
 }
 
 export function isSameUser(a: RetroUser | null, b: RetroUser | null): boolean {
