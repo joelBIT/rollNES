@@ -3,6 +3,7 @@ import type { Review, SortOrder } from "../../types/types";
 import { getAverageRating, pluralize } from "../../utils";
 import { Rating, ReviewCard, ReviewForm } from "..";
 import { getReviewsByGameIdRequest } from "../../requests";
+import { reportError } from "../../errors";
 
 import "./ReviewList.css";
 

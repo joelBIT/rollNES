@@ -9,6 +9,7 @@ import { getGamesByIdsRequest } from "../../requests";
 import type { Game } from "../../types/types";
 import { URL_HOME } from "../../utils";
 import { TOP_GAME_IDS } from "../../config/games";
+import { reportError } from "../../errors";
 
 import "./Header.css";
 

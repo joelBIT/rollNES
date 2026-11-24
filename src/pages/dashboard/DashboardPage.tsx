@@ -5,6 +5,7 @@ import { URL_LOGIN_PAGE } from "../../utils";
 import { ProfileForm, ReviewCard, Tabs } from "../../components";
 import type { Review } from "../../types/types";
 import { getReviewsByUserIdRequest } from "../../requests";
+import { reportError } from "../../errors";
 
 import "./DashboardPage.css";
 

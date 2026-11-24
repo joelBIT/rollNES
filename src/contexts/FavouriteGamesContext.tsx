@@ -2,6 +2,7 @@ import { createContext, type ReactElement, type ReactNode, useEffect, useMemo, u
 import { type Game } from "../types/types";
 import { isLocalStorageAvailable, readStoredIds, STORAGE_KEY } from "../utils";
 import { getGamesByIdsRequest } from "../requests";
+import { reportError } from "../errors";
 
 export interface FavouriteGamesContextProvider {
     favourites: Game[];

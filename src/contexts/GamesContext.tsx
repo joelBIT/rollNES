@@ -2,6 +2,7 @@ import { createContext, type ReactElement, type ReactNode, useEffect, useMemo, u
 import { type AppliedFilter, type Filter, type Game } from "../types/types";
 import { getAllGamesRequest } from "../requests";
 import { filterGames } from "../utils";
+import { reportError } from "../errors";
 
 export interface GamesContextProvider {
     games: Game[];

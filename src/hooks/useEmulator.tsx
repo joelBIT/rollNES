@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { useControllers } from "./useControllers";
 import { ROMS_URL } from "../config/env";
+import { reportError } from "../errors";
 
 /**
  * Runs the RollNES emulator for the supplied game. Creates the canvas, worker, audio and key listeners, and tears everything

@@ -19,8 +19,14 @@ export function getErrorMessage(error: unknown, fallback: string): string {
 }
 
 /**
- * The single place errors are logged.
+ * The single place errors are logged. For a RequestError, both the user-facing message and the original
+ * (for example the Supabase error with its code and details) are logged.
  */
 export function reportError(error: unknown): void {
-    console.error(error instanceof RequestError && error.original ? error.original : error);
+    if (error instanceof RequestError) {
+        console.error(error.message, ...(error.original ? [error.original] : []));
+        return;
+    }
+
+    console.error(error);
 }

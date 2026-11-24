@@ -1,6 +1,7 @@
 import { data, type LoaderFunctionArgs } from "react-router";
 import type { Game } from "../types/types";
 import { getGameByIdRequest } from "../requests";
+import { reportError } from "../errors";
 
 /**
  * Retrieve game from backend. Responds with 404 if the id is invalid or no playable game 

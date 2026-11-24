@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { isRouteErrorResponse, NavLink, useRouteError } from "react-router";
 import { URL_HOME } from "../utils";
+import { reportError } from "../errors";
 
 import "./ErrorPage.css";
 

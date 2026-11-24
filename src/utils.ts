@@ -1,4 +1,5 @@
 import type { AppliedFilter, Filter, Game, RetroUser } from "./types/types";
+import { reportError } from "./errors";
 
 export { COVER_URL } from "./config/env";
 

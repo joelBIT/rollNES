@@ -2,7 +2,7 @@ import { useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
 import { subscribeToNewsletterRequest } from "../../requests";
 import { URL_RIGHTS_PAGE } from "../../utils";
-import { getErrorMessage } from "../../errors";
+import { getErrorMessage, reportError } from "../../errors";
 
 import "./Newsletter.css";
 

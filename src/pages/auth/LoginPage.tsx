@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { useUser } from "../../hooks/useUser";
 import type { AuthenticationRequest } from "../../types/types";
 import { URL_DASHBOARD_PAGE, URL_REGISTER_PAGE } from "../../utils";
-import { getErrorMessage } from "../../errors";
+import { getErrorMessage, reportError } from "../../errors";
 
 import "./LoginPage.css";
 

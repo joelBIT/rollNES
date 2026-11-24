@@ -5,6 +5,7 @@ import type { Game } from "../../types/types";
 import { TopGameCard } from "./TopGameCard";
 import { getThreeMatchingGamesRequest } from "../../requests";
 import { DEBOUNCE_MS, MIN_SEARCH_LENGTH, URL_GAMES_PAGE } from "../../utils";
+import { reportError } from "../../errors";
 
 import "./SearchDropdown.css";
 

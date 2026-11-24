@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useUser } from "../../hooks/useUser";
-import { getErrorMessage } from "../../errors";
+import { getErrorMessage, reportError } from "../../errors";
 
 import "./ProfileForm.css";
 

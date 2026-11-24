@@ -4,7 +4,7 @@ import { useGames } from "../../hooks/useGames";
 import { Rating } from "..";
 import { createReviewRequest } from "../../requests";
 import type { CreateReview } from "../../types/types";
-import { getErrorMessage } from "../../errors";
+import { getErrorMessage, reportError } from "../../errors";
 
 import "./ReviewForm.css";
 
