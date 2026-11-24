@@ -170,15 +170,15 @@ export async function subscribeToNewsletterRequest(email: string): Promise<void>
  ***********/
 
 /**
- * Send a POST request to create a review for the game with the supplied game ID.
+ * Send a POST request to create a review. The backend decides who the reviewer is, and limits how fast reviews can be posted.
  */
 export async function createReviewRequest(review: CreateReview): Promise<void> {
-    const { data } = await supabase.auth.getSession();
+    const { error } = await supabase.from(REVIEW_TABLE).insert(review);
 
-    const { error } = await supabase.from(REVIEW_TABLE).insert({
-        ...review,
-        reviewer_id: data.session?.user.id ?? null      // Always the real session user, or null when signed out
-    });
+    if (error?.message === "rate_limited") {
+        throw new RequestError("You are posting reviews too quickly. Please try again later.", error);
+    }
+
     throwIfError(error, "Failed to create review");
 }
 

@@ -24,6 +24,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
     const name = typedName ?? defaultName;
     const [title, setTitle] = useState<string>('');
     const [review, setReview] = useState<string>('');
+    const nameLocked = user !== null && defaultName !== "";
 
     useEffect(() => {
         resetForm();
@@ -112,6 +113,8 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
                         onChange={e => setTypedName(e.target.value)}
                         value={name}
                         className="input-field"
+                        readOnly={nameLocked}
+                        maxLength={100}
                         autoComplete="off" 
                         required
                     />
@@ -138,6 +141,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
                             onChange={e => setTitle(e.target.value)}
                             value={title}
                             className="input-field"
+                            maxLength={100}
                             autoComplete="off"
                             required
                         />
@@ -154,6 +158,7 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
                         name="review" 
                         className="input-field"
                         value={review}
+                        maxLength={2000}
                         onChange={e => setReview(e.target.value)} 
                         required 
                     />

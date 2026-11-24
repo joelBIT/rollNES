@@ -20,7 +20,7 @@ export type RegistrationResult = {
 
 // Only the columns the app selects, kept in sync with the select strings in requests.ts
 export type Review = Pick<Tables<"reviews">, "id" | "game_id" | "reviewer_name" | "date" | "heading" | "rating" | "review" | "reviewer_id">;
-export type CreateReview = TablesInsert<"reviews">;
+export type CreateReview = Pick<TablesInsert<"reviews">, "game_id" | "heading" | "rating" | "review" | "reviewer_name">;
 export type Game = Pick<Tables<"games">, "id" | "title" | "publisher" | "developer" | "category" | "players" | "cover" | "release_date" | "description"> & {
     reviews: Review[]
 };
