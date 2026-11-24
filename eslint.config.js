@@ -23,6 +23,10 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+    'no-restricted-globals': [
+        'error',
+        { name: 'reportError', message: "Import reportError from 'errors.ts' instead of using the browser's global." },
+    ]
     },
   },
 )
