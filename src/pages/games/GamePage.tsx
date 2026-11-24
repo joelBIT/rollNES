@@ -72,7 +72,7 @@ function GameView({game}: {game: Game}): ReactElement {
                                 <section className="bottom-section">
                                     <section className="tags">
                                         <Tag text={game.players > 1 ? `${game.players} players` : game.players + " player"} />
-                                        <Tag text={convertDateToString(new Date(game.release_date))} />
+                                        <Tag text={convertDateToString(game.release_date)} />
                                     </section>
 
                                     <article 

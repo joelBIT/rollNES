@@ -71,8 +71,32 @@ export function isMobileDevice(): boolean {
     return false;
 }
 
-export function convertDateToString(date: Date) {
+/**
+ * Formats a date as, e.g., "March 5, 2025". Accepts a Date or a date string from the backend. Invalid input gives "".
+ */
+export function convertDateToString(value: string | Date): string {
+    const date = typeof value === "string" ? parseDate(value) : value;
+
+    if (Number.isNaN(date.getTime())) {
+        return "";
+    }
+
     return `${getMonthText(date.getMonth())} ${date.getDate()}, ${date.getFullYear()}`;
+}
+
+/**
+ * Parses a date from the backend. A date-only string ("2025-03-05") is a calendar date, so it is created as local
+ * midnight of that day. (new Date("2025-03-05") would be UTC midnight, which is the previous evening west of UTC.)
+ * Full timestamps are parsed as usual.
+ */
+function parseDate(value: string): Date {
+    const dateOnly = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+
+    if (dateOnly) {
+        return new Date(Number(dateOnly[1]), Number(dateOnly[2]) - 1, Number(dateOnly[3]));
+    }
+
+    return new Date(value);
 }
 
 /**
