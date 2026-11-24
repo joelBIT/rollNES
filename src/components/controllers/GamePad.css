@@ -21,6 +21,11 @@
       inset 0 -6px 10px rgba(0,0,0,0.15);
     border: 1px solid var(--shell-edge);
 
+    button:focus-visible {
+        outline: 3px solid var(--color-active-link);
+        outline-offset: 2px;
+    }
+
     & .stripe {
         position: absolute;
         top: 0;
@@ -97,7 +102,6 @@
                 background: transparent;
                 cursor: pointer;
                 z-index: 3;
-                outline: none;
                 -webkit-tap-highlight-color: transparent;
             }
 
@@ -178,7 +182,6 @@
                         0 3px 0 #101114,
                         0 5px 6px rgba(0,0,0,0.4);
                         cursor: pointer;
-                        outline: none;
                         -webkit-tap-highlight-color: transparent;
                         transition: transform 0.05s ease, box-shadow 0.05s ease;
                     }
@@ -223,7 +226,6 @@
                     0 9px 10px rgba(0,0,0,0.45),
                     inset 0 2px 3px rgba(255,255,255,0.35);
                     cursor: pointer;
-                    outline: none;
                     -webkit-tap-highlight-color: transparent;
                     transition: transform 0.05s ease, box-shadow 0.05s ease;
                 }
@@ -247,44 +249,33 @@
     }
 }
 
-.popup-backdrop {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 1000;
-    animation: backdrop-fade-in 0.12s ease-out;
+.popup-dialog {
+    margin: auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    overflow: visible;                      /* The default is auto, which would clip the card's shadow */
+    max-width: calc(100vw - 2rem);
 
-    .popup-warning {
-        color: #ff6b6b;
-        font-size: 0.8rem;
-        margin: 0.5rem 0 0;
-    }
-
-    .popup-button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-
-        &:hover {
-            cursor: default;
-        }
+    &::backdrop {
+        background: rgba(0, 0, 0, 0.55);
+        animation: backdrop-fade-in 0.12s ease-out;
     }
 }
 
 @keyframes backdrop-fade-in {
-    from { 
-        opacity: 0; 
+    from {
+        opacity: 0;
     }
 
-    to { 
-        opacity: 1; 
+    to {
+        opacity: 1;
     }
 }
 
 .popup-card {
     width: 280px;
+    max-width: 100%;
     background: linear-gradient(180deg, var(--color-games-background), #e2dbcd);
     border-radius: 14px;
     padding: 22px 22px 20px;
@@ -300,20 +291,17 @@
     }
 
     & .popup-hint {
+        margin: 0 0 14px;
         font-family: 'brandon-grotesque';
         font-weight: 300;
         font-size: 13px;
+        color: #6b6455;
     }
 
-    & .popup-sub {
-        margin: 0 0 14px;
-        font-size: 12px;
-        color: #6b6455;
-
-        & #btn-name {
-            font-weight: 700;
-            color: var(--red-dark);
-        }
+    & .popup-warning {
+        color: #ff6b6b;
+        font-size: 0.8rem;
+        margin: 0.5rem 0 0;
     }
 
     input[type="text"] {
@@ -328,7 +316,7 @@
     }
 
     input[type="text"]:focus {
-        border-color: var(--color-games-background);
+        border-color: var(--red);
         box-shadow: 0 0 0 2px rgba(201,39,47,0.2);
     }
 
@@ -347,10 +335,20 @@
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
-        }
 
-        & .popup-close:active {
-            background: var(--charcoal-dark);
+            &:active {
+                background: var(--charcoal-dark);
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--red);
+                outline-offset: 2px;
+            }
+
+            &:disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
         }
     }
 }
