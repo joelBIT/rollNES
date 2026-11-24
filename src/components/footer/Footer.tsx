@@ -34,7 +34,7 @@ export function Footer(): ReactElement {
 
             <section id="footer-copyright">
                 <p id="footer-copyright__links"> 
-                    &#169; 2026 Joel Rollny &#8729; <NavLink to={URL_TERMS_PAGE}>Terms</NavLink> &#8729; <NavLink to={URL_PRIVACY_PAGE}>Privacy</NavLink> 
+                    &#169; {new Date().getFullYear()} Joel Rollny &#8729; <NavLink to={URL_TERMS_PAGE}>Terms</NavLink> &#8729; <NavLink to={URL_PRIVACY_PAGE}>Privacy</NavLink> 
                 </p>
 
                 <section id="footer-social-media">

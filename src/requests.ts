@@ -2,11 +2,13 @@ import type { User } from "@supabase/supabase-js";
 import { supabase } from "./lib/supabase";
 import { RequestError } from "./errors";
 import type { AuthenticationRequest, CreateReview, Game, RegisterRequest, RegistrationResult, RetroUser, Review } from "./types/types";
+import type { TablesInsert } from "./types/database.types";
 
 const GAMES_TABLE = "games";
 const NEWSLETTER_TABLE = "newsletter";
 const REVIEW_TABLE = "reviews";
 const PROFILES_TABLE = "profiles";
+const CONTACT_MESSAGES_TABLE = "contact_messages";
 
 const REVIEW_COLUMNS = "id, game_id, reviewer_name, date, heading, rating, review, reviewer_id";
 
@@ -244,4 +246,23 @@ export function subscribeToAuthChanges(callback: (user: RetroUser | null) => voi
     });
 
     return () => data.subscription.unsubscribe();
+}
+
+
+
+
+
+
+
+
+/*******************
+ * CONTACT MESSAGE *
+ *******************/
+
+/**
+ * Store a message sent from the contact form.
+ */
+export async function sendContactMessageRequest(message: TablesInsert<"contact_messages">): Promise<void> {
+    const { error } = await supabase.from(CONTACT_MESSAGES_TABLE).insert(message);
+    throwIfError(error, "Could not send your message");
 }

@@ -44,6 +44,33 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: number
+          message: string
+          name: string | null
+          subject: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: never
+          message: string
+          name?: string | null
+          subject?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: never
+          message?: string
+          name?: string | null
+          subject?: string | null
+        }
+        Relationships: []
+      }
       faq: {
         Row: {
           answer: string
