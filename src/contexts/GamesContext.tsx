@@ -1,8 +1,8 @@
 import { createContext, type ReactElement, type ReactNode, useEffect, useMemo, useState } from "react";
-import { type AppliedFilter, type Filter, type Game, type LoadStatus } from "../types/types";
+import { type AppliedFilter, type Filter, type FacetFilter, type Game, type LoadStatus } from "../types/types";
 import { getAllGamesRequest } from "../requests";
-import { filterGames } from "../utils";
 import { reportError } from "../errors";
+import { FACET_FILTERS, filterGames } from "../utils";
 
 export interface GamesContextProvider {
     games: Game[];
@@ -11,22 +11,40 @@ export interface GamesContextProvider {
     appliedFilters: AppliedFilter[];
     addFilter: (type: Filter, value: string) => void;
     removeFilter: (type: Filter, value: string) => void;
-    matchesFilter: (type: Filter, value: string) => number;
-    allFilterValues: (filter: Filter) => string[];
+    matchesFilter: (type: FacetFilter, value: string) => number;
+    allFilterValues: (filter: FacetFilter) => string[];
     loadGames: () => void;
 }
 
 export const GamesContext = createContext<GamesContextProvider | undefined>(undefined);
 
 /**
- * Applies chosen filters to the list of all playable games. The first selected filter type is marked because all other filter values should
- * be updated with how many games that matches the first selected filter type and the other filter 
+ * Applies chosen filters to the list of all playable games. For each filter type, the values to offer (and how many games each
+ * would give) are counted among the games matching the filters of the OTHER types. A type's own selections are ignored, so ticking
+ * one value never hides the other values of that type, and a second value can be added.
  */
 export function GamesProvider({ children }: { children: ReactNode }): ReactElement {
     const [games, setGames] = useState<Game[]>([]);         // All playable games available to the application
     const [loadStatus, setLoadStatus] = useState<LoadStatus>("loading");
     const [appliedFilters, setAppliedFilters] = useState<AppliedFilter[]>([]);
     const filteredGames: Game[] = useMemo(() => filterGames(games, appliedFilters), [games, appliedFilters]);
+
+    const facets = useMemo(() => {
+        const result = {} as Record<FacetFilter, Map<string, number>>;
+
+        for (const type of FACET_FILTERS) {
+            const counts = new Map<string, number>();
+
+            for (const game of filterGames(games, appliedFilters, type)) {
+                const value = String(game[type]);
+                counts.set(value, (counts.get(value) ?? 0) + 1);
+            }
+
+            result[type] = counts;
+        }
+
+        return result;
+    }, [games, appliedFilters]);
 
     useEffect(() => {
         loadGames();
@@ -46,18 +64,6 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
             reportError(error);
             setLoadStatus(current => current === "ready" ? "ready" : "error");
         }
-    }
-
-    /**
-     * Returns true if filter is applied to supplied game. Also return true if length of filters is 0 because all games should be shown in GamesPage
-     * then (due to no filter being applied).
-     */
-    function included(game: Game, filters: AppliedFilter[], type: Filter): boolean {
-        const values: string[] = filters.filter((filter: AppliedFilter) => filter.type === type).map((filter: AppliedFilter) => filter.value);
-        if (values.length === 0) {      // No filter of this type is applied
-            return true;
-        }
-        return values.includes(game[type].toString());
     }
 
     /**
@@ -81,33 +87,26 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
 
     /**
-     * Returns a sorted list containing all unique filter values.
+     * Returns a sorted list of the values to offer for the filter type. A value that is ticked stays in the list even when the
+     * filters of the other types leave it no games, so it can always be unticked.
      */
-    function allFilterValues(filter: Filter): string[] {
-        switch(filter) {
-            case "players":
-                return Array.from(new Set(games
-                    .filter((game: Game) => included(game, appliedFilters, filter))
-                    .map((game: Game) => game.players)))
-                    .sort((a: number, b: number) => a - b)
-                    .map((player: number) => player.toString());
-            default:
-                return Array.from(new Set(games
-                    .filter((game: Game) => included(game, appliedFilters, filter))
-                    .map((game: Game) => game[filter])))
-                    .sort((a: string, b: string) => a.localeCompare(b));
+    function allFilterValues(filter: FacetFilter): string[] {
+        const values = new Set<string>(facets[filter].keys());
+
+        for (const applied of appliedFilters) {
+            if (applied.type === filter) {
+                values.add(applied.value);
+            }
         }
+
+        return Array.from(values).sort(filter === "players" ? (a: string, b: string) => Number(a) - Number(b) : (a: string, b: string) => a.localeCompare(b));
     }
 
     /**
-     * Returns number of games matching supplied filter among the filtered games.
+     * Returns how many games the value would give, given the filters of the other types (and the title search).
      */
-    function matchesFilter(type: Filter, value: string): number {
-        if (type === "players") {
-            return filteredGames.filter((game: Game) => game[type] === parseInt(value)).length;
-        }
-
-        return filteredGames.filter((game: Game) => game[type] === value).length;
+    function matchesFilter(type: FacetFilter, value: string): number {
+        return facets[type].get(value) ?? 0;
     }
     
     return (

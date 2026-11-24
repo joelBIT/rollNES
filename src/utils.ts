@@ -1,4 +1,4 @@
-import type { AppliedFilter, Filter, Game, RetroUser } from "./types/types";
+import type { AppliedFilter, FacetFilter, Filter, Game, RetroUser } from "./types/types";
 import { reportError } from "./errors";
 
 export { COVER_URL } from "./config/env";
@@ -163,30 +163,6 @@ export function isSameUser(a: RetroUser | null, b: RetroUser | null): boolean {
     return a?.id === b?.id && a?.email === b?.email && a?.first_name === b?.first_name && a?.last_name === b?.last_name;
 }
 
-const PROPERTY_FILTERS: Exclude<Filter, "title">[] = ["category", "players", "publisher", "developer"];
-
-/**
- * Applies the filters to the games. Filters within the same type are mutually inclusive (any value matches). Filters are mutually
- * exclusive between types (a game must match every type that has a filter). A 'title' filter with several words requires the title
- * to include all words. With no filters, all games are returned.
- */
-export function filterGames(games: Game[], filters: AppliedFilter[]): Game[] {
-    if (filters.length === 0) {
-        return games;
-    }
-
-    const titleFilter: AppliedFilter | undefined = filters.find((filter: AppliedFilter) => filter.type === "title");
-    const titleWords: string[] = titleFilter ? titleFilter.value.split(" ").map((word: string) => word.trim().toLowerCase()).filter(Boolean) : [];
-
-    return games.filter((game: Game) =>
-        PROPERTY_FILTERS.every((type: Exclude<Filter, "title">) => {
-            const values: string[] = filters.filter((filter: AppliedFilter) => filter.type === type).map((filter: AppliedFilter) => filter.value);
-            return values.length === 0 || values.includes(String(game[type]));      // No filter of this type applied, or the game matches one of them
-        })
-        && titleWords.every((word: string) => (game.title).toLowerCase().includes(word))
-    );
-}
-
 /**
  * Shortens the text to at most maxLength characters (before the ellipsis), cutting at a word boundary when there is a
  * reasonable one. Text that already fits is returned unchanged, without an ellipsis.
@@ -208,4 +184,32 @@ export function truncateText(text: string, maxLength: number): string {
  */
 export function pluralize(count: number, word: string): string {
     return `${count} ${word}${count === 1 ? "" : "s"}`;
+}
+
+export const FACET_FILTERS: FacetFilter[] = ["category", "players", "publisher", "developer"];
+
+/**
+ * Applies the filters to the games. Filters within the same type are mutually inclusive (any value matches). Filters are mutually
+ * exclusive between types (a game must match every type that has a filter). A 'title' filter with several words requires the title
+ * to include all words. With no filters, all games are returned.
+ *
+ * @param ignore    Filters of this type are left out. Used to count the values of a type without its own selections hiding them.
+ */
+export function filterGames(games: Game[], filters: AppliedFilter[], ignore?: Filter): Game[] {
+    const active: AppliedFilter[] = ignore ? filters.filter((filter: AppliedFilter) => filter.type !== ignore) : filters;
+
+    if (active.length === 0) {
+        return games;
+    }
+
+    const titleFilter: AppliedFilter | undefined = active.find((filter: AppliedFilter) => filter.type === "title");
+    const titleWords: string[] = titleFilter ? titleFilter.value.split(" ").map((word: string) => word.trim().toLowerCase()).filter(Boolean) : [];
+
+    return games.filter((game: Game) =>
+        FACET_FILTERS.every((type: FacetFilter) => {
+            const values: string[] = active.filter((filter: AppliedFilter) => filter.type === type).map((filter: AppliedFilter) => filter.value);
+            return values.length === 0 || values.includes(String(game[type]));      // No filter of this type applied, or the game matches one of them
+        })
+        && titleWords.every((word: string) => game.title.toLowerCase().includes(word))
+    );
 }

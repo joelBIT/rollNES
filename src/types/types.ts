@@ -43,6 +43,7 @@ export type FrequentlyAskedQuestion = {
 }
 
 export type Filter = "category" | "players" | "publisher" | "developer" | "title";
+export type FacetFilter = Exclude<Filter, "title">;     // The filter types shown as lists of values
 
 export type AppliedFilter = {
     type: Filter,
