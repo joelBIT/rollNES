@@ -25,6 +25,8 @@ export const DEFAULT_GAMES_SHOWING = 10;
 export const MIN_SEARCH_LENGTH = 3;
 export const DEBOUNCE_MS = 250;
 
+let localStorageAvailable: boolean | undefined;     // Result of the probe. Availability doesn't change during a session.
+
 /**
  * Calculates the average rating of the supplied reviews.
  */
@@ -41,19 +43,27 @@ export function getAverageRating(reviews: { rating: number | null }[] | undefine
 /**
  * Test if localstorage is available. Favourite games are added to localstorage if true. If false,
  * the FavouriteGamesContext stores favourite games temporarily.
- * 
+ *
+ * The probe (a test write) runs only on the first call; later calls return the remembered result. Blocked storage is an
+ * expected situation (private mode, cookies disabled), not an error, so nothing is logged.
+ *
  * @returns true if localstorage is available, false otherwise
  */
-export function isLocalStorageAvailable() {
+export function isLocalStorageAvailable(): boolean {
+    if (localStorageAvailable !== undefined) {
+        return localStorageAvailable;
+    }
+
     try {
         const key = 'testingLocalStorage';
         localStorage.setItem(key, 'add');
         localStorage.removeItem(key);
-        return true;
-    } catch (error) {
-        reportError(error);
-        return false;
+        localStorageAvailable = true;
+    } catch {
+        localStorageAvailable = false;
     }
+
+    return localStorageAvailable;
 }
 
 /**
