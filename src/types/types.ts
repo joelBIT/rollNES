@@ -66,3 +66,5 @@ export type BindingOwner = { player: 1 | 2, button: keyof GameController };
 export type Controllers = Record<PlayerNumber, GameController>;
 
 export type SortOrder = "oldest" | "newest" | "name";
+
+export type LoadStatus = "loading" | "ready" | "error";

@@ -1,5 +1,5 @@
 import { createContext, type ReactElement, type ReactNode, useEffect, useMemo, useState } from "react";
-import { type AppliedFilter, type Filter, type Game } from "../types/types";
+import { type AppliedFilter, type Filter, type Game, type LoadStatus } from "../types/types";
 import { getAllGamesRequest } from "../requests";
 import { filterGames } from "../utils";
 import { reportError } from "../errors";
@@ -7,6 +7,7 @@ import { reportError } from "../errors";
 export interface GamesContextProvider {
     games: Game[];
     filteredGames: Game[];
+    loadStatus: LoadStatus;
     appliedFilters: AppliedFilter[];
     addFilter: (type: Filter, value: string) => void;
     removeFilter: (type: Filter, value: string) => void;
@@ -23,6 +24,7 @@ export const GamesContext = createContext<GamesContextProvider | undefined>(unde
  */
 export function GamesProvider({ children }: { children: ReactNode }): ReactElement {
     const [games, setGames] = useState<Game[]>([]);         // All playable games available to the application
+    const [loadStatus, setLoadStatus] = useState<LoadStatus>("loading");
     const [appliedFilters, setAppliedFilters] = useState<AppliedFilter[]>([]);
     const filteredGames: Game[] = useMemo(() => filterGames(games, appliedFilters), [games, appliedFilters]);
 
@@ -31,13 +33,18 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }, []);
 
     /**
-     * Retrieve all playable games from the backend.
+     * Retrieve all playable games from the backend. Status is "loading" only until the first success (or after a retry
+     * from the error state). Later refreshes keep showing the current games, and a failed refresh keeps them too.
      */
     async function loadGames(): Promise<void> {
+        setLoadStatus(current => current === "error" ? "loading" : current);
+
         try {
             setGames(await getAllGamesRequest());
+            setLoadStatus("ready");
         } catch (error) {
-            reportError(error);         // Keep whatever games are already loaded
+            reportError(error);
+            setLoadStatus(current => current === "ready" ? "ready" : "error");
         }
     }
 
@@ -104,7 +111,7 @@ export function GamesProvider({ children }: { children: ReactNode }): ReactEleme
     }
     
     return (
-        <GamesContext.Provider value={{ games, filteredGames, appliedFilters, allFilterValues, addFilter, removeFilter, matchesFilter, loadGames }}>
+        <GamesContext.Provider value={{ games, filteredGames, loadStatus, appliedFilters, allFilterValues, addFilter, removeFilter, matchesFilter, loadGames }}>
             { children }
         </GamesContext.Provider>
     );

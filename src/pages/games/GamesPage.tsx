@@ -10,7 +10,7 @@ import "./GamesPage.css";
  * Page for filtering playable games. A user can choose how many of the filtered games to show on the page.
  */
 export default function GamesPage(): ReactElement {
-    const { games, filteredGames, allFilterValues, appliedFilters } = useGames();
+    const { games, filteredGames, loadStatus, allFilterValues, appliedFilters, loadGames } = useGames();
     const [chosenCount, setChosenCount] = useState<number | null>(null);    // null means the user has not used the slider yet
     const [showFilters, setShowFilters] = useState<boolean>(false);
 
@@ -56,9 +56,18 @@ export default function GamesPage(): ReactElement {
                             </section>
                         </section>
                 }
-
+                    
                 {
-                    games.length > 0 && filteredGames.length === 0 ?
+                    loadStatus === "loading" ?
+                        <p className="games-status"> Loading games... </p>
+                    : loadStatus === "error" ?
+                        <section className="games-status">
+                            <h2 className="message-failure"> Could not load games </h2>
+                            <button className="retro-button" onClick={() => loadGames()}> Try again </button>
+                        </section>
+                    : games.length === 0 ?
+                        <p className="games-status"> No games are available yet. </p>
+                    : filteredGames.length === 0 ?
                         <p className="no-games-text"> No games match the selected filters. </p>
                     :
                         filteredGames.slice(0, numberGamesShowing).map((game: Game) => <GameCard key={game.id} game={game} />)
