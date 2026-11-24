@@ -7,7 +7,6 @@ import type { TablesInsert } from "./types/database.types";
 const GAMES_TABLE = "games";
 const NEWSLETTER_TABLE = "newsletter";
 const REVIEW_TABLE = "reviews";
-const PROFILES_TABLE = "profiles";
 const CONTACT_MESSAGES_TABLE = "contact_messages";
 
 const REVIEW_COLUMNS = "id, game_id, reviewer_name, date, heading, rating, review, reviewer_id";
@@ -224,15 +223,12 @@ export async function getSessionUserRequest(): Promise<RetroUser> {
     throw new RequestError("Could not find user");
 }
 
+/**
+ * Store the names for the signed in user. The names live in the auth user's metadata, and a database trigger
+ * mirrors them to the profiles table. Throws if there is no session or the update fails.
+ */
 export async function updateProfileInformationRequest(first_name: string, last_name: string): Promise<void> {
-    const { data } = await supabase.auth.getSession();
-
-    if (data.session?.user) {
-        const { error } = await supabase.from(PROFILES_TABLE).update({ last_name, first_name }).eq('user_id', data.session.user.id);
-        throwIfError(error, "Failed to update profile");
-    }
-
-    const { error } = await supabase.auth.updateUser({ data: { first_name, last_name } });     // Updates the session user also
+    const { error } = await supabase.auth.updateUser({ data: { first_name, last_name } });
     throwIfError(error, "Failed to update profile");
 }
 

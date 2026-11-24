@@ -26,8 +26,17 @@ export function ProfileForm(): ReactElement {
         setMessage('');
         setIsError(false);
 
+        const first = firstName.trim();
+        const last = lastName.trim();
+
+        if (!first || !last) {
+            setIsError(true);
+            setMessage("First and last name are required");
+            return;
+        }
+
         try {
-            await updateUser(firstName.trim(), lastName.trim());
+            await updateUser(first, last);
             setMessage('Profile updated');
         } catch (error) {
             reportError(error);
@@ -60,6 +69,7 @@ export function ProfileForm(): ReactElement {
                     value={firstName}
                     onChange={e => setFirstName(e.target.value)}
                     autoComplete="off"
+                    maxLength={50}
                     className="form-control" 
                     required
                 />
@@ -75,6 +85,7 @@ export function ProfileForm(): ReactElement {
                     value={lastName}
                     onChange={e => setLastName(e.target.value)}
                     autoComplete="off"
+                    maxLength={50}
                     className="form-control" 
                     required
                 />
