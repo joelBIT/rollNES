@@ -1,4 +1,4 @@
-import { useState, type ReactElement } from "react";
+import { useEffect, useState, type ReactElement } from "react";
 import { NavLink } from "react-router";
 import { subscribeToNewsletterRequest } from "../../requests";
 import { URL_RIGHTS_PAGE } from "../../utils";
@@ -14,15 +14,24 @@ export function Newsletter(): ReactElement {
     const [email, setEmail] = useState<string>('');
     const [isError, setIsError] = useState<boolean>(false);
 
+    useEffect(() => {
+        if (!message || isError) {
+            return;
+        }
+
+        const timer = setTimeout(() => setMessage(''), 5000);
+        return () => clearTimeout(timer);
+    }, [message, isError]);
+
     /**
      * Show message to indicate if the subscription succeeded or not.
      */
     async function subscribe(formData: FormData): Promise<void> {
-        const address = String(formData.get("newsletter-form-email") ?? "").trim();
+        const address = String(formData.get("newsletter-form-email") ?? "").trim().toLowerCase();
 
         try {
             await subscribeToNewsletterRequest(address);
-        } catch (error: any) {
+        } catch (error) {
             reportError(error);
             setIsError(true);
             setMessage(getErrorMessage(error, "Failed to subscribe"));
