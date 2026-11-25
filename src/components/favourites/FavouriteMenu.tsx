@@ -1,6 +1,6 @@
 import { type ReactElement } from "react";
 import { useFavourites } from "../../hooks/useFavourites";
-import { FavouriteCard } from "..";
+import { FavouriteCard } from "./FavouriteCard";
 import type { Game } from "../../types/types";
 
 import "./FavouriteMenu.css";

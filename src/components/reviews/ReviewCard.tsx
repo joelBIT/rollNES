@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 import type { Review } from "../../types/types";
-import { Rating } from "..";
+import { Rating } from "./Rating";
 import { convertDateToString } from "../../utils";
 
 import "./ReviewCard.css";

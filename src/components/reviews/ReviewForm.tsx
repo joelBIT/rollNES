@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactElement } from "react";
 import { useUser } from "../../hooks/useUser";
 import { useGames } from "../../hooks/useGames";
-import { Rating } from "..";
+import { Rating } from "./Rating";
 import { createReviewRequest } from "../../requests";
 import type { CreateReview } from "../../types/types";
 import { getErrorMessage, reportError } from "../../errors";
@@ -25,10 +25,6 @@ export function ReviewForm({gameId, updateReviews}: {gameId: number, updateRevie
     const [title, setTitle] = useState<string>('');
     const [review, setReview] = useState<string>('');
     const nameLocked = user !== null && defaultName !== "";
-
-    useEffect(() => {
-        resetForm();
-    }, [gameId]);
 
     useEffect(() => {       // Hide the success message after a while. The cleanup cancels the timer on unmount or when the message changes.
         if (!message || isError) {

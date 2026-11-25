@@ -63,7 +63,7 @@
             font-size: 2.5rem;
             text-decoration: none;
             width: fit-content;
-            color: var(--color-real-black);
+            color: var(--color-black);
             padding: 0.3rem;
             text-align: center;
         }

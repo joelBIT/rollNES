@@ -6,11 +6,6 @@ export type AuthenticationRequest = {
     password: string
 }
 
-export type AuthenticationResponse = {
-    access_token: string,
-    refresh_token: string
-}
-
 export type RegisterRequest = AuthenticationRequest &  { firstName: string, lastName: string }
 
 export type RegistrationResult = {

@@ -1,6 +1,6 @@
 import { type ReactElement } from "react";
 import { useControllers } from "../../hooks/useControllers";
-import { GamePad } from "..";
+import { GamePad } from "./GamePad";
 import type { ButtonId, GameController } from "../../types/types";
 import { BUTTON_LABELS } from "../../config/gamepads";
 

@@ -14,36 +14,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      articles: {
-        Row: {
-          created_at: string
-          id: number
-          image: string | null
-          introduction: string | null
-          tags: string[] | null
-          text: string | null
-          title: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: number
-          image?: string | null
-          introduction?: string | null
-          tags?: string[] | null
-          text?: string | null
-          title?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: number
-          image?: string | null
-          introduction?: string | null
-          tags?: string[] | null
-          text?: string | null
-          title?: string | null
-        }
-        Relationships: []
-      }
       contact_messages: {
         Row: {
           created_at: string
@@ -68,54 +38,6 @@ export type Database = {
           message?: string
           name?: string | null
           subject?: string | null
-        }
-        Relationships: []
-      }
-      faq: {
-        Row: {
-          answer: string
-          created_at: string
-          id: number
-          question: string
-          type: string
-        }
-        Insert: {
-          answer?: string
-          created_at?: string
-          id?: number
-          question?: string
-          type?: string
-        }
-        Update: {
-          answer?: string
-          created_at?: string
-          id?: number
-          question?: string
-          type?: string
-        }
-        Relationships: []
-      }
-      filters: {
-        Row: {
-          categories: string[]
-          created_at: string
-          developers: string[]
-          id: number
-          publishers: string[]
-        }
-        Insert: {
-          categories?: string[]
-          created_at?: string
-          developers?: string[]
-          id?: number
-          publishers?: string[]
-        }
-        Update: {
-          categories?: string[]
-          created_at?: string
-          developers?: string[]
-          id?: number
-          publishers?: string[]
         }
         Relationships: []
       }
@@ -218,6 +140,24 @@ export type Database = {
         }
         Relationships: []
       }
+      review_rate_limit: {
+        Row: {
+          actor: string
+          created_at: string
+          id: number
+        }
+        Insert: {
+          actor: string
+          created_at?: string
+          id?: never
+        }
+        Update: {
+          actor?: string
+          created_at?: string
+          id?: never
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           created_at: string
@@ -262,30 +202,6 @@ export type Database = {
           },
         ]
       }
-      sessions: {
-        Row: {
-          created_at: string
-          expires_at: string | null
-          id: number
-          token_value: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          expires_at?: string | null
-          id?: number
-          token_value: string
-          user_id?: string
-        }
-        Update: {
-          created_at?: string
-          expires_at?: string | null
-          id?: number
-          token_value?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never
@@ -322,7 +238,6 @@ export type Database = {
       publishers: { Args: never; Returns: string[] }
     }
     Enums: {
-      competition: "Triathlon" | "Olympiskt Triathlon"
       faq_type: "general" | "account" | "games"
       role: "admin" | "regular"
     }
@@ -452,7 +367,6 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      competition: ["Triathlon", "Olympiskt Triathlon"],
       faq_type: ["general", "account", "games"],
       role: ["admin", "regular"],
     },

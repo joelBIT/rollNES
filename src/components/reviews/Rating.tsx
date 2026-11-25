@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { Star } from "..";
+import { Star } from "./Star";
 
 import "./Rating.css";
 

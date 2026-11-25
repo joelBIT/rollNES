@@ -28,7 +28,13 @@ export default tseslint.config(
         'error',
         { name: 'localStorage', message: 'Use the helpers in src/config/storage.ts.' },
         { name: 'reportError', message: "Import reportError from 'errors.ts' instead of using the browser's global." },
-    ]
+    ],
+    'no-restricted-imports': ['error', {
+            paths: [
+                { name: '..', message: 'Import the component file directly. The barrel imports back into this file.' },
+                { name: '../', message: 'Import the component file directly. The barrel imports back into this file.' },
+            ],
+        }],
     },
   },
 )

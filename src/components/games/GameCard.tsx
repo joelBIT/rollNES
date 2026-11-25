@@ -3,7 +3,8 @@ import { NavLink } from "react-router";
 import { useFavourites } from "../../hooks/useFavourites";
 import type { Game } from "../../types/types";
 import { COVER_URL, getAverageRating, pluralize, truncateText, URL_GAMES_PAGE } from "../../utils";
-import { Cartridge, Rating } from "..";
+import { Cartridge } from "./Cartridge";
+import { Rating } from "../reviews/Rating";
 
 import "./GameCard.css";
 
